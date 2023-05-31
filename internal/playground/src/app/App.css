@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+.box {
+  position: relative;
+  margin: auto;
+  width: 200px;
+  height: 60px;
+}
+.box > div {
+  position: absolute;
+  width: 200px;
+}
+.fade {
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 1.5s 0s linear;
+}
+.fade-enter-from,
+.fade-leave-to {
+  transform: translateX(100%);
+  opacity: 0;
+}

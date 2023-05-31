@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "ESNext",
+    "paths": {
+      "@pkg/*": ["../../packages/*/src"]
+    }
+  },
+  "exclude": ["dist"]
+}

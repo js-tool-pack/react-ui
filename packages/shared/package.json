@@ -8,8 +8,5 @@
     "build": "pnpm rm:dist && pnpm build:this",
     "check:ts": "tsc --noEmit -p tsconfig.json"
   },
-  "devDependencies": {
-    "react": "^18.2.0",
-    "@types/react": "^18.2.7"
-  }
+  "devDependencies": {}
 }

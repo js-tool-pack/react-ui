@@ -128,3 +128,6 @@ dist
 #editor
 .idea
 
+
+.DS_Store
+

@@ -1,11 +1,10 @@
 {
-  "name": "react-starter",
+  "name": "@tool-pack/react-ui",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "vite serve --port 8080",
-    "build": "vite build",
-    "preview": "vite preview --port 8080",
+    "start": "pnpm -C internal/playground start",
+    "build": "tsx scripts/build.ts -t",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "check:lint": "eslint \"**/*.{ts,tsx}\"",
@@ -33,10 +32,12 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
+    "@rollup/plugin-json": "^6.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@tool-pack/basic": "^0.0.20",
+    "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.1",
     "@types/node": "^16.18.34",
     "@types/react": "^18.2.7",
@@ -45,15 +46,23 @@
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
     "@vitejs/plugin-react": "^4.0.0",
+    "chalk": "^5.2.0",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "esno": "^0.16.3",
+    "execa": "^7.1.1",
+    "fs-extra": "^11.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "npm-check-updates": "^16.10.12",
     "prettier": "^2.8.8",
     "react-scripts": "5.0.1",
+    "rollup": "^3.23.0",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.62.1",
+    "tsc-alias": "^1.8.6",
     "typescript": "^4.9.5",
     "vite": "^4.3.9"
   },
@@ -73,11 +82,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mengxinssfd/react-starter.git"
+    "url": "git+https://github.com/js-tool-pack/react-ui.git"
   },
   "author": "DYH",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mengxinssfd/react-starter/issues"
+    "url": "https://github.com/js-tool-pack/react-ui/issues"
   }
 }

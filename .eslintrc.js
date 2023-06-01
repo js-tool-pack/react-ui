@@ -18,6 +18,15 @@ module.exports = {
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
   },
+  overrides: [
+    {
+      files: ['scripts/**', 'rollup.config.js', 'rollup.dts.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
+      },
+    },
+  ],
   env: {
     browser: true,
     node: true,

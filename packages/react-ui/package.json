@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "name": "@tool-pack/react-ui",
+  "sideEffects": false,
+  "scripts": {
+    "rm:dist": "rimraf ./dist",
+    "build:vite": "vite build && npm run build:dts",
+    "check:ts": "tsc --noEmit -p tsconfig.json",
+    "alias:debug": "tsc-alias -p tsconfig.json --debug",
+    "build:dts": "tsc -p ./tsconfig.json && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js"
+  },
+  "types": "dist/index.d.ts",
+  "main": "dist/cjs/react-ui/src/index.js",
+  "module": "dist/es/react-ui/src/index.js",
+  "exports": {
+    ".": {
+      "import": {
+        "node": "./dist/react-ui.cjs.js",
+        "default": "./dist/react-ui.esm-bundler.js"
+      },
+      "require": "./dist/react-ui.cjs.js"
+    }
+  },
+  "buildOptions": {
+    "name": "ToolPackReactUI",
+    "formats": [
+      "esm-bundler",
+      "esm-browser",
+      "cjs",
+      "global"
+    ]
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/js-tool-pack/react-ui.git"
+  },
+  "author": "DYH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/js-tool-pack/react-ui/issues"
+  },
+  "homepage": "https://github.com/js-tool-pack/react-ui#readme"
+}

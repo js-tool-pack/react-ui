@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
+  "private": true,
   "scripts": {
     "start": "vite serve --port 8080",
     "rm:dist": "rimraf ./dist",
@@ -10,7 +11,10 @@
     "check:ts": "tsc --noEmit -p tsconfig.json"
   },
   "devDependencies": {
+    "react-router": "^6.11.2",
     "react-router-dom": "^6.11.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "rootDir": "../../",
+    "outDir": "./temp/types",
+    "declarationDir": "./temp/types",
+    "paths": {
+      "@pkg/*": ["../../packages/*/src"],
+      "@pkg/components": ["../../packages/components/src"],
+      "@pkg/share": ["../../packages/share/src"]
+    }
+  },
+  "include": ["./src"],
+  "exclude": ["dist", "vite.config.ts", "internal", "scripts"]
+}

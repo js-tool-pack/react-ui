@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
+  "private": true,
   "scripts": {
     "rm:dist": "rimraf ./dist",
     "build:this": "tsc -p tsconfig.json",

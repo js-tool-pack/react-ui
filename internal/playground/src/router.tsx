@@ -16,15 +16,15 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
       },
+      {
+        path: '/transition',
+        element: <TransitionPage />,
+      },
+      {
+        path: '/transition-group',
+        element: <TransitionGroupPage />,
+      },
     ],
-  },
-  {
-    path: '/transition',
-    element: <TransitionPage />,
-  },
-  {
-    path: '/transition-group',
-    element: <TransitionGroupPage />,
   },
   {
     path: '*',

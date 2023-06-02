@@ -1,0 +1,45 @@
+._ {
+  $h: 60px;
+  display: flex;
+  padding-top: $h;
+  height: 100vh;
+  box-sizing: border-box;
+  :global {
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: $h;
+      text-align: center;
+      line-height: $h;
+      border-bottom: 1px solid gray;
+      //background-color: white;
+    }
+    aside {
+      $w: 230px;
+      flex-basis: $w;
+      border-right: 1px solid gray;
+      padding: 20px;
+      width: $w;
+      height: 100%;
+      overflow-y: auto;
+      box-sizing: border-box;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      a {
+        display: block;
+        padding: 5px 0;
+        text-decoration: none;
+      }
+    }
+    main {
+      flex: 1;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { LoadingIcon } from './loading.icon';
 import { LoadingOptions } from './loading.types';
-import React, { memo, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Transition,
@@ -17,9 +17,16 @@ const refClass = `${rootClass}_ref`;
  * loading组件
  */
 export const Loading: React.FC<LoadingOptions> = memo((props) => {
+  const [visible, setVisible] = useState(props.visible);
+
+  useEffect(() => {
+    setVisible(props.visible);
+  }, [props.visible]);
+
   const closeLoading = () => {
     if (!props.closeOnClick) return;
     props.onClose?.();
+    setVisible(false);
   };
 
   const LoadingBody = (
@@ -49,10 +56,10 @@ export const Loading: React.FC<LoadingOptions> = memo((props) => {
           status === TRANSITION_STATUS.hide &&
           props.onLeave?.()
         }>
-        {props.visible && LoadingBody}
+        {visible && LoadingBody}
       </Transition>
     ),
-    [props.visible, props.onLeave],
+    [visible, props.onLeave],
   );
 
   // 没有children传到body下

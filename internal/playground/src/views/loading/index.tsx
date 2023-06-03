@@ -1,5 +1,10 @@
 import { useReducer, useState } from 'react';
-import { Loading, useLoading } from '@pkg/components';
+import {
+  Loading,
+  showLoading,
+  useLoading,
+  useLoadingHolder,
+} from '@pkg/components';
 import styles from './loading.module.scss';
 
 export function LoadingPage() {
@@ -9,17 +14,32 @@ export function LoadingPage() {
   const [loading3, setLoading3] = useState(false);
 
   const [times, setTimes] = useState(1);
-  const [{ visible, toggle }, contextHolder] = useLoading({
+  const [{ visible, toggle }, holder] = useLoadingHolder({
     visible: false,
     closeOnClick: true,
-    text: `全局loading(${times})，点击任意处关闭....`,
+    text: `全局useLoadingHolder(${times})，点击任意处关闭....`,
+  });
+
+  const { visible: visible2, toggle: toggle2 } = useLoading({
+    visible: false,
+    closeOnClick: true,
+    text: `全局useLoading，点击任意处关闭....`,
   });
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {contextHolder}
+      {holder}
       <button onClick={() => (setTimes(times + 1), toggle())}>
-        {visible ? '隐藏' : '显示'}hook调用loading
+        {visible ? '隐藏' : '显示'}useLoadingHolder调用loading
+      </button>
+      <button onClick={toggle2}>
+        {visible2 ? '隐藏' : '显示'}useLoading调用loading
+      </button>
+      <button
+        onClick={() =>
+          showLoading({ text: '全局showLoading，点击任意处关闭....' })
+        }>
+        showLoading调用loading
       </button>
       <br />
       <br />

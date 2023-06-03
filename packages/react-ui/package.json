@@ -7,7 +7,7 @@
     "build:vite": "vite build && npm run build:dts",
     "check:ts": "tsc --noEmit -p tsconfig.json",
     "alias:debug": "tsc-alias -p tsconfig.json --debug",
-    "build:dts": "tsc -p ./tsconfig.json && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js"
+    "build:dts": "tsc -p ./tsconfig.json --emitDeclarationOnly && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js"
   },
   "types": "dist/index.d.ts",
   "main": "dist/cjs/react-ui/src/index.js",

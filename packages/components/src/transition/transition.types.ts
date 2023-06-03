@@ -1,7 +1,7 @@
 import React from 'react';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 
-export type El = React.ReactElement | void;
+export type El = React.ReactElement | void | boolean;
 
 export type Mode = 'out-in' | 'in-out' | 'default';
 

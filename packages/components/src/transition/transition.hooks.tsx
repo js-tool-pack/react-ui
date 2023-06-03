@@ -144,7 +144,8 @@ export function useTransition(
     };
   }, [children, status, name, elRef]);
 
-  if (!children || STATUS.none === status) return;
+  if (!children || STATUS.none === status || typeof children === 'boolean')
+    return;
   if (status === STATUS.idle) return children;
   return <>{cloneElement(children, { ref: elRef })}</>;
 }

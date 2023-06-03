@@ -6,7 +6,7 @@ const Transition: React.FC<{
   // show?: boolean;
   name?: string;
   mode?: Mode;
-  children?: React.ReactElement;
+  children?: React.ReactElement | boolean;
   appear?: boolean;
   on?: CB;
 }> = ({

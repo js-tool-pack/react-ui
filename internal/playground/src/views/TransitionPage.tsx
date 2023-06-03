@@ -14,11 +14,11 @@ export function TransitionPage() {
       <br />
       <div className="box">
         <Transition name="fade" appear>
-          {visible ? (
+          {visible && (
             <div className="fade" key={1}>
               single
             </div>
-          ) : undefined}
+          )}
         </Transition>
       </div>
       <div className="box">

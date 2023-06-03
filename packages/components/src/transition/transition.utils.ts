@@ -24,7 +24,11 @@ export function addTransition({
     el.classList.add(_classes.activeClassName, _classes.toClassName);
   };
   const removeClass = () => {
-    el.classList.remove(_classes.activeClassName, _classes.toClassName);
+    const { fromClassName, toClassName, activeClassName } = _classes;
+    el.classList.remove(fromClassName, toClassName);
+    requestAnimationFrame(() => {
+      el && el.classList.remove(activeClassName);
+    });
   };
 
   const handlers = {
@@ -71,11 +75,5 @@ export function addTransition({
     on(LIFE_CIRCLE.running);
   };
 
-  const switchClass = (classes: ReturnType<typeof getClasses>) => {
-    removeClass();
-    Object.assign(_classes, classes);
-    addClass();
-  };
-
-  return { start, switchClass };
+  return { start, clearListener, removeClass };
 }

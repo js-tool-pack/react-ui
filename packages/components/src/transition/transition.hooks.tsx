@@ -1,7 +1,7 @@
 import { cloneElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import { addTransition, getClasses } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
-import type { El, Mode, CB } from './transition.types';
+import type { CB, El, Mode } from './transition.types';
 import { useForceUpdate, useIsInitDep } from '@pkg/shared';
 
 export function useDispatcher(
@@ -24,7 +24,7 @@ export function useDispatcher(
   const setChild = useCallback((p?: El, n?: El) => {
     prevRef.current = p;
     nextRef.current = n;
-    forceUpdate();
+    // forceUpdate();
   }, []);
   const setStatus = useCallback((p: STATUS, n: STATUS) => {
     prevStatusRef.current = p;
@@ -117,7 +117,6 @@ export function useTransition(
   cb?: void | CB,
 ) {
   const elRef = useRef<HTMLElement>(null);
-  const transRef = useRef<ReturnType<typeof addTransition> | null>(null);
 
   useEffect(() => {
     const el = elRef.current;
@@ -127,28 +126,21 @@ export function useTransition(
 
     const classes = getClasses(name, status === STATUS.show);
 
-    if (transRef.current) {
-      transRef.current.switchClass(classes);
-      return;
-    }
-
     const trans = addTransition({
       el,
       classes,
       on: (lifeCircle) => {
         // console.log('[life circle]:', LIFE_CIRCLE[type]);
-        if (LIFE_CIRCLE.after === lifeCircle) {
-          transRef.current = null;
-        }
         cb?.(el, status, lifeCircle);
       },
     });
 
     el.style.visibility = '';
     trans.start();
-    transRef.current = trans;
     return () => {
-      transRef.current = null;
+      trans.clearListener();
+      // 如果把active的class也清理掉就跟vue的差不多了，不过那种动画会从头开始
+      trans.removeClass();
     };
   }, [children, status, name, elRef]);
 

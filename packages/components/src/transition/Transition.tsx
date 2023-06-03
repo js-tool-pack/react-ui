@@ -6,7 +6,7 @@ const Transition: React.FC<{
   // show?: boolean;
   name?: string;
   mode?: Mode;
-  children?: JSX.Element;
+  children?: React.ReactElement;
   appear?: boolean;
   on?: CB;
 }> = ({
@@ -28,6 +28,9 @@ const Transition: React.FC<{
   // const nextView = useTransition('next', nextStatus, name, next, onAfterCb);
   const prevView = useTransition(prevStatus, name, prev, handler);
   const nextView = useTransition(nextStatus, name, next, handler);
+
+  if (prevView && !nextView) return prevView;
+  if (!prevView && nextView) return nextView;
 
   return (
     <>

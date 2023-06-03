@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const ts = require('rollup-plugin-typescript2');
 const json = require('@rollup/plugin-json');
+const styles = require('rollup-plugin-styles');
 
 if (!process.env['TARGET']) {
   throw new Error('TARGET package must be specified via --environment flag.');
@@ -63,7 +64,6 @@ if (process.env.NODE_ENV === 'production') {
     //    }
   });
 }
-
 module.exports = packageConfigs;
 
 /**
@@ -136,6 +136,11 @@ function createConfig(format, output, plugins = []) {
     plugins: [
       json({
         namedExports: false,
+      }),
+      styles({
+        // mode: ['extract', `bundle.${format}.css`],
+        modules: true,
+        autoModules: true,
       }),
       tsPlugin,
       ...plugins,

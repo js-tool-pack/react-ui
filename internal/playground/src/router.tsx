@@ -5,6 +5,7 @@ import App from './app/App';
 import { NotFountLayout } from './layouts/NotFound.layout';
 import { TransitionPage } from './views/TransitionPage';
 import { TransitionGroupPage } from './views/transition-group';
+import { LoadingPage } from './views/loading';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/transition-group',
         element: <TransitionGroupPage />,
+      },
+      {
+        path: '/loading',
+        element: <LoadingPage />,
       },
     ],
   },

@@ -14,7 +14,6 @@ export default defineConfig(() => {
     cacheDir: `./.cache`,
     resolve: {
       alias: {
-        '@pkg/*': Path.resolve(__dirname, '../../packages/*/src'),
         ...pkgs.reduce((prev, cur) => {
           prev['@pkg/' + cur] = Path.resolve(
             __dirname,
@@ -22,11 +21,18 @@ export default defineConfig(() => {
           );
           return prev;
         }, {} as Record<string, string>),
+        // '@pkg/components': Path.resolve('./.yalc/@tool-pack/react-ui'),
       },
     },
     plugins: [
       // https://github.com/vitejs/vite/tree/main/packages/plugin-react
       react(),
     ],
+    build: {
+      sourcemap: true,
+    },
+    css: {
+      devSourcemap: true,
+    },
   };
 });

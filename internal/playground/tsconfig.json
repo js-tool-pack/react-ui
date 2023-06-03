@@ -2,10 +2,12 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
+    "sourceMap": true,
     "target": "esnext",
     "module": "ESNext",
     "paths": {
       "@pkg/*": ["../../packages/*/src"]
+      // "@pkg/components": ["./.yalc/@tool-pack/react-ui"]
     }
   },
   "exclude": ["dist"]

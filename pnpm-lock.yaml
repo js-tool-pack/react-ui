@@ -35,13 +35,13 @@ importers:
       react-scripts: 5.0.1
       rollup: ^3.23.0
       rollup-plugin-dts: ^5.3.0
-      rollup-plugin-scss: ^4.0.0
       rollup-plugin-styles: ^4.0.0
       rollup-plugin-typescript2: ^0.34.1
       sass: ^1.62.1
       tsc-alias: ^1.8.6
       typescript: ^4.9.5
       vite: ^4.3.9
+      yalc: 1.0.0-pre.53
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -76,13 +76,13 @@ importers:
       react-scripts: 5.0.1_76d67teumpun7shcgfuvkrsliy
       rollup: 3.23.0
       rollup-plugin-dts: 5.3.0_aleiognpck4hfurcdcjnvgqbb4
-      rollup-plugin-scss: 4.0.0
       rollup-plugin-styles: 4.0.0_rollup@3.23.0
       rollup-plugin-typescript2: 0.34.1_aleiognpck4hfurcdcjnvgqbb4
       sass: 1.62.1
       tsc-alias: 1.8.6
       typescript: 4.9.5
       vite: 4.3.9_ry4qyapxqh4lizdioe23q4ynly
+      yalc: 1.0.0-pre.53
 
   internal/playground:
     specifiers:
@@ -7233,6 +7233,14 @@ packages:
     engines: { node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16 }
     dev: true
 
+  /detect-indent/6.1.0:
+    resolution:
+      {
+        integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==,
+      }
+    engines: { node: '>=8' }
+    dev: true
+
   /detect-newline/3.1.0:
     resolution:
       {
@@ -8284,13 +8292,6 @@ packages:
     engines: { node: '>=4.0' }
     dev: true
 
-  /estree-walker/0.6.1:
-    resolution:
-      {
-        integrity: sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==,
-      }
-    dev: true
-
   /estree-walker/1.0.1:
     resolution:
       {
@@ -8806,6 +8807,18 @@ packages:
       graceful-fs: 4.2.11
       jsonfile: 6.1.0
       universalify: 2.0.0
+    dev: true
+
+  /fs-extra/8.1.0:
+    resolution:
+      {
+        integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==,
+      }
+    engines: { node: '>=6 <7 || >=8' }
+    dependencies:
+      graceful-fs: 4.2.11
+      jsonfile: 4.0.0
+      universalify: 0.1.2
     dev: true
 
   /fs-extra/9.1.0:
@@ -9697,6 +9710,15 @@ packages:
     engines: { node: '>=4' }
     dependencies:
       harmony-reflect: 1.6.2
+    dev: true
+
+  /ignore-walk/3.0.4:
+    resolution:
+      {
+        integrity: sha512-PY6Ii8o1jMRA1z4F2hRkH/xN59ox43DavKvD3oDpfurRlOJyAHpifIwpbdv1n4jt4ov0jSpw3kQ4GhJnpBL6WQ==,
+      }
+    dependencies:
+      minimatch: 3.1.2
     dev: true
 
   /ignore-walk/6.0.3:
@@ -11292,6 +11314,15 @@ packages:
     hasBin: true
     dev: true
 
+  /jsonfile/4.0.0:
+    resolution:
+      {
+        integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==,
+      }
+    optionalDependencies:
+      graceful-fs: 4.2.11
+    dev: true
+
   /jsonfile/6.1.0:
     resolution:
       {
@@ -12453,6 +12484,15 @@ packages:
     engines: { node: '>=14.16' }
     dev: true
 
+  /npm-bundled/1.1.2:
+    resolution:
+      {
+        integrity: sha512-x5DHup0SuyQcmL3s7Rx/YQ8sbw/Hzg0rj48eN0dV7hf5cmQq5PXIeioroH3raV1QC1yh3uTYuMThvEQF3iKgGQ==,
+      }
+    dependencies:
+      npm-normalize-package-bin: 1.0.1
+    dev: true
+
   /npm-bundled/3.0.0:
     resolution:
       {
@@ -12516,6 +12556,13 @@ packages:
       semver: 7.5.1
     dev: true
 
+  /npm-normalize-package-bin/1.0.1:
+    resolution:
+      {
+        integrity: sha512-EPfafl6JL5/rU+ot6P3gRSCpPDW5VmIzX959Ob1+ySFUuuYHWHekXpwdUZcKP5C+DS4GEtdJluwBjnsNDl+fSA==,
+      }
+    dev: true
+
   /npm-normalize-package-bin/3.0.1:
     resolution:
       {
@@ -12535,6 +12582,20 @@ packages:
       proc-log: 3.0.0
       semver: 7.5.1
       validate-npm-package-name: 5.0.0
+    dev: true
+
+  /npm-packlist/2.2.2:
+    resolution:
+      {
+        integrity: sha512-Jt01acDvJRhJGthnUJVF/w6gumWOZxO7IkpY/lsX9//zqQgnF7OJaxgQXcerd4uQOLu7W5bkb4mChL9mdfm+Zg==,
+      }
+    engines: { node: '>=10' }
+    hasBin: true
+    dependencies:
+      glob: 7.2.3
+      ignore-walk: 3.0.4
+      npm-bundled: 1.1.2
+      npm-normalize-package-bin: 1.0.1
     dev: true
 
   /npm-packlist/7.0.4:
@@ -15288,15 +15349,6 @@ packages:
       '@babel/code-frame': 7.21.4
     dev: true
 
-  /rollup-plugin-scss/4.0.0:
-    resolution:
-      {
-        integrity: sha512-wxasNXDYC2m+fDxCMgK00WebVWYmeFvShyNABmjvSJZ6D1/SepwqFeaMFMQromveI79gfvb64yJjiZZxSZxEIA==,
-      }
-    dependencies:
-      rollup-pluginutils: 2.8.2
-    dev: true
-
   /rollup-plugin-styles/4.0.0_rollup@3.23.0:
     resolution:
       {
@@ -15359,15 +15411,6 @@ packages:
       semver: 7.5.1
       tslib: 2.5.2
       typescript: 4.9.5
-    dev: true
-
-  /rollup-pluginutils/2.8.2:
-    resolution:
-      {
-        integrity: sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==,
-      }
-    dependencies:
-      estree-walker: 0.6.1
     dev: true
 
   /rollup/2.79.1:
@@ -17205,6 +17248,14 @@ packages:
       crypto-random-string: 4.0.0
     dev: true
 
+  /universalify/0.1.2:
+    resolution:
+      {
+        integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==,
+      }
+    engines: { node: '>= 4.0.0' }
+    dev: true
+
   /universalify/0.2.0:
     resolution:
       {
@@ -18165,6 +18216,23 @@ packages:
         integrity: sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA==,
       }
     engines: { node: '>=10' }
+    dev: true
+
+  /yalc/1.0.0-pre.53:
+    resolution:
+      {
+        integrity: sha512-tpNqBCpTXplnduzw5XC+FF8zNJ9L/UXmvQyyQj7NKrDNavbJtHvzmZplL5ES/RCnjX7JR7W9wz5GVDXVP3dHUQ==,
+      }
+    hasBin: true
+    dependencies:
+      chalk: 4.1.2
+      detect-indent: 6.1.0
+      fs-extra: 8.1.0
+      glob: 7.2.3
+      ignore: 5.2.4
+      ini: 2.0.0
+      npm-packlist: 2.2.2
+      yargs: 16.2.0
     dev: true
 
   /yallist/3.1.1:

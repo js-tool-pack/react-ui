@@ -128,8 +128,8 @@ dist
 #editor
 .idea
 
-
-.DS_Store
-
 temp
 tmp
+
+.yalc
+yalc.lock

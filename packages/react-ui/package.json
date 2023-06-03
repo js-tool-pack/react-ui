@@ -1,13 +1,14 @@
 {
-  "version": "1.0.0",
   "name": "@tool-pack/react-ui",
+  "version": "0.0.0-beta.1",
   "sideEffects": false,
   "scripts": {
     "rm:dist": "rimraf ./dist",
     "build:vite": "vite build && npm run build:dts",
     "check:ts": "tsc --noEmit -p tsconfig.json",
     "alias:debug": "tsc-alias -p tsconfig.json --debug",
-    "build:dts": "tsc -p ./tsconfig.json --emitDeclarationOnly && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js"
+    "build:dts": "tsc -p ./tsconfig.json --emitDeclarationOnly && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js",
+    "yalc:publish": "yalc publish"
   },
   "types": "dist/index.d.ts",
   "main": "dist/cjs/react-ui/src/index.js",

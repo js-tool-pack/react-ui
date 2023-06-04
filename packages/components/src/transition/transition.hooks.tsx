@@ -1,10 +1,4 @@
-import React, {
-  cloneElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react';
+import { cloneElement, useCallback, useEffect, useMemo, useRef } from 'react';
 import { addTransition, getClasses } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 import type { CB, El, Mode } from './transition.types';
@@ -57,7 +51,7 @@ export function useDispatcher(
   );
 
   useEffect(() => {
-    setChild(prev!, next!);
+    setChild(prev, next);
 
     if (isInitDep && !appear) {
       setStatus(STATUS.idle, STATUS.idle);
@@ -152,11 +146,6 @@ export function useTransition(
 
   if (!children || STATUS.none === status || typeof children === 'boolean')
     return;
-
-  if (!React.isValidElement(children))
-    return <div ref={elRef as React.RefObject<HTMLDivElement>}>{children}</div>;
-
   if (status === STATUS.idle) return children;
-
-  return cloneElement(children as React.ReactElement, { ref: elRef });
+  return <>{cloneElement(children, { ref: elRef })}</>;
 }

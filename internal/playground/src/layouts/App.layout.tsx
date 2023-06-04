@@ -20,9 +20,19 @@ export function AppLayout(): JSX.Element {
       url: '/loading',
     },
   ];
+
+  const onSelectChange = (/* e: BaseSyntheticEvent */) => {
+    document.documentElement.classList.toggle('dark');
+  };
   return (
     <div className={styles['_']}>
-      <header>playground({location.pathname.replace(/^\//, '')})</header>
+      <header>
+        playground({location.pathname.replace(/^\//, '')})
+        <select name="mode" id="mode-selector" onChange={onSelectChange}>
+          <option value="light">light</option>
+          <option value="dark">dark</option>
+        </select>
+      </header>
       <aside>
         <ul>
           {menu.map((item) => (

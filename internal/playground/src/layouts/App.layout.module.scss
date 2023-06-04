@@ -13,7 +13,7 @@
       height: $h;
       text-align: center;
       line-height: $h;
-      background-color: #efeeee;
+      background-color: var(--aside-bg-color);
     }
     aside {
       $w: 230px;
@@ -23,7 +23,7 @@
       height: 100%;
       overflow-y: auto;
       box-sizing: border-box;
-      background-color: #efeeee;
+      background-color: var(--aside-bg-color);
       ul {
         margin: 0;
         padding: 0;

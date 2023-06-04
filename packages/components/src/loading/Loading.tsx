@@ -89,7 +89,8 @@ export const Loading: React.FC<LoadingOptions> = memo((props) => {
 
 Loading.defaultProps = {
   className: '',
-  background: 'rgba(0, 0, 0, 0.38)',
+  background: 'var(--t-mask-bg-color)',
+  color: 'var(--t-text-color)',
   mode: 'insert',
   zIndex: 100,
   text: 'loading...',

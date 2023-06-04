@@ -1,15 +1,17 @@
+@import '../scss.variable';
+
 .ref {
   position: relative;
 }
 
 :global {
-  .t-loading {
+  .#{$PREFIX}loading {
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    color: white;
+    backdrop-filter: blur(2px);
     .loading-box {
       position: absolute;
       top: 50%;
@@ -38,7 +40,7 @@
       }
     }
   }
-  body > .t-loading {
+  body > .#{$PREFIX}loading {
     position: fixed;
   }
 
@@ -49,7 +51,7 @@
 
   .loading-enter-active,
   .loading-leave-active {
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity var(--t-transition-duration) ease-in-out;
   }
 
   @keyframes :global(loading-rotate) {

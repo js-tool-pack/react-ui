@@ -36,7 +36,7 @@ export function ButtonPage() {
       <section>
         plain:
         {plains.map((plain) => (
-          <div style={{ marginBottom: '5px' }}>
+          <div style={{ marginBottom: '5px' }} key={String(plain)}>
             ({String(plain)}):
             {types.map((type) => (
               <Button
@@ -53,12 +53,12 @@ export function ButtonPage() {
       <section>
         disabled:
         {plains.map((plain) => (
-          <div style={{ marginBottom: '5px' }}>
+          <div style={{ marginBottom: '5px' }} key={String(plain)}>
             {types.map((type) => (
               <Button
                 onClick={addTimes}
                 type={type}
-                key={type + '_' + plain}
+                key={String(plain) + '_' + type}
                 plain={plain}
                 disabled>
                 {type}

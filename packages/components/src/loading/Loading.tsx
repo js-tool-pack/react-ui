@@ -1,5 +1,5 @@
 import { LoadingIcon } from './loading.icon';
-import { LoadingOptions } from './loading.types';
+import { LoadingProps } from './loading.types';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
@@ -16,7 +16,7 @@ const refClass = `${rootClass}_ref`;
 /**
  * loading组件
  */
-export const Loading: React.FC<LoadingOptions> = memo((props) => {
+export const Loading: React.FC<LoadingProps> = memo((props) => {
   const [visible, setVisible] = useState(props.visible);
 
   useEffect(() => {
@@ -66,7 +66,8 @@ export const Loading: React.FC<LoadingOptions> = memo((props) => {
   if (!props.children) return createPortal(TransitionLoading, document.body);
 
   // 插入children
-  if (props.mode === 'insert')
+  // 当传入的children是非html元素时，不使用插入模式
+  if (props.mode === 'insert' && React.isValidElement(props.children))
     return React.cloneElement(
       props.children,
       {

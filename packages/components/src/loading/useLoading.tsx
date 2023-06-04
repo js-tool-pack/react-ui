@@ -1,5 +1,5 @@
 import { Loading } from './Loading';
-import type { LoadingOptions } from './loading.types';
+import type { LoadingProps } from './loading.types';
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
@@ -8,7 +8,7 @@ import { createRoot } from 'react-dom/client';
  *
  * @param props Loading组件的props
  */
-export function useLoading(props: Partial<LoadingOptions> = {}) {
+export function useLoading(props: Partial<LoadingProps> = {}) {
   const { visible = true, ...rest } = props;
   // 可以通过外面传入的visible控制显隐
   const [_visible, setVisible] = useState(false);

@@ -1,5 +1,5 @@
 import { Loading } from './Loading';
-import type { LoadingOptions } from './loading.types';
+import type { LoadingProps } from './loading.types';
 import { createRoot, type Root } from 'react-dom/client';
 
 let root: Root | undefined;
@@ -10,7 +10,7 @@ let root: Root | undefined;
  * @param props Loading组件的props
  */
 export function showLoading(
-  props: Partial<Omit<LoadingOptions, 'visible' | 'closeOnClick'>> = {},
+  props: Partial<Omit<LoadingProps, 'visible' | 'closeOnClick'>> = {},
 ): void {
   if (root) root.unmount();
 

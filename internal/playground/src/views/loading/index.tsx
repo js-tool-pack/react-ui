@@ -62,6 +62,9 @@ export function LoadingPage() {
           包裹模式
         </div>
       </Loading>
+      <Loading visible={loading} mode="insert">
+        因为children为字符串，所以插入模式变为包裹模式
+      </Loading>
       <button onClick={setLoading2}>{loading2 ? '隐藏' : '显示'}</button>
       <Loading visible={loading2} mode="insert">
         <div className={styles['_']} key="ref-2">

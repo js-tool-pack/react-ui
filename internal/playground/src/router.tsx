@@ -6,8 +6,32 @@ import { NotFountLayout } from './layouts/NotFound.layout';
 import { TransitionPage } from './views/TransitionPage';
 import { TransitionGroupPage } from './views/transition-group';
 import { LoadingPage } from './views/loading';
+import { ButtonPage } from './views/button';
 
-const router = createBrowserRouter([
+export const baseRouter = [
+  {
+    name: 'transition',
+    path: '/transition',
+    element: <TransitionPage />,
+  },
+  {
+    name: 'transition-group',
+    path: '/transition-group',
+    element: <TransitionGroupPage />,
+  },
+  {
+    name: 'loading',
+    path: '/loading',
+    element: <LoadingPage />,
+  },
+  {
+    name: 'button',
+    path: '/button',
+    element: <ButtonPage />,
+  },
+];
+
+export const router = createBrowserRouter([
   {
     path: '',
     element: <AppLayout />,
@@ -17,18 +41,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <App />,
       },
-      {
-        path: '/transition',
-        element: <TransitionPage />,
-      },
-      {
-        path: '/transition-group',
-        element: <TransitionGroupPage />,
-      },
-      {
-        path: '/loading',
-        element: <LoadingPage />,
-      },
+      ...baseRouter,
     ],
   },
   {
@@ -36,5 +49,3 @@ const router = createBrowserRouter([
     element: <NotFountLayout />,
   },
 ]);
-
-export default router;

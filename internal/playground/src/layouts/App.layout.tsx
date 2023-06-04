@@ -2,24 +2,10 @@ import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import styles from './App.layout.module.scss';
 import { getClassNames } from '@tool-pack/basic';
+import { baseRouter } from '../router';
 
 export function AppLayout(): JSX.Element {
   const location = useLocation();
-
-  const menu = [
-    {
-      name: 'transition',
-      url: '/transition',
-    },
-    {
-      name: 'transition-group',
-      url: '/transition-group',
-    },
-    {
-      name: 'loading',
-      url: '/loading',
-    },
-  ];
 
   const onSelectChange = (/* e: BaseSyntheticEvent */) => {
     document.documentElement.classList.toggle('dark');
@@ -35,13 +21,13 @@ export function AppLayout(): JSX.Element {
       </header>
       <aside>
         <ul>
-          {menu.map((item) => (
+          {baseRouter.map((item) => (
             <li
               key={item.name}
               className={getClassNames({
-                active: item.url === location.pathname,
+                active: item.path === location.pathname,
               })}>
-              <Link to={item.url}>{item.name}</Link>
+              <Link to={item.path}>{item.name}</Link>
             </li>
           ))}
         </ul>

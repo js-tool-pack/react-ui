@@ -1,0 +1,144 @@
+@import '../scss.variable';
+
+:global {
+  .#{$PREFIX}button {
+    --t-btn-color: white;
+    --t-btn-bg-color: unset;
+    --t-btn-border-style: solid;
+    --t-btn-border-color: unset;
+    --t-btn-border-width: 0;
+    --t-btn-radius: var(--t-redis);
+    --t-btn-padding: 5px;
+
+    --t-btn-hover-color: white;
+    --t-btn-hover-border-color: var(--t-btn-hover-color);
+    --t-btn-hover-bg-color: unset;
+
+    --t-btn-danger-color: red;
+    --t-btn-danger-hover-color: #ff7875;
+
+    border-radius: var(--t-btn-radius);
+    padding: 0 var(--t-btn-padding);
+    height: var(--t-size);
+    outline: 0;
+    cursor: pointer;
+    border: var(--t-btn-border-width) var(--t-btn-border-style)
+      var(--t-btn-border-color);
+    background-color: var(--t-btn-bg-color);
+    color: var(--t-btn-color);
+    transition: all var(--t-transition-duration) ease-in-out;
+
+    &:not([disabled]):hover {
+      --t-btn-color: var(--t-btn-hover-color);
+      --t-btn-bg-color: var(--t-btn-hover-bg-color);
+      --t-btn-border-color: var(--t-btn-hover-border-color);
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+    &.type-primary {
+      --t-btn-bg-color: var(--t-primary-bg-color);
+      --t-btn-hover-bg-color: var(--t-primary-hover-bg-color);
+      &[disabled] {
+        --t-btn-bg-color: var(--t-primary-disabled-bg-color);
+      }
+    }
+    &.type-success {
+      --t-btn-bg-color: #67c23a;
+      --t-btn-hover-bg-color: #a9ea89;
+      &[disabled] {
+        --t-btn-bg-color: #c5f6ac;
+      }
+    }
+    &.type-warning {
+      --t-btn-bg-color: #e6a23c;
+      --t-btn-hover-bg-color: #eebe77;
+      &[disabled] {
+        --t-btn-bg-color: #f3cf9a;
+      }
+    }
+    &.type-info {
+      --t-btn-bg-color: #909399;
+      --t-btn-hover-bg-color: #b1b3b8;
+      &[disabled] {
+        --t-btn-bg-color: #d5d7da;
+      }
+    }
+    &.type-danger {
+      --t-btn-bg-color: #f56c6c;
+      --t-btn-hover-bg-color: #f89898;
+      &[disabled] {
+        --t-btn-bg-color: #f89898;
+      }
+    }
+
+    &.plain {
+      --t-btn-border-width: 1px;
+      --t-btn-border-style: solid;
+      --t-btn-border-color: var(--t-btn-bg-color);
+      --t-btn-color: var(--t-btn-bg-color);
+
+      --t-btn-hover-border-color: var(--t-btn-hover-bg-color);
+      --t-btn-hover-color: var(--t-btn-hover-bg-color);
+      background-color: unset;
+    }
+
+    &.plain-dashed {
+      --t-btn-border-width: 1px;
+      --t-btn-border-style: dashed;
+      --t-btn-border-color: var(--t-btn-bg-color);
+      --t-btn-color: var(--t-btn-bg-color);
+
+      --t-btn-hover-border-color: var(--t-btn-hover-bg-color);
+      --t-btn-hover-color: var(--t-btn-hover-bg-color);
+      background-color: unset;
+    }
+    &.plain-text {
+      --t-btn-border-width: 0;
+      --t-btn-border-style: dashed;
+      --t-btn-border-color: var(--t-btn-bg-color);
+      --t-btn-color: var(--t-btn-bg-color);
+
+      --t-btn-hover-border-color: var(--t-btn-hover-bg-color);
+      --t-btn-hover-color: var(--t-btn-hover-bg-color);
+      background-color: unset;
+    }
+
+    &.type-default {
+      --t-btn-border-width: 1px;
+      --t-btn-color: var(--t-text-color);
+      --t-btn-border-color: #b2b2b2;
+      --t-btn-hover-border-color: var(--t-primary-bg-color);
+      --t-btn-hover-color: var(--t-primary-bg-color);
+      &[disabled] {
+        --t-btn-color: #cecece;
+        --t-btn-border-color: #cecece;
+      }
+      &.plain-text {
+        --t-btn-border-width: 0;
+      }
+    }
+    &.#{$PREFIX}size-lg {
+      --t-btn-padding: 10px;
+    }
+    &.shape-round,
+    &.shape-circle {
+      --t-btn-radius: calc(var(--t-size) / 2);
+    }
+    &.shape-circle {
+      width: var(--t-size);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &.#{$PREFIX}size-lg {
+        --t-btn-padding: 5px;
+      }
+    }
+
+    &:not([disabled]):active {
+      transition: all calc(var(--t-transition-duration) / 3) ease-out;
+      transform: translateY(-5px);
+    }
+  }
+}

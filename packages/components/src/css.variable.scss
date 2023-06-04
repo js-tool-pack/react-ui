@@ -1,13 +1,28 @@
+@import 'scss.variable';
+
 :root {
-  --t-redis: 10px;
+  --t-redis: 8px;
+  --t-size: 36px;
   --t-transition-duration: 0.3s;
   --t-mask-bg-color: rgba(255, 255, 255, 0.38);
   --t-text-color: black;
+  --t-text-hover-color: #606060;
   --t-text-reverse-color: white;
+  --t-primary-bg-color: #1677ff;
+  --t-primary-hover-bg-color: #4096ff;
+  --t-primary-disabled-bg-color: #83b5fa;
   &.dark {
-
     --t-mask-bg-color: rgba(0, 0, 0, 0.38);
     --t-text-color: white;
+    --t-text-hover-color: #c2c2c2;
     --t-text-reverse-color: black;
+  }
+  .#{$PREFIX}size-sm {
+    --t-redis: 4px;
+    --t-size: 22px;
+  }
+  .#{$PREFIX}size-lg {
+    --t-redis: 12px;
+    --t-size: 46px;
   }
 }

@@ -22,6 +22,11 @@ export function TransitionPage() {
         </Transition>
       </div>
       <div className="box">
+        <Transition name="fade" appear>
+          {visible && 'single'}
+        </Transition>
+      </div>
+      <div className="box">
         <Transition name="fade" mode="out-in">
           {visible ? (
             <div className="fade" key={1}>

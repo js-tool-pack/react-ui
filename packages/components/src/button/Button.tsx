@@ -12,7 +12,17 @@ import './Button.module.scss';
 const cClass = getComponentClass('button');
 
 export const Button: React.FC<ButtonProps> = (props) => {
-  const { onClick, plain, size, type, children, shape, ...rest } = props;
+  const {
+    className,
+    htmlType,
+    onClick,
+    plain,
+    size,
+    type,
+    children,
+    shape,
+    ...rest
+  } = props;
 
   const [active, setActive] = useState(false);
   const waveRef = useRef<HTMLElement>(null);
@@ -39,6 +49,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
       {...rest}
+      type={htmlType}
       onClick={clickHandler}
       className={getClassNames(cClass, `type-${type}`, {
         [CLASS_SIZE_SM]: size === 'small',
@@ -49,6 +60,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
         [`plain`]: plain === true,
         [`plain-text`]: plain === 'text',
         [`plain-dashed`]: plain === 'dashed',
+        [className as string]: className,
       })}>
       {children}
       <span

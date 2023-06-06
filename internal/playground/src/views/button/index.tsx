@@ -20,7 +20,7 @@ export function ButtonPage() {
       <section>
         size:
         {sizes.map((size) => (
-          <Button onClick={addTimes} size={size} key={size}>
+          <Button className="test" onClick={addTimes} size={size} key={size}>
             {size}
           </Button>
         ))}

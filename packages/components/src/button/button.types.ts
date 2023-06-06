@@ -1,11 +1,10 @@
 import React from 'react';
 
-export interface ButtonProps {
-  disabled?: boolean;
-  children?: React.ReactNode;
+type BTN = React.ButtonHTMLAttributes<HTMLButtonElement>;
+export interface ButtonProps extends Omit<BTN, 'type'> {
+  htmlType?: BTN['type'];
   size?: 'large' | 'medium' | 'small';
   type?: 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
   plain?: boolean | 'dashed' | 'text';
   shape?: 'default' | 'circle' | 'round';
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }

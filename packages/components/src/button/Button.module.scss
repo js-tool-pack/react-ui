@@ -2,7 +2,7 @@
 
 :global {
   .#{$PREFIX}button {
-    --t-btn-main-color: black;
+    --t-btn-main-color: var(--t-text-color);
     --t-btn-color: white;
     --t-btn-bg-color: unset;
     --t-btn-border-style: solid;
@@ -121,7 +121,7 @@
       --t-btn-main-color: var(--t-primary-bg-color);
       --t-btn-border-width: 1px;
       --t-btn-color: var(--t-text-color);
-      --t-btn-border-color: black;
+      --t-btn-border-color: var(--t-btn-color);
       --t-btn-hover-border-color: var(--t-primary-bg-color);
       --t-btn-hover-color: var(--t-primary-bg-color);
       &[disabled] {

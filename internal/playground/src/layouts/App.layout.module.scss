@@ -1,54 +1,46 @@
+$h: 60px;
 ._ {
-  $h: 60px;
-  display: flex;
-  padding-top: $h;
+  width: 100vw;
   height: 100vh;
   box-sizing: border-box;
-  :global {
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: $h;
-      text-align: center;
-      line-height: $h;
-      background-color: var(--aside-bg-color);
-    }
-    aside {
-      $w: 230px;
-      flex-basis: $w;
-      padding: 20px;
-      width: $w;
-      height: 100%;
-      overflow-y: auto;
-      box-sizing: border-box;
-      background-color: var(--aside-bg-color);
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-      li {
-        color: #1a2be1;
-        &.active {
-          color: #8c06b8;
-          pointer-events: none;
-        }
-      }
-      a {
-        display: block;
-        padding: 5px 0;
-        text-decoration: none;
-        color: inherit;
-      }
-    }
-    main {
-      flex: 1;
-      padding: 20px;
-      box-sizing: border-box;
-      height: 100%;
-      overflow-y: auto;
+}
+.header {
+  height: $h;
+  text-align: center;
+  line-height: $h;
+  background-color: var(--aside-bg-color);
+}
+.aside {
+  $w: 230px;
+  flex-basis: $w;
+  padding: 20px;
+  width: $w;
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background-color: var(--aside-bg-color);
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    color: #1a2be1;
+    &.active {
+      color: #8c06b8;
+      pointer-events: none;
     }
   }
+  a {
+    display: block;
+    padding: 5px 0;
+    text-decoration: none;
+    color: inherit;
+  }
+}
+.main {
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
 }

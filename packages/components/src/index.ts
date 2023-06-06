@@ -3,3 +3,4 @@ export * from './transition';
 export * from './transition-group';
 export * from './loading';
 export * from './button';
+export * from './layouts';

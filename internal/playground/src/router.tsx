@@ -7,6 +7,7 @@ import { TransitionPage } from './views/TransitionPage';
 import { TransitionGroupPage } from './views/transition-group';
 import { LoadingPage } from './views/loading';
 import { ButtonPage } from './views/button';
+import { LayoutPage } from './views/LayoutPage';
 
 export const baseRouter = [
   {
@@ -28,6 +29,11 @@ export const baseRouter = [
     name: 'button',
     path: '/button',
     element: <ButtonPage />,
+  },
+  {
+    name: 'layout',
+    path: '/layout',
+    element: <LayoutPage />,
   },
 ];
 

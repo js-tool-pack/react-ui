@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ButtonProps } from './button.types';
 import {
   CLASS_SIZE_LG,
@@ -14,8 +14,25 @@ const cClass = getComponentClass('button');
 export const Button: React.FC<ButtonProps> = (props) => {
   const { onClick, plain, size, type, children, shape, ...rest } = props;
 
+  const [active, setActive] = useState(false);
+  const waveRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = waveRef.current;
+    if (!active || !el) return;
+    const cancel = () => el.removeEventListener('animationend', handler);
+    const handler = () => {
+      setActive(false);
+      cancel();
+    };
+    el.addEventListener('animationend', handler);
+
+    return cancel;
+  }, [active]);
+
   const clickHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     if (props.disabled) return;
+    if (plain !== 'text') setActive(true);
     return onClick?.(e);
   };
 
@@ -34,6 +51,11 @@ export const Button: React.FC<ButtonProps> = (props) => {
         [`plain-dashed`]: plain === 'dashed',
       })}>
       {children}
+      <span
+        ref={waveRef}
+        className={getClassNames('btn-wave', {
+          'btn-wave-active': active,
+        })}></span>
     </button>
   );
 };

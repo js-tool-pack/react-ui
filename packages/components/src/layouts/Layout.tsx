@@ -4,15 +4,17 @@ import { getClassNames } from '@tool-pack/basic';
 import { BaseLayoutsProps } from './layout.types';
 
 const rootClass = getComponentClass('layout');
-export const Layout: React.FC<
+export const Layout = React.forwardRef<
+  HTMLElement,
   BaseLayoutsProps & {
     vertical?: boolean;
   }
-> = (props) => {
+>((props, ref) => {
   const { vertical, className, children, ...rest } = props;
   return (
     <section
       {...rest}
+      ref={ref}
       className={getClassNames(rootClass, {
         vertical,
         [className as string]: className,
@@ -20,4 +22,4 @@ export const Layout: React.FC<
       {children}
     </section>
   );
-};
+});

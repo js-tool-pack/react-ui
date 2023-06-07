@@ -32,15 +32,18 @@ export function addTransition({
   };
 
   const handlers = {
-    start: () => {
+    start: (e: TransitionEvent) => {
+      if (e.target !== e.currentTarget) return;
       el.removeEventListener('transitionstart', handlers.start);
       on(LIFE_CIRCLE.start);
     },
-    cancel() {
+    cancel(e: TransitionEvent) {
+      if (e.target !== e.currentTarget) return;
       el.removeEventListener('transitioncancel', handlers.cancel);
       on(LIFE_CIRCLE.cancel);
     },
-    end() {
+    end(e: TransitionEvent) {
+      if (e.target !== e.currentTarget) return;
       clearListener();
       on(LIFE_CIRCLE.after);
       removeClass();

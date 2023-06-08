@@ -1,0 +1,109 @@
+@import '../scss.variable';
+
+$c: '#{$PREFIX}dialog';
+.#{$c} {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 40px;
+  padding: 20px;
+  width: 30%;
+  min-height: 80px;
+  max-width: 100vw;
+  border-radius: var(--t-redis);
+  background-color: var(--t-bg-color);
+  box-shadow: rgba(0, 0, 0, 0.08) 0 6px 16px 0,
+    rgba(0, 0, 0, 0.12) 0 3px 6px -4px, rgba(0, 0, 0, 0.05) 0px 9px 28px 8px;
+  pointer-events: auto;
+
+  &__mask {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--t-mask-bg-color-reverse);
+  }
+  &__wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1px 0;
+    text-align: center;
+    overflow: auto;
+    pointer-events: none;
+
+    &:before {
+      display: inline-block;
+      width: 0;
+      height: 100%;
+      vertical-align: top;
+      content: '';
+    }
+  }
+  &__main {
+    padding: 20px 0;
+    text-align: left;
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    //font-size: 1.2em;
+    font-weight: bold;
+  }
+  &__footer {
+    text-align: right;
+  }
+  &__title {
+    flex-grow: 1;
+    margin: 0;
+  }
+  &__center {
+    .#{$c}__header,
+    .#{$c}__footer {
+      text-align: center;
+    }
+  }
+  &__centered {
+    padding: 20px 0;
+    &:before,
+    .#{$c} {
+      vertical-align: middle;
+    }
+    .#{$c} {
+      margin-bottom: 0;
+    }
+  }
+  &__btn-close {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+  &__root {
+    --t-dialog-transition-duration: var(--t-transition-duration);
+    //--t-dialog-transition-duration: 5s;
+    .t-dialog__mask-enter-active,
+    .t-dialog__mask-leave-active {
+      transition: opacity var(--t-dialog-transition-duration) ease-in-out;
+    }
+    .t-dialog__mask-enter-from,
+    .t-dialog__mask-leave-to {
+      opacity: 0;
+    }
+    .t-dialog-enter-active,
+    .t-dialog-leave-active {
+      transition: opacity var(--t-dialog-transition-duration) ease-in-out;
+      .#{$c} {
+        transition: all var(--t-dialog-transition-duration) linear;
+      }
+    }
+    .t-dialog-enter-from,
+    .t-dialog-leave-to {
+      opacity: 0;
+      .#{$c} {
+        transform: scale(0);
+      }
+    }
+  }
+}

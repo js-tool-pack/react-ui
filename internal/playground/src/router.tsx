@@ -8,6 +8,7 @@ import { TransitionGroupPage } from './views/transition-group';
 import { LoadingPage } from './views/loading';
 import { ButtonPage } from './views/button';
 import { LayoutPage } from './views/LayoutPage';
+import { DialogPage } from './views/DialogPage';
 
 export const baseRouter = [
   {
@@ -34,6 +35,11 @@ export const baseRouter = [
     name: 'layout',
     path: '/layout',
     element: <LayoutPage />,
+  },
+  {
+    name: 'dialog',
+    path: '/dialog',
+    element: <DialogPage />,
   },
 ];
 

@@ -1,9 +1,12 @@
-import { Button } from '@pkg/components';
+import { Button as BTN } from '@pkg/components';
 import styles from './index.module.scss';
-import { useReducer } from 'react';
+import { memo, useCallback, useReducer } from 'react';
+
+const Button = memo(BTN);
 
 export function ButtonPage() {
-  const [times, addTimes] = useReducer((s) => s + 1, 0);
+  const [times, _addTimes] = useReducer((s) => s + 1, 0);
+  const addTimes = useCallback(() => _addTimes(), []);
   const types = [
     'default',
     'primary',

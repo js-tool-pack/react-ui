@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import { Transition } from '@pkg/components';
+import { Button, Transition } from '@pkg/components';
 
 export function TransitionPage() {
   const [visible, setVisible] = useReducer((prevState) => !prevState, true);
@@ -15,9 +15,9 @@ export function TransitionPage() {
       <div className="box">
         <Transition name="fade" appear>
           {visible && (
-            <div className="fade" key={1}>
+            <Button type="primary" className="fade" key={1}>
               single
-            </div>
+            </Button>
           )}
         </Transition>
       </div>

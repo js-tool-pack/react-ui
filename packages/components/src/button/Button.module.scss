@@ -9,7 +9,7 @@
     --t-btn-border-color: unset;
     --t-btn-border-width: 0;
     --t-btn-radius: var(--t-redis);
-    --t-btn-padding: 5px;
+    --t-btn-padding: 16px;
 
     --t-btn-hover-color: white;
     --t-btn-hover-border-color: var(--t-btn-hover-color);
@@ -22,13 +22,19 @@
     border-radius: var(--t-btn-radius);
     padding: 0 var(--t-btn-padding);
     height: var(--t-size);
+    font-size: 1em;
+    font-weight: 400;
     outline: 0;
     cursor: pointer;
     border: var(--t-btn-border-width) var(--t-btn-border-style)
       var(--t-btn-border-color);
     background-color: var(--t-btn-bg-color);
     color: var(--t-btn-color);
-    transition: all var(--t-transition-duration) ease-in-out;
+    transition-property: background-color, width, height, color, padding-top,
+      padding-left, padding-right, padding-bottom;
+    //transition-property: all;
+    transition-timing-function: ease-in-out;
+    transition-duration: var(--t-transition-duration);
 
     &:not([disabled]):hover {
       --t-btn-color: var(--t-btn-hover-color);
@@ -161,6 +167,9 @@
     }
     .btn-wave-active {
       animation-name: btn-wave;
+    }
+    + .#{$PREFIX}button {
+      margin-left: 8px;
     }
   }
 

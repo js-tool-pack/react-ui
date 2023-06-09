@@ -118,14 +118,17 @@ export function useTransition(
 ) {
   const elRef = useRef<HTMLElement>(null);
 
+  const noTrans = [STATUS.none, STATUS.idle].includes(status) || !children;
+
+  const classes = useMemo(
+    () => (noTrans ? undefined : getClasses(name, status === STATUS.show)),
+    [noTrans, name, status],
+  )!;
+
   useEffect(() => {
     const el = elRef.current;
     // console.log(from, 'status', STATUS[status], !!transRef.current);
-    if (!children || !el || status === STATUS.none) return;
-    // console.log(from, 'status', STATUS[status], !!transRef.current);
-
-    const classes = getClasses(name, status === STATUS.show);
-
+    if (!el || noTrans) return;
     const trans = addTransition({
       el,
       classes,
@@ -134,18 +137,31 @@ export function useTransition(
         cb?.(el, status, lifeCircle);
       },
     });
-
-    el.style.visibility = '';
     trans.start();
     return () => {
       trans.clearListener();
       // 如果把active的class也清理掉就跟vue的差不多了，不过那种动画会从头开始
       trans.removeClass();
     };
-  }, [children, status, name, elRef]);
+  }, [children, status, classes, cb]);
 
   if (!children || STATUS.none === status || typeof children === 'boolean')
     return;
   if (status === STATUS.idle) return children;
-  return <>{cloneElement(children, { ref: elRef })}</>;
+
+  const className =
+    status === STATUS.show
+      ? [
+          children.props.className,
+          classes.fromClassName,
+          // classes.activeClassName,
+        ]
+          .filter((i) => Boolean(i))
+          .join(' ')
+      : children.props.className;
+
+  return cloneElement(children, {
+    ref: elRef,
+    className,
+  });
 }

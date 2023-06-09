@@ -52,7 +52,10 @@
 .fade-leave-active {
   transition: all 1.5s 0s linear;
 }
-.fade-enter-from,
+.fade-enter-from{
+  transform: translateX(-100%);
+  opacity: 0;
+}
 .fade-leave-to {
   transform: translateX(100%);
   opacity: 0;

@@ -160,8 +160,12 @@ export function useTransition(
           .join(' ')
       : children.props.className;
 
-  return cloneElement(children, {
-    ref: elRef,
-    className,
-  });
+  return (
+    <>
+      {cloneElement(children, {
+        ref: elRef,
+        className,
+      })}
+    </>
+  );
 }

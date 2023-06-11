@@ -1,0 +1,60 @@
+@import '../scss.variable';
+
+.#{$PREFIX}loading__ref {
+  position: relative;
+}
+
+.#{$PREFIX}loading {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  backdrop-filter: blur(2px);
+  .loading-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .loading-icon {
+    margin: auto;
+    $w: 60px;
+    width: $w;
+    height: $w;
+
+    .loading-rotate {
+      animation: loading-rotate 1.5s linear infinite;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+
+      path {
+        fill: currentColor;
+      }
+    }
+  }
+}
+body > .#{$PREFIX}loading {
+  position: fixed;
+}
+
+.loading-enter-from,
+.loading-leave-to {
+  opacity: 0;
+}
+
+.loading-enter-active,
+.loading-leave-active {
+  transition: opacity var(--t-transition-duration) ease-in-out;
+}
+
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

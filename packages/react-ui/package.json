@@ -5,6 +5,7 @@
   "scripts": {
     "rm:dist": "rimraf ./dist",
     "build:vite": "vite build && npm run build:dts",
+    "build:scss": "sass src/index.scss dist/index.css --no-source-map",
     "check:ts": "tsc --noEmit -p tsconfig.json",
     "alias:debug": "tsc-alias -p tsconfig.json --debug",
     "build:dts": "tsc -p ./tsconfig.json --emitDeclarationOnly && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js",
@@ -20,10 +21,12 @@
         "default": "./dist/react-ui.esm-bundler.js"
       },
       "require": "./dist/react-ui.cjs.js"
-    }
+    },
+    "./dist/*": "./dist/*"
   },
   "buildOptions": {
     "name": "ToolPackReactUI",
+    "scss": true,
     "formats": [
       "esm-bundler",
       "esm-browser",

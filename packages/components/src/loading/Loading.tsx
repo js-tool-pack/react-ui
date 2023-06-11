@@ -7,11 +7,10 @@ import {
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
 } from '../transition';
-import styles from './Loading.module.scss';
 import { getComponentClass } from '@pkg/shared';
 
 const rootClass = getComponentClass('loading');
-const refClass = `${rootClass}_ref`;
+const refClass = `${rootClass}__ref`;
 
 /**
  * loading组件
@@ -72,8 +71,7 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
       props.children,
       {
         ...props.children.props,
-        className:
-          `${props.children.props.className} ${refClass} ${styles['ref']}`.trim(),
+        className: `${props.children.props.className} ${refClass}`.trim(),
       },
       props.children.props.children,
       TransitionLoading,
@@ -81,7 +79,7 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
 
   // 包裹children
   return (
-    <div className={refClass + ' ' + styles['ref']}>
+    <div className={refClass}>
       {props.children}
       {TransitionLoading}
     </div>

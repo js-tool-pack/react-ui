@@ -8,7 +8,6 @@ import {
   TRANSITION_STATUS,
 } from '../transition';
 import { getClassNames } from '@tool-pack/basic';
-import './Dialog.scss';
 import { getComponentClass, useClientSize } from '@pkg/shared';
 import { CloseIcon } from './close.icon';
 

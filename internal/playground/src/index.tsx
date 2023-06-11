@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import './index.css';
+import '@pkg/components/index.scss';
 import { router } from './router';
 // import reportWebVitals from './reportWebVitals';
 

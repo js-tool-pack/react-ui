@@ -76,6 +76,13 @@ async function build(target: string) {
   );
 
   if (buildTypes && pkgJson.types) buildType(target, pkgDirPath /*, pkgJson*/);
+
+  if (pkgJson.buildOptions?.scss)
+    await execa('npm', ['run', 'build:scss'], {
+      stdio: 'inherit',
+      cwd: pkgDirPath,
+      execPath: pkgDirPath,
+    });
 }
 
 async function buildType(

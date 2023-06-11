@@ -7,7 +7,6 @@ import {
   getComponentClass,
 } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
-import './Button.module.scss';
 
 const cClass = getComponentClass('button');
 

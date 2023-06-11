@@ -28,7 +28,7 @@ export default defineConfig(() => {
     plugins: [
       // https://github.com/vitejs/vite/tree/main/packages/plugin-react
       react({
-        // jsxRuntime: 'classic',
+        jsxRuntime: 'classic',
       }),
     ],
     build: {
@@ -37,62 +37,27 @@ export default defineConfig(() => {
       cssCodeSplit: true,
       emptyOutDir: true,
       outDir: resolve(__dirname, './dist'),
-      lib: {
-        entry: entryPath,
-        name: 'ToolPackReactUI',
-        // format: ['es', 'cjs', 'iife'],
-        // fileName: (format) => `react-ui.${format}.js`,
-      },
+      lib: { entry: entryPath },
       rollupOptions: {
         external: ['react', 'react-dom'],
         output: [
           {
-            name: 'ReactUI',
+            name: 'ToolPackReactUI',
             format: 'iife',
-            sourcemap: false,
-            dir: './dist/iife',
-            entryFileNames: '[name].js',
-            chunkFileNames: '[name].js',
-            assetFileNames: '[name].[ext]',
-            manualChunks: undefined,
-            inlineDynamicImports: false,
-            generatedCode: {
-              symbols: true,
+            entryFileNames: '[name].iife.js',
+            globals: {
+              react: 'React',
+              'react-dom': 'ReactDom',
             },
-            exports: 'named',
           },
           {
             format: 'es',
-            dir: 'dist/es',
-            // sourcemap: false,
-            entryFileNames: '[name].js',
-            chunkFileNames: '[name].js',
-            // assetFileNames: '[name].[ext]',
-            inlineDynamicImports: false,
-            manualChunks: undefined,
-            preserveModules: true,
-            // preserveModulesRoot: 'src',
-            generatedCode: {
-              symbols: true,
-            },
-            exports: 'named',
+            entryFileNames: '[name].es.js',
           },
 
           {
             format: 'cjs',
-            dir: 'dist/cjs',
-            // sourcemap: false,
-            entryFileNames: '[name].js',
-            chunkFileNames: '[name].js',
-            // assetFileNames: '[name].[ext]',
-            inlineDynamicImports: false,
-            manualChunks: undefined,
-            preserveModules: true,
-            // preserveModulesRoot: 'src',
-            generatedCode: {
-              symbols: true,
-            },
-            exports: 'named',
+            entryFileNames: '[name].cjs.js',
           },
         ],
       },

@@ -12,7 +12,7 @@ export function AppLayout(): JSX.Element {
     document.documentElement.classList.toggle('dark');
   };
   return (
-    <Layout className={styles['_']} vertical>
+    <Layout className={styles['app']} vertical>
       <Header className={styles['header']}>
         playground({location.pathname.replace(/^\//, '')})
         <select name="mode" id="mode-selector" onChange={onSelectChange}>

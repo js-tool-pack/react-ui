@@ -58,7 +58,7 @@ export function LoadingPage() {
 
       <button onClick={setLoading}>{loading ? '隐藏' : '显示'}</button>
       <Loading visible={loading} mode="wrap">
-        <div className={styles['_']} key="ref-1">
+        <div className={styles['root']} key="ref-1">
           包裹模式
         </div>
       </Loading>
@@ -67,7 +67,7 @@ export function LoadingPage() {
       </Loading>
       <button onClick={setLoading2}>{loading2 ? '隐藏' : '显示'}</button>
       <Loading visible={loading2} mode="insert">
-        <div className={styles['_']} key="ref-2">
+        <div className={styles['root']} key="ref-2">
           插入模式
         </div>
       </Loading>
@@ -78,7 +78,7 @@ export function LoadingPage() {
         visible={loading3}
         text={<button className="loading-rotate">hello</button>}
         icon={<button className="loading-rotate">world</button>}>
-        <div className={styles['_']} key="ref-2">
+        <div className={styles['root']} key="ref-2">
           替换slot
         </div>
       </Loading>

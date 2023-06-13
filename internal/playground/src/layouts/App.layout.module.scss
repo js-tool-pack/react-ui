@@ -1,17 +1,21 @@
 $h: 60px;
-._ {
+
+.app {
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
 }
+
 .header {
   height: $h;
   text-align: center;
   line-height: $h;
   background-color: var(--aside-bg-color);
 }
+
 .aside {
   $w: 230px;
+
   flex-basis: $w;
   padding: 20px;
   width: $w;
@@ -19,18 +23,22 @@ $h: 60px;
   overflow-y: auto;
   box-sizing: border-box;
   background-color: var(--aside-bg-color);
+
   ul {
     margin: 0;
     padding: 0;
     list-style: none;
   }
+
   li {
     color: #1a2be1;
+
     &.active {
       color: #8c06b8;
       pointer-events: none;
     }
   }
+
   a {
     display: block;
     padding: 5px 0;
@@ -38,6 +46,7 @@ $h: 60px;
     color: inherit;
   }
 }
+
 .main {
   padding: 20px;
   box-sizing: border-box;

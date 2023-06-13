@@ -32,7 +32,7 @@ export default defineConfig(() => {
     cacheDir: `./.cache`,
     resolve: {
       alias: {
-        '@pkg/*': Path.resolve(__dirname, '../../packages/*/src'),
+        // '@pkg/*': Path.resolve(__dirname, '../../packages/*/src'),
         ...pkgs.reduce((prev, cur) => {
           prev['@pkg/' + cur] = Path.resolve(
             __dirname,

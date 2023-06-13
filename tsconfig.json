@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./",
     // "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -40,7 +42,9 @@
     "allowUnreachableCode": false,
     "jsx": "react-jsx",
     "paths": {
-      "@pkg/*": ["./packages/*/src"]
+      "@pkg/*": ["./packages/*/src"],
+      "@tool-pack/react-ui": ["./packages/react-ui"],
+      "@@/*": [".dumi/tmp/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

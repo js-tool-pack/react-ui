@@ -1,5 +1,5 @@
 {
-  "name": "@tool-pack/react-ui",
+  "name": "@tool-pack/react-ui-monorepo",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -12,10 +12,23 @@
     "check:ts:lint": "npm run check:ts && npm run check:lint",
     "check:deps": "ncu",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "prepare": "husky install"
+    "prepare": "husky install && dumi setup",
+    "docs:dev": "dumi dev",
+    "docs:build": "dumi build",
+    "doctor": "father doctor",
+    "lint": "npm run lint:es && npm run lint:css",
+    "lint:css": "stylelint \"**/*.{css,scss}\"",
+    "prepublishOnly": "father doctor && npm run build"
   },
   "lint-staged": {
-    "*.{json,html,md,yaml}": [
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ],
+    "*.{css,less}": [
+      "stylelint --fix",
+      "prettier --write"
+    ],
+    "*.{json,html,yaml}": [
       "prettier --write",
       "git add"
     ],
@@ -45,23 +58,30 @@
     "@types/testing-library__jest-dom": "^5.14.6",
     "@typescript-eslint/eslint-plugin": "^5.59.8",
     "@typescript-eslint/parser": "^5.59.8",
+    "@umijs/lint": "^4.0.0",
     "@vitejs/plugin-react": "^4.0.0",
     "chalk": "^5.2.0",
+    "dumi": "^2.2.0",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "esno": "^0.16.3",
     "execa": "^7.1.1",
+    "father": "^4.1.0",
     "fs-extra": "^11.1.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
     "npm-check-updates": "^16.10.12",
     "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.0.0",
+    "prettier-plugin-packagejson": "^2.2.18",
     "react-scripts": "5.0.1",
     "rollup": "^3.23.0",
     "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.62.1",
+    "stylelint": "^14.9.1",
+    "stylelint-scss": "^5.0.1",
     "tsc-alias": "^1.8.6",
     "typescript": "^4.9.5",
     "vite": "^4.3.9",
@@ -89,5 +109,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/js-tool-pack/react-ui/issues"
-  }
+  },
+  "homepage": "https://github.com/js-tool-pack/react-ui"
 }

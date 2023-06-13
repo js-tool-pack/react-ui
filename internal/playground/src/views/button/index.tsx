@@ -18,7 +18,7 @@ export function ButtonPage() {
   const sizes = ['small', 'medium', 'large'] as const;
   const plains = [false, true, 'dashed', 'text'] as const;
   return (
-    <div className={styles['_']}>
+    <div className={styles['root']}>
       click times: {times}
       <section>
         size:

@@ -1,11 +1,10 @@
 @import 'scss.variable';
-
 :root {
   --t-redis: 8px;
   --t-size: 36px;
   --t-transition-duration: 0.3s;
-  --t-mask-bg-color: rgba(255, 255, 255, 0.38);
-  --t-mask-bg-color-reverse: rgba(0, 0, 0, 0.45);
+  --t-mask-bg-color: rgb(255 255 255 / 38%);
+  --t-mask-bg-color-reverse: rgb(0 0 0 / 45%);
   --t-text-color: black;
   --t-bg-color: white;
   --t-text-hover-color: #606060;
@@ -14,18 +13,18 @@
   --t-primary-hover-bg-color: #4096ff;
   --t-primary-disabled-bg-color: #83b5fa;
   &.dark {
-    --t-mask-bg-color: rgba(0, 0, 0, 0.45);
-    --t-mask-bg-color-reverse: rgba(255, 255, 255, 0.38);
+    --t-mask-bg-color: rgb(0 0 0 / 45%);
+    --t-mask-bg-color-reverse: rgb(255 255 255 / 38%);
     --t-text-color: white;
     --t-text-hover-color: #c2c2c2;
     --t-text-reverse-color: black;
     --t-bg-color: black;
   }
-  .#{$PREFIX}size-sm {
+  .#{$prefix}size-sm {
     --t-redis: 4px;
     --t-size: 22px;
   }
-  .#{$PREFIX}size-lg {
+  .#{$prefix}size-lg {
     --t-redis: 12px;
     --t-size: 46px;
   }

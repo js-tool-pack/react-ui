@@ -1,18 +1,17 @@
 @import '../scss.variable';
 
-.#{$PREFIX}layout {
+.#{$prefix}layout {
   display: flex;
   flex: 1;
   overflow: hidden;
-
   &.vertical {
     flex-direction: column;
   }
 }
-.#{$PREFIX}aside,
-.#{$PREFIX}main {
+.#{$prefix}aside,
+.#{$prefix}main {
   overflow: auto;
 }
-.#{$PREFIX}main {
+.#{$prefix}main {
   flex: 1;
 }

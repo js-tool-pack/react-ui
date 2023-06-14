@@ -8,29 +8,23 @@
     .group-move {
       transition: all 1.5s 0s linear;
     }
-
     .group-leave-active {
       position: absolute;
     }
-
     .group-enter-from {
       transform: scaleY(0.01) translate(0, -100%);
       opacity: 0;
     }
-
     .group-leave-to {
       transform: scaleY(0.01) translate(0, 100%);
       opacity: 0;
     }
-
     .group-container {
       text-align: left;
     }
-
     button {
       user-select: none;
     }
-
     section button {
       display: inline-block;
       width: 60px;

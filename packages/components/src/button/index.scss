@@ -1,6 +1,6 @@
 @import '../scss.variable';
 
-.#{$PREFIX}button {
+.#{$prefix}button {
   --t-btn-main-color: var(--t-text-color);
   --t-btn-color: white;
   --t-btn-bg-color: unset;
@@ -10,37 +10,38 @@
   --t-btn-radius: var(--t-redis);
   --t-btn-padding: 16px;
 
+  // ------
   --t-btn-hover-color: white;
   --t-btn-hover-border-color: var(--t-btn-hover-color);
   --t-btn-hover-bg-color: unset;
 
+  // ------
   --t-btn-danger-color: red;
   --t-btn-danger-hover-color: #ff7875;
 
   position: relative;
-  border-radius: var(--t-btn-radius);
   padding: 0 var(--t-btn-padding);
   height: var(--t-size);
   font-size: 1em;
   font-weight: 400;
-  outline: 0;
-  cursor: pointer;
   border: var(--t-btn-border-width) var(--t-btn-border-style)
     var(--t-btn-border-color);
-  background-color: var(--t-btn-bg-color);
+  border-radius: var(--t-btn-radius);
   color: var(--t-btn-color);
+  background-color: var(--t-btn-bg-color);
+  outline: 0;
+  cursor: pointer;
   transition-property: background-color, width, height, color, padding-top,
     padding-left, padding-right, padding-bottom;
-  //transition-property: all;
+
+  // transition-property: all;
   transition-timing-function: ease-in-out;
   transition-duration: var(--t-transition-duration);
-
   &:not([disabled]):hover {
     --t-btn-color: var(--t-btn-hover-color);
     --t-btn-bg-color: var(--t-btn-hover-bg-color);
     --t-btn-border-color: var(--t-btn-hover-border-color);
   }
-
   &[disabled] {
     cursor: not-allowed;
   }
@@ -84,26 +85,24 @@
       --t-btn-bg-color: #f89898;
     }
   }
-
   &.plain {
     --t-btn-border-width: 1px;
     --t-btn-border-style: solid;
     --t-btn-border-color: var(--t-btn-bg-color);
     --t-btn-color: var(--t-btn-bg-color);
-
     --t-btn-hover-border-color: var(--t-btn-hover-bg-color);
     --t-btn-hover-color: var(--t-btn-hover-bg-color);
+
     background-color: unset;
   }
-
   &.plain-dashed {
     --t-btn-border-width: 1px;
     --t-btn-border-style: dashed;
     --t-btn-border-color: var(--t-btn-bg-color);
     --t-btn-color: var(--t-btn-bg-color);
-
     --t-btn-hover-border-color: var(--t-btn-hover-bg-color);
     --t-btn-hover-color: var(--t-btn-hover-bg-color);
+
     background-color: unset;
   }
   &.plain-text {
@@ -111,17 +110,15 @@
     --t-btn-border-style: dashed;
     --t-btn-border-color: var(--t-btn-bg-color);
     --t-btn-color: var(--t-btn-bg-color);
-
     --t-btn-hover-border-color: var(--t-btn-hover-bg-color);
     --t-btn-hover-color: var(--t-btn-hover-bg-color);
-    background-color: unset;
 
+    background-color: unset;
     &:not([disabled]):active {
       transition: all calc(var(--t-transition-duration) / 3) ease-out;
       transform: translateY(-5px);
     }
   }
-
   &.type-default {
     --t-btn-main-color: var(--t-primary-bg-color);
     --t-btn-border-width: 1px;
@@ -137,7 +134,7 @@
       --t-btn-border-width: 0;
     }
   }
-  &.#{$PREFIX}size-lg {
+  &.#{$prefix}size-lg {
     --t-btn-padding: 10px;
   }
   &.shape-round,
@@ -146,20 +143,17 @@
   }
   &.shape-circle {
     width: var(--t-size);
-    //overflow: hidden;
-    //text-overflow: ellipsis;
-    //white-space: nowrap;
-    &.#{$PREFIX}size-lg {
+
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
+    &.#{$prefix}size-lg {
       --t-btn-padding: 5px;
     }
   }
-
   .btn-wave {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: 0;
     border-radius: inherit;
     animation-duration: 0.5s;
     animation-iteration-count: 1;
@@ -167,19 +161,18 @@
   .btn-wave-active {
     animation-name: btn-wave;
   }
-  + .#{$PREFIX}button {
+  + .#{$prefix}button {
     margin-left: 8px;
   }
 }
 
 @keyframes btn-wave {
   0% {
-    box-shadow: 0 0 0.5px 0 var(--t-btn-main-color);
     opacity: 0.65;
+    box-shadow: 0 0 0.5px 0 var(--t-btn-main-color);
   }
-
   100% {
-    box-shadow: 0 0 0.5px 4.5px var(--t-btn-main-color);
     opacity: 0;
+    box-shadow: 0 0 0.5px 4.5px var(--t-btn-main-color);
   }
 }

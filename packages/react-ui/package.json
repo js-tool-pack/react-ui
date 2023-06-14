@@ -12,15 +12,17 @@
     "yalc:publish": "yalc publish"
   },
   "types": "dist/index.d.ts",
-  "main": "dist/cjs/react-ui/src/index.js",
-  "module": "dist/es/react-ui/src/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "unpkg": "dist/index.iife.js",
+  "jsdelivr": "dist/index.iife.j",
   "exports": {
     ".": {
       "import": {
-        "node": "./dist/react-ui.cjs.js",
-        "default": "./dist/react-ui.esm-bundler.js"
+        "node": "./dist/index.cjs.js",
+        "default": "./dist/index.es.js"
       },
-      "require": "./dist/react-ui.cjs.js"
+      "require": "./dist/index.cjs.js"
     },
     "./dist/*": "./dist/*"
   },

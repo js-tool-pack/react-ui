@@ -8,7 +8,11 @@ import { createRoot } from 'react-dom/client';
  *
  * @param props Loading组件的props
  */
-export function useLoading(props: Partial<LoadingProps> = {}) {
+export function useLoading(props: Partial<LoadingProps> = {}): {
+  visible: boolean;
+  setVisible: (value: boolean) => void;
+  toggle: () => void;
+} {
   const { visible = true, ...rest } = props;
   // 可以通过外面传入的visible控制显隐
   const [_visible, setVisible] = useState(false);

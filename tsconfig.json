@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "rootDir": "./",
-    "baseUrl": "./",
     // "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -44,7 +42,7 @@
     "paths": {
       "@pkg/*": ["./packages/*/src"],
       "@tool-pack/react-ui": ["./packages/react-ui"],
-      "@@/*": [".dumi/tmp/*"]
+      "@@/*": ["./.dumi/tmp/*"]
     }
   },
   "exclude": ["node_modules", "dist"]

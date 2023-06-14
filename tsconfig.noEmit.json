@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@pkg/*": ["./packages/*/src"],
+      "@tool-pack/react-ui": ["./packages/react-ui/src"],
+      "@@/*": [".dumi/tmp/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}

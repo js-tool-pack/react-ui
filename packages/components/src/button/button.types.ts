@@ -6,5 +6,5 @@ export interface ButtonProps extends Omit<BTN, 'type'> {
   size?: 'large' | 'medium' | 'small';
   type?: 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
   plain?: boolean | 'dashed' | 'text';
-  shape?: 'default' | 'circle' | 'round';
+  shape?: 'default' | 'none' | 'circle' | 'round';
 }

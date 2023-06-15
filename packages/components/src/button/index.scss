@@ -8,7 +8,7 @@
   --t-btn-border-color: unset;
   --t-btn-border-width: 0;
   --t-btn-radius: var(--t-redis);
-  --t-btn-padding: 16px;
+  --t-btn-padding: 12px;
 
   // ------
   --t-btn-hover-color: white;
@@ -135,7 +135,10 @@
     }
   }
   &.#{$prefix}size-lg {
-    --t-btn-padding: 10px;
+    --t-btn-padding: 16px;
+  }
+  &.#{$prefix}size-sm {
+    --t-btn-padding: 6px;
   }
   &.shape-round,
   &.shape-circle {
@@ -151,6 +154,9 @@
       --t-btn-padding: 5px;
     }
   }
+  &.shape-none {
+    --t-btn-radius: 0;
+  }
   .btn-wave {
     position: absolute;
     inset: 0;
@@ -161,9 +167,10 @@
   .btn-wave-active {
     animation-name: btn-wave;
   }
-  + .#{$prefix}button {
-    margin-left: 8px;
-  }
+
+  // + .#{$prefix}button {
+  //  margin-left: 8px;
+  // }
 }
 
 @keyframes btn-wave {

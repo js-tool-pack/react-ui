@@ -1,1 +1,12 @@
 @import '../packages/react-ui/src/index';
+.transition-box {
+  position: relative;
+  margin: auto;
+  width: 200px;
+  height: 60px;
+}
+.transition-box > div {
+  position: absolute;
+  width: 200px;
+}
+

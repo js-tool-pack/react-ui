@@ -77,4 +77,5 @@ Button.displayName = 'Button';
 Button.defaultProps = {
   size: 'medium',
   type: 'default',
+  shape: 'default',
 };

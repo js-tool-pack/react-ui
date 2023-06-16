@@ -10,3 +10,12 @@ export type CB = (
   status: STATUS,
   lifeCircle: LIFE_CIRCLE,
 ) => void;
+
+export interface TransitionProps {
+  // show?: boolean;
+  name?: string;
+  mode?: Mode;
+  children?: React.ReactElement | boolean;
+  appear?: boolean;
+  on?: CB;
+}

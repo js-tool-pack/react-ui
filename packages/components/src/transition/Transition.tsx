@@ -1,15 +1,8 @@
 import React, { memo } from 'react';
 import { useDispatcher, useTransition } from './transition.hooks';
-import type { Mode, CB } from './transition.types';
+import type { TransitionProps } from './transition.types';
 
-const Transition: React.FC<{
-  // show?: boolean;
-  name?: string;
-  mode?: Mode;
-  children?: React.ReactElement | boolean;
-  appear?: boolean;
-  on?: CB;
-}> = ({
+const Transition: React.FC<TransitionProps> = ({
   children,
   name = 'trans',
   mode = 'default' /* , show */,

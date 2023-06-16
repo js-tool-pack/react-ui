@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Footer, Header, Layout, Main } from '../layouts';
 import { Button } from '../button';
@@ -8,22 +8,14 @@ import {
   TRANSITION_STATUS,
 } from '../transition';
 import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass, useClientSize } from '@pkg/shared';
+import { getComponentClass } from '@pkg/shared';
 import { CloseIcon } from './close.icon';
+import { DialogProps } from './dialog.types';
+import { useShow, useTransitionOrigin } from './dialog.hooks';
 
 const rootClass = getComponentClass('dialog');
 
-export const Dialog: React.FC<
-  React.HTMLAttributes<HTMLElement> & {
-    visible?: boolean;
-    header?: React.ReactNode;
-    footer?: React.ReactNode;
-    onClose?: () => void;
-    closeOnClickMask?: boolean;
-    center?: boolean;
-    centered?: boolean;
-  }
-> = memo((props) => {
+export const Dialog: React.FC<DialogProps> = memo((props) => {
   const {
     className,
     visible,
@@ -37,42 +29,13 @@ export const Dialog: React.FC<
     style,
     ...rest
   } = props;
-  const [show, setShow] = useState(visible || false);
-  const [point, setPoint] = useState([0, 0] as [number, number]);
-  const clientSize = useClientSize();
 
-  const transformOrigin = useMemo(() => {
-    const left = `calc(50% + ${-clientSize[0] / 2 + point[0]}px)`;
-    const top = centered
-      ? `calc(50% + ${-clientSize[1] / 2 + point[1]}px)`
-      : style?.top !== undefined
-      ? `calc(${point[1]}px - ${style.top})`
-      : `calc(${point[1]}px - 50%)`;
-    return `${left} ${top}`;
-  }, [clientSize, point, centered, style]);
-
-  useEffect(() => {
-    setShow(visible || false);
-  }, [visible]);
-
-  useEffect(() => {
-    if (show) return;
-    const handler = (e: MouseEvent) => {
-      setPoint([e.clientX, e.clientY]);
-    };
-    window.addEventListener('mouseup', handler);
-    return () => {
-      window.removeEventListener('mouseup', handler);
-    };
-  }, [show]);
-
-  const handleClose = useCallback(() => {
-    setShow(false);
-  }, []);
+  const [show, close] = useShow(visible);
+  const transformOrigin = useTransitionOrigin(props, show);
 
   const handleMaskClick = useCallback(() => {
-    closeOnClickMask && handleClose();
-  }, [closeOnClickMask, handleClose]);
+    closeOnClickMask && close();
+  }, [closeOnClickMask, close]);
 
   const onTransitionChange = useCallback(
     (
@@ -122,7 +85,7 @@ export const Dialog: React.FC<
             className={`${rootClass}__btn-close`}
             plain="text"
             size="small"
-            onClick={handleClose}>
+            onClick={close}>
             {CloseIcon}
           </Button>
         </Header>

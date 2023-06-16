@@ -32,7 +32,7 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       onClick={closeLoading}
-      className={`${rootClass} ${props.className}`}
+      className={`${rootClass} ${props.className || ''}`}
       style={{
         background: props.background,
         zIndex: props.zIndex,
@@ -71,7 +71,7 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
       props.children,
       {
         ...props.children.props,
-        className: `${props.children.props.className} ${refClass}`.trim(),
+        className: `${props.children.props.className || ''} ${refClass}`.trim(),
       },
       props.children.props.children,
       TransitionLoading,

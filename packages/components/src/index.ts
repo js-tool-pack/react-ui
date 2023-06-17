@@ -5,3 +5,4 @@ export * from './loading';
 export * from './button';
 export * from './layouts';
 export * from './dialog';
+export * from './icon';

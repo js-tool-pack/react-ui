@@ -1,0 +1,12 @@
+@import '../scss.variable';
+.#{$prefix}icon {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  line-height: 1em;
+  > svg {
+    width: 1em;
+    height: 1em;
+  }
+}

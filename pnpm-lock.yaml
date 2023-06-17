@@ -10,7 +10,7 @@ importers:
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^14.0.0
       '@testing-library/user-event': ^14.4.3
-      '@tool-pack/basic': ^0.0.20
+      '@tool-pack/basic': ^0.0.22
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.1
       '@types/node': ^16.18.34
@@ -63,7 +63,7 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@tool-pack/basic': 0.0.20
+      '@tool-pack/basic': 0.0.22
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.2
       '@types/node': 16.18.34
@@ -120,6 +120,9 @@ importers:
       web-vitals: 2.1.4
 
   packages/components:
+    specifiers: {}
+
+  packages/icons:
     specifiers: {}
 
   packages/react-ui:
@@ -4144,8 +4147,8 @@ packages:
       '@testing-library/dom': '>=7.21.4'
     dev: true
 
-  /@tool-pack/basic/0.0.20:
-    resolution: {integrity: sha512-VcW/BVtgx9X1P69E9lcFMFkP8bE4qFOJkK0aFYLVk6kxepHWDLdDMySdVGasAQsa7Wvi0fCOFfvltUSfxaNa+Q==}
+  /@tool-pack/basic/0.0.22:
+    resolution: {integrity: sha512-fU/mlYBwBnn8FKh/NWhsYa0VOBy1GEtSvaDhZ9dxaEoPcgAHRqMLniBShkQRvvrI5gNWm3QhzUvvGGJi3zWMIw==}
     dependencies:
       '@tool-pack/types': 0.0.2
     dev: true

@@ -59,27 +59,6 @@ loading 有三种函数式调用方式：
 
 loading 的属性说明如下：
 
-visible: boolean;
-closeOnClick?: boolean;
-text?: React.ReactNode;
-icon?: React.ReactNode;
-background?: string;
-color?: string;
-className?: string;
-zIndex?: number;
-mode?: 'insert' | 'wrap';
-children?: React.ReactNode;
-onLeave?: () => void;
-onClose?: () => void;
-
-className: '',
-background: 'var(--t-mask-bg-color)',
-color: 'var(--t-text-color)',
-mode: 'insert',
-zIndex: 100,
-text: 'loading...',
-icon: LoadingIcon,
-
 | 属性         | 说明                         | 类型                        | 默认值                   | 版本 |
 | ------------ | ---------------------------- | --------------------------- | ------------------------ | ---- |
 | classNames   | 语义化结构 class             | Record<SemanticDOM, string> | -                        |      |

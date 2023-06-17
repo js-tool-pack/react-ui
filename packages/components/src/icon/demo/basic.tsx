@@ -4,19 +4,18 @@
  */
 
 import React from 'react';
-import { Icon, Icons } from '@tool-pack/react-ui';
+import { Icon, Icons, Space } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
-    <div className="demo-icon-basic" style={{ fontSize: '20px' }}>
-      <style>{`.demo-icon-basic .t-icon {vertical-align: middle;}`}</style>
+    <Space className="demo-icon-basic" style={{ fontSize: '16px' }}>
       <Icon size={26} style={{ color: 'blue' }}>
         <Icons.Close />
       </Icon>
       <Icon color="red">
         <Icons.Loading />
       </Icon>
-    </div>
+    </Space>
   );
 };
 

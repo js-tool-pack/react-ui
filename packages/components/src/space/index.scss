@@ -1,0 +1,13 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}space';
+
+.#{$r} {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  &__vertical {
+    flex-direction: column;
+  }
+}

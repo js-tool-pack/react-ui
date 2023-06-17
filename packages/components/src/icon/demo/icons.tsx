@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Icon, Icons } from '@tool-pack/react-ui';
+import { Icon, Icons, Space } from '@tool-pack/react-ui';
 import { Clipboard as ClipboardTool } from '@tool-pack/bom';
 
 const App: React.FC = () => {
@@ -12,13 +12,13 @@ const App: React.FC = () => {
     ClipboardTool.copy(`<Icon><Icons.${iconName} /></Icon>`);
   };
   return (
-    <div className="demo-icon-icons">
+    <Space className="demo-icon-icons">
       {Object.keys(Icons).map((k) => (
         <Icon key={k} onClick={() => copy(k)}>
           {React.createElement(Icons[k])}
         </Icon>
       ))}
-    </div>
+    </Space>
   );
 };
 

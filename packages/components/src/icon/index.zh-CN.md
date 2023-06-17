@@ -13,7 +13,7 @@ group:
 ## 代码演示
 
 <style>
-.demo-icon-icons {display:flex; gap: 8px;font-size: 30px} 
+.demo-icon-icons {font-size: 30px; color: var(--t-primary-bg-color)} 
 .demo-icon-icons .t-icon {padding: 2px} 
 .demo-icon-icons .t-icon:hover {
 background: #dcdcdc;

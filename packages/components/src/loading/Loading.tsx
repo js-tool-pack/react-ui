@@ -1,4 +1,3 @@
-import { LoadingIcon } from './loading.icon';
 import { LoadingProps } from './loading.types';
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -8,6 +7,8 @@ import {
   TRANSITION_STATUS,
 } from '../transition';
 import { getComponentClass } from '@pkg/shared';
+import { Loading as LoadingIcon } from '@pkg/icons';
+import { Icon } from '../icon';
 
 const rootClass = getComponentClass('loading');
 const refClass = `${rootClass}__ref`;
@@ -93,5 +94,9 @@ Loading.defaultProps = {
   mode: 'insert',
   zIndex: 100,
   text: 'loading...',
-  icon: LoadingIcon,
+  icon: (
+    <Icon className="loading-rotate" size={50}>
+      <LoadingIcon />
+    </Icon>
+  ),
 };

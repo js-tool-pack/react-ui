@@ -1,15 +1,16 @@
 import React, { memo, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Footer, Header, Layout, Main } from '../layouts';
+import { getClassNames } from '@tool-pack/basic';
+import { getComponentClass } from '@pkg/shared';
+import { Close as CloseIcon } from '@pkg/icons';
+import { Icon } from '../icon';
 import { Button } from '../button';
+import { Footer, Header, Layout, Main } from '../layouts';
 import {
   Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
 } from '../transition';
-import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass } from '@pkg/shared';
-import { CloseIcon } from './close.icon';
 import { DialogProps } from './dialog.types';
 import { useShow, useTransitionOrigin } from './dialog.hooks';
 
@@ -96,7 +97,9 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
             plain="text"
             size="small"
             onClick={close}>
-            {CloseIcon}
+            <Icon>
+              <CloseIcon />
+            </Icon>
           </Button>
         </Header>
       )}

@@ -1,4 +1,4 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Footer, Header, Layout, Main } from '../layouts';
 import { Button } from '../button';
@@ -26,7 +26,9 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     closeOnClickMask,
     center,
     centered,
+    zIndex,
     style,
+    esc,
     ...rest
   } = props;
 
@@ -36,6 +38,13 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
   const handleMaskClick = useCallback(() => {
     closeOnClickMask && close();
   }, [closeOnClickMask, close]);
+
+  useEffect(() => {
+    if (!show || !esc) return;
+    const handler = (e: KeyboardEvent) => e.key === 'Escape' && close();
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [show, esc]);
 
   const onTransitionChange = useCallback(
     (
@@ -58,6 +67,7 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     <div
       key="dialog-mask"
       className={`${rootClass}__mask`}
+      style={{ zIndex }}
       onClick={handleMaskClick}></div>
   );
   const TransitionMask = (
@@ -100,6 +110,7 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     <Transition name="t-dialog" on={onTransitionChange}>
       {show && (
         <div
+          style={{ zIndex }}
           className={getClassNames(`${rootClass}__wrapper`, {
             [`${rootClass}__centered`]: centered,
           })}>
@@ -116,5 +127,9 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     document.body,
   );
 });
+
+Dialog.defaultProps = {
+  zIndex: 100,
+};
 
 Dialog.displayName = 'Dialog';

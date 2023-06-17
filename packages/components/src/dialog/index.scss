@@ -39,10 +39,7 @@ $c: '#{$prefix}dialog';
     text-align: left;
   }
   &__header {
-    display: flex;
-    align-items: center;
-
-    // font-size: 1.2em;
+    position: relative;
     font-weight: bold;
     text-align: left;
   }
@@ -70,6 +67,9 @@ $c: '#{$prefix}dialog';
     }
   }
   &__btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
     padding-right: 2px;
     padding-left: 2px;
   }

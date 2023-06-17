@@ -8,4 +8,6 @@ export type DialogProps = React.HTMLAttributes<HTMLElement> & {
   closeOnClickMask?: boolean;
   center?: boolean;
   centered?: boolean;
+  zIndex?: number;
+  esc?: boolean;
 };

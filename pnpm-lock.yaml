@@ -11,6 +11,7 @@ importers:
       '@testing-library/react': ^14.0.0
       '@testing-library/user-event': ^14.4.3
       '@tool-pack/basic': ^0.0.22
+      '@tool-pack/bom': 0.0.1-beta.0
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.1
       '@types/node': ^16.18.34
@@ -64,6 +65,7 @@ importers:
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
       '@tool-pack/basic': 0.0.22
+      '@tool-pack/bom': 0.0.1-beta.0
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.2
       '@types/node': 16.18.34
@@ -4151,6 +4153,30 @@ packages:
     resolution: {integrity: sha512-fU/mlYBwBnn8FKh/NWhsYa0VOBy1GEtSvaDhZ9dxaEoPcgAHRqMLniBShkQRvvrI5gNWm3QhzUvvGGJi3zWMIw==}
     dependencies:
       '@tool-pack/types': 0.0.2
+    dev: true
+
+  /@tool-pack/basic/0.0.9:
+    resolution: {integrity: sha512-cZ/UmMD0Mnp+AodcQIKR+xMwwZ/A9vYCOWVtbotqzpzp9ngPm/I0ej+vhVz1epnYiBnm5iYTUbB7EepRH0Mdmw==}
+    dependencies:
+      '@tool-pack/types': 0.0.1
+    dev: true
+
+  /@tool-pack/bom/0.0.1-beta.0:
+    resolution: {integrity: sha512-VLf/EcGbon4B8zLSZQo3HshfmpdByRO1Iwv2U3k0+75a49eZGnFqqtCnXJYXkQTzFwysi2XMwTgCXBhrlCSEcQ==}
+    dependencies:
+      '@tool-pack/basic': 0.0.9
+      '@tool-pack/dom': 0.0.1-beta.5
+    dev: true
+
+  /@tool-pack/dom/0.0.1-beta.5:
+    resolution: {integrity: sha512-SlRbN95q/gg7g1h8n+70UwQsN4uye6EYZNAWCc4tovMHQo1W6m2EvHx9ehXZt/jSE48M9tk0NFufO9qrg1PMSw==}
+    dependencies:
+      '@tool-pack/basic': 0.0.9
+      '@tool-pack/types': 0.0.1
+    dev: true
+
+  /@tool-pack/types/0.0.1:
+    resolution: {integrity: sha512-PuOKplXpssrNTTj5UPEvRSSVlWT5T4Pt7WtgPpazAlFynY8FZFofLJlOmsQMXlmdZmS1P9yKHCZECNgOoPCbeA==}
     dev: true
 
   /@tool-pack/types/0.0.2:

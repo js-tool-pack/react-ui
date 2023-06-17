@@ -12,8 +12,18 @@ group:
 
 ## 代码演示
 
+<style>
+.demo-icon-icons {display:flex; gap: 8px;font-size: 30px} 
+.demo-icon-icons .t-icon {padding: 2px} 
+.demo-icon-icons .t-icon:hover {
+background: #dcdcdc;
+cursor: pointer;
+}
+</style>
+
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx"></code>
+<code src="./demo/icons.tsx"></code>
 
 ## API
 

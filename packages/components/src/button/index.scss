@@ -20,6 +20,9 @@
   --t-btn-danger-hover-color: #ff7875;
 
   position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 var(--t-btn-padding);
   height: var(--t-size);
   font-size: 1em;
@@ -30,6 +33,7 @@
   color: var(--t-btn-color);
   background-color: var(--t-btn-bg-color);
   outline: 0;
+  user-select: none;
   cursor: pointer;
   transition-property: background-color, width, height, color, padding-top,
     padding-left, padding-right, padding-bottom;

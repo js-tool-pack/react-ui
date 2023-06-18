@@ -47,7 +47,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@tool-pack/basic": "^0.0.22",
+    "@tool-pack/basic": "^0.0.23",
     "@tool-pack/bom": "0.0.1-beta.0",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.1",

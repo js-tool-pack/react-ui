@@ -1,0 +1,51 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}message';
+
+.#{$r} {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: var(--t-redis);
+  background-color: var(-t-bg-color);
+  box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
+    0 9px 28px 8px rgb(0 0 0 / 5%);
+}
+
+.#{$r}-queue {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0;
+  text-align: center;
+  list-style: none;
+  pointer-events: none;
+  > li {
+    margin-top: 20px;
+  }
+  .#{$r} {
+    pointer-events: auto;
+  }
+}
+
+$q: '#{$r}-queue';
+
+.#{$q} {
+  &-enter-active,
+  &-leave-active,
+  &-move {
+    transition: all 1.5s 0s linear;
+  }
+  &-leave-active {
+    position: absolute;
+    width: 100%;
+  }
+  &-enter-from,
+  &-leave-to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}

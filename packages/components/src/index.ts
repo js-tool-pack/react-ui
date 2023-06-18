@@ -6,3 +6,4 @@ export * from './layouts';
 export * from './dialog';
 export * from './icon';
 export * from './space';
+export * from './message';

@@ -1,5 +1,13 @@
 @import 'scss.variable';
 :root {
+  --t-color-primary: #1677ff;
+  --t-color-danger: red;
+  --t-color-success: #67c23a;
+  --t-color-warning: #e6a23c;
+  --t-color-info: #909399;
+
+  // ---
+
   --t-redis: 8px;
   --t-size: 36px;
   --t-transition-duration: 0.3s;
@@ -9,7 +17,7 @@
   --t-bg-color: white;
   --t-text-hover-color: #606060;
   --t-text-reverse-color: white;
-  --t-primary-bg-color: #1677ff;
+  --t-primary-bg-color: var(--t-color-primary);
   --t-primary-hover-bg-color: #4096ff;
   --t-primary-disabled-bg-color: #83b5fa;
   &.dark {

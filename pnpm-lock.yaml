@@ -10,7 +10,7 @@ importers:
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^14.0.0
       '@testing-library/user-event': ^14.4.3
-      '@tool-pack/basic': ^0.0.24
+      '@tool-pack/basic': ^0.0.26
       '@tool-pack/bom': 0.0.1-beta.0
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.1
@@ -64,7 +64,7 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@tool-pack/basic': 0.0.24
+      '@tool-pack/basic': 0.0.26
       '@tool-pack/bom': 0.0.1-beta.0
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.2
@@ -4149,8 +4149,8 @@ packages:
       '@testing-library/dom': '>=7.21.4'
     dev: true
 
-  /@tool-pack/basic/0.0.24:
-    resolution: {integrity: sha512-qxNpsr4WC5xrLuj+Ky2htTdECwBCKASbgDP4vpPmE2yXOiLw48l4iKzRZN5Qbd5vGuc7nebaPT1WUNPiEMZcNA==}
+  /@tool-pack/basic/0.0.26:
+    resolution: {integrity: sha512-UJUf3BzIblEt2wIXzEZpDWhROE6U+C4bxIJN97AQFYPh83eOBh+2vhY770wca82r29hl6KrFyc7tgX6Clc4OxQ==}
     dependencies:
       '@tool-pack/types': 0.0.3
     dev: true

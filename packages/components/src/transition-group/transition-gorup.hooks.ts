@@ -8,7 +8,11 @@ import React, {
 import { LIFE_CIRCLE } from '../transition/transition.enums';
 import { ChildStatus } from './transition-group.enums';
 import { applyTranslation } from './transition-group.utils';
-import type { CompKey, Child } from './transition-group.types';
+import type {
+  CompKey,
+  Child,
+  TransitionGroupCB,
+} from './transition-group.types';
 import { useForceUpdate, useIsInitDep } from '@pkg/shared';
 
 export function useDispatcher(
@@ -16,6 +20,7 @@ export function useDispatcher(
   name?: string,
   children?: React.ReactElement[],
   appear = false,
+  on?: TransitionGroupCB,
 ) {
   const forceUpdate = useForceUpdate();
   const isInit = useIsInitDep(children);
@@ -75,7 +80,8 @@ export function useDispatcher(
         const child: Child = {
           component: it,
           status: isInit && !appear ? ChildStatus.idle : ChildStatus.enter,
-          on(el, _, lifeCircle) {
+          on(el, status, lifeCircle) {
+            on?.(it.key!, status, lifeCircle);
             if (child.status === ChildStatus.enter) {
               if (lifeCircle === LIFE_CIRCLE.before) {
                 forceUpdate();

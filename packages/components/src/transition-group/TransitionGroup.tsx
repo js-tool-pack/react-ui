@@ -7,7 +7,7 @@ import { TransitionGroupProps } from './transition-group.types';
 const TransitionGroup: React.FC<TransitionGroupProps> = (
   props,
 ): React.ReactElement => {
-  const { mode, name, tag, appear, children, ...rest } = props;
+  const { mode, name, on, tag, appear, children, ...rest } = props;
   const containerRef = useRef<HTMLElement>(null);
 
   const [_children, _appear] = useDispatcher(
@@ -15,6 +15,7 @@ const TransitionGroup: React.FC<TransitionGroupProps> = (
     name,
     children,
     appear,
+    on,
   );
 
   return React.createElement(

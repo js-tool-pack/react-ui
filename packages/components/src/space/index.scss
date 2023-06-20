@@ -3,11 +3,28 @@
 $r: '#{$prefix}space';
 
 .#{$r} {
-  display: inline-flex;
+  --t-space-fill-ratio: 100%;
+
+  display: flex;
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
-  &__vertical {
+  &--vertical {
     flex-direction: column;
+  }
+  &--inline {
+    display: inline-flex;
+  }
+  &--fill {
+    &:not(.#{$r}--vertical) {
+      > *:not(.#{$r}__separator) {
+        min-height: var(--t-space-fill-ratio);
+      }
+    }
+    &.#{$r}--vertical {
+      > *:not(.#{$r}__separator) {
+        min-width: var(--t-space-fill-ratio);
+      }
+    }
   }
 }

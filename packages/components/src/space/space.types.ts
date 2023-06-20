@@ -5,4 +5,7 @@ export type SpaceProps = React.HTMLAttributes<HTMLElement> & {
   vertical?: boolean;
   tag?: keyof HTMLElementTagNameMap;
   separator?: React.ReactNode;
+  inline?: boolean;
+  fill?: boolean;
+  fillRatio?: number;
 };

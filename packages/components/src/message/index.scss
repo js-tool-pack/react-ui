@@ -6,11 +6,29 @@ $r: '#{$prefix}message';
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 9px 12px;
+  padding: 10px 12px;
   border-radius: var(--t-redis);
-  background-color: var(-t-bg-color);
+  background-color: var(--t-bg-color);
   box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
     0 9px 28px 8px rgb(0 0 0 / 5%);
+  &__icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.2em;
+    color: var(--t-message-icon-color);
+  }
+  &--success {
+    --t-message-icon-color: var(--t-color-success);
+  }
+  &--info {
+    --t-message-icon-color: var(--t-color-info);
+  }
+  &--warning {
+    --t-message-icon-color: var(--t-color-warning);
+  }
+  &--error {
+    --t-message-icon-color: var(--t-color-danger);
+  }
 }
 
 .#{$r}-queue {
@@ -37,7 +55,10 @@ $q: '#{$r}-queue';
   &-enter-active,
   &-leave-active,
   &-move {
-    transition: all 1.5s 0s linear;
+    transition: all 0.3s ease-out;
+  }
+  &-move {
+    transition-timing-function: linear;
   }
   &-leave-active {
     position: absolute;

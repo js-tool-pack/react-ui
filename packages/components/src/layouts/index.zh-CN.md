@@ -5,7 +5,7 @@ subtitle: 布局
 demo:
   cols: 2
 group:
-  title: 通用
+  title: 布局
 ---
 
 用于页面布局排版。

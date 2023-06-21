@@ -64,9 +64,12 @@ function initComponent(): InitRes {
   const content = `
 import React from 'react';
 import type { ${props} } from './${getFilename('types').replace(/\.ts$/, '')}';
+import { getComponentClass } from '@pkg/shared';
+
+const rootName = getComponentClass('${config.name}');
 
 export const ${componentName}: React.FC<${props}> = (props) => {
-
+  return <div {...props} className={rootName}></div>;
 }; 
   `;
 
@@ -75,7 +78,11 @@ export const ${componentName}: React.FC<${props}> = (props) => {
 function initTypes(): InitRes {
   const filename = getFilename('types');
   const content = `
-export interface ${config.componentName}Props {}
+import React from 'react';
+
+export type DividerProps = React.HTMLAttributes<HTMLElement> & {
+  name?: string;
+};
   `;
   return [filename, content];
 }

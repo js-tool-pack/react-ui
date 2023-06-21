@@ -1,21 +1,23 @@
 {
   "name": "@tool-pack/react-ui",
-  "version": "0.0.0-beta.1",
+  "version": "0.0.1",
   "sideEffects": false,
   "scripts": {
     "rm:dist": "rimraf ./dist",
-    "build:vite": "vite build && npm run build:dts",
+    "build": "npm run build:vite && npm run build:dts && npm run build:scss",
+    "build:vite": "vite build",
     "build:scss": "sass src/index.scss dist/index.css --no-source-map",
     "check:ts": "tsc --noEmit -p tsconfig.json",
     "alias:debug": "tsc-alias -p tsconfig.json --debug",
     "build:dts": "tsc -p ./tsconfig.json --emitDeclarationOnly && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js",
-    "yalc:publish": "yalc publish"
+    "yalc:publish": "yalc publish",
+    "pub": "npm publish"
   },
   "types": "dist/index.d.ts",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "unpkg": "dist/index.iife.js",
-  "jsdelivr": "dist/index.iife.j",
+  "jsdelivr": "dist/index.iife.js",
   "exports": {
     ".": {
       "import": {

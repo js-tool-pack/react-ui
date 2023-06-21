@@ -18,7 +18,7 @@ const App: React.FC = () => {
           /* 为方便演示，所以把css写在此，真实项目的css不应该放这里 */
           .mode-enter-active,
           .mode-leave-active {
-            transition: all 1.5s 0s linear;
+            transition: all 1.5s 0s ease-in-out;
           }
           .mode-enter-from {
             transform: translateX(-100%);

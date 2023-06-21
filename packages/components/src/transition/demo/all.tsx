@@ -16,7 +16,7 @@ const App: React.FC = () => {
           /* 为方便演示，所以把css写在此，真实项目的css不应该放这里 */
           .fade-enter-active,
           .fade-leave-active {
-            transition: all 1.5s 0s linear;
+            transition: all 1.5s 0s ease-in-out;
           }
           .fade-enter-from {
             transform: translateX(-100%);

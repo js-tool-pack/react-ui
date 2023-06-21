@@ -1,0 +1,56 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}divider';
+:root {
+  --t-divider-border-color: rgb(5 5 5 / 6%);
+  &.dark {
+    --t-divider-border-color: rgb(253 253 253 / 12%);
+  }
+}
+.#{$r} {
+  &::before,
+  &::after {
+    border-style: var(--t-divider-border-style);
+    border-width: 0;
+    border-color: var(--t-divider-border-color);
+  }
+  &__content {
+    padding: 0 20px;
+  }
+  &--horizontal {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+    &::before,
+    &::after {
+      flex-grow: 1;
+      border-bottom-width: var(--t-divider-border-width);
+      content: '';
+    }
+    &.#{$r}--left {
+      &::before {
+        flex-basis: 25px;
+        flex-grow: 0;
+      }
+    }
+    &.#{$r}--right {
+      &::after {
+        flex-basis: 25px;
+        flex-grow: 0;
+      }
+    }
+  }
+  &--vertical {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 8px;
+    height: 0.9em;
+    &::before {
+      display: inline-block;
+      vertical-align: top;
+      height: 100%;
+      border-right-width: var(--t-divider-border-width);
+      content: '';
+    }
+  }
+}

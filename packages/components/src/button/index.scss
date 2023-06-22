@@ -1,6 +1,14 @@
 @import '../scss.variable';
 
-.#{$prefix}button {
+$r: #{$prefix}button;
+:root {
+  --t-btn-wave-opcity: 0.6;
+  &.dark {
+    --t-btn-wave-opcity: 1;
+  }
+}
+
+.#{$r} {
   --t-btn-main-color: var(--t-text-color);
   --t-btn-color: white;
   --t-btn-bg-color: unset;
@@ -49,7 +57,7 @@
   &[disabled] {
     cursor: not-allowed;
   }
-  &.type-primary {
+  &.#{$r}--type-primary {
     --t-btn-main-color: var(--t-primary-bg-color);
     --t-btn-bg-color: var(--t-primary-bg-color);
     --t-btn-hover-bg-color: var(--t-primary-hover-bg-color);
@@ -57,7 +65,7 @@
       --t-btn-bg-color: var(--t-primary-disabled-bg-color);
     }
   }
-  &.type-success {
+  &.#{$r}--type-success {
     --t-btn-main-color: #67c23a;
     --t-btn-bg-color: #67c23a;
     --t-btn-hover-bg-color: #a9ea89;
@@ -65,7 +73,7 @@
       --t-btn-bg-color: #c5f6ac;
     }
   }
-  &.type-warning {
+  &.#{$r}--type-warning {
     --t-btn-main-color: #e6a23c;
     --t-btn-bg-color: #e6a23c;
     --t-btn-hover-bg-color: #eebe77;
@@ -73,7 +81,7 @@
       --t-btn-bg-color: #f3cf9a;
     }
   }
-  &.type-info {
+  &.#{$r}--type-info {
     --t-btn-main-color: #909399;
     --t-btn-bg-color: #909399;
     --t-btn-hover-bg-color: #b1b3b8;
@@ -81,7 +89,7 @@
       --t-btn-bg-color: #d5d7da;
     }
   }
-  &.type-danger {
+  &.#{$r}--type-danger {
     --t-btn-main-color: #f56c6c;
     --t-btn-bg-color: #f56c6c;
     --t-btn-hover-bg-color: #f89898;
@@ -89,7 +97,7 @@
       --t-btn-bg-color: #f89898;
     }
   }
-  &.plain {
+  &.#{$r}--plain {
     --t-btn-border-width: 1px;
     --t-btn-border-style: solid;
     --t-btn-border-color: var(--t-btn-bg-color);
@@ -99,7 +107,7 @@
 
     background-color: unset;
   }
-  &.plain-dashed {
+  &.#{$r}--plain-dashed {
     --t-btn-border-width: 1px;
     --t-btn-border-style: dashed;
     --t-btn-border-color: var(--t-btn-bg-color);
@@ -109,7 +117,7 @@
 
     background-color: unset;
   }
-  &.plain-text {
+  &.#{$r}--plain-text {
     --t-btn-border-width: 0;
     --t-btn-border-style: dashed;
     --t-btn-border-color: var(--t-btn-bg-color);
@@ -123,7 +131,7 @@
       transform: translateY(-5px);
     }
   }
-  &.type-default {
+  &.#{$r}--type-default {
     --t-btn-main-color: var(--t-primary-bg-color);
     --t-btn-border-width: 1px;
     --t-btn-color: var(--t-text-color);
@@ -134,56 +142,53 @@
       --t-btn-color: #cecece;
       --t-btn-border-color: #cecece;
     }
-    &.plain-text {
+    &.#{$r}--plain-text {
       --t-btn-border-width: 0;
     }
   }
-  &.#{$prefix}size-lg {
+  &.#{$class-size-lg} {
     --t-btn-padding: 16px;
   }
-  &.#{$prefix}size-sm {
+  &.#{$class-size-sm} {
     --t-btn-padding: 6px;
   }
-  &.shape-round,
-  &.shape-circle {
+  &.#{$r}--shape-round,
+  &.#{$r}--shape-circle {
     --t-btn-radius: calc(var(--t-size) / 2);
   }
-  &.shape-circle {
+  &.#{$r}--shape-circle {
     width: var(--t-size);
 
     // overflow: hidden;
     // text-overflow: ellipsis;
     // white-space: nowrap;
-    &.#{$prefix}size-lg {
+    &.#{$class-size-lg} {
       --t-btn-padding: 5px;
     }
   }
-  &.shape-none {
+  &.#{$r}--shape-none {
     --t-btn-radius: 0;
   }
-  .btn-wave {
+  .#{$r}__wave {
     position: absolute;
     inset: 0;
     border-radius: inherit;
     animation-duration: 0.5s;
     animation-iteration-count: 1;
   }
-  .btn-wave-active {
+
+  .#{$r}__wave--active {
     animation-name: btn-wave;
   }
-
-  // + .#{$prefix}button {
-  //  margin-left: 8px;
-  // }
 }
 
 @keyframes btn-wave {
   0% {
-    opacity: 0.65;
+    opacity: var(--t-btn-wave-opcity);
     box-shadow: 0 0 0.5px 0 var(--t-btn-main-color);
   }
   100% {
     opacity: 0;
-    box-shadow: 0 0 0.5px 4.5px var(--t-btn-main-color);
+    box-shadow: 0 0 0.5px 5px var(--t-btn-main-color);
   }
 }

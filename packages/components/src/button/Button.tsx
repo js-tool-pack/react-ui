@@ -7,8 +7,9 @@ import {
   getComponentClass,
 } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
+import { RequiredPart } from '@tool-pack/types';
 
-const cClass = getComponentClass('button');
+const rootClass = getComponentClass('button');
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
@@ -20,58 +21,74 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       type,
       children,
+      disabled,
       shape,
       ...rest
-    } = props;
+    } = props as RequiredPart<ButtonProps, 'size' | 'type' | 'shape'>;
 
-    const [active, setActive] = useState(false);
-    const waveRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-      const el = waveRef.current;
-      if (!active || !el) return;
-      const cancel = () => el.removeEventListener('animationend', handler);
-      const handler = () => {
-        setActive(false);
-        cancel();
-      };
-      el.addEventListener('animationend', handler);
-
-      return cancel;
-    }, [active]);
+    const [wave, setWaveActive] = useWave();
 
     const clickHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-      if (props.disabled) return;
-      if (plain !== 'text') setActive(true);
+      if (disabled) return;
+      if (plain !== 'text') setWaveActive(true);
       return onClick?.(e);
     };
 
     return (
       <button
         {...rest}
+        disabled={disabled}
         ref={ref}
         type={htmlType}
         onClick={clickHandler}
-        className={getClassNames(cClass, `type-${type}`, {
-          [CLASS_SIZE_SM]: size === 'small',
-          [CLASS_SIZE_M]: size === 'medium',
-          [CLASS_SIZE_LG]: size === 'large',
-          [`shape-${shape}`]: shape !== 'default',
-          [`plain`]: plain === true,
-          [`plain-text`]: plain === 'text',
-          [`plain-dashed`]: plain === 'dashed',
-          [className as string]: className,
-        })}>
+        className={getClassNames(
+          rootClass,
+          className,
+          `${rootClass}--type-${type}`,
+          {
+            [CLASS_SIZE_SM]: size === 'small',
+            [CLASS_SIZE_M]: size === 'medium',
+            [CLASS_SIZE_LG]: size === 'large',
+            [`${rootClass}--shape-${shape}`]: shape !== 'default',
+            [`${rootClass}--plain`]: plain === true,
+            [`${rootClass}--plain-text`]: plain === 'text',
+            [`${rootClass}--plain-dashed`]: plain === 'dashed',
+          },
+        )}>
         {children}
-        <span
-          ref={waveRef}
-          className={getClassNames('btn-wave', {
-            'btn-wave-active': active,
-          })}></span>
+        {wave}
       </button>
     );
   },
 );
+
+function useWave() {
+  const [active, setActive] = useState(false);
+  const waveRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = waveRef.current;
+    if (!active || !el) return;
+    const cancel = () => el.removeEventListener('animationend', handler);
+    const handler = () => {
+      setActive(false);
+      cancel();
+    };
+    el.addEventListener('animationend', handler);
+
+    return handler;
+  }, [active]);
+
+  const wave = active && (
+    <span
+      ref={waveRef}
+      className={getClassNames(`${rootClass}__wave`, {
+        [`${rootClass}__wave--active`]: active,
+      })}></span>
+  );
+
+  return [wave, setActive] as const;
+}
 
 Button.displayName = 'Button';
 Button.defaultProps = {

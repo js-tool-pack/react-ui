@@ -28,11 +28,11 @@
     --t-text-reverse-color: black;
     --t-bg-color: black;
   }
-  .#{$prefix}size-sm {
+  .#{$class-size-sm} {
     --t-redis: 4px;
     --t-size: 22px;
   }
-  .#{$prefix}size-lg {
+  .#{$class-size-lg} {
     --t-redis: 12px;
     --t-size: 46px;
   }

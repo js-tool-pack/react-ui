@@ -1,0 +1,54 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}drawer';
+
+.#{$r} {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  width: 30%;
+  max-width: 100vw;
+  min-height: 80px;
+  background-color: var(--t-bg-color);
+  box-shadow: rgb(0 0 0 / 8%) 0 6px 16px 0, rgb(0 0 0 / 12%) 0 3px 6px -4px,
+    rgb(0 0 0 / 5%) 0 9px 28px 8px;
+  pointer-events: auto;
+  &__mask {
+    position: fixed;
+    inset: 0;
+    background-color: var(--t-mask-bg-color-reverse);
+  }
+  &__main {
+    padding: 20px 0;
+    text-align: left;
+  }
+  &__header {
+    position: relative;
+    font-weight: bold;
+    text-align: left;
+  }
+  &__root {
+    --t-dialog-transition-duration: var(--t-transition-duration);
+
+    // --t-dialog-transition-duration: 5s;
+    .#{$r}__mask-enter-active,
+    .#{$r}__mask-leave-active {
+      transition: opacity var(--t-dialog-transition-duration) ease-in-out;
+    }
+    .#{$r}__mask-enter-from,
+    .#{$r}__mask-leave-to {
+      opacity: 0;
+    }
+    .#{$r}-enter-active,
+    .#{$r}-leave-active {
+      transition: all var(--t-dialog-transition-duration) linear;
+    }
+    .#{$r}-enter-from,
+    .#{$r}-leave-to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+}

@@ -76,11 +76,12 @@ export const ${componentName}: React.FC<${props}> = (props) => {
   return [filename, content];
 }
 function initTypes(): InitRes {
+  const props = `${config.componentName}Props`;
   const filename = getFilename('types');
   const content = `
 import React from 'react';
 
-export type DividerProps = React.HTMLAttributes<HTMLElement> & {
+export type ${props} = React.HTMLAttributes<HTMLElement> & {
   name?: string;
 };
   `;

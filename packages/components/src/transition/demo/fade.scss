@@ -1,0 +1,16 @@
+$r: 'fade';
+
+.#{$r} {
+  &-enter-active,
+  &-leave-active {
+    transition: all 1.5s ease-in-out;
+  }
+  &-enter-from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  &-leave-to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}

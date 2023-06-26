@@ -7,36 +7,20 @@
 
 import React, { useReducer } from 'react';
 import { Button, Transition } from '@tool-pack/react-ui';
+import './fade.scss';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useReducer((prevState) => !prevState, true);
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <style>
-        {`
-          /* 为方便演示，所以把css写在此，真实项目的css不应该放这里 */
-          .mode-enter-active,
-          .mode-leave-active {
-            transition: all 1.5s 0s ease-in-out;
-          }
-          .mode-enter-from {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          .mode-leave-to {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-         `}
-      </style>
       <Button type="primary" shape="round" onClick={setVisible}>
         切 换
       </Button>
       <br />
       <br />
       <div className="transition-box">
-        <Transition name="mode" mode="out-in">
+        <Transition name="fade" mode="out-in">
           {visible ? (
             <div className="mode" key={1}>
               out-in(out)
@@ -47,7 +31,7 @@ const App: React.FC = () => {
         </Transition>
       </div>
       <div className="transition-box">
-        <Transition name="mode" mode="in-out">
+        <Transition name="fade" mode="in-out">
           {visible ? (
             <div className="mode" key={1}>
               in-out(in)
@@ -58,7 +42,7 @@ const App: React.FC = () => {
         </Transition>
       </div>
       <div className="transition-box">
-        <Transition name="mode" mode="default">
+        <Transition name="fade" mode="default">
           {visible ? (
             <div className="mode" key={1}>
               default(out)

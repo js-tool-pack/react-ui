@@ -7,20 +7,19 @@ const Transition: React.FC<TransitionProps> = ({
   name = 'trans',
   mode = 'default' /* , show */,
   appear = false,
-  ...props
+  on,
 }): React.ReactElement => {
   const [prev, next, prevStatus, nextStatus, handler] = useDispatcher(
     mode,
     // show,
     appear,
     children,
-    props.on,
   );
 
   // const prevView = useTransition('prev', prevStatus, name, prev, onAfterCb);
   // const nextView = useTransition('next', nextStatus, name, next, onAfterCb);
-  const prevView = useTransition(prevStatus, name, prev, handler);
-  const nextView = useTransition(nextStatus, name, next, handler);
+  const prevView = useTransition(prevStatus, name, prev, handler, on);
+  const nextView = useTransition(nextStatus, name, next, handler, on);
 
   if (prevView && !nextView) return prevView;
   if (!prevView && nextView) return nextView;

@@ -12,6 +12,7 @@ import {
   TRANSITION_STATUS,
   TRANSITION_LIFE_CIRCLE,
 } from '@tool-pack/react-ui';
+import './fade.scss';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useReducer((prevState) => !prevState, true);
@@ -25,30 +26,13 @@ const App: React.FC = () => {
   };
   return (
     <div style={{ textAlign: 'center' }}>
-      <style>
-        {`
-        /* 为方便演示，所以把css写在此，真实项目的css不应该放这里 */
-        .on-enter-active,
-        .on-leave-active {
-          transition: all 1.5s 0s linear;
-        }
-        .on-enter-from {
-          transform: translateX(-100%);
-          opacity: 0;
-        }
-        .on-leave-to {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-        `}
-      </style>
       <Button type="primary" shape="round" onClick={setVisible}>
         切 换
       </Button>
       <br />
       <br />
       <div className="transition-box">
-        <Transition name="on" on={on}>
+        <Transition name="fade" on={on}>
           {visible && (
             <Button type="warning" disabled>
               name: fade

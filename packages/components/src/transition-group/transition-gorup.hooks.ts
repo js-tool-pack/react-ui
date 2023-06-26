@@ -14,6 +14,8 @@ import type {
   TransitionGroupCB,
 } from './transition-group.types';
 import { useForceUpdate, useIsInitDep } from '@pkg/shared';
+import { nextTick } from '@tool-pack/basic';
+import { reflow } from '../transition/transition.utils';
 
 export function useDispatcher(
   el: RefObject<HTMLElement>,
@@ -38,22 +40,22 @@ export function useDispatcher(
       if (child.status !== ChildStatus.move) return;
       const rect = rectMap.current.get(child.component.key!)!;
       const el = children[index] as HTMLElement;
+      const moveClass = `${name}-move`;
       if (applyTranslation(el, rect)) {
         el.addEventListener('transitionend', function handler() {
-          el.classList.remove(`${name}-move`);
+          el.classList.remove(moveClass);
           el.removeEventListener('transitionend', handler);
           forceUpdate();
         });
-        el.classList.add(`${name}-move`);
+        el.classList.add(moveClass);
         startHandlers.push(() => {
           el.style.transitionDuration = '';
           el.style.transform = '';
         });
       }
     });
-    Promise.resolve().then(() => startHandlers.forEach((h) => h()));
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    el.current.offsetHeight;
+    nextTick(() => startHandlers.forEach((h) => h()));
+    reflow(el.current);
   }, [el, forceUpdate, name, rectMap]);
 
   const updateDiff = useCallback(() => {
@@ -124,7 +126,7 @@ export function useDispatcher(
     });
 
     if (isShuffle) {
-      Promise.resolve().then(() => {
+      nextTick(() => {
         forceUpdate();
         runFlip();
       });

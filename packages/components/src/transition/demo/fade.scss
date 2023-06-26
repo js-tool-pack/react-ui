@@ -3,7 +3,7 @@ $r: 'fade';
 .#{$r} {
   &-enter-active,
   &-leave-active {
-    transition: all 1.5s;
+    transition: all 1.5s ease-in-out;
   }
   &-enter-from {
     transform: translateX(-100%);

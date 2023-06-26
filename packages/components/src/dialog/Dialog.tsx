@@ -113,6 +113,7 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     <Transition name="t-dialog" on={onTransitionChange}>
       {show && (
         <div
+          key="dialog-wrapper"
           style={{ zIndex }}
           className={getClassNames(`${rootClass}__wrapper`, {
             [`${rootClass}__centered`]: centered,

@@ -1,4 +1,5 @@
 import { LIFE_CIRCLE } from './transition.enums';
+import React from 'react';
 export function getClasses(name: string, show: boolean) {
   const el = show ? 'enter' : 'leave';
   const nameEl = `${name}-${el}`;
@@ -66,8 +67,7 @@ export function addTransition({
     addListener();
     el.classList.add(_classes.fromClassName);
     // 使用offsetHeight强制刷新ui
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    el.offsetHeight;
+    reflow(el);
     on(LIFE_CIRCLE.before);
     run();
   };
@@ -79,4 +79,20 @@ export function addTransition({
   };
 
   return { start, clearListener, removeClass };
+}
+
+export function isSameEl(prev: unknown, next: unknown): boolean {
+  return (
+    React.isValidElement(prev) &&
+    React.isValidElement(next) &&
+    prev.type === next.type &&
+    prev.key !== null &&
+    prev.key === next.key
+  );
+}
+
+export function reflow(el?: HTMLElement) {
+  // 使用offsetHeight强制刷新ui
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  el?.offsetHeight;
 }

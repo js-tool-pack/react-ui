@@ -1,7 +1,8 @@
 import { cloneElement, useCallback, useEffect, useMemo, useRef } from 'react';
-import { addTransition, getClasses } from './transition.utils';
+import { addTransition, getClasses, isSameEl } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 import type { CB, El, Mode } from './transition.types';
+import { getClassNames, nextTick } from '@tool-pack/basic';
 import { useForceUpdate, useIsInitDep } from '@pkg/shared';
 
 export function useDispatcher(
@@ -9,92 +10,77 @@ export function useDispatcher(
   // show?: boolean,
   appear: boolean,
   children: El,
-  cb?: CB,
 ) {
   const forceUpdate = useForceUpdate();
-  const cbRef = useRef<CB | void>();
   const isInitDep = useIsInitDep(children);
-
   const [prev, next] = useChildren(children);
-  const prevRef = useRef<El>();
-  const nextRef = useRef<El>();
-  const prevStatusRef = useRef<STATUS>(STATUS.none);
-  const nextStatusRef = useRef<STATUS>(STATUS.none);
 
-  const setChild = useCallback((p?: El, n?: El) => {
-    prevRef.current = p;
-    nextRef.current = n;
-    // forceUpdate();
-  }, []);
-  const setStatus = useCallback((p: STATUS, n: STATUS) => {
-    prevStatusRef.current = p;
-    nextStatusRef.current = n;
-    forceUpdate();
-  }, []);
   const setVisible = useCallback((el: HTMLElement) => {
     const originVis = el.style.visibility;
     el.style.visibility = 'hidden';
     setTimeout(() => (el.style.visibility = originVis));
   }, []);
-  const createAfterHandler = useCallback(
-    (p = STATUS.none, n = STATUS.idle) => {
-      return ((el, status, lifeCircle) => {
-        cb?.(el, status, lifeCircle);
-        if (status === STATUS.hide && LIFE_CIRCLE.after === lifeCircle) {
-          setVisible(el);
-          setStatus(p, n);
-          cbRef.current = undefined;
-        }
-      }) as CB;
-    },
-    [cb, setStatus, setVisible],
-  );
 
-  useEffect(() => {
-    setChild(prev, next);
-
-    if (isInitDep && !appear) {
-      setStatus(STATUS.idle, STATUS.idle);
-      return;
-    }
-
-    if ((prev && !next) || (!prev && next)) {
-      setStatus(STATUS.hide, STATUS.show);
-      cbRef.current = createAfterHandler();
-    } else {
-      switch (mode) {
-        case 'out-in':
-          setStatus(STATUS.hide, STATUS.none);
-          cbRef.current = createAfterHandler(STATUS.none, STATUS.show);
-          break;
-        case 'in-out':
-          setStatus(STATUS.idle, STATUS.show);
-          cbRef.current = (_, __, lifeCircle) => {
-            if (LIFE_CIRCLE.after === lifeCircle) {
-              setStatus(STATUS.hide, STATUS.idle);
-              cbRef.current = createAfterHandler();
-            }
-          };
-          break;
-        default:
-          setStatus(STATUS.hide, STATUS.show);
-          cbRef.current = createAfterHandler();
-          break;
+  const createAfterHandler = (p = STATUS.none, n = STATUS.idle): CB => {
+    return (el, status, lifeCircle) => {
+      if (status === STATUS.hide && LIFE_CIRCLE.after === lifeCircle) {
+        setVisible(el);
       }
-    }
-    return () => {
-      setStatus(STATUS.none, STATUS.none);
-      cbRef.current = undefined;
+      if (LIFE_CIRCLE.after === lifeCircle) {
+        cache.current = [p, n];
+        cbRef.current = undefined;
+        forceUpdate();
+      }
     };
-  }, [prev, next]);
+  };
 
-  return [
-    prevRef.current,
-    nextRef.current,
-    prevStatusRef.current,
-    nextStatusRef.current,
-    cbRef.current,
-  ] as const;
+  const cache = useRef<[STATUS, STATUS]>();
+  const cbRef = useRef<CB>();
+
+  let childs = [prev, next] as [El, El];
+
+  const res = (): [STATUS, STATUS] => {
+    const c = cache.current;
+    if (isSameEl(prev, next)) {
+      childs = [undefined, next];
+      return [STATUS.none, STATUS.idle];
+    }
+    if (c) {
+      const cc = [...c] as [STATUS, STATUS];
+      // 直接设置为undefined会刷新dom失败，hide后也会显示dom
+      // 需要异步才行
+      // cache.current = undefined;
+      nextTick(() => (cache.current = undefined));
+      return cc;
+    }
+    if (isInitDep && !appear) {
+      return [STATUS.idle, STATUS.idle];
+    }
+    if ((prev && !next) || (!prev && next)) {
+      cbRef.current = createAfterHandler();
+      return [STATUS.hide, STATUS.show];
+    }
+    switch (mode) {
+      case 'out-in':
+        cbRef.current = createAfterHandler(STATUS.none, STATUS.show);
+        return [STATUS.hide, STATUS.none];
+      case 'in-out':
+        cbRef.current = (_, __, lifeCircle) => {
+          if (LIFE_CIRCLE.after === lifeCircle) {
+            cbRef.current = createAfterHandler();
+            cache.current = [STATUS.hide, STATUS.idle];
+            forceUpdate();
+          }
+        };
+        return [STATUS.idle, STATUS.show];
+      default:
+        cbRef.current = createAfterHandler();
+        return [STATUS.hide, STATUS.show];
+    }
+  };
+
+  const status = res();
+  return [...childs, ...status, cbRef.current] as const;
 }
 
 export function useChildren<T extends El[] | El>(children: T) {
@@ -114,7 +100,8 @@ export function useTransition(
   status: STATUS,
   name: string,
   children?: El,
-  cb?: void | CB,
+  innerCB?: CB,
+  cb?: CB,
 ) {
   const elRef = useRef<HTMLElement>(null);
 
@@ -133,7 +120,7 @@ export function useTransition(
       el,
       classes,
       on: (lifeCircle) => {
-        // console.log('[life circle]:', LIFE_CIRCLE[type]);
+        innerCB?.(el, status, lifeCircle);
         cb?.(el, status, lifeCircle);
       },
     });
@@ -141,7 +128,7 @@ export function useTransition(
     return () => {
       trans.clearListener();
       // 如果把active的class也清理掉就跟vue的差不多了，不过那种动画会从头开始
-      trans.removeClass();
+      // trans.removeClass();
     };
   }, [children, status, classes, cb]);
 
@@ -149,22 +136,13 @@ export function useTransition(
     return;
   if (status === STATUS.idle) return children;
 
-  const className =
-    status === STATUS.show
-      ? [
-          children.props.className,
-          classes.fromClassName,
-          // classes.activeClassName,
-        ]
-          .filter((i) => Boolean(i))
-          .join(' ')
-      : children.props.className;
-
   return (
     <>
       {cloneElement(children, {
         ref: elRef,
-        className,
+        className: getClassNames(children.props.className, {
+          [classes.fromClassName]: status === STATUS.show,
+        }),
       })}
     </>
   );

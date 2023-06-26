@@ -4,7 +4,8 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Layout } from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import './all.scss';
 
 const App: React.FC = () => {
   const [, update] = useState({});
@@ -36,48 +37,14 @@ const App: React.FC = () => {
 
   return (
     <div className="transition-group-demo">
-      <style>
-        {`
-         .group-enter-active,
-        .group-leave-active,
-        .group-move {
-          transition: all 1.5s 0s linear;
-        }
-        .group-leave-active {
-          position: absolute;
-        }
-        .group-enter-from {
-          transform: scaleY(0.01) translate(0, -100%);
-          opacity: 0;
-        }
-        .group-leave-to {
-          transform: scaleY(0.01) translate(0, 100%);
-          opacity: 0;
-        }
-        .group-container {
-          text-align: left;
-        }
-        .transition-group-demo button {
-          user-select: none;
-        }
-        .transition-group-demo section button {
-          display: inline-block;
-          width: 60px;
-          height: 40px;
-        } 
-        `}
-      </style>
-      <br />
-      <br />
-      <Layout style={{ justifyContent: 'center', gap: '8px' }}>
+      <Space style={{ justifyContent: 'center' }}>
         <Button type="primary" onClick={addChild}>
           添加
         </Button>
-        <Button type="warning" onClick={shuffle}>
+        <Button type="primary" plain onClick={shuffle}>
           洗牌
         </Button>
-      </Layout>
-      <br />
+      </Space>
       <br />
       <TransitionGroup
         name="group"

@@ -25,6 +25,9 @@ const App: React.FC = () => {
     children.current.splice(index, 1);
     forceUpdate();
   }
+  function removeRandomChild() {
+    removeChild(children.current[~~(Math.random() * children.current.length)]!);
+  }
   function shuffle() {
     const list = children.current;
     const len = list.length;
@@ -44,13 +47,17 @@ const App: React.FC = () => {
         <Button type="primary" plain onClick={shuffle}>
           洗牌
         </Button>
+        <Button type="warning" plain onClick={removeRandomChild}>
+          移除
+        </Button>
       </Space>
       <br />
       <TransitionGroup
         name="group"
         tag="section"
         className="group-container"
-        style={{ background: 'gray' }}>
+        style={{ background: 'gray' }}
+        appear>
         {children.current.map((item) => {
           return (
             <button key={item} onClick={() => removeChild(item)}>

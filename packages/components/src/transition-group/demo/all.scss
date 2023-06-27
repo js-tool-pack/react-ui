@@ -3,8 +3,8 @@ $name: 'group';
 .#{$name} {
   &-enter-active,
   &-leave-active,
-  &-move {
-    transition: all 1.5s ease-in-out;
+  &-move-active {
+    transition: all 1s ease;
   }
   &-leave-active {
     position: absolute;

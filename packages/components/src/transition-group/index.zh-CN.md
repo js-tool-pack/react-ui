@@ -19,7 +19,7 @@ group:
 
 :::info{title=tips}
 TransitionGroup 基于 Transition，会给它触发了动画的 children 套上 Transition 组件；  
-TransitionGroup 比 Transition 多一个 `${name}-move`的 className。
+TransitionGroup 比 Transition 多一个 `${name}-move-active`的 className。
 :::
 
 ## 代码演示

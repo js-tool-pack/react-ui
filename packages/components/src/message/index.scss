@@ -54,10 +54,10 @@ $q: '#{$r}-queue';
 .#{$q} {
   &-enter-active,
   &-leave-active,
-  &-move {
+  &-move-active {
     transition: all 0.3s ease-out;
   }
-  &-move {
+  &-move-active {
     transition-timing-function: linear;
   }
   &-leave-active {

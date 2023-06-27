@@ -26,7 +26,7 @@ const TransitionGroup: React.FC<TransitionGroupProps> = (
         <Transition
           name={name}
           mode={mode}
-          appear={_appear}
+          appear={child.status === ChildStatus.enter && _appear}
           key={child.component.key}
           on={child.on}>
           {child.status === ChildStatus.leave ? undefined : child.component}

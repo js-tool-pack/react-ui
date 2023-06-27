@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useMemo,
-  RefObject,
-  useCallback,
-  useLayoutEffect,
-} from 'react';
+import React, { useRef, useMemo, RefObject, useLayoutEffect } from 'react';
 import { LIFE_CIRCLE } from '../transition/transition.enums';
 import { ChildStatus } from './transition-group.enums';
 import { applyTranslation } from './transition-group.utils';
@@ -28,10 +22,10 @@ export function useDispatcher(
   const isInit = useIsInitDep(children);
   const keyMap = useKeyMap(children);
   const childList = useRef<Child[]>([]);
-  const appearRef = useRef<boolean>(true);
-  const [rectMap, refreshRectMap] = useRectMap(el, childList);
+  const appearRef = useRef<boolean>(appear);
+  const [rectMap, refreshRect] = useRectMap(el, childList);
 
-  const runFlip = useCallback(() => {
+  const runFlip = () => {
     if (!el.current?.children?.length) return;
 
     const children = el.current.children;
@@ -40,7 +34,7 @@ export function useDispatcher(
       if (child.status !== ChildStatus.move) return;
       const rect = rectMap.current.get(child.component.key!)!;
       const el = children[index] as HTMLElement;
-      const moveClass = `${name}-move`;
+      const moveClass = `${name}-move-active`;
       if (applyTranslation(el, rect)) {
         el.addEventListener('transitionend', function handler() {
           el.classList.remove(moveClass);
@@ -56,9 +50,9 @@ export function useDispatcher(
     });
     nextTick(() => startHandlers.forEach((h) => h()));
     reflow(el.current);
-  }, [el, forceUpdate, name, rectMap]);
+  };
 
-  const updateDiff = useCallback(() => {
+  const updateDiff = () => {
     const originKeyMap = new Map<CompKey, { index: number; child: Child }>();
 
     const len = childList.current.length || 0;
@@ -131,10 +125,10 @@ export function useDispatcher(
         runFlip();
       });
     }
-  }, [children, keyMap, isInit, appear, forceUpdate, runFlip]);
+  };
 
   useLayoutEffect(() => {
-    refreshRectMap();
+    refreshRect();
     updateDiff();
     appearRef.current = !isInit || appear;
     forceUpdate();
@@ -159,7 +153,7 @@ export function useRectMap(
 ) {
   const rectMap = useRef(new Map<CompKey, DOMRect>());
 
-  const refreshRectMap = useCallback(() => {
+  const refreshRect = () => {
     if (!el) return;
     rectMap.current.clear();
     childList.current?.forEach((child, index) => {
@@ -168,7 +162,7 @@ export function useRectMap(
       const rect = node.getBoundingClientRect();
       rectMap.current.set(child.component.key!, rect);
     });
-  }, [childList, el]);
+  };
 
-  return [rectMap, refreshRectMap] as const;
+  return [rectMap, refreshRect] as const;
 }

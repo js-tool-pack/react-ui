@@ -1,23 +1,20 @@
 import React, { memo } from 'react';
 import { useDispatcher, useTransition } from './transition.hooks';
 import type { TransitionProps } from './transition.types';
+import type { RequiredPart } from '@tool-pack/types';
 
-const Transition: React.FC<TransitionProps> = ({
-  children,
-  name = 'trans',
-  mode = 'default' /* , show */,
-  appear = false,
-  on,
-}): React.ReactElement => {
+const Transition: React.FC<TransitionProps> = (props): React.ReactElement => {
+  const { children, name, mode, appear, on, show } = props as RequiredPart<
+    TransitionProps,
+    'name' | 'mode' | 'appear'
+  >;
   const [prev, next, prevStatus, nextStatus, handler] = useDispatcher(
     mode,
-    // show,
+    show,
     appear,
     children,
   );
 
-  // const prevView = useTransition('prev', prevStatus, name, prev, onAfterCb);
-  // const nextView = useTransition('next', nextStatus, name, next, onAfterCb);
   const prevView = useTransition(prevStatus, name, prev, handler, on);
   const nextView = useTransition(nextStatus, name, next, handler, on);
 
@@ -31,4 +28,12 @@ const Transition: React.FC<TransitionProps> = ({
     </>
   );
 };
+
+Transition.displayName = 'Transition';
+Transition.defaultProps = {
+  name: 'trans',
+  mode: 'default',
+  appear: false,
+};
+
 export default memo(Transition);

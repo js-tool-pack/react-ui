@@ -1,4 +1,5 @@
 export enum LIFE_CIRCLE {
+  ready,
   before,
   run,
   running,
@@ -12,4 +13,5 @@ export enum STATUS {
   idle,
   show,
   hide,
+  invisible,
 }

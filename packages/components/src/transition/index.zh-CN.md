@@ -45,6 +45,9 @@ Transition 会在一个元素或组件进入和离开 DOM 时应用动画，类�
 <code src="./demo/appear.tsx"></code>
 <code src="./demo/mode.tsx"></code>
 <code src="./demo/on.tsx"></code>
+<code src="./demo/input.tsx"></code>
+<code src="./demo/show.tsx"></code>
+<code src="./demo/show-appear.tsx"></code>
 
 ## API
 
@@ -56,3 +59,4 @@ Transition 的属性说明如下：
 | mode   | 动画类型，用于决定子元素进出场顺序                     | `out-in` \| `in-out` \| `default` | `default` |      |
 | appear | 用于设置初始时是否显示动画，只对组件第一次出现时起作用 | boolean                           | false     |
 | on     | 切换动画时的回调                                       | TransitionCB                      | -         |      |
+| show   | 类似 vue 版的 v-show 控制动画                          | boolean \| undefined              | -         |      |

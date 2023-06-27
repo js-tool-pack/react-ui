@@ -87,16 +87,16 @@ $c: '#{$prefix}dialog';
     }
     .#{$c}-enter-active,
     .#{$c}-leave-active {
-      transition: opacity var(--t-dialog-transition-duration) ease-in-out;
+      transition: opacity var(--t-dialog-transition-duration) ease;
       .#{$c} {
-        transition: all var(--t-dialog-transition-duration) linear;
+        transition: all var(--t-dialog-transition-duration) ease;
       }
     }
     .t-dialog-enter-from,
     .t-dialog-leave-to {
       opacity: 0;
       .#{$c} {
-        transform: scale(0);
+        transform: scale(0) translateZ(0);
       }
     }
   }

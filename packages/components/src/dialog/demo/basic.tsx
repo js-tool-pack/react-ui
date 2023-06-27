@@ -3,11 +3,13 @@
  * description: dialog的基础用法。
  */
 
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import { Button, Dialog } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useReducer((l) => !l, false);
+  const [value, setValue] = useState('');
+
   return (
     <div style={{ textAlign: 'center' }}>
       <Button type="primary" onClick={setVisible}>
@@ -19,7 +21,18 @@ const App: React.FC = () => {
         footer="footer"
         style={{ top: '100px' }}
         onClose={setVisible}>
-        body
+        <div>随便说说</div>
+        <textarea
+          style={{
+            marginTop: '10px',
+            display: 'block',
+            width: '100%',
+            boxSizing: 'border-box',
+          }}
+          placeholder="输入..."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
       </Dialog>
     </div>
   );

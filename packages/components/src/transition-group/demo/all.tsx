@@ -4,7 +4,8 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Layout } from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import './all.scss';
 
 const App: React.FC = () => {
   const [, update] = useState({});
@@ -24,6 +25,9 @@ const App: React.FC = () => {
     children.current.splice(index, 1);
     forceUpdate();
   }
+  function removeRandomChild() {
+    removeChild(children.current[~~(Math.random() * children.current.length)]!);
+  }
   function shuffle() {
     const list = children.current;
     const len = list.length;
@@ -36,54 +40,24 @@ const App: React.FC = () => {
 
   return (
     <div className="transition-group-demo">
-      <style>
-        {`
-         .group-enter-active,
-        .group-leave-active,
-        .group-move {
-          transition: all 1.5s 0s linear;
-        }
-        .group-leave-active {
-          position: absolute;
-        }
-        .group-enter-from {
-          transform: scaleY(0.01) translate(0, -100%);
-          opacity: 0;
-        }
-        .group-leave-to {
-          transform: scaleY(0.01) translate(0, 100%);
-          opacity: 0;
-        }
-        .group-container {
-          text-align: left;
-        }
-        .transition-group-demo button {
-          user-select: none;
-        }
-        .transition-group-demo section button {
-          display: inline-block;
-          width: 60px;
-          height: 40px;
-        } 
-        `}
-      </style>
-      <br />
-      <br />
-      <Layout style={{ justifyContent: 'center', gap: '8px' }}>
+      <Space style={{ justifyContent: 'center' }}>
         <Button type="primary" onClick={addChild}>
           添加
         </Button>
-        <Button type="warning" onClick={shuffle}>
+        <Button type="primary" plain onClick={shuffle}>
           洗牌
         </Button>
-      </Layout>
-      <br />
+        <Button type="warning" plain onClick={removeRandomChild}>
+          移除
+        </Button>
+      </Space>
       <br />
       <TransitionGroup
         name="group"
         tag="section"
         className="group-container"
-        style={{ background: 'gray' }}>
+        style={{ background: 'gray' }}
+        appear>
         {children.current.map((item) => {
           return (
             <button key={item} onClick={() => removeChild(item)}>

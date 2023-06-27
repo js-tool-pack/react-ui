@@ -20,8 +20,9 @@ export type TransitionGroupProps = Omit<
   React.HTMLAttributes<HTMLElement>,
   'children'
 > &
-  Pick<TransitionProps, 'name' | 'appear' | 'mode'> & {
+  Pick<TransitionProps, 'name' | 'mode'> & {
     children?: React.ReactElement[];
     tag?: keyof HTMLElementTagNameMap;
     on?: TransitionGroupCB;
+    appear?: boolean;
   };

@@ -1,0 +1,34 @@
+$name: 'group';
+
+.#{$name} {
+  &-enter-active,
+  &-leave-active,
+  &-move-active {
+    transition: all 1s ease;
+  }
+  &-leave-active {
+    position: absolute;
+  }
+  &-enter-from {
+    transform: scaleY(0.01) translate(0, -100%);
+    opacity: 0;
+  }
+  &-leave-to {
+    transform: scaleY(0.01) translate(0, 100%);
+    opacity: 0;
+  }
+}
+.transition-group-demo {
+  // position: relative;
+  .group-container {
+    text-align: left;
+  }
+  button {
+    user-select: none;
+  }
+  section button {
+    display: inline-block;
+    width: 60px;
+    height: 40px;
+  }
+}

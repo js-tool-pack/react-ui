@@ -12,10 +12,10 @@ export type CB = (
 ) => void;
 
 export interface TransitionProps {
-  // show?: boolean;
   name?: string;
   mode?: Mode;
   children?: React.ReactElement | boolean;
-  appear?: boolean;
+  appear?: boolean | null;
   on?: CB;
+  show?: boolean;
 }

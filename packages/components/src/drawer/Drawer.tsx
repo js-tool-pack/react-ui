@@ -7,6 +7,7 @@ import { Footer, Header, Layout, Main } from '../layouts';
 import {
   Button,
   Icon,
+  Resizer,
   Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
@@ -15,6 +16,13 @@ import { Close as CloseIcon } from '@pkg/icons';
 import { RequiredPart } from '@tool-pack/types';
 
 const rootClass = getComponentClass('drawer');
+type PL = Required<DrawerProps>['placement'];
+const resizePlaceMap: Record<PL, PL> = {
+  left: 'right',
+  right: 'left',
+  top: 'bottom',
+  bottom: 'top',
+};
 
 const _Drawer: React.FC<DrawerProps> = (props) => {
   const {
@@ -35,6 +43,7 @@ const _Drawer: React.FC<DrawerProps> = (props) => {
     style,
     size,
     appendTo,
+    resizeable,
     ...rest
   } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
 
@@ -97,6 +106,13 @@ const _Drawer: React.FC<DrawerProps> = (props) => {
         [className as string]: className,
       })}
       vertical>
+      {resizeable && (
+        <Resizer
+          placement={resizePlaceMap[placement]}
+          style={{ zIndex: 1 }}
+          min={10}
+        />
+      )}
       {header !== null && <Head />}
       <Main className={`${rootClass}__main`}>{children}</Main>
       {footer && <Footer className={`${rootClass}__footer`}>{footer}</Footer>}

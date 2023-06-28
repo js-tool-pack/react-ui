@@ -16,4 +16,5 @@ export type DrawerProps = React.HTMLAttributes<HTMLElement> & {
   destroyOnClose?: boolean | 'mixed';
   size?: React.CSSProperties['width'];
   appendTo?: HTMLElement | null;
+  resizeable?: boolean;
 };

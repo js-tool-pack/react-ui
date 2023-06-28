@@ -16,6 +16,7 @@ group:
 <code src="./demo/basic.tsx"></code>
 <code src="./demo/nest.tsx"></code>
 <code src="./demo/appendTo.tsx"></code>
+<code src="./demo/resizeable.tsx"></code>
 
 ## API
 
@@ -37,5 +38,6 @@ Drawer 的属性说明如下：
 | destroyOnClose   | 关闭组件后是否移除内部 dom；如果是 mixed 则第一次渲染时不会渲染 dom，组件关闭时不会移除内部 dom | boolean \| 'mixed'                     | 'mixed'       | --   |
 | size             | 组件窗体的宽高；当组件 palcement 为'left'\|'right'时为宽度，否则为高度                          | string \| number                       | '35%'         | --   |
 | appendTo         | 组件 dom 插入位置;默认插入 document.body，如果为 null 则插入当前位置                            | HTMLElement \| null                    | document.body | --   |
+| resizeable       | 是否可调整窗体大小                                                                              | boolean                                | false         | --   |
 
 抽屉窗体支持原生 HTMLElement 的其他所有属性。

@@ -14,7 +14,7 @@ export type MessagePushOptions = Pick<
   MessageProps,
   'type' | 'duration' | 'icon' | 'showClose' | 'hoverKeep' | 'className'
 > & {
-  content: string;
+  content: React.ReactNode;
 };
 export type MessageQueueRef = {
   push(options: MessagePushOptions): void;

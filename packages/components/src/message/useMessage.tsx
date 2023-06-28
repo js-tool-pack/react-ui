@@ -8,14 +8,14 @@ import type { PartialPart } from '@tool-pack/types';
 type Res = readonly [
   {
     open(
-      content: string,
+      content: MessagePushOptions['content'],
       options?: PartialPart<Omit<MessagePushOptions, 'content'>, 'type'>,
     ): void;
     clear(): void;
   } & Record<
     MessagePushOptions['type'],
     (
-      content: string,
+      content: MessagePushOptions['content'],
       options?: Omit<MessagePushOptions, 'type' | 'content'>,
     ) => void
   >,

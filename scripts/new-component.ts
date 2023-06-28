@@ -71,6 +71,10 @@ const rootName = getComponentClass('${config.name}');
 export const ${componentName}: React.FC<${props}> = (props) => {
   return <div {...props} className={rootName}></div>;
 }; 
+
+const defaultProps = {} satisfies Partial<${props}>;
+${componentName}.defaultProps = defaultProps;
+${componentName}.displayName = '${componentName}';
   `;
 
   return [filename, content];

@@ -3,4 +3,6 @@ import type { PLACEMENTS } from '@pkg/shared';
 
 export type ResizerProps = React.HTMLAttributes<HTMLElement> & {
   placement?: (typeof PLACEMENTS)[number];
+  min?: number;
+  max?: number;
 };

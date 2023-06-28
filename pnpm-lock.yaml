@@ -12,7 +12,7 @@ importers:
       '@testing-library/user-event': ^14.4.3
       '@tool-pack/basic': ^0.0.27
       '@tool-pack/bom': 0.0.1-beta.0
-      '@tool-pack/types': ^0.0.5
+      '@tool-pack/types': ^0.0.6
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.1
       '@types/node': ^16.18.34
@@ -69,7 +69,7 @@ importers:
       '@testing-library/user-event': 14.4.3
       '@tool-pack/basic': 0.0.27
       '@tool-pack/bom': 0.0.1-beta.0
-      '@tool-pack/types': 0.0.5
+      '@tool-pack/types': 0.0.6
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.2
       '@types/node': 16.18.34
@@ -4189,8 +4189,8 @@ packages:
     resolution: {integrity: sha512-8UsaHu8daGKlzhqhiieY2sCQj/GrupkO38Y1k0MUV7niZN+3R8okemOqb227WjKmO27xIWgLwFKfphbbd1ZQ4Q==}
     dev: true
 
-  /@tool-pack/types/0.0.5:
-    resolution: {integrity: sha512-xMQflmWTRjj6gapFgDqL70+dc8RitNbsSIQZi7Ad96IWm8PxbBMIONuuZ4cnSUPtq3X4w+CCmdzyb/Fxd9QyfQ==}
+  /@tool-pack/types/0.0.6:
+    resolution: {integrity: sha512-V2puQW1R2ufXhhHtGy7v5Kt/ulwfpEc87NK8iADwySU058oebY7gv+SdgehgTmbf6H2odqilcH5DeY8Acmhaww==}
     dev: true
 
   /@tootallnate/once/1.1.2:

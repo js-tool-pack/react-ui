@@ -51,7 +51,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@tool-pack/basic": "^0.0.27",
     "@tool-pack/bom": "0.0.1-beta.0",
-    "@tool-pack/types": "^0.0.5",
+    "@tool-pack/types": "^0.0.6",
     "@types/fs-extra": "^11.0.1",
     "@types/jest": "^29.5.1",
     "@types/node": "^16.18.34",

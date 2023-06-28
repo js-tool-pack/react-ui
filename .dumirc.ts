@@ -10,6 +10,7 @@ export default defineConfig({
   outputPath: 'docs-dist',
   themeConfig: {
     name: 'react-ui',
+    showLineNum: true,
     footer: `Open-source MIT Licensed | Copyright © ${new Date().getFullYear()}-present
     <br />
     Powered by <a href="${pkg.homepage}">${pkg.name.replace(

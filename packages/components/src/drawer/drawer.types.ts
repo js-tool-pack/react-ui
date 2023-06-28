@@ -1,14 +1,19 @@
 import React from 'react';
+import type { PLACEMENTS } from '@pkg/shared';
 
 export type DrawerProps = React.HTMLAttributes<HTMLElement> & {
-  name?: string;
-  reference?: React.ReactNode;
+  visible: boolean;
   header?: React.ReactNode;
-  footer?: React.ReactNode;
-  center?: boolean;
-  visible?: boolean;
+  title?: React.ReactNode;
+  showClose?: boolean;
+  closeIcon?: React.ReactNode;
   onClose?: () => void;
+  footer?: React.ReactNode;
+  onLeave?: () => void;
   zIndex?: number;
   closeOnClickMask?: boolean;
-  placement?: 'top' | 'bottom' | 'left' | 'right';
+  placement?: (typeof PLACEMENTS)[number];
+  destroyOnClose?: boolean | 'mixed';
+  size?: React.CSSProperties['width'];
+  appendTo?: HTMLElement | null;
 };

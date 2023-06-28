@@ -5,7 +5,7 @@
 
 import React, { useCallback, useRef, useState } from 'react';
 import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
-import './all.scss';
+import styles from './all.module.scss';
 
 const App: React.FC = () => {
   const [, update] = useState({});
@@ -39,7 +39,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="transition-group-demo">
+    <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
         <Button type="primary" onClick={addChild}>
           添加

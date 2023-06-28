@@ -1,0 +1,50 @@
+.root {
+  :global {
+    .boxes-wrapper {
+      position: relative;
+      min-height: 250px;
+    }
+    .box {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: rgb(222 133 210 / 62%);
+    }
+    .pos-origin {
+      position: relative;
+    }
+    .pos-top-right {
+      top: 0;
+      right: 0;
+    }
+    .pos-bottom-left {
+      bottom: 0;
+      left: 0;
+    }
+    .pos-bottom-right {
+      right: 0;
+      bottom: 0;
+    }
+    .flex-demo {
+      margin-top: 36px;
+    }
+    .flex-demo-box {
+      display: flex;
+      align-items: center;
+      height: 120px;
+      background-color: whitesmoke;
+      > div {
+        height: 100px;
+      }
+      .left {
+        position: relative;
+        width: 50%;
+        background-color: rgb(245 244 171 / 68%);
+      }
+      .right {
+        flex: 1;
+        background-color: wheat;
+      }
+    }
+  }
+}

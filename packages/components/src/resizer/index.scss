@@ -1,0 +1,59 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}resizer';
+
+.#{$r} {
+  --t-resizer-padding: 5px;
+  --t-resizer-size: 3px;
+  --t-resizer-border-color: var(--t-color-warning);
+
+  position: absolute;
+  user-select: none;
+  &::after {
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    background-color: var(--t-resizer-border-color);
+    opacity: 0;
+    transition: opacity var(--t-transition-duration);
+    content: '';
+  }
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
+  }
+  &--right,
+  &--left {
+    top: 0;
+    bottom: 0;
+    padding: 0 var(--t-resizer-padding);
+    width: var(--t-resizer-size);
+    cursor: col-resize;
+  }
+  &--right {
+    right: 0;
+    transform: translateX(50%);
+  }
+  &--left {
+    left: 0;
+    transform: translateX(-50%);
+  }
+  &--top,
+  &--bottom {
+    right: 0;
+    left: 0;
+    padding: var(--t-resizer-padding) 0;
+    height: var(--t-resizer-size);
+    cursor: row-resize;
+  }
+  &--top {
+    top: 0;
+    transform: translateY(-50%);
+  }
+  &--bottom {
+    bottom: 0;
+    transform: translateY(50%);
+  }
+}

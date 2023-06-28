@@ -8,3 +8,5 @@ export * from './icon';
 export * from './space';
 export * from './message';
 export * from './divider';
+export * from './drawer';
+export { PLACEMENTS } from '@pkg/shared';

@@ -18,7 +18,7 @@ const App: React.FC = () => {
       <br />
       <br />
       <div className="transition-box">
-        <Transition name="fade" appear>
+        <Transition name="fade">
           {visible && (
             <Button type="warning" className="fade" key={1} disabled>
               single
@@ -38,7 +38,7 @@ const App: React.FC = () => {
         </Transition>
       </div>
       <div className="transition-box">
-        <Transition name="fade" mode="in-out" appear>
+        <Transition name="fade" mode="in-out">
           {visible ? (
             <div className="fade" key={1}>
               in-out(in)

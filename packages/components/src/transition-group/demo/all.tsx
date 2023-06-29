@@ -56,8 +56,7 @@ const App: React.FC = () => {
         name="group"
         tag="section"
         className="group-container"
-        style={{ background: 'gray' }}
-        appear>
+        style={{ background: 'gray' }}>
         {children.current.map((item) => {
           return (
             <button key={item} onClick={() => removeChild(item)}>

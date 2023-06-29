@@ -20,7 +20,7 @@ const App: React.FC = () => {
       <Button type="primary" shape="round" onClick={setVisible}>
         切 换
       </Button>
-      <Transition name="fade" show={visible} appear>
+      <Transition name="fade" show={visible}>
         <textarea
           key={1}
           value={value}
@@ -29,7 +29,7 @@ const App: React.FC = () => {
           placeholder="通过show控制动画。调整两个输入框的宽高并切换动画看看它们的区别"
         />
       </Transition>
-      <Transition name="fade" appear>
+      <Transition name="fade">
         {visible && (
           <textarea
             key={1}

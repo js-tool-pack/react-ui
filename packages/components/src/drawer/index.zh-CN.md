@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Drawer
-subtitle: Drawer
+title: Drawer 抽屉
+atomId: Drawer
 demo:
   cols: 2
 group:

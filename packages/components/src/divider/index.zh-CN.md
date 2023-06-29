@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Divider
-subtitle: 分割线
+title: Divider 分割线
+atomId: Divider
 demo:
   cols: 2
 group:

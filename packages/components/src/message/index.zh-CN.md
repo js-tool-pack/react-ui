@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Message
-subtitle: 信息
+title: Message 信息
+atomId: Message
 demo:
   cols: 2
 group:

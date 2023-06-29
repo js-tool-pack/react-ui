@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Resizer
-subtitle: 宽高修改组件
+title: Resizer 修改宽高
+atomId: Resizer
 demo:
   cols: 1
 group:

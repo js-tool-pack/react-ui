@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Space
-subtitle: 间距
+title: Space 间距
+atomId: Space
 demo:
   cols: 2
 group:

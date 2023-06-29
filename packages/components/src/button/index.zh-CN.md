@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Button
-subtitle: 按钮
+title: Button 按钮
+atomId: Button
 demo:
   cols: 2
 group:

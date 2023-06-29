@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Layout
-subtitle: 布局
+title: Layout 布局
+atomId: Layout
 demo:
   cols: 2
 group:

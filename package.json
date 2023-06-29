@@ -45,6 +45,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
+    "@mxssfd/dumi-theme-antd-style": "^0.27.5-beta.2",
     "@rollup/plugin-json": "^6.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -63,7 +64,7 @@
     "@umijs/lint": "^4.0.0",
     "@vitejs/plugin-react": "^4.0.0",
     "chalk": "^5.2.0",
-    "dumi": "^2.2.0",
+    "dumi": "^2.2.1",
     "enquirer": "^2.3.6",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",

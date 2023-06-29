@@ -1,3 +1,10 @@
+---
+title: 使用方式
+nav:
+  title: 指南
+  order: 1
+---
+
 ## 安装
 
 npm

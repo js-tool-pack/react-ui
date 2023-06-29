@@ -1,8 +1,8 @@
 ---
 order: -2
 category: Components
-title: Transition
-subtitle: 动画
+title: Transition 动画
+atomId: Transition
 cover: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*BrFMQ5s7AAQAAAAAAAAAAAAADrJ8AQ/original
 coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*Lp1kTYmSsgoAAAAAAAAAAAAADrJ8AQ/original
 demo:

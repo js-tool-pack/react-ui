@@ -1,7 +1,7 @@
 ---
 category: Components
-title: Icon
-subtitle: 图标
+title: Icon 图标
+atomId: Icon
 demo:
   cols: 2
 group:

@@ -4,19 +4,28 @@ import * as Path from 'path';
 import pkg from './package.json';
 
 const pkgs = Fs.readdirSync(Path.resolve(__dirname, 'packages'));
+const pkgName = pkg.name.replace('-monorepo', '');
 
 export default defineConfig({
-  mfsu: false,
+  mfsu: true,
   outputPath: 'docs-dist',
   themeConfig: {
     name: 'react-ui',
     showLineNum: true,
-    footer: `Open-source MIT Licensed | Copyright © ${new Date().getFullYear()}-present
-    <br />
-    Powered by <a href="${pkg.homepage}">${pkg.name.replace(
-      '-monorepo',
-      '',
-    )}</a>`,
+    github: pkg.repository.url.replace(/^git\+|\.git$/g, ''),
+    // 目前的dumi-theme-antd-style主题不支持从这配置，已移动到.dumi/theme/slots/Footer/index.tsx配置
+    // footer: `Open-source MIT Licensed | Powered by <a href="${pkg.homepage}">${pkgName}</a>`,
+
+    // https://dumi-theme-antd-style.arvinx.app/config#apiheader
+    apiHeader: {
+      // 组件库包名，可以从 package.json 中引入名称
+      pkg: pkgName,
+      // 匹配路由，默认为 /api 或 /components
+      match: ['/components'],
+      // github 会匹配 themeConfig.github 字段
+      sourceUrl: `{github}/tree/main/packages/components/src/{atomId.kebab}/index.ts`,
+      docUrl: `{github}/tree/main/packages/components/src/{atomId.kebab}/index.{locale}.md`,
+    },
   },
   // apiParser: {},
   resolve: {

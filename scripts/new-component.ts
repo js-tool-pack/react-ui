@@ -138,8 +138,8 @@ function initDoc(): InitRes {
   const content = `
 ---
 category: Components
-title: ${config.componentName}
-subtitle: ${config.componentName}
+title: ${config.componentName} ${config.componentName}
+atomId: ${config.componentName}
 demo:
   cols: 2
 group:
@@ -172,7 +172,7 @@ function appendIndex() {
     Path.resolve(config.componentsPath, 'index.ts'),
     tsContent,
   );
-  const scssContent = `@import './${config.name}';`;
+  const scssContent = `\n@import './${config.name}';`;
   Fse.appendFileSync(
     Path.resolve(config.componentsPath, 'index.scss'),
     scssContent,

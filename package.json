@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "pnpm -C internal/playground start",
-    "build": "tsx scripts/build.ts -t",
+    "build:rollup": "tsx scripts/build.ts -t",
+    "build": "pnpm -C packages/react-ui build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "check:lint": "eslint \"**/*.{ts,tsx}\"",

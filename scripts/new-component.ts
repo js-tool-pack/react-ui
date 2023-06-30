@@ -1,5 +1,5 @@
 import { prompt } from 'enquirer';
-import { capitalize } from '@tool-pack/basic';
+import { pascalCase } from '@tool-pack/basic';
 import * as Path from 'path';
 import Fse from 'fs-extra';
 import chalk from 'chalk';
@@ -46,7 +46,7 @@ async function getConfig() {
     },
   }));
 
-  config.componentName = capitalize(config.name);
+  config.componentName = pascalCase(config.name);
 
   const { confirm } = await prompt<{ confirm: boolean }>({
     type: 'confirm',
@@ -187,7 +187,7 @@ function getFilename(
     {
       doc: 'index.zh-CN.md',
       scss: 'index.scss',
-      component: `${capitalize(name)}.tsx`,
+      component: `${config.componentName}.tsx`,
       index: 'index.ts',
       types: `${name}.types.ts`,
       demo: 'demo/basic.tsx',

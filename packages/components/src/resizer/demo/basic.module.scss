@@ -6,9 +6,22 @@
     }
     .box {
       position: absolute;
-      width: 100px;
-      height: 100px;
+      padding: 20px;
+      width: 80px;
+      height: 80px;
       background: rgb(222 133 210 / 62%);
+    }
+    .nest-box {
+      position: relative;
+      padding: 20px;
+      height: 80px;
+      background: rgb(222 133 210 / 62%);
+      > .inner-box {
+        position: relative;
+        width: auto;
+        height: 100%;
+        background-color: lightblue;
+      }
     }
     .pos-origin {
       position: relative;

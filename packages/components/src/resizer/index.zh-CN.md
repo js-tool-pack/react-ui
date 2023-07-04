@@ -15,6 +15,8 @@ Resizer html 元素宽高拖动修改组件。
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx"></code>
 <code src="./demo/limit.tsx"></code>
+<code src="./demo/nest.tsx"></code>
+<code src="./demo/inline.tsx"></code>
 
 ## API
 

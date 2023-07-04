@@ -7,6 +7,7 @@ $r: '#{$prefix}word-balloon';
   --t-word-balloon-arrow-offset: calc(var(--t-radius) + 2px);
 
   position: relative;
+  display: inline-block;
   &__content {
     padding: var(--t-radius) 14px;
     min-width: 32px;
@@ -71,8 +72,7 @@ $r: '#{$prefix}word-balloon';
     &-start,
     &-end {
       .#{$r}__arrow {
-        bottom: 100%;
-        transform: rotate(180deg);
+        top: 100%;
       }
     }
   }
@@ -81,9 +81,9 @@ $r: '#{$prefix}word-balloon';
     &-start,
     &-end {
       .#{$r}__arrow {
-        left: 100%;
-        margin-left: -$arrow-height;
-        transform: rotate(-90deg);
+        right: 100%;
+        margin-right: -$arrow-height;
+        transform: rotate(90deg);
       }
     }
   }
@@ -92,7 +92,8 @@ $r: '#{$prefix}word-balloon';
     &-start,
     &-end {
       .#{$r}__arrow {
-        top: 100%;
+        bottom: 100%;
+        transform: rotate(180deg);
       }
     }
   }
@@ -101,9 +102,9 @@ $r: '#{$prefix}word-balloon';
     &-start,
     &-end {
       .#{$r}__arrow {
-        right: 100%;
-        margin-right: -$arrow-height;
-        transform: rotate(90deg);
+        left: 100%;
+        margin-left: -$arrow-height;
+        transform: rotate(-90deg);
       }
     }
   }

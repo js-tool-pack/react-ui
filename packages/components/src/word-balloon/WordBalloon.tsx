@@ -18,6 +18,7 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
     style,
     contentStyle,
     arrowStyle,
+    className,
     ...rest
   } = props as RequiredPart<WordBalloonProps, keyof typeof defaultProps>;
   return (
@@ -30,7 +31,11 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
           '--t-word-balloon-bg': background || '',
         } as React.CSSProperties
       }
-      className={getClassNames(rootName, `${rootName}--${placement}`)}>
+      className={getClassNames(
+        rootName,
+        className,
+        `${rootName}--${placement}`,
+      )}>
       <div className={`${rootName}__content`} style={contentStyle}>
         {children}
       </div>
@@ -46,7 +51,7 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
 });
 
 const defaultProps = {
-  placement: 'bottom',
+  placement: 'top',
   showArrow: true,
 } satisfies Partial<WordBalloonProps>;
 WordBalloon.defaultProps = defaultProps;

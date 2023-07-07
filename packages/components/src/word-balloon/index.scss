@@ -14,9 +14,9 @@ $r: '#{$prefix}word-balloon';
     min-height: 32px;
     border-radius: var(--t-radius);
     white-space: pre-wrap;
+    color: var(--t-text-color);
     background: var(--t-word-balloon-bg);
-    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
-      0 9px 28px 8px rgb(0 0 0 / 5%);
+    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
     word-wrap: break-word;
     box-sizing: border-box;
   }

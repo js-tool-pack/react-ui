@@ -8,4 +8,5 @@ export type SpaceProps = React.HTMLAttributes<HTMLElement> & {
   inline?: boolean;
   fill?: boolean;
   fillRatio?: number;
+  ref?: React.Ref<HTMLElement>;
 };

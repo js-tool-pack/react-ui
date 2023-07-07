@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import type { ResizerProps } from './resizer.types';
-import { getComponentClass } from '@pkg/shared';
+import { getComponentClass, getElRealSize } from '@pkg/shared';
 import { onDragEvent } from '@tool-pack/dom';
 import { getClassNames } from '@tool-pack/basic';
 import type { RequiredPart } from '@tool-pack/types';
@@ -25,9 +25,7 @@ export const Resizer: React.FC<ResizerProps> = (props) => {
         let w = 0;
 
         onDown(() => {
-          const computed = getComputedStyle(parent);
-          h = parseFloat(computed.height);
-          w = parseFloat(computed.width);
+          [w, h] = getElRealSize(parent);
         });
 
         const handlerMap: Record<

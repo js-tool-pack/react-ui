@@ -6,6 +6,7 @@ $r: '#{$prefix}drawer';
   position: absolute;
   max-width: 100vw;
   max-height: 100vh;
+  color: var(--t-text-color);
   background-color: var(--t-bg-color);
   box-shadow: rgb(0 0 0 / 8%) 0 6px 16px 0, rgb(0 0 0 / 12%) 0 3px 6px -4px,
     rgb(0 0 0 / 5%) 0 9px 28px 8px;
@@ -13,7 +14,7 @@ $r: '#{$prefix}drawer';
   &__mask {
     position: absolute;
     inset: 0;
-    background-color: var(--t-mask-bg-color-reverse);
+    background-color: var(--t-mask-bg-color);
   }
   &__main {
     padding: 20px;

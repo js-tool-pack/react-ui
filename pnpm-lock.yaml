@@ -6,13 +6,14 @@ importers:
     specifiers:
       '@commitlint/cli': ^17.6.5
       '@commitlint/config-conventional': ^17.6.5
-      '@mxssfd/dumi-theme-antd-style': ^0.27.5-beta.2
+      '@mxssfd/dumi-theme-antd-style': ^0.27.5-beta.8
       '@rollup/plugin-json': ^6.0.0
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^14.0.0
       '@testing-library/user-event': ^14.4.3
-      '@tool-pack/basic': ^0.0.27
+      '@tool-pack/basic': ^0.1.0
       '@tool-pack/bom': 0.0.1-beta.0
+      '@tool-pack/dom': ^0.0.5
       '@tool-pack/types': ^0.0.6
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.1
@@ -64,13 +65,14 @@ importers:
     devDependencies:
       '@commitlint/cli': 17.6.5
       '@commitlint/config-conventional': 17.6.5
-      '@mxssfd/dumi-theme-antd-style': 0.27.5-beta.2_gcc6bjtdpifl4cs2fo2vfujizq
+      '@mxssfd/dumi-theme-antd-style': 0.27.5-beta.8_gcc6bjtdpifl4cs2fo2vfujizq
       '@rollup/plugin-json': 6.0.0_rollup@3.23.0
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@tool-pack/basic': 0.0.27
+      '@tool-pack/basic': 0.1.0
       '@tool-pack/bom': 0.0.1-beta.0
+      '@tool-pack/dom': 0.0.5
       '@tool-pack/types': 0.0.6
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.2
@@ -3516,8 +3518,8 @@ packages:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
     dev: true
 
-  /@mxssfd/dumi-theme-antd-style/0.27.5-beta.2_gcc6bjtdpifl4cs2fo2vfujizq:
-    resolution: {integrity: sha512-n8tTMhSZHL3ir6ZQSrZsiIP7XnrLv/kb8O7UjHSMQWSKzHMWiHq51sBu6LQSrloHd7ciXabh2gZbZgEKPIw7Nw==}
+  /@mxssfd/dumi-theme-antd-style/0.27.5-beta.8_gcc6bjtdpifl4cs2fo2vfujizq:
+    resolution: {integrity: sha512-CCiYH6KqqkY6vq+cmd4mRQtB/WgnxL2WHdAHY1suzayIEp3cjpI/SaK5wy6+LUUJtN16E7MUN6DsDyk4bQ2d4g==}
     peerDependencies:
       dumi: ^2.0.0
       react: '>=16.8'
@@ -4476,16 +4478,16 @@ packages:
       '@testing-library/dom': '>=7.21.4'
     dev: true
 
-  /@tool-pack/basic/0.0.27:
-    resolution: {integrity: sha512-J4H+fpGyjr6ALqojG3IzhU08CTr6tFU8hyxydHerwnujGHSF+BlzFpMcWAZ0Hc1QMqBHmGqj9bMu/MVu1FbVJQ==}
-    dependencies:
-      '@tool-pack/types': 0.0.4
-    dev: true
-
   /@tool-pack/basic/0.0.9:
     resolution: {integrity: sha512-cZ/UmMD0Mnp+AodcQIKR+xMwwZ/A9vYCOWVtbotqzpzp9ngPm/I0ej+vhVz1epnYiBnm5iYTUbB7EepRH0Mdmw==}
     dependencies:
       '@tool-pack/types': 0.0.1
+    dev: true
+
+  /@tool-pack/basic/0.1.0:
+    resolution: {integrity: sha512-Xglu6SSc3BbxEJzCs18D2DpqOKSrzJ6qbux+GP5iqyaNgaDL0Y95UQ9SRLdGv4Ed3hfAktOcy8o3z3bApVToaA==}
+    dependencies:
+      '@tool-pack/types': 0.0.6
     dev: true
 
   /@tool-pack/bom/0.0.1-beta.0:
@@ -4502,12 +4504,15 @@ packages:
       '@tool-pack/types': 0.0.1
     dev: true
 
-  /@tool-pack/types/0.0.1:
-    resolution: {integrity: sha512-PuOKplXpssrNTTj5UPEvRSSVlWT5T4Pt7WtgPpazAlFynY8FZFofLJlOmsQMXlmdZmS1P9yKHCZECNgOoPCbeA==}
+  /@tool-pack/dom/0.0.5:
+    resolution: {integrity: sha512-d8aRDaBzLGqHntSI6nOYvbTnO0FjbUPZas2VBbeemRNYUrZL4ClOEj1oJjjwSC5GlLJT7gUdDyNx9g4BDhA0tA==}
+    dependencies:
+      '@tool-pack/basic': 0.1.0
+      '@tool-pack/types': 0.0.6
     dev: true
 
-  /@tool-pack/types/0.0.4:
-    resolution: {integrity: sha512-8UsaHu8daGKlzhqhiieY2sCQj/GrupkO38Y1k0MUV7niZN+3R8okemOqb227WjKmO27xIWgLwFKfphbbd1ZQ4Q==}
+  /@tool-pack/types/0.0.1:
+    resolution: {integrity: sha512-PuOKplXpssrNTTj5UPEvRSSVlWT5T4Pt7WtgPpazAlFynY8FZFofLJlOmsQMXlmdZmS1P9yKHCZECNgOoPCbeA==}
     dev: true
 
   /@tool-pack/types/0.0.6:

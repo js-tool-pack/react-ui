@@ -9,5 +9,7 @@ export * from './space';
 export * from './message';
 export * from './divider';
 export * from './drawer';
-export { PLACEMENTS } from '@pkg/shared';
+export { PLACEMENTS, PLACEMENTS_8, PLACEMENTS_12 } from '@pkg/shared';
 export * from './resizer';
+export * from './word-balloon';
+export * from './tooltip';

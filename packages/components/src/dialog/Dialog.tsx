@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useEffect } from 'react';
+import React, { memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass } from '@pkg/shared';
+import { getComponentClass, Z_INDEX } from '@pkg/shared';
 import { Close as CloseIcon } from '@pkg/icons';
 import { Icon } from '../icon';
 import { Button } from '../button';
@@ -12,7 +12,8 @@ import {
   TRANSITION_STATUS,
 } from '../transition';
 import { DialogProps } from './dialog.types';
-import { useShow, useTransitionOrigin } from './dialog.hooks';
+import { useEsc, useShow, useTransitionOrigin } from './dialog.hooks';
+import { RequiredPart } from '@tool-pack/types';
 
 const rootClass = getComponentClass('dialog');
 
@@ -31,21 +32,15 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     style,
     esc,
     ...rest
-  } = props;
+  } = props as RequiredPart<DialogProps, keyof typeof defaultProps>;
 
   const [show, close] = useShow(visible);
   const transformOrigin = useTransitionOrigin(props, show);
+  useEsc(show, esc, close);
 
   const handleMaskClick = useCallback(() => {
     closeOnClickMask && close();
   }, [closeOnClickMask, close]);
-
-  useEffect(() => {
-    if (!show || !esc) return;
-    const handler = (e: KeyboardEvent) => e.key === 'Escape' && close();
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  }, [show, esc]);
 
   const onTransitionChange = useCallback(
     (
@@ -132,8 +127,10 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
   );
 });
 
-Dialog.defaultProps = {
-  zIndex: 100,
-};
+const defaultProps = {
+  zIndex: Z_INDEX,
+  esc: false,
+} satisfies Partial<DialogProps>;
+Dialog.defaultProps = defaultProps;
 
 Dialog.displayName = 'Dialog';

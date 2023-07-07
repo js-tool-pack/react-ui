@@ -45,3 +45,12 @@ export function useTransitionOrigin(props: DialogProps, show: boolean) {
 
   return transformOrigin;
 }
+
+export function useEsc(show: boolean, esc: boolean, handler: () => void) {
+  useEffect(() => {
+    if (!show || !esc) return;
+    const _handler = (e: KeyboardEvent) => e.key === 'Escape' && handler();
+    window.addEventListener('keydown', _handler);
+    return () => window.removeEventListener('keydown', _handler);
+  }, [show, esc]);
+}

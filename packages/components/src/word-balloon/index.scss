@@ -1,0 +1,111 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}word-balloon';
+
+.#{$r} {
+  --t-word-balloon-bg: var(--t-bg-color);
+  --t-word-balloon-arrow-offset: calc(var(--t-radius) + 2px);
+
+  position: relative;
+  display: inline-block;
+  &__content {
+    padding: var(--t-radius) 14px;
+    min-width: 32px;
+    min-height: 32px;
+    border-radius: var(--t-radius);
+    white-space: pre-wrap;
+    color: var(--t-text-color);
+    background: var(--t-word-balloon-bg);
+    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
+    word-wrap: break-word;
+    box-sizing: border-box;
+  }
+
+  $arrow-height: 5.51px;
+  &__arrow {
+    position: absolute;
+    width: 16px;
+    height: $arrow-height;
+    font-size: 0;
+    svg {
+      fill: var(--t-word-balloon-bg);
+    }
+  }
+  &--top,
+  &--bottom {
+    .#{$r}__arrow {
+      right: 0;
+      left: 0;
+      margin: auto;
+    }
+    &-start {
+      .#{$r}__arrow {
+        left: var(--t-word-balloon-arrow-offset);
+      }
+    }
+    &-end {
+      .#{$r}__arrow {
+        right: var(--t-word-balloon-arrow-offset);
+      }
+    }
+  }
+  &--right,
+  &--left {
+    .#{$r}__arrow {
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    &-start {
+      .#{$r}__arrow {
+        top: var(--t-word-balloon-arrow-offset);
+      }
+    }
+    &-end {
+      .#{$r}__arrow {
+        bottom: var(--t-word-balloon-arrow-offset);
+      }
+    }
+  }
+  &--top {
+    &,
+    &-start,
+    &-end {
+      .#{$r}__arrow {
+        top: 100%;
+      }
+    }
+  }
+  &--right {
+    &,
+    &-start,
+    &-end {
+      .#{$r}__arrow {
+        right: 100%;
+        margin-right: -$arrow-height;
+        transform: rotate(90deg);
+      }
+    }
+  }
+  &--bottom {
+    &,
+    &-start,
+    &-end {
+      .#{$r}__arrow {
+        bottom: 100%;
+        transform: rotate(180deg);
+      }
+    }
+  }
+  &--left {
+    &,
+    &-start,
+    &-end {
+      .#{$r}__arrow {
+        left: 100%;
+        margin-left: -$arrow-height;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}

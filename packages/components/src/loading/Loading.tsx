@@ -6,7 +6,7 @@ import {
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
 } from '../transition';
-import { getComponentClass } from '@pkg/shared';
+import { getComponentClass, Z_INDEX } from '@pkg/shared';
 import { Loading as LoadingIcon } from '@pkg/icons';
 import { Icon } from '../icon';
 
@@ -90,9 +90,9 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
 Loading.defaultProps = {
   className: '',
   background: 'var(--t-mask-bg-color)',
-  color: 'var(--t-text-color)',
+  // color: 'var(--t-text-color)',
   mode: 'insert',
-  zIndex: 100,
+  zIndex: Z_INDEX,
   text: 'loading...',
   icon: (
     <Icon className="loading-rotate" size={50}>

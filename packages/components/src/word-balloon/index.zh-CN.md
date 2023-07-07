@@ -27,4 +27,4 @@ WordBalloon 的属性说明如下：
 | showArrow    | 是否显示箭头                                            | boolean                                                                                                                                                            | true   | --   |
 | placement    | 箭头对应气泡的位置<br /><div style="width:200px"></div> | 'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end' | 'top'  | --   |
 
-组件根元素支持原生 HTML 的其他所有属性。。
+组件根元素支持原生 HTML 的其他所有属性。

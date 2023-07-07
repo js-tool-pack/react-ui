@@ -12,3 +12,4 @@ export * from './drawer';
 export { PLACEMENTS, PLACEMENTS_8, PLACEMENTS_12 } from '@pkg/shared';
 export * from './resizer';
 export * from './word-balloon';
+export * from './tooltip';

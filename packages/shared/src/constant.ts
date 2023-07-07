@@ -14,13 +14,16 @@ export const PLACEMENTS_8 = [
 ] as const;
 // 12方位
 export const PLACEMENTS_12 = [
-  ...PLACEMENTS,
   'top-start',
+  PLACEMENTS[0],
   'top-end',
   'right-start',
+  PLACEMENTS[1],
   'right-end',
   'bottom-start',
+  PLACEMENTS[2],
   'bottom-end',
   'left-start',
+  PLACEMENTS[3],
   'left-end',
 ] as const;

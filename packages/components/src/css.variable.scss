@@ -11,7 +11,7 @@
   --t-radius: 8px;
   --t-size: 36px;
   --t-transition-duration: 0.5s;
-  --t-mask-bg-color: rgb(255 255 255 / 38%);
+  --t-mask-bg-color: rgb(0 0 0 / 45%);
   --t-mask-bg-color-reverse: rgb(0 0 0 / 45%);
   --t-text-color: black;
   --t-bg-color: white;
@@ -21,12 +21,11 @@
   --t-primary-hover-bg-color: #4096ff;
   --t-primary-disabled-bg-color: #83b5fa;
   &.dark {
-    --t-mask-bg-color: rgb(0 0 0 / 45%);
     --t-mask-bg-color-reverse: rgb(255 255 255 / 38%);
     --t-text-color: white;
     --t-text-hover-color: #c2c2c2;
     --t-text-reverse-color: black;
-    --t-bg-color: black;
+    --t-bg-color: #424242;
   }
   .#{$class-size-sm} {
     --t-radius: 4px;

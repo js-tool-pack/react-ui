@@ -65,11 +65,21 @@ function initComponent(): InitRes {
 import React from 'react';
 import type { ${props} } from './${getFilename('types').replace(/\.ts$/, '')}';
 import { getComponentClass } from '@pkg/shared';
+import type { RequiredPart } from '@tool-pack/types';
+import { getClassNames } from '@tool-pack/basic';
 
 const rootName = getComponentClass('${config.name}');
 
 export const ${componentName}: React.FC<${props}> = (props) => {
-  return <div {...props} className={rootName}></div>;
+  const { children, className, ...rest } = props as RequiredPart<
+    TooltipProps,
+    keyof typeof defaultProps
+  >;
+  return (
+    <div {...rest} className={getClassNames(rootName, className)}>
+      {children}
+    </div>
+  );
 }; 
 
 const defaultProps = {} satisfies Partial<${props}>;

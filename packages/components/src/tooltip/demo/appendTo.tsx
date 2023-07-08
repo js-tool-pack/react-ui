@@ -42,7 +42,7 @@ const App: React.FC = () => {
             trigger="click"
             appendTo={() => rootRef.current || document.body}
             style={{ width: '200px' }}
-            title={'渲染在Space内部'}>
+            title={'渲染在指定的html元素内'}>
             <Button id={'btn1'}>click</Button>
           </Tooltip>
         </div>

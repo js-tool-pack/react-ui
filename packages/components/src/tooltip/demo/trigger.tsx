@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { Tooltip, Button, Space } from '@tool-pack/react-ui';
 
-const triggers = ['hover', 'click', 'focus'] as const;
+const triggers = ['hover', 'click'] as const;
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(true);
@@ -15,18 +15,14 @@ const App: React.FC = () => {
     <Space style={{ paddingTop: '30px' }}>
       {triggers.map((trigger) => (
         <Tooltip key={trigger} trigger={trigger} title={trigger}>
-          <Button style={{ lineHeight: '1em' }}>{trigger + ' 触发'}</Button>
+          <Button>{trigger + ' 触发'}</Button>
         </Tooltip>
       ))}
-      <Tooltip
-        placement={'top'}
-        visible={visible}
-        title={'使用 visible 传参，外部控制显示隐藏'}>
-        <Button
-          style={{ lineHeight: '1em' }}
-          onClick={() => setVisible((v) => !v)}>
-          自定义
-        </Button>
+      <Tooltip trigger="focus" title="focus">
+        <input type="text" placeholder="focus 触发" />
+      </Tooltip>
+      <Tooltip visible={visible} title="使用 visible 传参，外部控制显示隐藏">
+        <Button onClick={() => setVisible((v) => !v)}>自定义</Button>
       </Tooltip>
     </Space>
   );

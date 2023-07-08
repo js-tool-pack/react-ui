@@ -1,22 +1,22 @@
 ---
 hero:
   title: 'react-ui'
-  description: 【@tool-pack/react-ui】 A react library developed with dumi
+  description: 一个普普通通没什么特点的react ui组件库
   actions:
     - text: 开始使用
       link: /guide
     - text: GitHub
       link: https://github.com/js-tool-pack/react-ui
 features:
-  - title: Hello
+  - title: 很普通
     emoji: 💎
-    description: Put hello description here
-  - title: World
+    description: 与其他组件库相比没什么优势
+  - title: 不完善
     emoji: 🌈
-    description: Put world description here
-  - title: '!'
+    description: 也没有其他组件库完善
+  - title: 数量不全
     emoji: 🚀
-    description: Put ! description here
+    description: 也没有其他组件库那么多组件
 ---
 
 @tool-pack/react-ui

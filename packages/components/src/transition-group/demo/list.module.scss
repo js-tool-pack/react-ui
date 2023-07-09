@@ -11,28 +11,20 @@ $name: 'group';
         position: absolute;
       }
       &-enter-from {
-        transform: scaleY(0.01) translate(0, -100%);
+        transform: translate(0, -100%);
         opacity: 0;
       }
       &-leave-to {
-        transform: scaleY(0.01) translate(0, 100%);
+        transform: translate(0, 100%);
         opacity: 0;
       }
     }
     .group-container {
-      margin: auto;
-      width: 300px;
-      font-size: 0;
-      text-align: left;
-      button {
+      white-space: nowrap;
+      div {
         display: inline-block;
-        width: 60px;
-        height: 40px;
-        font-size: 16px;
+        padding: 6px;
       }
-    }
-    button {
-      user-select: none;
     }
   }
 }

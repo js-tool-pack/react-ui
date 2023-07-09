@@ -1,0 +1,20 @@
+$name: 'group';
+.root {
+  :global {
+    .#{$name} {
+      &-move-active {
+        transition: all 1s ease;
+      }
+      &-leave-active {
+        position: absolute;
+      }
+    }
+    .group-container {
+      white-space: nowrap;
+      div {
+        display: inline-block;
+        padding: 6px;
+      }
+    }
+  }
+}

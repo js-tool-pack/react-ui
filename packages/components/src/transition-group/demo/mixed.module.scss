@@ -20,19 +20,11 @@ $name: 'group';
       }
     }
     .group-container {
-      margin: auto;
-      width: 300px;
-      font-size: 0;
-      text-align: left;
-      button {
+      white-space: nowrap;
+      div {
         display: inline-block;
-        width: 60px;
-        height: 40px;
-        font-size: 16px;
+        padding: 6px;
       }
-    }
-    button {
-      user-select: none;
     }
   }
 }

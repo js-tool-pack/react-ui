@@ -1,12 +1,10 @@
 /**
- * title: 总览
- * debug: true
- * description: 点击列表内的按钮移除元素。
+ * title: 多维表格排序过渡
  */
 
 import React, { useCallback, useRef, useState } from 'react';
 import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
-import styles from './all.module.scss';
+import styles from './flip.module.scss';
 
 const App: React.FC = () => {
   const [, update] = useState({});
@@ -14,21 +12,6 @@ const App: React.FC = () => {
 
   const children = useRef<number[]>([...Array.from({ length: 30 }).keys()]);
 
-  const index = useRef(children.current.length);
-  function addChild() {
-    children.current.push(index.current);
-    forceUpdate();
-    index.current++;
-  }
-  function removeChild(item: number) {
-    const index = children.current.indexOf(item);
-    if (index === -1) return;
-    children.current.splice(index, 1);
-    forceUpdate();
-  }
-  function removeRandomChild() {
-    removeChild(children.current[~~(Math.random() * children.current.length)]!);
-  }
   function shuffle() {
     const list = children.current;
     const len = list.length;
@@ -42,24 +25,14 @@ const App: React.FC = () => {
   return (
     <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
-        <Button type="primary" onClick={addChild}>
-          添加
-        </Button>
         <Button type="primary" plain onClick={shuffle}>
           洗牌
-        </Button>
-        <Button type="warning" plain onClick={removeRandomChild}>
-          移除
         </Button>
       </Space>
       <br />
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
-          return (
-            <button key={item} onClick={() => removeChild(item)}>
-              {item}
-            </button>
-          );
+          return <button key={item}>{item}</button>;
         })}
       </TransitionGroup>
     </div>

@@ -1,18 +1,16 @@
 /**
- * title: 总览
- * debug: true
- * description: 点击列表内的按钮移除元素。
+ * title: 排序过渡加列表过渡
  */
 
 import React, { useCallback, useRef, useState } from 'react';
 import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
-import styles from './all.module.scss';
+import styles from './mixed.module.scss';
 
 const App: React.FC = () => {
   const [, update] = useState({});
   const forceUpdate = useCallback(() => update({}), []);
 
-  const children = useRef<number[]>([...Array.from({ length: 30 }).keys()]);
+  const children = useRef<number[]>([...Array.from({ length: 10 }).keys()]);
 
   const index = useRef(children.current.length);
   function addChild() {
@@ -56,9 +54,10 @@ const App: React.FC = () => {
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
           return (
-            <button key={item} onClick={() => removeChild(item)}>
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+            <div key={item} onClick={() => removeChild(item)}>
               {item}
-            </button>
+            </div>
           );
         })}
       </TransitionGroup>

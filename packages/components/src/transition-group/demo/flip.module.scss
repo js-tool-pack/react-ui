@@ -2,21 +2,11 @@ $name: 'group';
 .root {
   :global {
     .#{$name} {
-      &-enter-active,
-      &-leave-active,
       &-move-active {
         transition: all 1s ease;
       }
       &-leave-active {
         position: absolute;
-      }
-      &-enter-from {
-        transform: scaleY(0.01) translate(0, -100%);
-        opacity: 0;
-      }
-      &-leave-to {
-        transform: scaleY(0.01) translate(0, 100%);
-        opacity: 0;
       }
     }
     .group-container {

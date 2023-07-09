@@ -6,7 +6,7 @@ importers:
     specifiers:
       '@commitlint/cli': ^17.6.5
       '@commitlint/config-conventional': ^17.6.5
-      '@mxssfd/dumi-theme-antd-style': ^0.27.5-beta.8
+      '@mxssfd/dumi-theme-antd-style': ^0.27.5-beta.9
       '@rollup/plugin-json': ^6.0.0
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^14.0.0
@@ -65,7 +65,7 @@ importers:
     devDependencies:
       '@commitlint/cli': 17.6.5
       '@commitlint/config-conventional': 17.6.5
-      '@mxssfd/dumi-theme-antd-style': 0.27.5-beta.8_gcc6bjtdpifl4cs2fo2vfujizq
+      '@mxssfd/dumi-theme-antd-style': 0.27.5-beta.9_gcc6bjtdpifl4cs2fo2vfujizq
       '@rollup/plugin-json': 6.0.0_rollup@3.23.0
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
@@ -3518,8 +3518,8 @@ packages:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
     dev: true
 
-  /@mxssfd/dumi-theme-antd-style/0.27.5-beta.8_gcc6bjtdpifl4cs2fo2vfujizq:
-    resolution: {integrity: sha512-CCiYH6KqqkY6vq+cmd4mRQtB/WgnxL2WHdAHY1suzayIEp3cjpI/SaK5wy6+LUUJtN16E7MUN6DsDyk4bQ2d4g==}
+  /@mxssfd/dumi-theme-antd-style/0.27.5-beta.9_gcc6bjtdpifl4cs2fo2vfujizq:
+    resolution: {integrity: sha512-PCxcUlTHBSPRa783BJP/Ng4S6+vw8/pO6iAKDuFWZYmamMLr6u/rfqt5X14afDIIP3ovGQkYDrKGTjV6qhcHTg==}
     peerDependencies:
       dumi: ^2.0.0
       react: '>=16.8'

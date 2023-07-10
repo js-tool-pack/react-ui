@@ -9,6 +9,8 @@ const pkgName = pkg.name.replace('-monorepo', '');
 export default defineConfig({
   mfsu: true,
   outputPath: 'docs-dist',
+  base: '/react-ui/',
+  publicPath: '/react-ui/',
   themeConfig: {
     name: 'react-ui',
     showLineNum: true,

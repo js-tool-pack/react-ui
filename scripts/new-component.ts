@@ -72,7 +72,7 @@ const rootName = getComponentClass('${config.name}');
 
 export const ${componentName}: React.FC<${props}> = (props) => {
   const { children, className, ...rest } = props as RequiredPart<
-    TooltipProps,
+    ${props},
     keyof typeof defaultProps
   >;
   return (

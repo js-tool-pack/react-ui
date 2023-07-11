@@ -22,13 +22,6 @@ PopConfirm 气泡确认框。
 
 PopConfirm 的属性说明如下：
 
-content?: React.ReactNode;
-confirmText?: string | null;
-onConfirm?: () => boolean | Promise<void> | void;
-cancelText?: string | null;
-onCancel?: () => boolean | Promise<void> | void;
-icon?: React.ReactNode;
-
 | 属性        | 说明                                                                                      | 类型                                   | 默认值  | 版本 |
 | ----------- | ----------------------------------------------------------------------------------------- | -------------------------------------- | ------- | ---- |
 | content     | 内容                                                                                      | React.ReactNode                        | --      | --   |

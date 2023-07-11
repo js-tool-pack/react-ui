@@ -6,11 +6,20 @@ import pkg from './package.json';
 const pkgs = Fs.readdirSync(Path.resolve(__dirname, 'packages'));
 const pkgName = pkg.name.replace('-monorepo', '');
 
+type ENV = 'development' | 'production';
+const map: Record<ENV, Parameters<typeof defineConfig>[0]> = {
+  development: {},
+  production: {
+    base: '/react-ui/',
+    publicPath: '/react-ui/',
+  },
+};
+const env = process.env['NODE_ENV'] as ENV;
+
 export default defineConfig({
+  ...map[env],
   mfsu: true,
   outputPath: 'docs-dist',
-  base: '/react-ui/',
-  publicPath: '/react-ui/',
   themeConfig: {
     name: 'react-ui',
     showLineNum: true,

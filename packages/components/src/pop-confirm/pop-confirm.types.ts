@@ -5,10 +5,11 @@ export type PopConfirmProps = Omit<
   React.HTMLAttributes<HTMLElement>,
   'children'
 > &
-  Pick<TooltipProps, 'placement' | 'trigger'> & {
-    header?: React.ReactNode;
+  TooltipProps & {
     content?: React.ReactNode;
-    children: React.ReactElement;
-    onConfirm?: () => void;
-    onCancel?: () => void;
+    confirmText?: string | null;
+    onConfirm?: () => boolean | Promise<void> | void;
+    cancelText?: string | null;
+    onCancel?: () => boolean | Promise<void> | void;
+    icon?: React.ReactNode;
   };

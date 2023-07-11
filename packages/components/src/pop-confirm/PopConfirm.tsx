@@ -1,42 +1,98 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import type { PopConfirmProps } from './pop-confirm.types';
 import { getComponentClass } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
+import { getClassNames, isPromiseLike } from '@tool-pack/basic';
 import { Tooltip } from '../tooltip';
-import { Layout, Footer, Main, Header } from '../layouts';
+import { Layout, Footer, Main } from '../layouts';
 import { Button } from '../button';
 import { Space } from '../space';
+import { Icon } from '../icon';
+import { CircleInfoFill } from '@pkg/icons';
 
 const rootName = getComponentClass('pop-confirm');
 
 export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
-  const { header, onConfirm, onCancel, children, content, className, ...rest } =
-    props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
+  const {
+    icon,
+    onConfirm,
+    confirmText,
+    onCancel,
+    cancelText,
+    children,
+    content,
+    className,
+    ...rest
+  } = props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
 
-  const Content = useMemo(
-    () => (
-      <Layout vertical>
-        {header !== null && <Header>{header}</Header>}
-        <Main>{content}</Main>
-        <Footer>
-          <Space>
-            <Button type="info" size="small" onClick={onCancel}>
-              取消
+  const [visible, setVisible] = useState<boolean | undefined>();
+
+  useEffect(() => {
+    visible !== undefined && setVisible(undefined);
+  }, [visible]);
+
+  const handleCallback = (
+    res: ReturnType<Required<PopConfirmProps>['onConfirm']>,
+  ) => {
+    const hide = () => setVisible(false);
+
+    if (isPromiseLike(res)) {
+      res.then(hide).catch();
+      return;
+    }
+    if (res === undefined || res) hide();
+  };
+
+  const _onCancel = useCallback(() => {
+    handleCallback(onCancel?.());
+  }, [onCancel]);
+  const _onConfirm = useCallback(() => {
+    handleCallback(onConfirm?.());
+  }, [onConfirm]);
+
+  const Content = (
+    <Layout vertical>
+      <Main className={`${rootName}__main`}>
+        <Space>
+          {icon !== null &&
+            (icon || (
+              <Icon className={`${rootName}__icon`}>
+                <CircleInfoFill />
+              </Icon>
+            ))}
+          {content}
+        </Space>
+      </Main>
+      <Footer className={`${rootName}__footer`}>
+        <Space>
+          {cancelText !== null && (
+            <Button
+              type="info"
+              plain
+              className={`${rootName}__cancel`}
+              size="small"
+              onClick={_onCancel}>
+              {cancelText}
             </Button>
-            <Button type="primary" size="small" onClick={onConfirm}>
-              确认
+          )}
+          {confirmText !== null && (
+            <Button
+              type="primary"
+              className={`${rootName}__confirm`}
+              size="small"
+              onClick={_onConfirm}>
+              {confirmText}
             </Button>
-          </Space>
-        </Footer>
-      </Layout>
-    ),
-    [content, onConfirm, onCancel],
+          )}
+        </Space>
+      </Footer>
+    </Layout>
   );
 
   return (
     <Tooltip
       {...rest}
+      visible={visible}
       className={getClassNames(rootName, className)}
       title={Content}>
       {children}
@@ -46,6 +102,8 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
 
 const defaultProps = {
   trigger: 'click',
+  confirmText: '确认',
+  cancelText: '取消',
 } satisfies Partial<PopConfirmProps>;
 PopConfirm.defaultProps = defaultProps;
 PopConfirm.displayName = 'PopConfirm';

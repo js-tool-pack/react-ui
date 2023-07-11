@@ -1,5 +1,17 @@
 @import '../scss.variable';
 
 $r: '#{$prefix}pop-confirm';
+$space: '#{$prefix}space';
 
-.#{$r} {}
+.#{$r} {
+  width: 180px;
+  &__icon {
+    color: var(--t-color-warning);
+  }
+  &__footer {
+    margin-top: 12px;
+    .#{$space} {
+      justify-content: flex-end;
+    }
+  }
+}

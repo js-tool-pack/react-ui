@@ -8,7 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm install
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+      - name: Set node version to 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
       - run: npm run docs:build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

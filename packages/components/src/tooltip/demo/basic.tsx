@@ -12,7 +12,7 @@ const App: React.FC = () => {
         <span>吾尝终日而思矣</span>
       </Tooltip>
       ；
-      <Tooltip title="不如登高之博见也">
+      <Tooltip title={<span>不如登高之博见也</span>}>
         <span>吾尝跂而望矣</span>
       </Tooltip>
       <Divider />

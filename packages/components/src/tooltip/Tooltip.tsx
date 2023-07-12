@@ -15,7 +15,7 @@ import {
   usePosition,
   useResizerObserver,
   useShowController,
-} from './Tooltip.hooks';
+} from '../popover/popover.hooks';
 
 const rootName = getComponentClass('tooltip');
 
@@ -89,7 +89,7 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
     <>
       {React.cloneElement(children, {
         ref: childrenRef,
-        key: children.key || 'tooltip-ref',
+        key: children.key || rootName,
       })}
       {createPortal(
         <Transition

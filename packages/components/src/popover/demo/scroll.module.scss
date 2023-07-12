@@ -1,0 +1,31 @@
+.root {
+  position: relative;
+  overflow: auto;
+  width: 300px;
+  height: 60px;
+  > section {
+    position: absolute;
+    &:nth-child(1) {
+      top: 0;
+      left: 80px;
+      justify-content: center;
+      width: 286px;
+    }
+    &:nth-child(2) {
+      top: var(--t-size);
+      left: 366px;
+      align-items: flex-start;
+    }
+    &:nth-child(3) {
+      top: 160px;
+      left: 80px;
+      justify-content: center;
+      width: 286px;
+    }
+    &:nth-child(4) {
+      top: var(--t-size);
+      left: 0;
+      align-items: flex-end;
+    }
+  }
+}

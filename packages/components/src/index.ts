@@ -14,3 +14,4 @@ export * from './resizer';
 export * from './word-balloon';
 export * from './tooltip';
 export * from './pop-confirm';
+export * from './popover';

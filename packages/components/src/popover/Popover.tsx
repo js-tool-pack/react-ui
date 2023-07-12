@@ -1,37 +1,37 @@
 import React, { useCallback, useRef } from 'react';
-import type { TooltipProps } from './tooltip.types';
+import type { PopoverProps } from './popover.types';
 import { getComponentClass, useResizeEvent } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import { WordBalloon } from '../word-balloon';
+import {
+  usePosition,
+  useResizerObserver,
+  useShowController,
+} from './popover.hooks';
 import { createPortal } from 'react-dom';
+import { WordBalloon } from '../word-balloon';
 import {
   Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
   TransitionCB,
 } from '../transition';
-import {
-  usePosition,
-  useResizerObserver,
-  useShowController,
-} from '../popover/popover.hooks';
 
-const rootName = getComponentClass('tooltip');
+const rootName = getComponentClass('popover');
 
-export const Tooltip: React.FC<TooltipProps> = (props) => {
+export const Popover: React.FC<PopoverProps> = (props) => {
   const {
     disabled,
     visible,
     trigger,
     placement,
     children,
-    title,
+    content,
     className,
     offset,
     appendTo,
     ...rest
-  } = props as RequiredPart<TooltipProps, keyof typeof defaultProps>;
+  } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
   const childrenRef = useRef<HTMLElement>(null);
   const balloonRef = useRef<HTMLDivElement>();
   const [refreshPosition, resetPlacement] = usePosition(
@@ -61,7 +61,7 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
       placement={placement}
       ref={balloonRef as React.Ref<HTMLDivElement>}
       className={getClassNames(rootName, className)}>
-      {title}
+      {content}
     </WordBalloon>
   );
 
@@ -110,6 +110,6 @@ const defaultProps = {
   trigger: 'hover',
   offset: 10,
   appendTo: () => document.body,
-} satisfies Partial<TooltipProps>;
-Tooltip.defaultProps = defaultProps;
-Tooltip.displayName = 'Tooltip';
+} satisfies Partial<PopoverProps>;
+Popover.defaultProps = defaultProps;
+Popover.displayName = 'Popover';

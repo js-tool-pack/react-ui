@@ -3,7 +3,7 @@ import type { PopConfirmProps } from './pop-confirm.types';
 import { getComponentClass } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames, isPromiseLike } from '@tool-pack/basic';
-import { Tooltip } from '../tooltip';
+import { Popover } from '../popover';
 import { Layout, Footer, Main } from '../layouts';
 import { Button } from '../button';
 import { Space } from '../space';
@@ -90,13 +90,13 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   );
 
   return (
-    <Tooltip
+    <Popover
       {...rest}
       visible={visible}
       className={getClassNames(rootName, className)}
-      title={Content}>
+      content={Content}>
       {children}
-    </Tooltip>
+    </Popover>
   );
 };
 

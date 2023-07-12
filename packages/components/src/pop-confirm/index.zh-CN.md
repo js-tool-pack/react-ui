@@ -30,6 +30,6 @@ PopConfirm 的属性说明如下：
 | cancelText  | 取消按钮文案，当值为 null 时，不显示取消按钮                                              | string \| null                          | '取消'  | --   |
 | onCancel    | 点击取消按钮时的回调，当回调返回值是 false 或者返回的 promise 的值是 false 则停止关闭窗体 | () => boolean \| Promise\<void> \| void | --      | --   |
 | icon        | 自定义 icon，如果为 null 则不显示 icon                                                    | React.ReactNode                         | --      | --   |
-| trigger     | 同 [tooltip](./tooltip#api)                                                               | --                                      | 'click' | --   |
+| trigger     | 同 [Popover](./popover#api)                                                               | --                                      | 'click' | --   |
 
-更多说明见[tooltip](./tooltip#api) 。
+更多说明见[Popover](./popover#api) 。

@@ -1,6 +1,8 @@
 .root {
   position: relative;
-  min-height: 230px;
+  overflow: auto;
+  width: 300px;
+  height: 60px;
   > section {
     position: absolute;
     &:nth-child(1) {

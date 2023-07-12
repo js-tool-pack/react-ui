@@ -1,5 +1,5 @@
 import { getElRealSize } from '@pkg/shared';
-import type { Placement, Placement_12 } from './tooltip.types';
+import type { Placement, Placement_12 } from './popover.types';
 import { calcDistanceWithParent } from '@tool-pack/dom';
 
 /**

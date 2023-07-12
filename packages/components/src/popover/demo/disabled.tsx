@@ -1,10 +1,10 @@
 /**
  * title: 禁用
- * description: 设置 disabled 为 true, 可以禁用 Tooltip 的任何触发显示方式。
+ * description: 设置 disabled 为 true, 可以禁用 Popover 的任何触发显示方式。
  */
 
 import React, { useState } from 'react';
-import { Tooltip, Button, Space } from '@tool-pack/react-ui';
+import { Popover, Button, Space } from '@tool-pack/react-ui';
 
 const triggers = ['hover', 'click'] as const;
 
@@ -23,23 +23,23 @@ const App: React.FC = () => {
       </label>
       <Space>
         {triggers.map((trigger) => (
-          <Tooltip
+          <Popover
             key={trigger}
             disabled={disabled}
             trigger={trigger}
-            title={trigger}>
+            content={trigger}>
             <Button>{trigger + ' 触发'}</Button>
-          </Tooltip>
+          </Popover>
         ))}
-        <Tooltip disabled={disabled} trigger="focus" title="focus">
+        <Popover disabled={disabled} trigger="focus" content="focus">
           <input type="text" placeholder="focus 触发" />
-        </Tooltip>
-        <Tooltip
+        </Popover>
+        <Popover
           disabled={disabled}
           visible={visible}
-          title="使用 visible 传参，外部控制显示隐藏">
+          content="使用 visible 传参，外部控制显示隐藏">
           <Button onClick={() => setVisible((v) => !v)}>自定义</Button>
-        </Tooltip>
+        </Popover>
       </Space>
     </Space>
   );

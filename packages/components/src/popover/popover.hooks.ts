@@ -1,7 +1,7 @@
 /*eslint no-case-declarations: "off"*/
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Placement_12, TooltipProps } from './tooltip.types';
-import { calcPlacement, calcPosition } from './tooltip.utils';
+import { Placement_12, PopoverProps } from './popover.types';
+import { calcPlacement, calcPosition } from './popover.utils';
 import { castArray, throttle } from '@tool-pack/basic';
 import {
   addOuterEventListener,
@@ -34,7 +34,7 @@ export function usePosition(
   placement: Placement_12,
   refEl: React.RefObject<HTMLElement>,
   relEl: React.MutableRefObject<HTMLElement | undefined>,
-  appendTo: Required<TooltipProps>['appendTo'],
+  appendTo: Required<PopoverProps>['appendTo'],
   offset: number,
 ) {
   const _placement = useRef(placement);
@@ -109,7 +109,7 @@ function hoverTriggerHandler(
 export function useShowController(
   disabled: boolean | void,
   visible: boolean | void,
-  trigger: Required<TooltipProps>['trigger'],
+  trigger: Required<PopoverProps>['trigger'],
   children: React.ReactElement,
   refEl: React.RefObject<HTMLElement>,
   relEl: React.MutableRefObject<HTMLElement | undefined>,

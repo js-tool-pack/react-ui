@@ -1,10 +1,10 @@
 /**
  * title: 插入html
- * description: 设置 appendTo 可以让 Tooltip 窗体插入指定的 html标签中。
+ * description: 设置 appendTo 可以让 Popover 窗体插入指定的 html标签中。
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Tooltip, Button } from '@tool-pack/react-ui';
+import { Popover, Button } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [, forceUpdate] = useState(0);
@@ -38,13 +38,13 @@ const App: React.FC = () => {
             justifyContent: 'center',
             position: 'relative',
           }}>
-          <Tooltip
+          <Popover
             trigger="click"
             appendTo={() => rootRef.current || document.body}
             style={{ width: '200px' }}
-            title={'渲染在指定的html元素内'}>
+            content={'渲染在指定的html元素内'}>
             <Button id={'btn1'}>click</Button>
-          </Tooltip>
+          </Popover>
         </div>
       </div>
     </div>

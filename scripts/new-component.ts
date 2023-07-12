@@ -1,5 +1,5 @@
 import { prompt } from 'enquirer';
-import { pascalCase } from '@tool-pack/basic';
+import { kebabCase, pascalCase } from '@tool-pack/basic';
 import * as Path from 'path';
 import Fse from 'fs-extra';
 import chalk from 'chalk';
@@ -32,20 +32,21 @@ async function run() {
 run();
 
 async function getConfig() {
-  ({ name: config.name } = await prompt<{ name: string }>({
+  const { name } = await prompt<{ name: string }>({
     type: 'input',
     name: 'name',
-    message: '输入新组件名(小写英文和连字符"-")',
+    message: '输入新组件名(英文和连字符"-")',
     validate(value: string) {
       if (!value) return '组件名不能为空';
-      const illegalWord = value.replace(/[a-z-]/g, '');
+      const illegalWord = value.replace(/[a-zA-Z-]/g, '');
       if (illegalWord) {
         return `包含不支持的字符: [${illegalWord.split('').join(',')}]`;
       }
       return true;
     },
-  }));
+  });
 
+  config.name = kebabCase(name);
   config.componentName = pascalCase(config.name);
 
   const { confirm } = await prompt<{ confirm: boolean }>({

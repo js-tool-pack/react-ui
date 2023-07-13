@@ -1,0 +1,23 @@
+.root {
+  $r: 't-collapse';
+  :global {
+    .#{$r} {
+      padding: 0 !important;
+      border: 1px solid #a8a8a8 !important;
+      border-radius: 8px;
+    }
+    .#{$r}__header {
+      padding: 0 var(--t-collapse-content-padding) !important;
+      border-bottom: 1px solid transparent;
+      transition: border-bottom-color 0.45s linear;
+    }
+    .#{$r}__content-inner {
+      padding: var(--t-collapse-content-padding) !important;
+    }
+    .#{$r}--active {
+      .#{$r}__header {
+        border-bottom-color: #a8a8a8;
+      }
+    }
+  }
+}

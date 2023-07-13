@@ -1,0 +1,54 @@
+@import '../scss.variable';
+
+$r: '#{$prefix}collapse';
+$g: '#{$prefix}collapse-group';
+:root {
+  --t-collapse-color-disabled: rgb(194 194 194 / 100%);
+  &.dark {
+    --t-collapse-color-disabled: rgb(255 255 255 / 38%);
+  }
+}
+
+.#{$r} {
+  --t-collapse-content-padding: var(--t-radius);
+  &__header {
+    height: var(--t-size);
+    cursor: pointer;
+  }
+  &__title {
+    flex: 1;
+  }
+  &__icon {
+    font-size: 1.5em;
+    transition: transform var(--t-transition-duration);
+  }
+  &--active {
+    .#{$r}__icon {
+      transform: rotate(90deg);
+    }
+  }
+  &--disabled {
+    color: var(--t-collapse-color-disabled);
+    .#{$r}__header {
+      cursor: not-allowed;
+    }
+  }
+}
+
+.#{$g} {
+  .#{$r} {
+    + .#{$r} {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--t-divider-border-color);
+    }
+  }
+  .#{$r}__content-inner {
+    padding-bottom: var(--t-collapse-content-padding);
+    white-space: pre-line;
+    .#{$r} {
+      padding-right: var(--t-collapse-content-padding);
+      padding-left: var(--t-collapse-content-padding);
+    }
+  }
+}

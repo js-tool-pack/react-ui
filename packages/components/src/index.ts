@@ -16,3 +16,4 @@ export * from './tooltip';
 export * from './pop-confirm';
 export * from './popover';
 export * from './collapse-transition';
+export * from './collapse';

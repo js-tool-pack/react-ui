@@ -31,8 +31,8 @@ export function useDispatcher(
     const children = el.current.children;
     const startHandlers: Array<() => void> = [];
     childList.current.forEach((child, index) => {
-      if (child.status !== ChildStatus.move) return;
-      const rect = rectMap.current.get(child.component.key!)!;
+      const rect = rectMap.current.get(child.component.key!);
+      if (child.status !== ChildStatus.move || !rect) return;
       const el = children[index] as HTMLElement;
       const moveClass = `${name}-move-active`;
       if (applyTranslation(el, rect)) {

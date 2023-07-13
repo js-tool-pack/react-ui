@@ -8,3 +8,7 @@ export * from './circle-warning.icon';
 export * from './circle-warning-fill.icon';
 export * from './circle-close.icon';
 export * from './circle-close-fill.icon';
+export * from './up.icon';
+export * from './right.icon';
+export * from './down.icon';
+export * from './left.icon';

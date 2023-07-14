@@ -55,7 +55,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             [`${rootClass}--plain-dashed`]: plain === 'dashed',
           },
         )}>
-        {children}
+        <span>{children}</span>
         {wave}
       </button>
     );

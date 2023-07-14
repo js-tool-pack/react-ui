@@ -126,8 +126,8 @@ $r: #{$prefix}button;
     --t-btn-hover-color: var(--t-btn-hover-bg-color);
 
     background-color: unset;
-    &:not([disabled]):active {
-      transition: all calc(var(--t-transition-duration) / 3) ease-out;
+    &:not([disabled]):active > * {
+      transition: transform calc(var(--t-transition-duration) / 3) ease-out;
       transform: translateY(-5px);
     }
   }

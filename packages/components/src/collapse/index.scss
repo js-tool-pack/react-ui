@@ -22,10 +22,8 @@ $g: '#{$prefix}collapse-group';
     font-size: 1.5em;
     transition: transform var(--t-transition-duration);
   }
-  &--active {
-    .#{$r}__icon {
-      transform: rotate(90deg);
-    }
+  &__icon--active {
+    transform: rotate(90deg);
   }
   &--disabled {
     color: var(--t-collapse-color-disabled);

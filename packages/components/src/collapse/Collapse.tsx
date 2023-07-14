@@ -43,8 +43,11 @@ export const Collapse: React.FC<CollapseProps> = (props) => {
 
   const _Icon =
     icon !== null &&
-    (icon || (
-      <Icon className={`${rootName}__icon`}>
+    (icon?.(visible) || (
+      <Icon
+        className={getClassNames(`${rootName}__icon`, {
+          [`${rootName}__icon--active`]: visible,
+        })}>
         <Right />
       </Icon>
     ));

@@ -10,7 +10,7 @@ export type CollapseProps = Omit<
   header?: (active: boolean) => React.ReactNode;
   title?: React.ReactNode;
   extra?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: null | ((active: boolean) => React.ReactNode);
   iconPlacement?: 'start' | 'end';
   destroyOnHide?: boolean | 'mixed';
   size?: Size;

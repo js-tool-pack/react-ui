@@ -23,8 +23,11 @@ const items: CollapseGroupItem[] = [
     key: '2',
     title: '第十六章',
     extra: '独立icon',
-    icon: (
-      <Icon className="t-collapse__icon">
+    icon: (active) => (
+      <Icon
+        className={`t-collapse__icon ${
+          active ? 't-collapse__icon--active' : ''
+        }`}>
         <Icons.CircleSuccess></Icons.CircleSuccess>
       </Icon>
     ),
@@ -46,8 +49,11 @@ const App: React.FC = () => {
     <div>
       <CollapseGroup
         options={{
-          icon: (
-            <Icon className="t-collapse__icon">
+          icon: (active) => (
+            <Icon
+              className={`t-collapse__icon ${
+                active ? 't-collapse__icon--active' : ''
+              }`}>
               <Icons.CircleInfoFill></Icons.CircleInfoFill>
             </Icon>
           ),

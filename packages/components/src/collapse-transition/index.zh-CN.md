@@ -14,15 +14,16 @@ CollapseTransition 折叠动画。
 
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx"></code>
-<code src="./demo/horizontal.tsx"></code>
-<code src="./demo/horizontal2.tsx"></code>
+<code src="./demo/padding.tsx"></code>
+<code src="./demo/width.tsx"></code>
+<code src="./demo/fixed-width.tsx"></code>
 
 ## API
 
 CollapseTransition 的属性说明如下：
 
-| 属性       | 说明     | 类型    | 默认值 | 版本 |
-| ---------- | -------- | ------- | ------ | ---- |
-| horizontal | 水平折叠 | boolean | --     | --   |
+| 属性  | 说明     | 类型    | 默认值 | 版本 |
+| ----- | -------- | ------- | ------ | ---- |
+| width | 宽度折叠 | boolean | --     | --   |
 
 更多说明见[Transition](./transition#api)。

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import type { CollapseTransitionProps } from './collapse-transition.types';
 import { getComponentClass } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
@@ -15,25 +15,45 @@ const rootName = getComponentClass('collapse-transition');
 export const CollapseTransition: React.FC<CollapseTransitionProps> = (
   props,
 ) => {
-  const { horizontal, on, children, ...rest } = props as RequiredPart<
+  const { width, on, children, ...rest } = props as RequiredPart<
     CollapseTransitionProps,
     keyof typeof defaultProps
   >;
+  const memorizedSize = useRef('');
 
-  const sizeType: 'width' | 'height' = useMemo(
-    () => (horizontal ? 'width' : 'height'),
-    [horizontal],
+  const sizeType: 'max-width' | 'max-height' = useMemo(
+    () => (width ? 'max-width' : 'max-height'),
+    [width],
   );
 
   const callback: TransitionCB = useCallback(
     (el, status, lifeCircle) => {
+      // console.log(
+      //   TRANSITION_STATUS[status],
+      //   TRANSITION_LIFE_CIRCLE[lifeCircle],
+      // );
       on?.(el, status, lifeCircle);
-      const setSizeByScrollSize = () => {
-        el.style[sizeType] =
-          sizeType === 'height'
-            ? el.scrollHeight + 'px'
-            : // 宽度不取scrollWidth，因为scrollWidth和width是一样的，所以取的是父元素的宽度
-              getComputedStyle(el.parentElement as HTMLElement).width;
+
+      const getRealSize = () => {
+        if (!width) return el.scrollHeight + 'px';
+        if (TRANSITION_STATUS.hide === status) return el.offsetWidth + 'px';
+
+        // el.style[sizeType] = 'none'; // css 未加 !important 时有效，无法添加 !important
+        // el.style.cssText = `${sizeType}: none!important;`; // 会导致行内样式丢失
+        el.style.setProperty(sizeType, 'none', 'important');
+        const w = el.offsetWidth + 'px';
+        el.style[sizeType] = '';
+        void el.offsetWidth;
+        return w;
+      };
+      const memorySize = () => {
+        memorizedSize.current = getRealSize();
+      };
+      const restoreSize = () => {
+        el.style[sizeType] = memorizedSize.current;
+      };
+      const closeSize = () => {
+        el.style[sizeType] = '0';
       };
       const clearSize = () => {
         el.style[sizeType] = '';
@@ -43,7 +63,18 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
       if (TRANSITION_STATUS.show === status) {
         switch (lifeCircle) {
           case TRANSITION_LIFE_CIRCLE.before:
-            setSizeByScrollSize();
+            el.style.display = '';
+            memorySize();
+            closeSize();
+            break;
+          case TRANSITION_LIFE_CIRCLE.running:
+            restoreSize();
+            // case TRANSITION_LIFE_CIRCLE.run:
+            // el.style.transition = 'none';
+            // const s = getRealSize();
+            // el.style.transition = '';
+            // el.style[sizeType] = s;
+            // void el.offsetWidth;
             break;
           case TRANSITION_LIFE_CIRCLE.after:
             clearSize();
@@ -55,19 +86,21 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
       // --- hide ---
       if (TRANSITION_STATUS.hide === status) {
         switch (lifeCircle) {
-          case TRANSITION_LIFE_CIRCLE.ready:
-            setSizeByScrollSize();
-            break;
           case TRANSITION_LIFE_CIRCLE.before:
-            clearSize();
+            memorySize();
+            restoreSize();
+            break;
+          case TRANSITION_LIFE_CIRCLE.running:
+            closeSize();
             break;
           case TRANSITION_LIFE_CIRCLE.after:
+            clearSize();
             el.style.display = 'none';
             break;
         }
       }
     },
-    [sizeType],
+    [sizeType, width],
   );
 
   const Body = React.isValidElement(children)
@@ -77,8 +110,8 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
           rootName,
           (children as React.ReactElement).props.className,
           {
-            [`${rootName}--w`]: horizontal,
-            [`${rootName}--h`]: !horizontal,
+            [`${rootName}--w`]: width,
+            [`${rootName}--h`]: !width,
           },
         ),
       })

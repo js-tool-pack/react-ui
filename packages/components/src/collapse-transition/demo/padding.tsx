@@ -1,6 +1,6 @@
 /**
- * title: 基础用法
- * description: CollapseTransition 基础用法。
+ * title: padding测试
+ * debug: true
  */
 
 import React, { useState } from 'react';
@@ -15,7 +15,8 @@ const App: React.FC = () => {
         <Button onClick={() => setShow((v) => !v)}>toggle</Button>
       </div>
       <CollapseTransition show={show}>
-        <div style={{ background: '#910852', color: 'white' }}>
+        {/* 加了 padding 内容会滚动 */}
+        <div style={{ padding: '20px', background: '#910852', color: 'white' }}>
           <p>
             道冲而用之或不盈，渊兮似万物之宗。挫其锐，解其纷，和其光，同其尘。湛兮似或存，吾不知谁之子，象帝之先。
           </p>

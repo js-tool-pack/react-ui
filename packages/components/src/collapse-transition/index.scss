@@ -4,19 +4,28 @@ $r: '#{$prefix}collapse-transition';
 
 .#{$r} {
   overflow: hidden;
-  padding: 0 !important; // padding只能是0，否则height为0的时候padding部分无法隐藏
   &-enter-active,
   &-leave-active {
-    transition-property: width, height;
+    transition-property: max-width, max-height, margin-left, margin-right,
+      margin-top, margin-bottom, padding-top, padding-right, padding-bottom,
+      padding-left, opacity;
     transition-duration: var(--t-transition-duration);
   }
   &-enter-from,
   &-leave-to {
     &.#{$r}--h {
-      height: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      max-height: 0 !important;
     }
     &.#{$r}--w {
-      width: 0 !important;
+      margin-right: 0 !important;
+      margin-left: 0 !important;
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+      max-width: 0 !important;
     }
   }
 }

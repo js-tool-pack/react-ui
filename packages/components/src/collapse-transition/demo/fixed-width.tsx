@@ -1,5 +1,5 @@
 /**
- * title: 水平折叠并固定内部宽度
+ * title: 宽度折叠并固定内部宽度
  * description: 因为宽度变化会导致内容重新排列，所以相比垂直折叠需要多操作一步把内部的宽度固定住，限制内容随宽度排列。
  */
 
@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <div style={{ paddingBottom: '8px', textAlign: 'center' }}>
         <Button onClick={() => setVisible((v) => !v)}>toggle</Button>
       </div>
-      <CollapseTransition show={visible} horizontal>
+      <CollapseTransition show={visible} width>
         <div style={{ background: '#910852', color: 'white' }}>
           <div id="collapse-horizontal2-demo" style={{ padding: '10px' }}>
             <p>

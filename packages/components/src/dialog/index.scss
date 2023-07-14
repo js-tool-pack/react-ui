@@ -12,8 +12,8 @@ $c: '#{$prefix}dialog';
   border-radius: var(--t-radius);
   color: var(--t-text-color);
   background-color: var(--t-bg-color);
-  box-shadow: rgb(0 0 0 / 8%) 0 6px 16px 0,
-    rgb(0 0 0 / 12%) 0 3px 6px -4px, rgb(0 0 0 / 5%) 0 9px 28px 8px;
+  box-shadow: rgb(0 0 0 / 8%) 0 6px 16px 0, rgb(0 0 0 / 12%) 0 3px 6px -4px,
+    rgb(0 0 0 / 5%) 0 9px 28px 8px;
   pointer-events: auto;
   &__mask {
     position: fixed;
@@ -77,28 +77,26 @@ $c: '#{$prefix}dialog';
   &__root {
     --t-dialog-transition-duration: var(--t-transition-duration);
 
-    // --t-dialog-transition-duration: 5s;
-    .#{$c}__mask-enter-active,
-    .#{$c}__mask-leave-active {
-      transition: opacity var(--t-dialog-transition-duration) ease-in-out;
+    position: relative;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: background-color var(--t-dialog-transition-duration) linear;
+    .#{$c} {
+      transition: all var(--t-dialog-transition-duration) ease;
     }
-    .#{$c}__mask-enter-from,
-    .#{$c}__mask-leave-to {
+    .#{$c}__mask {
+      transition: opacity var(--t-dialog-transition-duration) linear;
+    }
+  }
+  &-enter-from,
+  &-leave-to {
+    background-color: white;
+    .#{$c} {
+      transform: scale(0) translateZ(0);
+    }
+    .#{$c}__mask {
       opacity: 0;
-    }
-    .#{$c}-enter-active,
-    .#{$c}-leave-active {
-      transition: opacity var(--t-dialog-transition-duration) ease;
-      .#{$c} {
-        transition: all var(--t-dialog-transition-duration) ease;
-      }
-    }
-    .t-dialog-enter-from,
-    .t-dialog-leave-to {
-      opacity: 0;
-      .#{$c} {
-        transform: scale(0) translateZ(0);
-      }
     }
   }
 }

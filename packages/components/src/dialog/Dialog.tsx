@@ -60,69 +60,59 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
 
   const Mask = (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div
-      key="dialog-mask"
-      className={`${rootClass}__mask`}
-      style={{ zIndex }}
-      onClick={handleMaskClick}></div>
-  );
-  const TransitionMask = (
-    <Transition name={`${rootClass}__mask`} appear>
-      {show && Mask}
-    </Transition>
+    <div className={`${rootClass}__mask`} onClick={handleMaskClick}></div>
   );
   const Box = (
-    <Layout
-      key="dialog-box"
-      {...rest}
-      className={getClassNames(rootClass, {
-        [className as string]: className,
-        [`${rootClass}__center`]: center,
-      })}
-      style={{
-        ...style,
-        transformOrigin,
-      }}
-      vertical>
-      {header !== null && (
-        <Header className={`${rootClass}__header`}>
-          <span className={`${rootClass}__title`}>{header}</span>
-          <Button
-            className={`${rootClass}__btn-close`}
-            plain="text"
-            size="small"
-            onClick={close}>
-            <Icon>
-              <CloseIcon />
-            </Icon>
-          </Button>
-        </Header>
-      )}
-      <Main className={`${rootClass}__main`}>{children}</Main>
-      {footer !== null && (
-        <Footer className={`${rootClass}__footer`}>{footer}</Footer>
-      )}
-    </Layout>
+    <div
+      className={getClassNames(`${rootClass}__wrapper`, {
+        [`${rootClass}__centered`]: centered,
+      })}>
+      <Layout
+        key="dialog-box"
+        {...rest}
+        className={getClassNames(rootClass, {
+          [className as string]: className,
+          [`${rootClass}__center`]: center,
+        })}
+        style={{
+          ...style,
+          transformOrigin,
+        }}
+        vertical>
+        {header !== null && (
+          <Header className={`${rootClass}__header`}>
+            <span className={`${rootClass}__title`}>{header}</span>
+            <Button
+              className={`${rootClass}__btn-close`}
+              plain="text"
+              size="small"
+              onClick={close}>
+              <Icon>
+                <CloseIcon />
+              </Icon>
+            </Button>
+          </Header>
+        )}
+        <Main className={`${rootClass}__main`}>{children}</Main>
+        {footer !== null && (
+          <Footer className={`${rootClass}__footer`}>{footer}</Footer>
+        )}
+      </Layout>
+    </div>
   );
-  const TransitionBox = (
+
+  return createPortal(
     <Transition name="t-dialog" on={onTransitionChange}>
       {show && (
         <div
-          key="dialog-wrapper"
-          style={{ zIndex }}
-          className={getClassNames(`${rootClass}__wrapper`, {
-            [`${rootClass}__centered`]: centered,
-          })}>
+          key={rootClass}
+          className={`${rootClass}__root`}
+          style={{ zIndex }}>
+          {Mask}
           {Box}
         </div>
       )}
-    </Transition>
-  );
-  return createPortal(
-    <div className={`${rootClass}__root`}>
-      {TransitionMask}
-      {TransitionBox}
-    </div>,
+    </Transition>,
     document.body,
   );
 });

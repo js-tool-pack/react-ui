@@ -24,10 +24,11 @@ export function useTransitionOrigin(props: DialogProps, show: boolean) {
 
   const transformOrigin = useMemo(() => {
     const left = `calc(50% + ${-clientSize[0] / 2 + point[0]}px)`;
+    const styleTop = style?.top;
     const top = centered
-      ? `calc(50% + ${-clientSize[1] / 2 + point[1]}px)`
-      : style?.top !== undefined
-      ? `calc(${point[1]}px - ${style.top})`
+      ? `calc(50% + (${-clientSize[1] / 2 + point[1]}px - ${styleTop || 0}))`
+      : styleTop !== undefined
+      ? `calc(${point[1]}px - ${styleTop})`
       : `calc(${point[1]}px - 50%)`;
     return `${left} ${top}`;
   }, [clientSize, point, centered, style]);

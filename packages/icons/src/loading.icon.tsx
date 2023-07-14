@@ -1,15 +1,17 @@
 import React from 'react';
+import { getComponentClass } from '@pkg/shared';
 
+const className = getComponentClass('loading-icon');
 export const Loading: React.FC = () => (
-  <svg viewBox="0 0 100 100">
+  <svg className={className} viewBox="0 0 80 80">
     <circle
-      cx="50"
-      cy="50"
-      r="32"
-      strokeWidth="8"
-      stroke="currentColor"
-      strokeDasharray="50.26548245743669 50.26548245743669"
+      className={`${className}__path`}
       fill="none"
-      strokeLinecap="round"></circle>
+      strokeWidth="6"
+      stroke="currentColor"
+      strokeLinecap="round"
+      cx="40"
+      cy="40"
+      r="30"></circle>
   </svg>
 );

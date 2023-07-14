@@ -95,7 +95,7 @@ Loading.defaultProps = {
   zIndex: Z_INDEX,
   text: 'loading...',
   icon: (
-    <Icon className="loading-rotate" size={50}>
+    <Icon size={38}>
       <LoadingIcon />
     </Icon>
   ),

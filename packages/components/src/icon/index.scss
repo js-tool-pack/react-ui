@@ -10,3 +10,40 @@
     height: 1em;
   }
 }
+
+$offset: 187;
+$duration: 2s;
+$l: '#{$prefix}loading-icon';
+
+.#{$l} {
+  animation: loading-rotate2 $duration linear infinite;
+  &__path {
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: loading-dash $duration ease-in-out infinite;
+  }
+}
+
+@keyframes loading-rotate2 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes loading-dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+  50% {
+    stroke-dashoffset: $offset / 4;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
+}

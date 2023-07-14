@@ -10,17 +10,22 @@ const App: React.FC = () => {
   return (
     <Space>
       <PopConfirm
+        style={{ width: '220px' }}
         confirmText="confirm"
-        cancelText="cancel"
+        cancelText="No, Thanks"
         content="确认要删除？">
         <Button>自定义文案</Button>
       </PopConfirm>
 
-      <PopConfirm cancelText={null} content="确认要删除？">
+      <PopConfirm cancelText={null} placement="bottom" content="确认要删除？">
         <Button>只有确认</Button>
       </PopConfirm>
 
-      <PopConfirm confirmText={null} content="确认要删除？">
+      <PopConfirm
+        style={{ width: '220px' }}
+        confirmText={null}
+        placement="left-start"
+        content="确认要删除？确认要删除？确认要删除？确认要删除？确认要删除？">
         <Button>只有取消</Button>
       </PopConfirm>
     </Space>

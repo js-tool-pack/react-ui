@@ -143,7 +143,7 @@ export function useTransition(
   innerCB?: CB,
   cb?: CB,
 ) {
-  const elRef = useRef<HTMLElement>(null);
+  const elRef = useRef<HTMLElement | null>(null);
 
   const noTrans =
     ([STATUS.none, STATUS.idle, STATUS.invisible] as STATUS[]).includes(
@@ -154,6 +154,8 @@ export function useTransition(
     () => (noTrans ? undefined : getClasses(name, status === STATUS.show)),
     [noTrans, name, status],
   )!;
+
+  if (!children) elRef.current = null;
 
   useEffect(() => {
     const el = elRef.current;

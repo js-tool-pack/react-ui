@@ -93,6 +93,5 @@ export function isSameEl(prev: unknown, next: unknown): boolean {
 
 export function reflow(el?: HTMLElement) {
   // 使用offsetHeight强制刷新ui
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  el?.offsetHeight;
+  void el?.offsetHeight;
 }

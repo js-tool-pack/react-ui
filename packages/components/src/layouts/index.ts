@@ -1,6 +1,2 @@
-// import './layouts.scss';
+export type { LayoutProps, BaseLayoutsProps } from './layout.types';
 export * from './Layout';
-export * from './Header';
-export * from './Footer';
-export * from './Main';
-export * from './Aside';

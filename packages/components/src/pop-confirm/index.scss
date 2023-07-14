@@ -8,6 +8,9 @@ $space: '#{$prefix}space';
   &__icon {
     color: var(--t-color-warning);
   }
+  &__content {
+    flex: 1;
+  }
   &__footer {
     margin-top: 12px;
     .#{$space} {

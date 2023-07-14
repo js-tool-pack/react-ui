@@ -51,19 +51,19 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   }, [onConfirm]);
 
   const Content = (
-    <Layout vertical>
-      <Main className={`${rootName}__main`}>
-        <Space>
+    <Layout className={`${rootName}__layout`} vertical>
+      <Main tag="section" className={`${rootName}__main`}>
+        <Space className={`${rootName}__space`} tag="div">
           {icon !== null &&
             (icon || (
               <Icon className={`${rootName}__icon`}>
                 <CircleInfoFill />
               </Icon>
             ))}
-          {content}
+          <div className={`${rootName}__content`}>{content}</div>
         </Space>
       </Main>
-      <Footer className={`${rootName}__footer`}>
+      <Footer tag="section" className={`${rootName}__footer`}>
         <Space>
           {cancelText !== null && (
             <Button

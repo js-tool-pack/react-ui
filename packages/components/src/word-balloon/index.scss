@@ -16,7 +16,8 @@ $r: '#{$prefix}word-balloon';
     white-space: pre-wrap;
     color: var(--t-text-color);
     background: var(--t-word-balloon-bg);
-    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
+    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
+      0 9px 28px 8px rgb(0 0 0 / 5%);
     word-wrap: break-word;
     box-sizing: border-box;
   }
@@ -68,6 +69,13 @@ $r: '#{$prefix}word-balloon';
     }
   }
   &--top {
+    transform-origin: bottom center;
+    &-start {
+      transform-origin: bottom left;
+    }
+    &-end {
+      transform-origin: bottom right;
+    }
     &,
     &-start,
     &-end {
@@ -77,6 +85,13 @@ $r: '#{$prefix}word-balloon';
     }
   }
   &--right {
+    transform-origin: center left;
+    &-start {
+      transform-origin: top left;
+    }
+    &-end {
+      transform-origin: bottom left;
+    }
     &,
     &-start,
     &-end {
@@ -88,6 +103,13 @@ $r: '#{$prefix}word-balloon';
     }
   }
   &--bottom {
+    transform-origin: top center;
+    &-start {
+      transform-origin: top left;
+    }
+    &-end {
+      transform-origin: top right;
+    }
     &,
     &-start,
     &-end {
@@ -98,6 +120,13 @@ $r: '#{$prefix}word-balloon';
     }
   }
   &--left {
+    transform-origin: center right;
+    &-start {
+      transform-origin: top right;
+    }
+    &-end {
+      transform-origin: bottom right;
+    }
     &,
     &-start,
     &-end {

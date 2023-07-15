@@ -15,6 +15,8 @@ export type PopoverProps = Omit<
     visible?: boolean;
     disabled?: boolean;
     offset?: number;
+    destroyOnHide?: boolean;
+    name?: string;
   };
 
 export type Placement = (typeof PLACEMENTS)[number];

@@ -17,8 +17,6 @@ import {
   TransitionCB,
 } from '../transition';
 
-const rootName = getComponentClass('popover');
-
 export const Popover: React.FC<PopoverProps> = (props) => {
   const {
     disabled,
@@ -29,9 +27,13 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     content,
     className,
     offset,
+    destroyOnHide,
+    name,
     appendTo,
     ...rest
   } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
+  const rootName = getComponentClass(name);
+
   const childrenRef = useRef<HTMLElement>(null);
   const balloonRef = useRef<HTMLDivElement>();
   const [refreshPosition, resetPlacement] = usePosition(
@@ -94,10 +96,10 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       {createPortal(
         <Transition
           name={rootName}
-          show={show}
+          show={destroyOnHide ? undefined : show}
           on={onTransitionChange}
-          appear={null}>
-          {Balloon}
+          appear={destroyOnHide ? undefined : null}>
+          {destroyOnHide ? show && Balloon : Balloon}
         </Transition>,
         appendTo(),
       )}
@@ -109,6 +111,7 @@ const defaultProps = {
   placement: 'top',
   trigger: 'hover',
   offset: 10,
+  name: 'popover',
   appendTo: () => document.body,
 } satisfies Partial<PopoverProps>;
 Popover.defaultProps = defaultProps;

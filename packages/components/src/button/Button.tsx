@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { ButtonProps } from './button.types';
 import {
   CLASS_SIZE_LG,
@@ -8,6 +8,7 @@ import {
 } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
+import { useBtnIcon, useBtnWave } from './button.hooks';
 
 const rootClass = getComponentClass('button');
 
@@ -23,16 +24,24 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       disabled,
       shape,
+      loading,
+      icon,
+      rightIcon,
       ...rest
     } = props as RequiredPart<ButtonProps, 'size' | 'type' | 'shape'>;
 
-    const [wave, activateWave] = useWave();
+    const [btnWave, activateWave] = useBtnWave(rootClass);
+    const btnIcon = useBtnIcon(rootClass, icon, loading);
 
-    const clickHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-      if (disabled) return;
+    const clickHandler: React.MouseEventHandler<HTMLButtonElement> = (
+      e,
+    ): void => {
+      if (disabled || loading) return;
       if (plain !== 'text') activateWave();
-      return onClick?.(e);
+      onClick?.(e);
     };
+
+    const iconOnly = !children && icon;
 
     return (
       <button
@@ -53,59 +62,20 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             [`${rootClass}--plain`]: plain === true,
             [`${rootClass}--plain-text`]: plain === 'text',
             [`${rootClass}--plain-dashed`]: plain === 'dashed',
+            [`${rootClass}--loading`]: loading,
+            [`${rootClass}--icon-only`]: iconOnly,
+            [`${rootClass}--icon-l`]: !iconOnly && !rightIcon,
+            [`${rootClass}--icon-r`]: !iconOnly && rightIcon,
           },
         )}>
-        <span>{children}</span>
-        {wave}
+        {!rightIcon && btnIcon}
+        {children && <span>{children}</span>}
+        {rightIcon && btnIcon}
+        {btnWave}
       </button>
     );
   },
 );
-
-function useWave() {
-  const [active, setActive] = useState(false);
-  const waveRef = useRef<HTMLElement>(null);
-  const activationTime = useRef(0);
-
-  const activateWave = () => {
-    if (active) {
-      if (Date.now() - activationTime.current > 1500) setActive(false);
-      return;
-    }
-    activationTime.current = Date.now();
-    setActive(true);
-  };
-
-  useEffect(() => {
-    const el = waveRef.current;
-    if (!active || !el) return;
-    const cancel = () => {
-      el.removeEventListener('animationend', handler);
-      el.removeEventListener('animationcancel', handler);
-    };
-    const handler = () => {
-      setActive(false);
-      cancel();
-    };
-
-    if (active && el) {
-      el.addEventListener('animationend', handler);
-      el.addEventListener('animationcancel', handler);
-    }
-
-    return handler;
-  }, [active]);
-
-  const wave = active && (
-    <span
-      ref={waveRef}
-      className={getClassNames(`${rootClass}__wave`, {
-        [`${rootClass}__wave--active`]: active,
-      })}></span>
-  );
-
-  return [wave, activateWave] as const;
-}
 
 Button.displayName = 'Button';
 Button.defaultProps = {

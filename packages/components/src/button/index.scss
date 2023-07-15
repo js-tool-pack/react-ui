@@ -1,5 +1,6 @@
 @import '../scss.variable';
 
+$ct: '#{$prefix}collapse-transition';
 $r: #{$prefix}button;
 :root {
   --t-btn-wave-opcity: 0.6;
@@ -17,6 +18,7 @@ $r: #{$prefix}button;
   --t-btn-border-width: 0;
   --t-btn-radius: var(--t-radius);
   --t-btn-padding: 12px;
+  --t-btn-icon-space: 6px;
 
   // ------
   --t-btn-hover-color: white;
@@ -44,7 +46,7 @@ $r: #{$prefix}button;
   user-select: none;
   cursor: pointer;
   transition-property: background-color, width, height, color, padding-top,
-    padding-left, padding-right, padding-bottom;
+    padding-left, padding-right, padding-bottom, opacity;
 
   // transition-property: all;
   transition-timing-function: ease-in-out;
@@ -148,9 +150,13 @@ $r: #{$prefix}button;
   }
   &.#{$class-size-lg} {
     --t-btn-padding: 16px;
+    --t-btn-icon-space: 8px;
+
+    font-size: 16px;
   }
   &.#{$class-size-sm} {
     --t-btn-padding: 6px;
+    --t-btn-icon-space: 3px;
   }
   &.#{$r}--shape-round,
   &.#{$r}--shape-circle {
@@ -179,6 +185,26 @@ $r: #{$prefix}button;
 
   .#{$r}__wave--active {
     animation-name: btn-wave;
+  }
+  &--icon-l {
+    &:not(.#{$r}--icon-only) > .#{$r}__icon {
+      margin-inline-end: var(--t-btn-icon-space);
+    }
+  }
+  &--icon-r {
+    &:not(.#{$r}--icon-only) > .#{$r}__icon {
+      margin-inline-start: var(--t-btn-icon-space);
+    }
+  }
+  &__icon {
+    &.#{$ct}-enter-from,
+    &.#{$ct}-leave-to {
+      opacity: 0;
+    }
+  }
+  &.#{$r}--loading {
+    cursor: wait;
+    opacity: 0.75;
   }
 }
 

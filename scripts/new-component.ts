@@ -81,7 +81,7 @@ export const ${componentName}: React.FC<${props}> = (props) => {
       {children}
     </div>
   );
-}; 
+};
 
 const defaultProps = {} satisfies Partial<${props}>;
 ${componentName}.defaultProps = defaultProps;
@@ -106,9 +106,9 @@ export type ${props} = React.HTMLAttributes<HTMLElement> & {
 function initScss(): InitRes {
   const filename = getFilename('scss');
   const content = `
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}${config.name}';
+$r: Name.$${config.name};
 
 .#{$r} {}
   `;
@@ -179,25 +179,24 @@ ${config.componentName} 的属性说明如下：
 }
 function appendIndex() {
   const tsContent = `export * from './${config.name}';\n`;
-  Fse.appendFileSync(
-    Path.resolve(config.componentsPath, 'index.ts'),
-    tsContent,
-  );
-  const scssContent = `\n@import './${config.name}';`;
-  Fse.appendFileSync(
-    Path.resolve(config.componentsPath, 'index.scss'),
-    scssContent,
-  );
+  Fse.appendFileSync(getPkgPath(getFilename('index')), tsContent);
+
+  const namespaceContent = `$${config.name}: '#{Var.$prefix}${config.name}';\n`;
+  Fse.appendFileSync(getPkgPath(getFilename('namespace')), namespaceContent);
+
+  const scssContent = `@import './${config.name}';\n`;
+  Fse.appendFileSync(getPkgPath(getFilename('scss')), scssContent);
 }
 
 function getFilename(
-  type: 'doc' | 'scss' | 'index' | 'component' | 'types' | 'demo',
+  type: 'doc' | 'scss' | 'index' | 'component' | 'types' | 'demo' | 'namespace',
 ) {
   const name = config.name;
   return (
     {
       doc: 'index.zh-CN.md',
       scss: 'index.scss',
+      namespace: 'namespace.scss',
       component: `${config.componentName}.tsx`,
       index: 'index.ts',
       types: `${name}.types.ts`,
@@ -208,6 +207,9 @@ function getFilename(
 
 function getFilepath(filename: string) {
   return Path.resolve(config.componentsPath, `${config.name}/${filename}`);
+}
+function getPkgPath(filename: string) {
+  return Path.resolve(config.componentsPath, filename);
 }
 
 function writeFile(filename: string, content: string) {

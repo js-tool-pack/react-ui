@@ -2,15 +2,13 @@
 
 $r: '#{$prefix}popover';
 
-.#{$r} {
-  --t-popover-transition-duration: calc(var(--t-transition-duration) / 2);
-
+@mixin pop-style($duration) {
   position: absolute;
   z-index: 999;
   &-enter-active,
   &-leave-active {
     transition-property: opacity, transform;
-    transition-duration: var(--t-popover-transition-duration);
+    transition-duration: $duration;
     transition-timing-function: ease;
   }
   &-enter-from,
@@ -18,4 +16,10 @@ $r: '#{$prefix}popover';
     opacity: 0;
     transform: scale(0);
   }
+}
+
+.#{$r} {
+  --t-popover-transition-duration: calc(var(--t-transition-duration) / 2);
+
+  @include pop-style(var(--t-popover-transition-duration));
 }

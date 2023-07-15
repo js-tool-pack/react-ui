@@ -1,21 +1,10 @@
-@import '../scss.variable';
+@use '../popover/index' as Pop;
+@use '../scss.variable' as Var;
 
-$r: '#{$prefix}tooltip';
+$r: '#{Var.$prefix}tooltip';
 
 .#{$r} {
   --t-tootip-transition-duration: calc(var(--t-transition-duration) / 2);
 
-  position: absolute;
-  z-index: 999;
-  &-enter-active,
-  &-leave-active {
-    transition-property: opacity, transform;
-    transition-duration: var(--t-tootip-transition-duration);
-    transition-timing-function: ease;
-  }
-  &-enter-from,
-  &-leave-to {
-    opacity: 0;
-    transform: scale(0);
-  }
+  @include Pop.pop-style(var(--t-tootip-transition-duration));
 }

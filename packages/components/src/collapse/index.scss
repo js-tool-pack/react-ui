@@ -19,7 +19,6 @@ $g: '#{$prefix}collapse-group';
     flex: 1;
   }
   &__icon {
-    font-size: 1.5em;
     transition: transform var(--t-transition-duration);
   }
   &__icon--active {

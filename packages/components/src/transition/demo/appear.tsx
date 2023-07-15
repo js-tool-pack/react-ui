@@ -35,18 +35,18 @@ const App: React.FC = () => {
           <div className="transition-box">
             <Transition name="fade" appear>
               {visible && (
-                <Button type="success" className="fade" key={1} disabled>
+                <button className="fade" key={1} disabled>
                   appear：true
-                </Button>
+                </button>
               )}
             </Transition>
           </div>
           <div className="transition-box">
             <Transition name="fade">
               {visible && (
-                <Button type="info" className="fade" key={2} disabled>
+                <button className="fade" key={2} disabled>
                   appear：false
-                </Button>
+                </button>
               )}
             </Transition>
           </div>

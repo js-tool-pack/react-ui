@@ -20,11 +20,8 @@ const App: React.FC = () => {
       <br />
       <div className="transition-box">
         <Transition name="fade">
-          {visible && (
-            <Button type="warning" disabled>
-              name: fade
-            </Button>
-          )}
+          {/* 不要用组件库内的Button做transition，因为Button内置的transition会混淆 */}
+          {visible && <button disabled>name: fade</button>}
         </Transition>
       </div>
     </div>

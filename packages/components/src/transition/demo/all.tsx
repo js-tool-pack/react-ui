@@ -20,9 +20,9 @@ const App: React.FC = () => {
       <div className="transition-box">
         <Transition name="fade">
           {visible && (
-            <Button type="warning" className="fade" key={1} disabled>
+            <button className="fade" key={1} disabled>
               single
-            </Button>
+            </button>
           )}
         </Transition>
       </div>

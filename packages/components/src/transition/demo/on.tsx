@@ -33,11 +33,7 @@ const App: React.FC = () => {
       <br />
       <div className="transition-box">
         <Transition name="fade" on={on}>
-          {visible && (
-            <Button type="warning" disabled>
-              name: fade
-            </Button>
-          )}
+          {visible && <button disabled>name: fade</button>}
         </Transition>
       </div>
     </div>

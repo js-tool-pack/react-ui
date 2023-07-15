@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}collapse-transition';
+$r: Name.$collapse-transition;
 
 .#{$r} {
   overflow: hidden;

@@ -1,4 +1,4 @@
-@import 'scss.variable';
+@use './scss.variable' as Var;
 :root {
   --t-color-primary: #1677ff;
   --t-color-danger: red;
@@ -27,11 +27,11 @@
     --t-text-reverse-color: black;
     --t-bg-color: #424242;
   }
-  .#{$class-size-sm} {
+  .#{Var.$class-size-sm} {
     --t-radius: 4px;
     --t-size: 22px;
   }
-  .#{$class-size-lg} {
+  .#{Var.$class-size-lg} {
     --t-radius: 12px;
     --t-size: 46px;
   }

@@ -1,7 +1,8 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
+@use '../scss.variable' as Var;
 
-$ct: '#{$prefix}collapse-transition';
-$r: #{$prefix}button;
+$ct: Name.$collapse-transition;
+$r: Name.$button;
 :root {
   --t-btn-wave-opcity: 0.6;
   &.dark {
@@ -148,13 +149,13 @@ $r: #{$prefix}button;
       --t-btn-border-width: 0;
     }
   }
-  &.#{$class-size-lg} {
+  &.#{Var.$class-size-lg} {
     --t-btn-padding: 16px;
     --t-btn-icon-space: 8px;
 
     font-size: 16px;
   }
-  &.#{$class-size-sm} {
+  &.#{Var.$class-size-sm} {
     --t-btn-padding: 6px;
     --t-btn-icon-space: 3px;
   }
@@ -168,7 +169,7 @@ $r: #{$prefix}button;
     // overflow: hidden;
     // text-overflow: ellipsis;
     // white-space: nowrap;
-    &.#{$class-size-lg} {
+    &.#{Var.$class-size-lg} {
       --t-btn-padding: 5px;
     }
   }

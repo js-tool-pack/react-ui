@@ -1,5 +1,6 @@
-@import '../scss.variable';
-.#{$prefix}icon {
+@use '../namespace' as Name;
+
+.#{Name.$icon} {
   position: relative;
   display: inline-block;
   width: 1em;
@@ -13,7 +14,7 @@
 
 $offset: 187;
 $duration: 2s;
-$l: '#{$prefix}loading-icon';
+$l: Name.$icon-loading;
 
 .#{$l} {
   animation: loading-rotate2 $duration linear infinite;

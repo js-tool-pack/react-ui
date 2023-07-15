@@ -1,7 +1,7 @@
+@use '../namespace' as Name;
 @use '../popover/index' as Pop;
-@use '../scss.variable' as Var;
 
-$r: '#{Var.$prefix}tooltip';
+$r: Name.$tooltip;
 
 .#{$r} {
   --t-tootip-transition-duration: calc(var(--t-transition-duration) / 2);

@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$c: '#{$prefix}dialog';
+$c: Name.$dialog;
 .#{$c} {
   position: relative;
   display: inline-block;

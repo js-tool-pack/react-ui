@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}word-balloon';
+$r: Name.$word-balloon;
 
 .#{$r} {
   --t-word-balloon-bg: var(--t-bg-color);

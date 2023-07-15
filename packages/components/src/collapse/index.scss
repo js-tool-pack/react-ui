@@ -1,7 +1,7 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}collapse';
-$g: '#{$prefix}collapse-group';
+$r: Name.$collapse;
+$g: Name.$collapse-group;
 :root {
   --t-collapse-color-disabled: rgb(194 194 194 / 100%);
   &.dark {

@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-.#{$prefix}layout {
+.#{Name.$layout} {
   display: flex;
   flex: 1;
   overflow: hidden;
@@ -8,10 +8,10 @@
     flex-direction: column;
   }
 }
-.#{$prefix}aside,
-.#{$prefix}main {
+.#{Name.$layout-aside},
+.#{Name.$layout-main} {
   overflow: auto;
 }
-.#{$prefix}main {
+.#{Name.$layout-main} {
   flex: 1;
 }

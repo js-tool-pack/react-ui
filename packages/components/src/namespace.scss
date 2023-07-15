@@ -1,0 +1,24 @@
+@use './scss.variable' as Var;
+
+$button: '#{Var.$prefix}button';
+$popover: '#{Var.$prefix}popover';
+$tooltip: '#{Var.$prefix}tooltip';
+$pop-confirm: '#{Var.$prefix}pop-confirm';
+$icon: '#{Var.$prefix}icon';
+$icon-loading: '#{Var.$prefix}loading-icon';
+$word-balloon: '#{Var.$prefix}word-balloon';
+$space: '#{Var.$prefix}space';
+$drawer: '#{Var.$prefix}drawer';
+$resizer: '#{Var.$prefix}resizer';
+$message: '#{Var.$prefix}message';
+$divider: '#{Var.$prefix}divider';
+$dialog: '#{Var.$prefix}dialog';
+$collapse: '#{Var.$prefix}collapse';
+$collapse-group: '#{Var.$prefix}collapse-group';
+$collapse-transition: '#{Var.$prefix}collapse-transition';
+$loading: '#{Var.$prefix}loading';
+$layout: '#{Var.$prefix}layout';
+$layout-main: '#{Var.$prefix}main';
+$layout-aside: '#{Var.$prefix}aside';
+$layout-header: '#{Var.$prefix}header';
+$layout-footer: '#{Var.$prefix}footer';

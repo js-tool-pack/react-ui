@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}drawer';
+$r: Name.$drawer;
 
 .#{$r} {
   position: absolute;

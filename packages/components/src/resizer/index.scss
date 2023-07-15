@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}resizer';
+$r: Name.$resizer;
 
 .#{$r} {
   --t-resizer-padding: 5px;

@@ -39,9 +39,9 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
         zIndex: props.zIndex,
         color: props.color,
       }}>
-      <div className="loading-box">
-        <div className="loading-icon">{props.icon}</div>
-        <div className="loading-text">{props.text}</div>
+      <div className={`${rootClass}__box`}>
+        <div className={`${rootClass}__icon`}>{props.icon}</div>
+        <div className={`${rootClass}__text`}>{props.text}</div>
       </div>
     </div>
   );
@@ -49,7 +49,7 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
   const TransitionLoading = useMemo(
     () => (
       <Transition
-        name="loading"
+        name={rootClass}
         appear={true}
         on={(_el, status, lifeCircle) =>
           lifeCircle === TRANSITION_LIFE_CIRCLE.after &&

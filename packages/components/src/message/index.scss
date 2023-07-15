@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}message';
+$r: Name.$message;
 
 .#{$r} {
   display: inline-flex;

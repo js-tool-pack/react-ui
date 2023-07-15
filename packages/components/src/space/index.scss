@@ -1,6 +1,6 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}space';
+$r: Name.$space;
 
 .#{$r} {
   --t-space-fill-ratio: 100%;

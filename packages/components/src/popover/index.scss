@@ -1,6 +1,4 @@
-@import '../scss.variable';
-
-$r: '#{$prefix}popover';
+@use '../namespace' as Name;
 
 @mixin pop-style($duration) {
   position: absolute;
@@ -18,7 +16,7 @@ $r: '#{$prefix}popover';
   }
 }
 
-.#{$r} {
+.#{Name.$popover} {
   --t-popover-transition-duration: calc(var(--t-transition-duration) / 2);
 
   @include pop-style(var(--t-popover-transition-duration));

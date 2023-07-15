@@ -1,23 +1,24 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-.#{$prefix}loading__ref {
-  position: relative;
-}
+$r: Name.$loading;
 
-.#{$prefix}loading {
+.#{$r} {
   position: absolute;
   inset: 0;
   backdrop-filter: blur(2px);
   line-height: initial;
   color: white;
-  .loading-box {
+  &__ref {
+    position: relative;
+  }
+  &__box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
   }
-  .loading-icon {
+  &__icon {
     margin: auto;
 
     $w: 50px;
@@ -35,18 +36,19 @@
       }
     }
   }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+  &-enter-active,
+  &-leave-active {
+    transition: opacity var(--t-transition-duration) ease-in-out;
+  }
 }
-body > .#{$prefix}loading {
+body > .#{$r} {
   position: fixed;
 }
-.loading-enter-from,
-.loading-leave-to {
-  opacity: 0;
-}
-.loading-enter-active,
-.loading-leave-active {
-  transition: opacity var(--t-transition-duration) ease-in-out;
-}
+
 
 @keyframes loading-rotate {
   100% {

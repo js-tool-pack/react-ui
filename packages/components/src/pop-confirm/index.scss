@@ -1,7 +1,7 @@
-@import '../scss.variable';
+@use '../namespace' as Name;
 
-$r: '#{$prefix}pop-confirm';
-$space: '#{$prefix}space';
+$r: Name.$pop-confirm;
+$space: Name.$space;
 
 .#{$r} {
   width: 180px;

@@ -78,27 +78,38 @@ function hoverTriggerHandler(
   enterHandler: () => void,
   leaveHandler: () => void,
 ) {
-  let timer: ReturnType<typeof setTimeout>;
+  const timers: ReturnType<typeof setTimeout>[] = [];
+  const clearTimes = () => {
+    timers.forEach((i) => clearTimeout(i));
+    timers.length = 0;
+  };
+
   const _leaveHandler = () => {
-    clearTimeout(timer);
-    timer = setTimeout(leaveHandler, 100);
+    clearTimes();
+    timers.push(setTimeout(leaveHandler, 200));
   };
 
   const balloonEnterHandler = () => {
-    clearTimeout(timer);
+    clearTimes();
   };
 
   const _enterHandler = () => {
-    clearTimeout(timer);
+    clearTimes();
     enterHandler();
-    relEl.current?.addEventListener('mouseenter', balloonEnterHandler);
-    relEl.current?.addEventListener('mouseleave', _leaveHandler);
+    // 如果transition隐藏后销毁dom的话balloon不会马上有ref
+    timers.push(
+      setTimeout(() => {
+        relEl.current?.addEventListener('mouseenter', balloonEnterHandler);
+        relEl.current?.addEventListener('mouseleave', _leaveHandler);
+      }, 50),
+    );
   };
 
   el.addEventListener('mouseenter', _enterHandler);
   el.addEventListener('mouseleave', _leaveHandler);
 
   return () => {
+    clearTimes();
     el.removeEventListener('mouseenter', _enterHandler);
     el.removeEventListener('mouseleave', _leaveHandler);
     relEl.current?.removeEventListener('mouseenter', balloonEnterHandler);

@@ -64,11 +64,11 @@ export function addTransition({
   };
   const start = () => {
     if (!el) return;
+    on(LIFE_CIRCLE.before);
     addListener();
     el.classList.add(_classes.fromClassName);
     // 使用offsetHeight强制刷新ui
     reflow(el);
-    on(LIFE_CIRCLE.before);
     run();
   };
   const run = () => {

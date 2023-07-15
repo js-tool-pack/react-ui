@@ -9,6 +9,7 @@ import {
   Icons,
   Space,
   Button,
+  Tooltip,
   useMessageHolder,
 } from '@tool-pack/react-ui';
 import { Clipboard as ClipboardTool } from '@tool-pack/bom';
@@ -32,15 +33,18 @@ const App: React.FC = () => {
       ),
     );
   };
+
   return (
-    <Space className="demo-icon-icons">
-      {holder}
-      {Object.keys(Icons).map((k) => (
-        <Icon key={k} onClick={() => copy(k)}>
-          {React.createElement(Icons[k])}
-        </Icon>
-      ))}
-    </Space>
+    <>
+      <Space className="demo-icon-icons">
+        {holder}
+        {Object.keys(Icons).map((k) => (
+          <Tooltip key={k} title={k} destroyOnHide>
+            <Icon onClick={() => copy(k)}>{React.createElement(Icons[k])}</Icon>
+          </Tooltip>
+        ))}
+      </Space>
+    </>
   );
 };
 

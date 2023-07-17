@@ -9,7 +9,8 @@
     "rm:dist": "rimraf ./dist",
     "build:this": "tsc -p tsconfig.json",
     "build": "pnpm rm:dist && pnpm build:this",
-    "check:ts": "tsc --noEmit -p tsconfig.json"
+    "check:ts": "tsc --noEmit -p tsconfig.json",
+    "test": "react-scripts test"
   },
   "devDependencies": {
     "react": "^18.2.0",

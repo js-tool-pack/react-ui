@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@7.1.0",
+  "workspaces": [
+    "packages/*",
+    "internal/*"
+  ],
   "scripts": {
     "start": "pnpm -C internal/playground start",
     "build:rollup": "tsx scripts/build.ts -t",
@@ -13,6 +17,8 @@
     "check:ts": "tsc -p tsconfig.noEmit.json --noEmit",
     "check:ts:lint": "npm run check:ts && npm run check:lint",
     "check:deps": "ncu",
+    "check:css": "stylelint \"**/*.{css,scss}\"",
+    "check:all": "npm run check:ts:lint && npm run check:css",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install && dumi setup",
     "docs:dev": "dumi dev",
@@ -20,10 +26,10 @@
     "docs:preview": "serve ./docs-dist -p 8080",
     "docs:deploy": "gh-pages -d docs-dist",
     "doctor": "father doctor",
-    "lint": "npm run lint:es && npm run lint:css",
-    "lint:css": "stylelint \"**/*.{css,scss}\"",
     "prepublishOnly": "father doctor && npm run build",
-    "new:component": "tsx scripts/new-component.ts"
+    "new:component": "tsx scripts/new-component.ts",
+    "release": "tsx scripts/release.ts",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "lint-staged": {
     "*.{md,json}": [
@@ -68,6 +74,7 @@
     "@umijs/lint": "^4.0.0",
     "@vitejs/plugin-react": "^4.0.0",
     "chalk": "^5.2.0",
+    "conventional-changelog-cli": "^3.0.0",
     "dumi": "^2.2.1",
     "enquirer": "^2.3.6",
     "eslint": "^8.41.0",

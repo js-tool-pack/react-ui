@@ -17,13 +17,18 @@ const step = (msg: string) => console.log(chalk.cyan(msg));
 
 const forEachPkgs = async (
   config: Config,
-  cb: (path: string, json: typeof rootPkgJson) => Promise<any> | void,
+  cb: (
+    path: string,
+    json: typeof rootPkgJson,
+    pkgPath: string,
+  ) => Promise<unknown> | void,
 ) => {
   for (const pkg of config.pkgs) {
-    const p = path.resolve(getPkgPath(pkg), 'package.json');
-    const pkgJson = JSON.parse(fs.readFileSync(p, 'utf-8'));
+    const pkgPath = getPkgPath(pkg);
+    const _path = path.resolve(getPkgPath(pkg), 'package.json');
+    const pkgJson = require(_path);
     if (pkgJson?.private) continue;
-    await cb(p, pkgJson);
+    await cb(_path, pkgJson, pkgPath);
   }
 };
 
@@ -45,16 +50,16 @@ const getPkgPath = (pkg: string) =>
 const actions = {
   lintCheck: () => exec(npmTool, ['check:all']),
   jestCheck: async (config: Config) => {
-    await forEachPkgs(config, (path, json) => {
+    await forEachPkgs(config, (_, json, pkgPath) => {
       if (!json?.scripts?.test) return;
-      return exec(npmTool, ['test'], { execPath: path });
+      return exec(npmTool, ['test'], { execPath: pkgPath });
     });
   },
   build: async (config: Config) => {
-    await forEachPkgs(config, (p, json) => {
+    await forEachPkgs(config, (_, json, pkgPath) => {
       if (!json?.scripts?.build) return;
-      console.log(chalk.cyan('build:', p));
-      return exec(npmTool, ['build'], { execPath: p });
+      console.log(chalk.cyan('build:', pkgPath));
+      return exec(npmTool, ['build'], { execPath: pkgPath });
     });
   },
   updateVersions(pkgs: string[], version: string) {
@@ -276,11 +281,12 @@ async function setup() {
   await actions.genChangeLog();
 
   // monorepo才需要重新install依赖
-  if (isMonoRepo) {
-    // update pnpm-lock.yaml
-    step('\nUpdating lockfile...');
-    await exec(npmTool, ['install', '--prefer-offline']);
-  }
+  // 暂时不需要更新依赖
+  // if (isMonoRepo) {
+  //   // update pnpm-lock.yaml
+  //   step('\nUpdating lockfile...');
+  //   await exec(npmTool, ['install', '--prefer-offline']);
+  // }
 
   step('\ngit commit...');
   await actions.gitCommit(config.targetVersion);

@@ -4,9 +4,10 @@
   "sideEffects": false,
   "scripts": {
     "rm:dist": "rimraf ./dist",
-    "build": "npm run build:vite && npm run build:dts && npm run build:scss",
+    "build": "npm run build:vite && npm run build:dts && npm run build:scss && npm run build:postcss",
     "build:vite": "vite build",
     "build:scss": "sass src/index.scss dist/index.css --no-source-map",
+    "build:postcss": "postcss --config ./postcss.config.js dist/index.css -o dist/index.css",
     "check:ts": "tsc --noEmit -p tsconfig.json",
     "alias:debug": "tsc-alias -p tsconfig.json --debug",
     "build:dts": "tsc -p ./tsconfig.json --emitDeclarationOnly && tsc-alias -p ./tsconfig.json && rollup -c ./rollup.dts.config.js",
@@ -64,5 +65,11 @@
   "bugs": {
     "url": "https://github.com/js-tool-pack/react-ui/issues"
   },
-  "homepage": "https://github.com/js-tool-pack/react-ui"
+  "homepage": "https://github.com/js-tool-pack/react-ui",
+  "browserslist": [
+    ">0.2%",
+    "last 4 version",
+    "not dead",
+    "not op_mini all"
+  ]
 }

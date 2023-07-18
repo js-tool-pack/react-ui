@@ -20,7 +20,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['scripts/**', 'rollup.config.js', 'rollup.dts.config.js'],
+      files: ['scripts/**', '*.config.js', '*.config.ts'],
       rules: {
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',

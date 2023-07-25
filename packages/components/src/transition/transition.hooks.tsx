@@ -13,6 +13,7 @@ export function useDispatcher(
 ) {
   const forceUpdate = useForceUpdate();
   const isInitDep = useIsInitDep(children);
+  const isInitShow = useIsInitDep(show);
   const [prev, next] = useChildren(children);
   const showCacheRef = useRef<boolean | void>();
   const statusCacheRef = useRef<[STATUS, STATUS]>();
@@ -44,21 +45,17 @@ export function useDispatcher(
 
   const getStatusByShow = (): [STATUS, STATUS] => {
     let nextStatus: STATUS | undefined;
-    if (isInitDep) {
-      if (appear !== undefined) {
-        switch (appear) {
-          case null:
-            nextStatus = show ? STATUS.idle : STATUS.none;
-            break;
-          case false:
-            nextStatus = show ? STATUS.idle : STATUS.invisible;
-            break;
-          case true:
-            nextStatus = show ? STATUS.show : STATUS.invisible;
-            break;
-        }
-      } else {
-        nextStatus = show ? STATUS.idle : STATUS.invisible;
+    if (isInitShow) {
+      switch (appear) {
+        case null:
+          nextStatus = show ? STATUS.idle : STATUS.none;
+          break;
+        case false:
+          nextStatus = show ? STATUS.idle : STATUS.invisible;
+          break;
+        case true:
+          nextStatus = show ? STATUS.show : STATUS.invisible;
+          break;
       }
     } else if (show === showCacheRef.current) {
       nextStatus = show ? STATUS.idle : STATUS.invisible;
@@ -187,21 +184,15 @@ export function useTransition(
   if (!children || STATUS.none === status || typeof children === 'boolean')
     return;
 
-  return (
-    <>
-      {cloneElement(children, {
-        ref: elRef,
-        className: getClassNames(children.props.className, {
-          [classes?.fromClassName]: classes && status === STATUS.show,
-        }),
-        style: {
-          ...children.props.style,
-          display:
-            STATUS.invisible === status
-              ? 'none'
-              : children.props.style?.display,
-        },
-      })}
-    </>
-  );
+  return cloneElement(children, {
+    ref: elRef,
+    className: getClassNames(children.props.className, {
+      [classes?.fromClassName]: classes && status === STATUS.show,
+    }),
+    style: {
+      ...children.props.style,
+      display:
+        STATUS.invisible === status ? 'none' : children.props.style?.display,
+    },
+  });
 }

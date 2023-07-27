@@ -1,42 +1,38 @@
-import React, { memo, useRef } from 'react';
-import { Transition } from '../transition/index';
-import { ChildStatus } from './transition-group.enums';
-import { useDispatcher } from './transition-gorup.hooks';
-import { TransitionGroupProps } from './transition-group.types';
+import React from 'react';
+import { useFlips } from './useFlips';
+import { useWrapper } from './useWrapper';
+import { useChildMap } from './useChildMap';
+import type { TransitionGroupProps } from './transition-group.types';
+import { RequiredPart } from '@tool-pack/types';
 
-const TransitionGroup: React.FC<TransitionGroupProps> = (
-  props,
-): React.ReactElement => {
-  const { mode, name, on, tag, appear, children, ...rest } = props;
-  const containerRef = useRef<HTMLElement>(null);
+/**
+ * v1 版有部分 bug 不好解决。
+ *
+ * v2版参考了 {@link https://github.com/peoplesing1832/react-transition/blob/npm/src/v4/TransitionGroup.tsx} 该实现。
+ *
+ * 相比 v1 版， v2 需要元素外部套 Transition 组件，可随机插入(v1不行)，动画更流畅。
+ *
+ * 目前还是不够完美，以后需要再次优化。。。
+ */
 
-  const [_children, _appear] = useDispatcher(
-    containerRef,
-    name,
-    children,
-    appear,
-    on,
-  );
+const defaultProps = {
+  tag: 'div',
+  name: 't-group',
+} satisfies TransitionGroupProps;
 
-  return React.createElement(
-    tag as string,
-    { ...rest, ref: containerRef },
-    _children.map((child) => {
-      return (
-        <Transition
-          name={name}
-          mode={mode}
-          appear={child.status === ChildStatus.enter && _appear}
-          key={child.component.key}
-          on={child.on}>
-          {child.status === ChildStatus.leave ? undefined : child.component}
-        </Transition>
-      );
-    }),
-  );
+const TransitionGroup: React.FC<TransitionGroupProps> = (props) => {
+  const { name, children, ...rest } = props as RequiredPart<
+    TransitionGroupProps,
+    keyof typeof defaultProps
+  >;
+
+  const childMap = useChildMap(children, name);
+  const [wrapper, parentRef] = useWrapper(childMap, rest);
+  useFlips(parentRef, name);
+  return wrapper;
 };
 
-TransitionGroup.defaultProps = { tag: 'div' };
+TransitionGroup.defaultProps = defaultProps;
 TransitionGroup.displayName = 'TransitionGroup';
 
-export default memo(TransitionGroup);
+export default React.memo(TransitionGroup);

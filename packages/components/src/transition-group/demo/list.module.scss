@@ -5,17 +5,15 @@ $name: 'group';
       &-enter-active,
       &-leave-active,
       &-move-active {
-        transition: all 1s ease;
-      }
-      &-leave-active {
-        position: absolute;
+        transition: all 0.8s ease;
       }
       &-enter-from {
-        transform: translate(0, -100%);
+        transform: scaleY(0.01) translateY(-100%);
         opacity: 0;
       }
       &-leave-to {
-        transform: translate(0, 100%);
+        // tips: scaleY 如果为 0 会退出不彻底
+        transform: scaleY(0.01) translateY(100%);
         opacity: 0;
       }
     }

@@ -1,11 +1,14 @@
-export function applyTranslation(el: HTMLElement, rect: DOMRect): boolean {
-  const curRect = el.getBoundingClientRect();
-  const x = rect.left - curRect.left;
-  const y = rect.top - curRect.top;
+export function applyTranslation(
+  el: HTMLElement,
+  prevRect: DOMRect,
+  nextRect: DOMRect,
+): boolean {
+  const x = prevRect.left - nextRect.left + (prevRect.width - nextRect.width);
+  const y = prevRect.top - nextRect.top + (prevRect.height - nextRect.height);
   if (x || y) {
     const { style } = el;
-    style.transitionDuration = '0s';
     style.transform = style.webkitTransform = `translate(${x}px,${y}px)`;
+    style.transitionDuration = '0s';
     return true;
   }
   return false;

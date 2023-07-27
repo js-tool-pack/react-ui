@@ -52,6 +52,10 @@ $r: Name.$button;
   // transition-property: all;
   transition-timing-function: ease-in-out;
   transition-duration: var(--t-transition-duration);
+  & > span {
+    display: inline-flex;
+    align-items: center;
+  }
   &:not([disabled]):hover {
     --t-btn-color: var(--t-btn-hover-color);
     --t-btn-bg-color: var(--t-btn-hover-bg-color);

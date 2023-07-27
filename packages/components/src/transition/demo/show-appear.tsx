@@ -25,7 +25,7 @@ const App: React.FC = () => {
           value={value}
           rows={5}
           onChange={(e) => setValue(e.target.value)}
-          placeholder="通过show控制动画。调整两个输入框的宽高并切换动画看看它们的区别"
+          placeholder="show与appear搭配. 当初始未显示时不会渲染 dom，之后隐藏不会销毁 dom"
         />
       </Transition>
     </Space>

@@ -3,18 +3,28 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import {
+  TransitionGroup,
+  Button,
+  Space,
+  Transition,
+} from '@tool-pack/react-ui';
 import styles from './mixed.module.scss';
 
+const initLen = 5;
+const initArr = () => [...Array.from({ length: initLen }).keys()];
 const App: React.FC = () => {
   const [, update] = useState({});
   const forceUpdate = useCallback(() => update({}), []);
 
-  const children = useRef<number[]>([...Array.from({ length: 10 }).keys()]);
+  const children = useRef<number[]>(initArr());
 
-  const index = useRef(children.current.length);
+  const index = useRef(initLen);
   function addChild() {
-    children.current.push(index.current);
+    const list = children.current;
+    const splice = list.splice(~~(Math.random() * list.length), list.length);
+    list.push(index.current);
+    list.push(...splice);
     forceUpdate();
     index.current++;
   }
@@ -37,6 +47,12 @@ const App: React.FC = () => {
     forceUpdate();
   }
 
+  function reset() {
+    children.current = initArr();
+    index.current = initLen;
+    forceUpdate();
+  }
+
   return (
     <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
@@ -49,15 +65,18 @@ const App: React.FC = () => {
         <Button type="warning" plain onClick={removeRandomChild}>
           移除
         </Button>
+        <Button type="danger" plain onClick={reset}>
+          重置
+        </Button>
       </Space>
       <br />
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
           return (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-            <div key={item} onClick={() => removeChild(item)}>
-              {item}
-            </div>
+            <Transition key={item}>
+              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+              <div onClick={() => removeChild(item)}>{item}</div>
+            </Transition>
           );
         })}
       </TransitionGroup>

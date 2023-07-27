@@ -3,14 +3,19 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import {
+  TransitionGroup,
+  Button,
+  Space,
+  Transition,
+} from '@tool-pack/react-ui';
 import styles from './flip.module.scss';
 
 const App: React.FC = () => {
   const [, update] = useState({});
   const forceUpdate = useCallback(() => update({}), []);
 
-  const children = useRef<number[]>([...Array.from({ length: 30 }).keys()]);
+  const children = useRef<number[]>([...Array.from({ length: 25 }).keys()]);
 
   function shuffle() {
     const list = children.current;
@@ -32,7 +37,11 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
-          return <button key={item}>{item}</button>;
+          return (
+            <Transition key={item}>
+              <button>{item}</button>
+            </Transition>
+          );
         })}
       </TransitionGroup>
     </div>

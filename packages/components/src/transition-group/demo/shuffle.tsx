@@ -3,7 +3,7 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button } from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Transition } from '@tool-pack/react-ui';
 import styles from './shuffle.module.scss';
 
 const App: React.FC = () => {
@@ -29,7 +29,11 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
-          return <div key={item}>{item}</div>;
+          return (
+            <Transition key={item}>
+              <div>{item}</div>
+            </Transition>
+          );
         })}
       </TransitionGroup>
     </div>

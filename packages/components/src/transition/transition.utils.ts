@@ -1,5 +1,7 @@
-import { LIFE_CIRCLE } from './transition.enums';
 import React from 'react';
+import type { CB } from './transition.types';
+import { LIFE_CIRCLE, STATUS } from './transition.enums';
+
 export function getClasses(name: string, show: boolean) {
   const el = show ? 'enter' : 'leave';
   const nameEl = `${name}-${el}`;
@@ -94,4 +96,82 @@ export function isSameEl(prev: unknown, next: unknown): boolean {
 export function reflow(el?: HTMLElement) {
   // 使用offsetHeight强制刷新ui
   void el?.offsetHeight;
+}
+
+/**
+ * 回调适配器
+ */
+export function transitionCBAdapter(
+  cbs: Partial<
+    Record<
+      // ---- enter ----
+      | 'onEnterReady'
+      | 'onBeforeEnter'
+      | 'onEnterRun'
+      | 'onEnterRunning'
+      | 'onEnterStart'
+      | 'onAfterEnter'
+      | 'onEnterCancel'
+      // ---- leave ----
+      | 'onLeaveReady'
+      | 'onBeforeLeave'
+      | 'onLeaveRun'
+      | 'onLeaveRunning'
+      | 'onLeaveStart'
+      | 'onAfterLeave'
+      | 'onLeaveCancel'
+      // ---- idle ----
+      | 'onIdle'
+      // ---- invisible ----
+      | 'onInvisible',
+      (el: HTMLElement) => void
+    >
+  >,
+  log = false,
+): CB {
+  return (el, status, lifeCircle): void => {
+    log &&
+      console.log(
+        'transitionCbAdapter:',
+        STATUS[status],
+        LIFE_CIRCLE[lifeCircle],
+      );
+
+    type MAP = Record<LIFE_CIRCLE, ((el: HTMLElement) => void) | undefined>;
+
+    if (STATUS.show === status) {
+      const map: MAP = {
+        [LIFE_CIRCLE.ready]: cbs.onEnterReady,
+        [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
+        [LIFE_CIRCLE.run]: cbs.onEnterRun,
+        [LIFE_CIRCLE.running]: cbs.onEnterRunning,
+        [LIFE_CIRCLE.start]: cbs.onEnterStart,
+        [LIFE_CIRCLE.after]: cbs.onAfterEnter,
+        [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
+      };
+      map[lifeCircle]?.(el);
+      return;
+    }
+    if (STATUS.hide === status) {
+      const map: MAP = {
+        [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
+        [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
+        [LIFE_CIRCLE.run]: cbs.onLeaveRun,
+        [LIFE_CIRCLE.running]: cbs.onLeaveRunning,
+        [LIFE_CIRCLE.start]: cbs.onLeaveStart,
+        [LIFE_CIRCLE.after]: cbs.onAfterLeave,
+        [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,
+      };
+      map[lifeCircle]?.(el);
+      return;
+    }
+    if (STATUS.idle) {
+      cbs.onIdle?.(el);
+      return;
+    }
+    if (STATUS.invisible) {
+      cbs.onInvisible?.(el);
+      return;
+    }
+  };
 }

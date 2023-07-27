@@ -5,7 +5,12 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import {
+  TransitionGroup,
+  Button,
+  Space,
+  Transition,
+} from '@tool-pack/react-ui';
 import styles from './all.module.scss';
 
 const App: React.FC = () => {
@@ -56,9 +61,9 @@ const App: React.FC = () => {
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
           return (
-            <button key={item} onClick={() => removeChild(item)}>
-              {item}
-            </button>
+            <Transition key={item}>
+              <button onClick={() => removeChild(item)}>{item}</button>
+            </Transition>
           );
         })}
       </TransitionGroup>

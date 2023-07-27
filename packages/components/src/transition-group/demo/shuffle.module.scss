@@ -5,9 +5,6 @@ $name: 'group';
       &-move-active {
         transition: all 1s ease;
       }
-      &-leave-active {
-        position: absolute;
-      }
     }
     .group-container {
       white-space: nowrap;

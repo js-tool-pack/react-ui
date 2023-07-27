@@ -7,23 +7,21 @@ $name: 'group';
       &-move-active {
         transition: all 1s ease;
       }
-      &-leave-active {
-        position: absolute;
-      }
       &-enter-from {
-        transform: scaleY(0.01) translate(0, -100%);
+        transform: scaleY(0.1) translateX(-100%);
         opacity: 0;
       }
       &-leave-to {
-        transform: scaleY(0.01) translate(0, 100%);
+        transform: scaleY(0.1) translateX(100%);
         opacity: 0;
       }
     }
     .group-container {
-      white-space: nowrap;
       div {
-        display: inline-block;
         padding: 6px;
+        border: 1px solid white;
+        color: whitesmoke;
+        background-color: #f56c6c;
       }
     }
   }

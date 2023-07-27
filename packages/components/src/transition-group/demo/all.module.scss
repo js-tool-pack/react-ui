@@ -7,9 +7,6 @@ $name: 'group';
       &-move-active {
         transition: all 1s ease;
       }
-      &-leave-active {
-        position: absolute;
-      }
       &-enter-from {
         transform: scaleY(0.01) translate(0, -100%);
         opacity: 0;

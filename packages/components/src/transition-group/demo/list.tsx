@@ -3,7 +3,12 @@
  */
 
 import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import {
+  TransitionGroup,
+  Transition,
+  Button,
+  Space,
+} from '@tool-pack/react-ui';
 import styles from './list.module.scss';
 
 const App: React.FC = () => {
@@ -14,7 +19,10 @@ const App: React.FC = () => {
 
   const index = useRef(children.current.length);
   function addChild() {
-    children.current.push(index.current);
+    const list = children.current;
+    const splice = list.splice(~~(Math.random() * list.length), list.length);
+    list.push(index.current);
+    list.push(...splice);
     forceUpdate();
     index.current++;
   }
@@ -41,7 +49,11 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup name="group" tag="section" className="group-container">
         {children.current.map((item) => {
-          return <div key={item}>{item}</div>;
+          return (
+            <Transition key={item}>
+              <div>{item}</div>
+            </Transition>
+          );
         })}
       </TransitionGroup>
     </div>

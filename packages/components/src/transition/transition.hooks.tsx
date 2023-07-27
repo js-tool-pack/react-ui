@@ -1,7 +1,7 @@
 import { cloneElement, useEffect, useMemo, useRef } from 'react';
 import { addTransition, getClasses, isSameEl } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
-import type { CB, El, Mode } from './transition.types';
+import type { CB, El, Mode, TransitionProps } from './transition.types';
 import { getClassNames, nextTick } from '@tool-pack/basic';
 import { useForceUpdate, useIsInitDep } from '@pkg/shared';
 
@@ -139,6 +139,7 @@ export function useTransition(
   children?: El,
   innerCB?: CB,
   cb?: CB,
+  { className, style, ...rest }: Partial<TransitionProps> = {},
 ) {
   const elRef = useRef<HTMLElement | null>(null);
 
@@ -185,12 +186,14 @@ export function useTransition(
     return;
 
   return cloneElement(children, {
+    ...rest,
     ref: elRef,
-    className: getClassNames(children.props.className, {
+    className: getClassNames(children.props.className, className, {
       [classes?.fromClassName]: classes && status === STATUS.show,
     }),
     style: {
       ...children.props.style,
+      ...style,
       display:
         STATUS.invisible === status ? 'none' : children.props.style?.display,
     },

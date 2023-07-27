@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { MessageProps } from './message.types';
 import type { RequiredPart } from '@tool-pack/types';
 import { getComponentClass, useForwardRef, useTimeDown } from '@pkg/shared';
@@ -40,9 +40,13 @@ export const Message: React.FC<MessageProps> = React.forwardRef<
   const [time, stop] = useTimeDown(duration);
   const rootRef = useForwardRef(ref);
 
+  const isTimeout = useRef(false);
+
   useEffect(() => {
+    if (isTimeout.current) return;
     if (duration > 0 && time <= 0) {
       onLeave?.();
+      isTimeout.current = true;
     }
   }, [time, onLeave]);
 
@@ -69,7 +73,7 @@ export const Message: React.FC<MessageProps> = React.forwardRef<
       {children}
       {showClose && (
         <Button size="small" plain="text" onClick={onLeave}>
-          <Icon>
+          <Icon size="0.8em">
             <Close />
           </Icon>
         </Button>

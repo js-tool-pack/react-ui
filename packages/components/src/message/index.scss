@@ -62,7 +62,6 @@ $q: '#{$r}-queue';
     transition-timing-function: linear;
   }
   &-leave-active {
-    position: absolute;
     width: 100%;
   }
   &-enter-from,

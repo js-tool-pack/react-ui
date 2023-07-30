@@ -19,8 +19,9 @@ export function useChildMap(children: React.ReactNode, name: string) {
   const onLeaved = (key: React.Key) => {
     // leave 可能会丢失
     setChildMap((prevChildren) => {
-      prevChildren.delete(key);
-      return new Map(prevChildren.entries());
+      const map = new Map(prevChildren);
+      map.delete(key);
+      return map;
     });
   };
 
@@ -138,7 +139,7 @@ function cloneTransition(
   transition: React.ReactElement,
   props: Partial<TransitionProps>,
 ) {
-  const _props = { ...props, 'data-key': transition.key } as TransitionProps;
+  const _props = { ...props } as TransitionProps;
   const nextOn = props.on;
   if (nextOn) {
     const prevOn = transition.props.on as TransitionProps['on'];

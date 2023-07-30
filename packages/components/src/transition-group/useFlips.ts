@@ -1,11 +1,15 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { applyTranslation } from './transition-group.utils';
+import type { ChildMap } from './transition-group.types';
 
 export function useFlips(
   wrapperRef: React.MutableRefObject<HTMLElement | undefined>,
+  childMap: ChildMap,
   name: string,
 ) {
-  const prevRects = getChildRects(wrapperRef.current);
+  const prevChildMapRef = useRef(childMap);
+  const prevRects = getChildRects(wrapperRef.current, prevChildMapRef.current);
+  prevChildMapRef.current = childMap;
 
   useLayoutEffect(() => {
     const wrapperEl = wrapperRef.current;
@@ -13,9 +17,9 @@ export function useFlips(
 
     const moveClass = `${name}-move-active`;
     const { children } = wrapperEl;
-    const nextRects: Record<string, DOMRect> = {};
+    const nextRects: Record<React.Key, DOMRect> = {};
     // 获取最新的样式
-    forEachEl(children, (el, key) => {
+    forEachEl(children, childMap, (el, key) => {
       el.style.transition = 'none';
       nextRects[key] = el.getBoundingClientRect();
       if (!prevRects[key]) prevRects[key] = nextRects[key]!;
@@ -24,7 +28,7 @@ export function useFlips(
 
     const flips: Array<() => void> = [];
     // 计算之前样式与现在的样式的差，并设置样式
-    forEachEl(children, (el, key) => {
+    forEachEl(children, childMap, (el, key) => {
       // if (hasTransition(el, name)) return;
       if (!applyTranslation(el, prevRects[key]!, nextRects[key]!)) return;
       flips.push(() => {
@@ -47,11 +51,13 @@ export function useFlips(
 
 function getChildRects(
   wrapperEl: HTMLElement | undefined,
+  childMap: ChildMap,
 ): Record<React.Key, DOMRect> | void {
   if (!wrapperEl) return;
   const rects: Record<React.Key, DOMRect> = Object.create(null);
   forEachEl(
     wrapperEl.children,
+    childMap,
     (el, key) => (rects[key] = el.getBoundingClientRect()),
   );
   return rects;
@@ -59,16 +65,15 @@ function getChildRects(
 
 function forEachEl(
   els: HTMLElement[] | NodeListOf<HTMLElement> | HTMLCollection,
-  cb: (el: HTMLElement, key: string) => void,
+  childMap: ChildMap,
+  cb: (el: HTMLElement, key: React.Key) => void,
 ) {
-  const len = els.length;
-  for (let i = 0; i < len; i++) {
-    const el = els[i] as HTMLElement | undefined;
-    if (!el) continue;
-    const key = el.getAttribute('data-key');
-    if (!key) continue;
-    cb(el, key);
-  }
+  let i = 0;
+  childMap.forEach((_, key) => {
+    const el = els[i++];
+    if (!el) return;
+    cb(el as HTMLElement, key);
+  });
 }
 
 // function hasTransition(el: HTMLElement, name: string): boolean {

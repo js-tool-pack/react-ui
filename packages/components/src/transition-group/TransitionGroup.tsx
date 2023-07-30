@@ -28,7 +28,7 @@ const TransitionGroup: React.FC<TransitionGroupProps> = (props) => {
 
   const childMap = useChildMap(children, name);
   const [wrapper, parentRef] = useWrapper(childMap, rest);
-  useFlips(parentRef, name);
+  useFlips(parentRef, childMap, name);
   return wrapper;
 };
 

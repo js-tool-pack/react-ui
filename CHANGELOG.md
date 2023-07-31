@@ -1,3 +1,22 @@
+## [0.0.2-beta.2](https://github.com/js-tool-pack/react-ui/compare/v0.0.2-beta.1...v0.0.2-beta.2) (2023-07-31)
+
+### Bug Fixes
+
+- **components/button:** span 内部为 i 标签的时候不会垂直居中 ([9dd4014](https://github.com/js-tool-pack/react-ui/commit/9dd401406e11fcfd5ba029c5e571505f7668e009))
+- **components/transition-group:** 修复 transition-group 组件在非 dumi 环境下丢失 flips 动画的问题 ([0061ab2](https://github.com/js-tool-pack/react-ui/commit/0061ab2e4d1d63e6a400d9aba31d7f3ac76c1279))
+- **components/transition:** 修复 transition 组件使用 show 控制时在非 dumi 环境下 hide 会直接消失的问题 ([1d1e77c](https://github.com/js-tool-pack/react-ui/commit/1d1e77c320ed3ce0dadbf8f0c5bea799f5e7687c))
+
+### Features
+
+- **components/transition:** 可像普通 html 标签一样传参 ([4dcdc95](https://github.com/js-tool-pack/react-ui/commit/4dcdc9500fa2591e4b26581ff9fcd820b4866eb8))
+- **components/transition:** 新增 transitionCBAdapter ([8dac896](https://github.com/js-tool-pack/react-ui/commit/8dac89687e836a024350e8244607f7048bc465dc))
+
+### Performance Improvements
+
+- **components/transition-group:** v2 版 ([459f6c6](https://github.com/js-tool-pack/react-ui/commit/459f6c672df6d0cb1a68ad2e90d3de209cadd636))
+- **components/transition-group:** 移除原来添加到 html 元素上的 data-key 标识 ([96f6e26](https://github.com/js-tool-pack/react-ui/commit/96f6e26658385b8b2149e6011bcb58344f30cbf2))
+- **components/transition:** 优化 useDispatcher ([9aef7d8](https://github.com/js-tool-pack/react-ui/commit/9aef7d8e13cb5ef29c2210df6b2356baae8d7a4e))
+
 ## 0.0.2-beta.1 (2023-07-18)
 
 ### Bug Fixes

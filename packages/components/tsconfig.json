@@ -6,6 +6,7 @@
     "module": "ESNext",
     "paths": {
       "@pkg/*": ["../../packages/*/src"],
+      "~/*": ["./src/*"],
       "@tool-pack/react-ui": ["../../packages/react-ui/src"]
     }
   },

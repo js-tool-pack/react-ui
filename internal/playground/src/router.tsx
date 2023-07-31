@@ -88,14 +88,15 @@ export const baseRouter = [
   },
   {
     name: 'collapse-transition 折叠动画',
-    path: '/collapse-transition 折叠面板',
+    path: '/collapse-transition',
     element: getDemos(import.meta.glob('~/collapse-transition/demo/*.tsx')),
   },
   {
-    name: 'collapse',
+    name: 'collapse 折叠面板',
     path: '/collapse',
     element: getDemos(import.meta.glob('~/collapse/demo/*.tsx')),
   },
+  /*insert target*/
 ];
 
 export const router = createBrowserRouter([

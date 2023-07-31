@@ -1,15 +1,18 @@
 import { prompt } from 'enquirer';
 import { kebabCase, pascalCase } from '@tool-pack/basic';
 import * as Path from 'path';
+import Fs from 'fs';
 import Fse from 'fs-extra';
 import chalk from 'chalk';
 
 type InitRes = [filename: string, content: string];
 
+const rootPath = Path.resolve(__dirname, '../');
+
 const config = {
   name: '',
   componentName: '',
-  componentsPath: Path.resolve(__dirname, '../packages/components/src'),
+  componentsPath: Path.resolve(rootPath, 'packages/components/src'),
 };
 async function run() {
   const separator = '-'.repeat(10);
@@ -186,6 +189,29 @@ function appendIndex() {
 
   const scssContent = `@import './${config.name}';\n`;
   Fse.appendFileSync(getPkgPath(getFilename('scss')), scssContent);
+
+  appendPlayground();
+}
+
+function appendPlayground() {
+  const routerPath = Path.resolve(
+    rootPath,
+    'internal/playground/src/router.tsx',
+  );
+  const routerContent = Fs.readFileSync(routerPath, 'utf-8');
+
+  const insertTarget = '/*insert target*/';
+  const insertContent = `{
+    name: '${config.name} ${config.name}',
+    path: '/${config.name}',
+    element: getDemos(import.meta.glob('~/${config.name}/demo/*.tsx')),
+  },
+  ${insertTarget}`;
+
+  Fse.writeFileSync(
+    routerPath,
+    routerContent.replace(insertTarget, insertContent),
+  );
 }
 
 function getFilename(

@@ -9,9 +9,9 @@ export function useFlips(
 ) {
   const prevChildMapRef = useRef(childMap);
   const prevRects = getChildRects(wrapperRef.current, prevChildMapRef.current);
-  prevChildMapRef.current = childMap;
 
   useLayoutEffect(() => {
+    prevChildMapRef.current = childMap;
     const wrapperEl = wrapperRef.current;
     if (!wrapperEl || !prevRects) return;
 

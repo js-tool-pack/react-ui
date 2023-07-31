@@ -5,8 +5,11 @@
     "sourceMap": true,
     "target": "esnext",
     "module": "ESNext",
+    "types": ["vite/client"],
     "paths": {
-      "@pkg/*": ["../../packages/*/src"]
+      "@pkg/*": ["../../packages/*/src"],
+      "@tool-pack/react-ui": ["../../packages/react-ui/src"],
+      "~/*": ["../../packages/components/src/*"]
       // "@pkg/components": ["./.yalc/@tool-pack/react-ui"]
     }
   },

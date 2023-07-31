@@ -3,43 +3,98 @@ import { AppLayout } from './layouts/App.layout';
 import { ErrorLayout } from './layouts/Error.layout';
 import App from './app/App';
 import { NotFountLayout } from './layouts/NotFound.layout';
-import { TransitionPage } from './views/TransitionPage';
-import { TransitionGroupPage } from './views/transition-group';
-import { LoadingPage } from './views/loading';
-import { ButtonPage } from './views/button';
-import { LayoutPage } from './views/LayoutPage';
-import { DialogPage } from './views/DialogPage';
+import { getDemos } from './utils/getDemos';
 
 export const baseRouter = [
   {
-    name: 'transition',
+    name: 'transition 动画',
     path: '/transition',
-    element: <TransitionPage />,
+    element: getDemos(import.meta.glob('~/transition/demo/*.tsx')),
   },
   {
-    name: 'transition-group',
+    name: 'transition-group 动画组',
     path: '/transition-group',
-    element: <TransitionGroupPage />,
+    element: getDemos(import.meta.glob('~/transition-group/demo/*.tsx')),
   },
   {
-    name: 'loading',
+    name: 'loading 加载中',
     path: '/loading',
-    element: <LoadingPage />,
+    element: getDemos(import.meta.glob('~/loading/demo/*.tsx')),
   },
   {
-    name: 'button',
+    name: 'button 按钮',
     path: '/button',
-    element: <ButtonPage />,
+    element: getDemos(import.meta.glob('~/button/demo/*.tsx')),
   },
   {
-    name: 'layout',
+    name: 'layout 布局',
     path: '/layout',
-    element: <LayoutPage />,
+    element: getDemos(import.meta.glob('~/layouts/demo/*.tsx')),
   },
   {
-    name: 'dialog',
+    name: 'divider 分割线',
+    path: '/divider',
+    element: getDemos(import.meta.glob('~/divider/demo/*.tsx')),
+  },
+  {
+    name: 'dialog 弹窗',
     path: '/dialog',
-    element: <DialogPage />,
+    element: getDemos(import.meta.glob('~/dialog/demo/*.tsx')),
+  },
+  {
+    name: 'icon 图标',
+    path: '/icon',
+    element: getDemos(import.meta.glob('~/icon/demo/*.tsx')),
+  },
+  {
+    name: 'space 间距',
+    path: '/space',
+    element: getDemos(import.meta.glob('~/space/demo/*.tsx')),
+  },
+  {
+    name: 'resizer 修改宽高',
+    path: '/resizer',
+    element: getDemos(import.meta.glob('~/resizer/demo/*.tsx')),
+  },
+  {
+    name: 'drawer 抽屉',
+    path: '/drawer',
+    element: getDemos(import.meta.glob('~/drawer/demo/*.tsx')),
+  },
+  {
+    name: 'message 信息',
+    path: '/message',
+    element: getDemos(import.meta.glob('~/message/demo/*.tsx')),
+  },
+  {
+    name: 'word-balloon 文字气泡',
+    path: '/word-balloon',
+    element: getDemos(import.meta.glob('~/word-balloon/demo/*.tsx')),
+  },
+  {
+    name: 'popover 弹出层',
+    path: '/popover',
+    element: getDemos(import.meta.glob('~/popover/demo/*.tsx')),
+  },
+  {
+    name: 'tooltip 文字提示',
+    path: '/tooltip',
+    element: getDemos(import.meta.glob('~/tooltip/demo/*.tsx')),
+  },
+  {
+    name: 'pop-confirm 弹出确认框',
+    path: '/pop-confirm',
+    element: getDemos(import.meta.glob('~/pop-confirm/demo/*.tsx')),
+  },
+  {
+    name: 'collapse-transition 折叠动画',
+    path: '/collapse-transition 折叠面板',
+    element: getDemos(import.meta.glob('~/collapse-transition/demo/*.tsx')),
+  },
+  {
+    name: 'collapse',
+    path: '/collapse',
+    element: getDemos(import.meta.glob('~/collapse/demo/*.tsx')),
   },
 ];
 

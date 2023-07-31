@@ -20,23 +20,25 @@ $h: 60px;
   background-color: var(--aside-bg-color);
   flex-basis: $w;
   box-sizing: border-box;
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  li {
-    color: #1a2be1;
-    &.active {
-      color: #8c06b8;
-      pointer-events: none;
+  :global {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
-  }
-  a {
-    display: block;
-    padding: 5px 0;
-    text-decoration: none;
-    color: inherit;
+    li {
+      color: #1a2be1;
+      &.active {
+        color: #8c06b8;
+        pointer-events: none;
+      }
+    }
+    a {
+      display: block;
+      padding: 5px 0;
+      text-decoration: none;
+      color: inherit;
+    }
   }
 }
 .main {

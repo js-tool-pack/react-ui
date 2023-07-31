@@ -42,6 +42,7 @@
     "paths": {
       "@pkg/*": ["./packages/*/src"],
       "@tool-pack/react-ui": ["./packages/react-ui"],
+      "~/*": ["./packages/components/src/*"],
       "@@/*": ["./.dumi/tmp/*"]
     }
   },

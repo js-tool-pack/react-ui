@@ -24,13 +24,15 @@ export function AppLayout(): JSX.Element {
       <Layout>
         <Aside className={styles['aside']}>
           <ul>
-            {baseRouter.map((item) => (
+            {baseRouter.map((item, index) => (
               <li
                 key={item.name}
                 className={getClassNames({
                   active: item.path === location.pathname,
                 })}>
-                <Link to={item.path}>{item.name}</Link>
+                <Link to={item.path}>
+                  {index + 1}. {item.name}
+                </Link>
               </li>
             ))}
           </ul>

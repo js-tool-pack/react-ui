@@ -2,6 +2,23 @@
 
 $r: Name.$word-balloon;
 
+@mixin shadow($p) {
+  $c1: rgb(0 0 0 / 8%);
+  $c2: rgb(0 0 0 / 12%);
+  $c3: rgb(0 0 0 / 5%);
+  .#{$r}__content {
+    @if $p == top {
+      box-shadow: 0 6px 16px 0 $c1, 0 3px 6px -4px $c2, 0 9px 28px 8px $c3;
+    } @else if $p == bottom {
+      box-shadow: 0 -5px 16px 0 $c1, 0 0 6px -4px $c2, 0 -9px 28px 8px $c3;
+    } @else if $p == left {
+      box-shadow: 6px 0 16px 0 $c1, 0 0 6px -4px $c2, 6px 0 28px 8px $c3;
+    } @else if $p == right {
+      box-shadow: -6px 0 16px 0 $c1, 0 0 6px -4px $c2, -6px 0 28px 8px $c3;
+    }
+  }
+}
+
 .#{$r} {
   --t-word-balloon-bg: var(--t-bg-color);
   --t-word-balloon-arrow-offset: calc(var(--t-radius) + 2px);
@@ -16,8 +33,6 @@ $r: Name.$word-balloon;
     white-space: pre-wrap;
     color: var(--t-text-color);
     background: var(--t-word-balloon-bg);
-    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
-      0 9px 28px 8px rgb(0 0 0 / 5%);
     word-wrap: break-word;
     box-sizing: border-box;
   }
@@ -79,6 +94,7 @@ $r: Name.$word-balloon;
     &,
     &-start,
     &-end {
+      @include shadow(top);
       .#{$r}__arrow {
         top: 100%;
       }
@@ -95,6 +111,7 @@ $r: Name.$word-balloon;
     &,
     &-start,
     &-end {
+      @include shadow(right);
       .#{$r}__arrow {
         right: 100%;
         margin-right: -$arrow-height;
@@ -113,6 +130,7 @@ $r: Name.$word-balloon;
     &,
     &-start,
     &-end {
+      @include shadow(bottom);
       .#{$r}__arrow {
         bottom: 100%;
         transform: rotate(180deg);
@@ -130,6 +148,7 @@ $r: Name.$word-balloon;
     &,
     &-start,
     &-end {
+      @include shadow(left);
       .#{$r}__arrow {
         left: 100%;
         margin-left: -$arrow-height;

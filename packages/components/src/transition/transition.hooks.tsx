@@ -117,7 +117,9 @@ export function useDispatcher(
   };
 
   const status = getStatus();
-  showCacheRef.current = show;
+  useEffect(() => {
+    showCacheRef.current = show;
+  });
   return [...childs, ...status, cbRef.current] as const;
 }
 

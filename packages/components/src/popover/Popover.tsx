@@ -5,7 +5,7 @@ import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import {
   usePosition,
-  useResizerObserver,
+  useResizeObserver,
   useShowController,
 } from './popover.hooks';
 import { createPortal } from 'react-dom';
@@ -53,7 +53,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     refreshPosition,
   );
 
-  useResizerObserver(show, balloonRef, refreshPosition);
+  useResizeObserver(show, balloonRef, refreshPosition);
   useResizeEvent(show, refreshPosition);
 
   const Balloon = (

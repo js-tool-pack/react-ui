@@ -10,7 +10,7 @@ import {
 } from '@tool-pack/dom';
 import { getComponentClass, PLACEMENTS_12 } from '@pkg/shared';
 
-export function useResizerObserver(
+export function useResizeObserver(
   enable: boolean,
   elRef: React.MutableRefObject<HTMLElement | undefined>,
   callback: () => void,

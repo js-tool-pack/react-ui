@@ -48,7 +48,7 @@ const App: React.FC = () => {
   return (
     <div>
       <CollapseGroup
-        options={{
+        collapseProps={{
           icon: (active) => (
             <Icon
               className={`t-collapse__icon ${

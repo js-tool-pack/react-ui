@@ -32,7 +32,7 @@ const items: CollapseGroupItem[] = [
 const App: React.FC = () => {
   return (
     <div>
-      <CollapseGroup options={{ expanded: true }} items={items} />
+      <CollapseGroup collapseProps={{ expanded: true }} items={items} />
     </div>
   );
 };

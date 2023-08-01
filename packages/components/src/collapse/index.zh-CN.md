@@ -57,11 +57,11 @@ export type CollapseGroupItem = CollapseProps & {
 };
 ```
 
-| 属性      | 说明                          | 类型                                                              | 默认值 | 版本 |
-| --------- | ----------------------------- | ----------------------------------------------------------------- | ------ | ---- |
-| accordion | 手风琴效果                    | boolean                                                           | false  | --   |
-| items     | 面板 item 数组                | CollapseGroupItem[]                                               | --     | --   |
-| options   | items 的公共选项              | Partial\<CollapseProps>                                           | --     | --   |
-| onChange  | 内部面板展开/收起时触发的回调 | (item: CollapseGroupItem, index: number, active: boolean) => void | --     | --   |
+| 属性          | 说明                          | 类型                                                              | 默认值 | 版本 |
+| ------------- | ----------------------------- | ----------------------------------------------------------------- | ------ | ---- |
+| accordion     | 手风琴效果                    | boolean                                                           | false  | --   |
+| items         | 面板 item 数组                | CollapseGroupItem[]                                               | --     | --   |
+| collapseProps | items 的公共选项              | Partial\<CollapseProps>                                           | --     | --   |
+| onChange      | 内部面板展开/收起时触发的回调 | (item: CollapseGroupItem, index: number, active: boolean) => void | --     | --   |
 
 其他说明。

@@ -31,7 +31,7 @@ const App: React.FC = () => {
   return (
     <div>
       <CollapseGroup
-        options={{
+        collapseProps={{
           iconPlacement: 'end',
           extra: '《道德经》',
         }}

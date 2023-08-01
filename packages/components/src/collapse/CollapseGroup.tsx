@@ -8,7 +8,7 @@ import { Collapse } from './Collapse';
 const rootName = getComponentClass('collapse-group');
 
 export const CollapseGroup: React.FC<CollapseGroupProps> = (props) => {
-  const { options, onChange, accordion, items, className, ...rest } =
+  const { collapseProps, onChange, accordion, items, className, ...rest } =
     props as RequiredPart<CollapseGroupProps, keyof typeof defaultProps>;
 
   const list = useRef(items);
@@ -32,7 +32,7 @@ export const CollapseGroup: React.FC<CollapseGroupProps> = (props) => {
   return (
     <div {...rest} className={getClassNames(rootName, className)}>
       {list.current.map(({ onChange, ...rest }, i) => {
-        const opts = { ...options, ...rest };
+        const opts = { ...collapseProps, ...rest };
         return (
           <Collapse
             {...opts}

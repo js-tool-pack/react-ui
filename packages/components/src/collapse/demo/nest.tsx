@@ -45,7 +45,7 @@ const items: CollapseGroupItem[] = [
     title: '第二十三至二十五章',
     extra: '嵌套',
     expanded: true,
-    children: <CollapseGroup options={{ expanded: true }} items={nest} />,
+    children: <CollapseGroup collapseProps={{ expanded: true }} items={nest} />,
   },
 ];
 const App: React.FC = () => {

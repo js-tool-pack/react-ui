@@ -40,7 +40,7 @@ const App: React.FC = () => {
   return (
     <div>
       <CollapseGroup
-        options={{
+        collapseProps={{
           extra: '《道德经》',
         }}
         items={items}

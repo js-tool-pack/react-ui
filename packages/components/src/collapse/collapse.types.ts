@@ -26,7 +26,7 @@ export type CollapseGroupProps = Omit<
   React.HTMLAttributes<HTMLElement>,
   'title' | 'children' | 'onChange'
 > & {
-  options?: Partial<CollapseProps>;
+  collapseProps?: Partial<CollapseProps>;
   accordion?: boolean;
   items: CollapseGroupItem[];
   onChange?: (item: CollapseGroupItem, index: number, active: boolean) => void;

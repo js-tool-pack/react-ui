@@ -3,7 +3,14 @@
  */
 
 import React from 'react';
-import { Button, Icons, ButtonGroup, Space } from '@tool-pack/react-ui';
+import {
+  Button,
+  Icons,
+  ButtonGroup,
+  ButtonContext,
+  Space,
+  Icon,
+} from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const btns = [
@@ -25,75 +32,108 @@ const App: React.FC = () => {
   ];
   return (
     <Space vertical>
-      <ButtonGroup size="small">{btns}</ButtonGroup>
+      <ButtonGroup size="small">
+        <ButtonContext.Provider value={{ size: 'large' }}>
+          {btns}
+        </ButtonContext.Provider>
+      </ButtonGroup>
       <ButtonGroup size="medium">{btns}</ButtonGroup>
       <ButtonGroup>{btns}</ButtonGroup>
       <ButtonGroup size="large">{btns}</ButtonGroup>
-      <ButtonGroup
-        size="large"
-        buttonProps={{
+      <ButtonContext.Provider
+        value={{
           size: 'small',
           plain: true,
           onClick: () => alert('click'),
         }}>
-        {btns}
-      </ButtonGroup>
-      <ButtonGroup buttonProps={{ size: 'large', type: 'primary' }}>
-        <Button shape="round" icon={<Icons.CircleClose />}>
-          Delete
-        </Button>
-        <Button icon={<Icons.CircleSuccess />}>Commit</Button>
-        <Button>Upload</Button>
-        <Button shape="round" icon={<Icons.CircleWarning />} />
-      </ButtonGroup>
-      <ButtonGroup size="large" buttonProps={{ type: 'danger' }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button icon={<Icons.CircleSuccess />}>Commit</Button>
-        <Button>Upload</Button>
-        <Button plain="dashed" shape="round" icon={<Icons.CircleWarning />} />
+        <ButtonGroup size="large">{btns}</ButtonGroup>
+      </ButtonContext.Provider>
+
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ size: 'large', type: 'primary' }}>
+          <Button shape="round" icon={<Icons.CircleClose />}>
+            Delete
+          </Button>
+          <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+          <Button>Upload</Button>
+          <Button shape="round" icon={<Icons.CircleWarning />} />
+        </ButtonContext.Provider>
       </ButtonGroup>
 
-      <ButtonGroup buttonProps={{ plain: true }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button icon={<Icons.CircleSuccess />}>Commit</Button>
-        <Button icon={<Icons.CircleInfo />}>Upload</Button>
-        <Button icon={<Icons.CircleWarning />} />
+      <ButtonGroup size="large">
+        <ButtonContext.Provider value={{ type: 'danger' }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+          <Button>Upload</Button>
+          <Button plain="dashed" shape="round" icon={<Icons.CircleWarning />} />
+        </ButtonContext.Provider>
       </ButtonGroup>
-      <ButtonGroup buttonProps={{ type: 'success', plain: 'dashed' }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button icon={<Icons.CircleSuccess />}>Commit</Button>
-        <Button icon={<Icons.CircleInfo />}>Upload</Button>
-        <Button icon={<Icons.CircleWarning />} />
+
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ plain: true }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+          <Button icon={<Icons.CircleInfo />}>Upload</Button>
+          <Button icon={<Icons.CircleWarning />} />
+        </ButtonContext.Provider>
       </ButtonGroup>
-      <ButtonGroup buttonProps={{ type: 'warning', plain: 'text' }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ type: 'success', plain: 'dashed' }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+          <Button icon={<Icons.CircleInfo />}>Upload</Button>
+          <Button icon={<Icons.CircleWarning />} />
+        </ButtonContext.Provider>
       </ButtonGroup>
-      <ButtonGroup buttonProps={{ type: 'info' }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ type: 'warning', plain: 'text' }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+        </ButtonContext.Provider>
       </ButtonGroup>
-      <ButtonGroup buttonProps={{ type: 'primary', shape: 'none' }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button disabled icon={<Icons.CircleSuccess />}>
-          Commit
-        </Button>
-        <Button icon={<Icons.CircleInfo />}>Upload</Button>
-        <Button icon={<Icons.CircleWarning />} />
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ type: 'primary' }}>
+          <Button>items</Button>
+          <Button
+            icon={
+              <Icon>
+                <Icons.Down />
+              </Icon>
+            }
+          />
+        </ButtonContext.Provider>
       </ButtonGroup>
-      <ButtonGroup
-        buttonProps={{
-          type: 'primary',
-          disabled: true,
-          rightIcon: true,
-          shape: 'round',
-        }}>
-        <Button icon={<Icons.CircleClose />}>Delete</Button>
-        <Button disabled icon={<Icons.CircleSuccess />}>
-          Commit
-        </Button>
-        <Button icon={<Icons.CircleInfo />}>Upload</Button>
-        <Button icon={<Icons.CircleWarning />} />
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ type: 'info' }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button icon={<Icons.CircleSuccess />}>Commit</Button>
+        </ButtonContext.Provider>
+      </ButtonGroup>
+      <ButtonGroup>
+        <ButtonContext.Provider value={{ type: 'primary', shape: 'none' }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button disabled icon={<Icons.CircleSuccess />}>
+            Commit
+          </Button>
+          <Button icon={<Icons.CircleInfo />}>Upload</Button>
+          <Button icon={<Icons.CircleWarning />} />
+        </ButtonContext.Provider>
+      </ButtonGroup>
+      <ButtonGroup>
+        <ButtonContext.Provider
+          value={{
+            type: 'primary',
+            disabled: true,
+            rightIcon: true,
+            shape: 'round',
+          }}>
+          <Button icon={<Icons.CircleClose />}>Delete</Button>
+          <Button disabled icon={<Icons.CircleSuccess />}>
+            Commit
+          </Button>
+          <Button icon={<Icons.CircleInfo />}>Upload</Button>
+          <Button icon={<Icons.CircleWarning />} />
+        </ButtonContext.Provider>
       </ButtonGroup>
     </Space>
   );

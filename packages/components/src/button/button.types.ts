@@ -17,5 +17,4 @@ export type ButtonGroupProps = Omit<
   'type'
 > & {
   size?: ButtonProps['size'];
-  buttonProps?: Partial<ButtonProps>;
 };

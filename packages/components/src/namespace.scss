@@ -1,6 +1,7 @@
 @use './scss.variable' as Var;
 
 $button: '#{Var.$prefix}button';
+$button-group: '#{Var.$prefix}button-group';
 $popover: '#{Var.$prefix}popover';
 $tooltip: '#{Var.$prefix}tooltip';
 $pop-confirm: '#{Var.$prefix}pop-confirm';

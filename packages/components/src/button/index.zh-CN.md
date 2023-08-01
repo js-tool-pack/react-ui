@@ -27,8 +27,11 @@ group:
 <code src="./demo/plain.tsx"></code>
 <code src="./demo/icon.tsx"></code>
 <code src="./demo/loading.tsx"></code>
+<code src="./demo/group.tsx"></code>
 
 ## API
+
+### Button
 
 通过设置 Button 的属性来产生不同的按钮样式，推荐顺序为：`type` -> `shape` -> `size` -> `plain` -> `disabled`。
 
@@ -50,3 +53,14 @@ group:
 | onClick    | 点击按钮时的回调                                                                                                                     | (event: MouseEvent) => void                                            | --        |      |
 
 支持原生 button 的其他所有属性。
+
+### ButtonGroup
+
+按钮组的属性说明如下：
+
+| 属性        | 说明                                                                                                                   | 类型                           | 默认值 | 版本 |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ------ | ---- |
+| size        | 设置按钮大小；<br /> **size 优先级： ButtonGroup props size > Button props size > ButtonGroup props buttonProps size** | `large` \| `medium` \| `small` | --     |      |
+| buttonProps | 按钮组内部按钮的公共 props；<br /> **props 优先级：Button props > ButtonGroup props buttonProps**                      | (event: MouseEvent) => void    | --     |      |
+
+支持原生 div 的其他所有属性。

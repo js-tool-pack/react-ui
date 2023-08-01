@@ -12,3 +12,10 @@ export type ButtonProps = Omit<BTN, 'type'> & {
   icon?: React.ReactElement | boolean;
   rightIcon?: boolean;
 };
+export type ButtonGroupProps = Omit<
+  React.HTMLAttributes<HTMLElement>,
+  'type'
+> & {
+  size?: ButtonProps['size'];
+  buttonProps?: Partial<ButtonProps>;
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonProps } from './button.types';
+import type { ButtonProps } from './button.types';
 import {
   CLASS_SIZE_LG,
   CLASS_SIZE_M,
@@ -11,6 +11,11 @@ import { RequiredPart } from '@tool-pack/types';
 import { useBtnIcon, useBtnWave } from './button.hooks';
 
 const rootClass = getComponentClass('button');
+const defaultProps = {
+  size: 'medium',
+  type: 'default',
+  shape: 'default',
+} satisfies Partial<ButtonProps>;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
@@ -28,7 +33,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       rightIcon,
       ...rest
-    } = props as RequiredPart<ButtonProps, 'size' | 'type' | 'shape'>;
+    } = { ...defaultProps, ...props } as RequiredPart<
+      ButtonProps,
+      keyof typeof defaultProps
+    >;
 
     const [btnWave, activateWave] = useBtnWave(rootClass);
     const btnIcon = useBtnIcon(rootClass, icon, loading);
@@ -78,8 +86,5 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 Button.displayName = 'Button';
-Button.defaultProps = {
-  size: 'medium',
-  type: 'default',
-  shape: 'default',
-};
+// 按钮组会获取到该默认值，所以移动到组件内部的解构默认值
+// Button.defaultProps = defaultProps;

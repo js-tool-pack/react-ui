@@ -137,41 +137,43 @@ export function transitionCBAdapter(
         LIFE_CIRCLE[lifeCircle],
       );
 
-    type MAP = Record<LIFE_CIRCLE, ((el: HTMLElement) => void) | undefined>;
+    type LIFE_MAP = Record<
+      LIFE_CIRCLE,
+      ((el: HTMLElement) => void) | undefined
+    >;
 
-    if (STATUS.show === status) {
-      const map: MAP = {
-        [LIFE_CIRCLE.ready]: cbs.onEnterReady,
-        [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
-        [LIFE_CIRCLE.run]: cbs.onEnterRun,
-        [LIFE_CIRCLE.running]: cbs.onEnterRunning,
-        [LIFE_CIRCLE.start]: cbs.onEnterStart,
-        [LIFE_CIRCLE.after]: cbs.onAfterEnter,
-        [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
-      };
-      map[lifeCircle]?.(el);
-      return;
-    }
-    if (STATUS.hide === status) {
-      const map: MAP = {
-        [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
-        [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
-        [LIFE_CIRCLE.run]: cbs.onLeaveRun,
-        [LIFE_CIRCLE.running]: cbs.onLeaveRunning,
-        [LIFE_CIRCLE.start]: cbs.onLeaveStart,
-        [LIFE_CIRCLE.after]: cbs.onAfterLeave,
-        [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,
-      };
-      map[lifeCircle]?.(el);
-      return;
-    }
-    if (STATUS.idle) {
-      cbs.onIdle?.(el);
-      return;
-    }
-    if (STATUS.invisible) {
-      cbs.onInvisible?.(el);
-      return;
-    }
+    const maches: Record<STATUS, () => void> = {
+      [STATUS.show]() {
+        const map: LIFE_MAP = {
+          [LIFE_CIRCLE.ready]: cbs.onEnterReady,
+          [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
+          [LIFE_CIRCLE.run]: cbs.onEnterRun,
+          [LIFE_CIRCLE.running]: cbs.onEnterRunning,
+          [LIFE_CIRCLE.start]: cbs.onEnterStart,
+          [LIFE_CIRCLE.after]: cbs.onAfterEnter,
+          [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
+        };
+        map[lifeCircle]?.(el);
+      },
+      [STATUS.hide]() {
+        const map: LIFE_MAP = {
+          [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
+          [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
+          [LIFE_CIRCLE.run]: cbs.onLeaveRun,
+          [LIFE_CIRCLE.running]: cbs.onLeaveRunning,
+          [LIFE_CIRCLE.start]: cbs.onLeaveStart,
+          [LIFE_CIRCLE.after]: cbs.onAfterLeave,
+          [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,
+        };
+        map[lifeCircle]?.(el);
+      },
+      [STATUS.idle]: () => cbs.onIdle?.(el),
+      [STATUS.invisible]: () => cbs.onInvisible?.(el),
+      // none实际上是不可能出现的，因为 status none 不会触发回调
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      [STATUS.none]: () => {},
+    };
+
+    maches[status]();
   };
 }

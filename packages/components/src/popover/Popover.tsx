@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import type { PopoverProps } from './popover.types';
 import { getComponentClass, useForceUpdate, useResizeEvent } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
@@ -12,9 +12,8 @@ import { createPortal } from 'react-dom';
 import { WordBalloon } from '~/word-balloon';
 import {
   Transition,
-  TRANSITION_LIFE_CIRCLE,
-  TRANSITION_STATUS,
-  TransitionCB,
+  type TransitionCB,
+  transitionCBAdapter,
 } from '~/transition';
 
 export const Popover: React.FC<PopoverProps> = (props) => {
@@ -29,6 +28,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     offset,
     destroyOnHide,
     name,
+    on,
     appendTo,
     ...rest
   } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
@@ -76,25 +76,21 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     </WordBalloon>
   );
 
-  const onTransitionChange = useCallback<TransitionCB>(
-    (el, status, lifeCircle) => {
-      if (
-        [TRANSITION_STATUS.show, TRANSITION_STATUS.idle].includes(status) &&
-        TRANSITION_LIFE_CIRCLE.ready === lifeCircle
-      ) {
-        balloonRef.current = el as HTMLDivElement;
-        refreshPosition();
-        return;
-      }
-      if (
-        TRANSITION_STATUS.hide === status &&
-        TRANSITION_LIFE_CIRCLE.after === lifeCircle
-      ) {
-        resetPlacement();
-      }
-    },
-    [],
-  );
+  const onTransitionChange = useMemo<TransitionCB>(() => {
+    const refreshRef = (el: HTMLElement) => {
+      balloonRef.current = el as HTMLDivElement;
+      refreshPosition();
+    };
+    const cb = transitionCBAdapter({
+      onEnterReady: refreshRef,
+      onIdle: refreshRef,
+      onAfterLeave: resetPlacement,
+    });
+    return (el, status, lifeCircle) => {
+      cb(el, status, lifeCircle);
+      on?.(el, status, lifeCircle);
+    };
+  }, [refreshPosition]);
 
   return (
     <>

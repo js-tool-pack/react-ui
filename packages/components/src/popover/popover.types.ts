@@ -1,5 +1,10 @@
 import React from 'react';
-import { PLACEMENTS, PLACEMENTS_12, WordBalloonProps } from '@pkg/components';
+import type {
+  PLACEMENTS,
+  PLACEMENTS_12,
+  TransitionCB,
+  WordBalloonProps,
+} from '@pkg/components';
 
 export type PopoverTrigger = 'click' | 'focus' | 'hover';
 
@@ -17,6 +22,7 @@ export type PopoverProps = Omit<
     offset?: number;
     destroyOnHide?: boolean;
     name?: string;
+    on?: TransitionCB;
   };
 
 export type Placement = (typeof PLACEMENTS)[number];

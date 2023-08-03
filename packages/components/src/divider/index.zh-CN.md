@@ -29,5 +29,6 @@ Divider 的属性说明如下：
 | lineColor | 线条颜色     | React.CSSProperties['borderColor'] | 预设颜色 | --   |
 | lineWidth | 线条宽度     | React.CSSProperties['borderWidth'] | '1px'    | --   |
 | placement | 文案所在位置 | 'left' \| 'center' \| 'right'      | 'center' | --   |
+| tag       | html tag     | keyof HTMLElementTagNameMap        | 'div'    | --   |
 
 支持原生 HTML 的其他所有属性，不在表格内的属性全部都会传给组件的根元素。

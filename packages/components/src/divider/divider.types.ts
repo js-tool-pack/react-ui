@@ -6,4 +6,5 @@ export type DividerProps = React.HTMLAttributes<HTMLDivElement> & {
   lineWidth?: React.CSSProperties['borderWidth'];
   placement?: 'left' | 'center' | 'right';
   vertical?: boolean;
+  tag?: keyof HTMLElementTagNameMap;
 };

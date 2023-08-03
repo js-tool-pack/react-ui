@@ -2,14 +2,23 @@ import React from 'react';
 import type { DividerProps } from './divider.types';
 import { getComponentClass } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
+import { RequiredPart } from '@tool-pack/types';
 
 const rootName = getComponentClass('divider');
 
+const defaultProps = {
+  placement: 'center',
+  lineStyle: 'solid',
+  lineWidth: '1px',
+  tag: 'div',
+} satisfies DividerProps;
+
 export const Divider: React.FC<DividerProps> = React.forwardRef<
-  HTMLDivElement,
+  HTMLElement,
   DividerProps
 >((props, ref) => {
   const {
+    tag,
     className,
     children,
     vertical,
@@ -19,7 +28,7 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
     lineColor,
     lineWidth,
     ...rest
-  } = props;
+  } = props as RequiredPart<DividerProps, keyof typeof defaultProps>;
 
   const _style = {
     ...style,
@@ -38,18 +47,21 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
     },
   );
 
-  return (
-    <div {...rest} ref={ref} style={_style} className={_className}>
+  return React.createElement(
+    tag,
+    {
+      ...rest,
+      ref,
+      style: _style,
+      className: _className,
+    },
+    <>
       {!vertical && children && (
         <div className={`${rootName}__content`}>{children}</div>
       )}
-    </div>
+    </>,
   );
 });
 
 Divider.displayName = 'Divider';
-Divider.defaultProps = {
-  placement: 'center',
-  lineStyle: 'solid',
-  lineWidth: '1px',
-};
+Divider.defaultProps = defaultProps;

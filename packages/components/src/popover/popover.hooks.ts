@@ -36,6 +36,7 @@ export function usePosition(
   relEl: React.MutableRefObject<HTMLElement | undefined>,
   appendTo: Required<PopoverProps>['appendTo'],
   offset: number,
+  getViewportEl?: PopoverProps['viewport'],
 ) {
   const _placement = useRef(placement);
   // const forceUpdate = useForceUpdate();
@@ -45,10 +46,12 @@ export function usePosition(
       const ref = refEl.current;
       const balloon = relEl.current;
       if (!ref || !balloon || balloon.style.display === 'none') return;
-      const containerEl = appendTo();
+
+      const viewportEl = appendTo?.() || getViewportEl?.() || ref;
+      const containerEl = appendTo?.() || (ref.offsetParent as HTMLElement);
 
       const lastPlace = _placement.current;
-      const place = calcPlacement(ref, balloon, lastPlace, containerEl, offset);
+      const place = calcPlacement(ref, balloon, lastPlace, viewportEl, offset);
       const { x, y } = calcPosition(ref, balloon, place, containerEl, offset);
       balloon.style.top = y + 'px';
       balloon.style.left = x + 'px';
@@ -62,7 +65,7 @@ export function usePosition(
       leading: true,
       trailing: true,
     });
-  }, [appendTo, offset, placement, refEl, relEl]);
+  }, [offset, placement, refEl, relEl]);
 
   return [
     refreshPosition,

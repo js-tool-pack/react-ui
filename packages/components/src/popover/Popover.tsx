@@ -30,6 +30,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     name,
     on,
     appendTo,
+    viewport,
     ...rest
   } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
   const rootName = getComponentClass(name);
@@ -39,7 +40,8 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     // 由于 createPortal 是立即执行的，而 ref 是异步才能获取到，导致 appendTo 拿不到正确的值，
     // 且 appendTo 切换时会丢失动画，所以需要额外刷新一次。
     // 默认的是 body，没有异步获取，所以不需要刷新
-    if (defaultProps.appendTo === appendTo) return;
+    // appendTo 为 null 也不需要刷新，只有根元素位置会变化才需要刷新
+    if (appendTo === null || defaultProps.appendTo === appendTo) return;
     forceUpdate();
   }, []);
 
@@ -51,6 +53,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     balloonRef,
     appendTo,
     offset,
+    viewport,
   );
   const show = useShowController(
     disabled,
@@ -92,22 +95,29 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     };
   }, [refreshPosition]);
 
+  const Trans = (
+    <Transition
+      name={rootName}
+      show={destroyOnHide ? undefined : show}
+      on={onTransitionChange}
+      appear={destroyOnHide ? undefined : null}>
+      {destroyOnHide ? show && Balloon : Balloon}
+    </Transition>
+  );
+
+  const _props = {
+    ref: childrenRef,
+    key: children.key || rootName,
+  };
+
+  if (appendTo === null) {
+    return React.cloneElement(children, _props, children.props.children, Trans);
+  }
+
   return (
     <>
-      {React.cloneElement(children, {
-        ref: childrenRef,
-        key: children.key || rootName,
-      })}
-      {createPortal(
-        <Transition
-          name={rootName}
-          show={destroyOnHide ? undefined : show}
-          on={onTransitionChange}
-          appear={destroyOnHide ? undefined : null}>
-          {destroyOnHide ? show && Balloon : Balloon}
-        </Transition>,
-        appendTo(),
-      )}
+      {React.cloneElement(children, _props)}
+      {createPortal(Trans, appendTo())}
     </>
   );
 };

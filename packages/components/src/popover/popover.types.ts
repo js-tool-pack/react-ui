@@ -15,7 +15,7 @@ export type PopoverProps = Omit<
   Pick<WordBalloonProps, 'placement' | 'showArrow'> & {
     content?: React.ReactNode;
     children: React.ReactElement;
-    appendTo?: () => HTMLElement;
+    appendTo?: null | (() => HTMLElement);
     trigger?: PopoverTrigger[] | PopoverTrigger;
     visible?: boolean;
     disabled?: boolean;
@@ -23,6 +23,7 @@ export type PopoverProps = Omit<
     destroyOnHide?: boolean;
     name?: string;
     on?: TransitionCB;
+    viewport?: () => HTMLElement;
   };
 
 export type Placement = (typeof PLACEMENTS)[number];

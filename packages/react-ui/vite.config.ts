@@ -5,6 +5,9 @@ import Fs from 'fs';
 import pkg from './package.json';
 
 const pkgs = Fs.readdirSync(Path.resolve(__dirname, '../../packages'));
+const components = Fs.readdirSync(
+  Path.resolve(__dirname, '../../packages/components/src'),
+);
 
 function getBanner(format: string) {
   const date = new Date();
@@ -37,6 +40,13 @@ export default defineConfig(() => {
           prev['@pkg/' + cur] = Path.resolve(
             __dirname,
             `../../packages/${cur}/src`,
+          );
+          return prev;
+        }, {} as Record<string, string>),
+        ...components.reduce((prev, cur) => {
+          prev['~/' + cur] = Path.resolve(
+            __dirname,
+            `../../packages/components/src/${cur}`,
           );
           return prev;
         }, {} as Record<string, string>),

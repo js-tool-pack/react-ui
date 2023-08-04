@@ -8,7 +8,9 @@
     "paths": {
       "@pkg/*": ["../../packages/*/src"],
       "@pkg/components": ["../../packages/components/src"],
-      "@pkg/share": ["../../packages/share/src"]
+      "@pkg/shared": ["../../packages/shared/src"],
+      "@pkg/icons": ["../../packages/icons/src"],
+      "~/*": ["../../packages/components/src/*"]
     }
   },
   "include": ["./src"],

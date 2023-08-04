@@ -1,3 +1,31 @@
+## [0.0.2-beta.3](https://github.com/js-tool-pack/react-ui/compare/v0.0.2-beta.2...v0.0.2-beta.3) (2023-08-04)
+
+### Bug Fixes
+
+- **components/popover:** 修复 Popover 在 Safari 浏览器下查找 fixed 元素会报错的问题 ([fdbcd9a](https://github.com/js-tool-pack/react-ui/commit/fdbcd9a78f01c1d177f1eb1b4269e4886c022b48))
+- **components/popover:** 修复 Popover 对部分 appendTo 为 null 时位置计算不准的问题 ([4974f87](https://github.com/js-tool-pack/react-ui/commit/4974f875449242db0b593f90125579b8233771e6))
+- **components/popover:** 修复 Popover 组件因为 appendTo 导致第一次打开时动画丢失的问题 ([1156345](https://github.com/js-tool-pack/react-ui/commit/11563453633de7e93c4e64e34e044977bae9c87a))
+- **components/popover:** 修复原位置和反面位置都不行时会发生位置抖动的问题 ([3b899a7](https://github.com/js-tool-pack/react-ui/commit/3b899a7d74f57de914b94ab8a60833d78e2f19da))
+- **components/transition:** 修复 transitionCBAdapter onIdle 和 onInvisible 不会触发的问题 ([5c7bc2c](https://github.com/js-tool-pack/react-ui/commit/5c7bc2c8908dd5b25dc14552ba5bdb0af1c1cd00))
+- **components/word-balloon:** 修复嵌套使用时子窗体箭头方向会被父窗体影响的问题 ([e4ad55e](https://github.com/js-tool-pack/react-ui/commit/e4ad55e19efa51557defd58731b6cca45655e837))
+- **components/word-balloon:** 修复文字气泡组件除了 top 位其他位置都看不太清箭头部分的问题 ([3ce410d](https://github.com/js-tool-pack/react-ui/commit/3ce410d088e55f15f51260979d26c8646301fe73))
+- **shared:** 修复 useForwardRef 类型问题 ([a2fc4b2](https://github.com/js-tool-pack/react-ui/commit/a2fc4b217a7d0928c63e53708e89e6ecb57f0d7e))
+
+### Features
+
+- **components/button:** 新增 ButtonContext ([3cdfa51](https://github.com/js-tool-pack/react-ui/commit/3cdfa514eefff8b45ddcb1d856da521b56dac807))
+- **components/button:** 新增 ButtonGroup 按钮组组件 ([cf95bb1](https://github.com/js-tool-pack/react-ui/commit/cf95bb1c344e206b4e52fbdd7ebb6737fb6945c8))
+- **components/divider:** 支持自选 tag ([3887a7e](https://github.com/js-tool-pack/react-ui/commit/3887a7e36a8a9d0ddb07b17453cabdfd3c8b0155))
+- **components/popover:** 新增 childrenRef 属性获取内部 children 的 ref ([e3f440b](https://github.com/js-tool-pack/react-ui/commit/e3f440b21ff25d521372f32cd1855a463adcae87))
+- **components/popover:** 新增鼠标右击开启功能 ([6c643ad](https://github.com/js-tool-pack/react-ui/commit/6c643ad3d172da81f794f45350c2a91e32e5a257))
+- **components/popover:** 添加内部嵌套功能。appendTo 支持为 null，添加 viewport 属性。 ([1391cb7](https://github.com/js-tool-pack/react-ui/commit/1391cb7e8e5881abbb8eb27f97481f66ac877ee7))
+- **components:** 新增 Dropdown 下拉菜单组件 ([86cd77d](https://github.com/js-tool-pack/react-ui/commit/86cd77d75cc40781f5eb7c8dcf3559fb9e5e217f)), closes [#35](https://github.com/js-tool-pack/react-ui/issues/35)
+- **components:** 新增 Option 组件 ([b64aa98](https://github.com/js-tool-pack/react-ui/commit/b64aa981d8d56e663b00a59300016ae1fd70e105))
+
+### Performance Improvements
+
+- **components/button:** 移除 ButtonGroup 的 buttonProps 属性，使用 ButtonContext 作为内部 Button 的公共参数 ([304ddc4](https://github.com/js-tool-pack/react-ui/commit/304ddc49cc831d40a5d0d55dfba98f6331a13576))
+
 ## [0.0.2-beta.2](https://github.com/js-tool-pack/react-ui/compare/v0.0.2-beta.1...v0.0.2-beta.2) (2023-07-31)
 
 ### Bug Fixes

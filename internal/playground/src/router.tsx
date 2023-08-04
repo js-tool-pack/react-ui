@@ -101,6 +101,11 @@ export const baseRouter = [
     path: '/option',
     element: getDemos(import.meta.glob('~/option/demo/*.tsx')),
   },
+  {
+    name: 'dropdown 下拉菜单',
+    path: '/dropdown',
+    element: getDemos(import.meta.glob('~/dropdown/demo/*.tsx')),
+  },
   /*insert target*/
 ];
 

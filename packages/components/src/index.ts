@@ -18,3 +18,4 @@ export * from './popover';
 export * from './collapse-transition';
 export * from './collapse';
 export * from './option';
+export * from './dropdown';

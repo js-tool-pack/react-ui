@@ -2,14 +2,9 @@
 
 $r: Name.$collapse;
 $g: Name.$collapse-group;
-:root {
-  --t-collapse-color-disabled: rgb(194 194 194 / 100%);
-  &.dark {
-    --t-collapse-color-disabled: rgb(255 255 255 / 38%);
-  }
-}
 
 .#{$r} {
+  --t-collapse-disabled-color: var(--t-disabled-text-color);
   --t-collapse-content-padding: var(--t-radius);
   &__header {
     height: var(--t-size);
@@ -25,7 +20,7 @@ $g: Name.$collapse-group;
     transform: rotate(90deg);
   }
   &--disabled {
-    color: var(--t-collapse-color-disabled);
+    color: var(--t-collapse-disabled-color);
     .#{$r}__header {
       cursor: not-allowed;
     }

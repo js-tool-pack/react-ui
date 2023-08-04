@@ -1,6 +1,11 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { PopoverProps } from './popover.types';
-import { getComponentClass, useForceUpdate, useResizeEvent } from '@pkg/shared';
+import {
+  getComponentClass,
+  useForceUpdate,
+  useForwardRef,
+  useResizeEvent,
+} from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import {
@@ -31,6 +36,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     on,
     appendTo,
     viewport,
+    childrenRef: kidRef,
     ...rest
   } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
   const rootName = getComponentClass(name);
@@ -45,7 +51,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     forceUpdate();
   }, []);
 
-  const childrenRef = useRef<HTMLElement>(null);
+  const childrenRef = useForwardRef(kidRef);
   const balloonRef = useRef<HTMLDivElement>();
   const [refreshPosition, resetPlacement] = usePosition(
     placement,

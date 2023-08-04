@@ -6,7 +6,7 @@ import type {
   WordBalloonProps,
 } from '@pkg/components';
 
-export type PopoverTrigger = 'click' | 'focus' | 'hover';
+export type PopoverTrigger = 'click' | 'focus' | 'hover' | 'contextmenu';
 
 export type PopoverProps = Omit<
   React.HTMLAttributes<HTMLElement>,
@@ -24,6 +24,7 @@ export type PopoverProps = Omit<
     name?: string;
     on?: TransitionCB;
     viewport?: () => HTMLElement;
+    childrenRef?: React.ForwardedRef<HTMLElement>;
   };
 
 export type Placement = (typeof PLACEMENTS)[number];

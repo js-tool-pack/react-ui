@@ -1,0 +1,61 @@
+@use '../namespace' as Name;
+
+$r: Name.$option;
+:root {
+  --t-option-active-bg-color: rgb(243 243 245);
+  &.dark {
+    --t-option-active-bg-color: rgb(255 255 255 / 9%);
+  }
+}
+.#{$r} {
+  --t-option-size: var(--t-size);
+  --t-option-padding: var(--t-radius);
+  --t-option-color: var(--t-text-color);
+  --t-option-active-color: white;
+  --t-option-diabled-color: var(--t-disabled-text-color);
+  --t-option-bg-color: var(--t-bg-color);
+  --t-option-border-radius: var(--t-radius);
+  --t-option-transition-duration: var(--t-transition-duration);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--t-option-padding);
+  min-height: var(--t-option-size);
+  border-radius: var(--t-option-border-radius);
+  color: var(--t-option-color);
+  background-color: var(--t-option-bg-color);
+
+  // fixme: "transition-property: all;"会导致 Transition 组件 hide 后闪烁
+  // transition: all var(--t-option-transition-duration);
+
+  transition-property: background-color, color;
+  transition-duration: var(--t-option-transition-duration);
+  &--readonly {
+    --t-option-color: var(--t-option-diabled-color);
+  }
+  &[disabled] {
+    --t-option-color: var(--t-option-diabled-color);
+
+    cursor: not-allowed;
+  }
+  &:not([disabled]):not(.#{$r}--readonly) {
+    cursor: pointer;
+    &:hover {
+      --t-option-bg-color: var(--t-option-active-bg-color);
+    }
+  }
+  &--active {
+    background-color: var(--t-primary-bg-color);
+  }
+  &__label {
+    flex: 1;
+  }
+  &__icon {
+    margin-right: 6px;
+  }
+  &__expand {
+    margin-left: 1em;
+    font-size: 0.8em;
+  }
+}

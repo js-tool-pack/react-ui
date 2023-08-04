@@ -96,6 +96,11 @@ export const baseRouter = [
     path: '/collapse',
     element: getDemos(import.meta.glob('~/collapse/demo/*.tsx')),
   },
+  {
+    name: 'option 选项',
+    path: '/option',
+    element: getDemos(import.meta.glob('~/option/demo/*.tsx')),
+  },
   /*insert target*/
 ];
 

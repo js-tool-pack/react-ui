@@ -37,7 +37,7 @@ $r: Name.$word-balloon;
     box-sizing: border-box;
   }
 
-  $arrow-height: 5.51px;
+  $arrow-height: 5.515px;
   &__arrow {
     position: absolute;
     width: 16px;
@@ -97,6 +97,7 @@ $r: Name.$word-balloon;
       @include shadow(top);
       & > .#{$r}__arrow {
         top: 100%;
+        margin-top: -0.66px;
       }
     }
   }
@@ -134,6 +135,7 @@ $r: Name.$word-balloon;
       & > .#{$r}__arrow {
         bottom: 100%;
         transform: rotate(180deg);
+        margin-bottom: -0.2px;
       }
     }
   }

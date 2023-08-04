@@ -49,36 +49,36 @@ $r: Name.$word-balloon;
   }
   &--top,
   &--bottom {
-    .#{$r}__arrow {
+    & > .#{$r}__arrow {
       right: 0;
       left: 0;
       margin: auto;
     }
     &-start {
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         left: var(--t-word-balloon-arrow-offset);
       }
     }
     &-end {
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         right: var(--t-word-balloon-arrow-offset);
       }
     }
   }
   &--right,
   &--left {
-    .#{$r}__arrow {
+    & > .#{$r}__arrow {
       top: 0;
       bottom: 0;
       margin: auto;
     }
     &-start {
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         top: var(--t-word-balloon-arrow-offset);
       }
     }
     &-end {
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         bottom: var(--t-word-balloon-arrow-offset);
       }
     }
@@ -95,7 +95,7 @@ $r: Name.$word-balloon;
     &-start,
     &-end {
       @include shadow(top);
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         top: 100%;
       }
     }
@@ -112,7 +112,7 @@ $r: Name.$word-balloon;
     &-start,
     &-end {
       @include shadow(right);
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         right: 100%;
         margin-right: -$arrow-height;
         transform: rotate(90deg);
@@ -131,7 +131,7 @@ $r: Name.$word-balloon;
     &-start,
     &-end {
       @include shadow(bottom);
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         bottom: 100%;
         transform: rotate(180deg);
       }
@@ -149,7 +149,7 @@ $r: Name.$word-balloon;
     &-start,
     &-end {
       @include shadow(left);
-      .#{$r}__arrow {
+      & > .#{$r}__arrow {
         left: 100%;
         margin-left: -$arrow-height;
         transform: rotate(-90deg);

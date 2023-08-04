@@ -3,15 +3,13 @@
  * description: 设置 appendTo 可以让 Popover 窗体插入指定的 html标签中。
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Popover, Button } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
-  const [, forceUpdate] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    forceUpdate(1);
     const el = scrollerRef.current;
     if (!el) return;
     setTimeout(() => {

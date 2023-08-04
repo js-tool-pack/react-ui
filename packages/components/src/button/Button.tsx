@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import type { ButtonProps } from './button.types';
 import {
   CLASS_SIZE_LG,
@@ -9,6 +9,7 @@ import {
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
 import { useBtnIcon, useBtnWave } from './button.hooks';
+import { ButtonContext } from '~/button/button.context';
 
 const rootClass = getComponentClass('button');
 const defaultProps = {
@@ -19,6 +20,7 @@ const defaultProps = {
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
+    const context = useContext(ButtonContext);
     const {
       className,
       htmlType,
@@ -33,7 +35,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       rightIcon,
       ...rest
-    } = { ...defaultProps, ...props } as RequiredPart<
+    } = { ...defaultProps, ...context, ...props } as RequiredPart<
       ButtonProps,
       keyof typeof defaultProps
     >;

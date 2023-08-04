@@ -1,0 +1,38 @@
+@use '../namespace' as Name;
+@use '../popover/index' as Pop;
+
+$r: Name.$dropdown;
+$balloon-content: #{Name.$word-balloon}__content;
+$option: Name.$option;
+
+.#{$r} {
+  --t-dropdown-transition-duration: calc(var(--t-transition-duration) / 2);
+
+  @include Pop.pop-style(var(--t-dropdown-transition-duration));
+
+  .#{$balloon-content} {
+    padding: 4px;
+    min-width: 180px;
+  }
+  .#{$option} {
+    --t-option-border-radius: calc(var(--t-radius) / 2);
+  }
+  &__body {
+    position: relative;
+  }
+  &__options,
+  &__group-body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__divider {
+    margin: 4px 0;
+  }
+  & &__group-title {
+    --t-option-color: var(--t-option-diabled-color);
+  }
+  &__group-body {
+    margin-left: var(--t-radius);
+  }
+}

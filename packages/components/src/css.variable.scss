@@ -14,6 +14,7 @@
   --t-mask-bg-color: rgb(0 0 0 / 45%);
   --t-mask-bg-color-reverse: rgb(0 0 0 / 45%);
   --t-text-color: black;
+  --t-disabled-text-color: rgb(194 194 194 / 100%);
   --t-bg-color: white;
   --t-text-hover-color: #606060;
   --t-text-reverse-color: white;
@@ -26,6 +27,7 @@
     --t-text-hover-color: #c2c2c2;
     --t-text-reverse-color: black;
     --t-bg-color: #424242;
+    --t-disabled-text-color:  rgb(255 255 255 / 38%);
   }
   .#{Var.$class-size-sm} {
     --t-radius: 4px;

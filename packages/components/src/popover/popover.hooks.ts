@@ -7,6 +7,7 @@ import {
   addOuterEventListener,
   collectScroller,
   isChildHTMLElement,
+  calcDistanceWithParent,
 } from '@tool-pack/dom';
 import { getComponentClass, PLACEMENTS_12 } from '@pkg/shared';
 
@@ -36,6 +37,7 @@ export function usePosition(
   relEl: React.MutableRefObject<HTMLElement | undefined>,
   appendTo: Required<PopoverProps>['appendTo'],
   offset: number,
+  getViewportEl?: PopoverProps['viewport'],
 ) {
   const _placement = useRef(placement);
   // const forceUpdate = useForceUpdate();
@@ -45,11 +47,17 @@ export function usePosition(
       const ref = refEl.current;
       const balloon = relEl.current;
       if (!ref || !balloon || balloon.style.display === 'none') return;
-      const containerEl = appendTo();
+
+      const viewportEl = appendTo?.() || getViewportEl?.() || ref;
+      const containerEl =
+        appendTo?.() || (ref.offsetParent as HTMLElement) || ref;
 
       const lastPlace = _placement.current;
-      const place = calcPlacement(ref, balloon, lastPlace, containerEl, offset);
-      const { x, y } = calcPosition(ref, balloon, place, containerEl, offset);
+      const place = calcPlacement(ref, balloon, lastPlace, viewportEl, offset);
+
+      const distance: [number, number] =
+        appendTo === null ? [0, 0] : calcDistanceWithParent(ref, containerEl);
+      const { x, y } = calcPosition(ref, balloon, place, offset, distance);
       balloon.style.top = y + 'px';
       balloon.style.left = x + 'px';
 
@@ -62,7 +70,7 @@ export function usePosition(
       leading: true,
       trailing: true,
     });
-  }, [appendTo, offset, placement, refEl, relEl]);
+  }, [offset, placement, refEl, relEl]);
 
   return [
     refreshPosition,
@@ -186,6 +194,9 @@ export function useShowController(
             el.removeEventListener('focus', enterHandler);
             el.removeEventListener('blur', leaveHandler);
           };
+        case 'contextmenu':
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          return () => {};
       }
     });
 

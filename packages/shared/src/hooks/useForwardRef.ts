@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 export function useForwardRef<T>(
-  forwardRef: React.ForwardedRef<T>,
+  forwardRef: React.ForwardedRef<T> | undefined,
 ): React.RefObject<T> {
   const ref = useRef<T>(null);
 

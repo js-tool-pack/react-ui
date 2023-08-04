@@ -1,4 +1,3 @@
-import { getElRealSize } from '@pkg/shared';
 import type { Placement, Placement_12 } from './popover.types';
 import { calcDistanceWithParent } from '@tool-pack/dom';
 
@@ -62,8 +61,18 @@ export function calcPlacement(
   };
 
   const split = placement.split('-') as [Placement, string];
-  const p: Placement = map[split[0]]();
-  if (p !== split[0]) split[0] = p;
+  let p = map[split[0]]();
+  if (p !== split[0]) {
+    // 如果原位置不行，那就反向再算一遍；这样反面也不行的话，就会回到原位置，而如果反面行那就是反面
+    p = map[p]();
+
+    // // 返回原位置则代表两面都不满足条件
+    // if (p === split[0]) {
+    //   // todo: 如果两面都不行，选择较宽的那面
+    // }
+
+    split[0] = p;
+  }
 
   return split.join('-') as Placement_12;
 }
@@ -73,21 +82,18 @@ interface Size {
   height: number;
 }
 function getSize(el: HTMLElement): Size {
-  const style = getElRealSize(el);
-  return { width: style[0], height: style[1] };
+  return { width: el.offsetWidth, height: el.offsetHeight };
 }
 
 export function calcPosition(
   refEl: HTMLElement,
   relEl: HTMLElement,
   placement: Placement_12 = 'top',
-  containerEl = globalThis.document?.body,
   offset = 10,
+  [distanceT, distanceL]: [number, number] = [0, 0],
 ): { x: number; y: number } {
   const ref = getSize(refEl);
   const rel = getSize(relEl);
-
-  const [distanceT, distanceL] = calcDistanceWithParent(refEl, containerEl);
 
   const commonFn = {
     vtcX: () => distanceL + (ref.width - rel.width) / 2,

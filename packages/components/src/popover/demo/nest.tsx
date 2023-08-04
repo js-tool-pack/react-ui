@@ -30,7 +30,7 @@ const App: React.FC = () => {
             appendTo={null}
             // 虽然子窗体嵌入了内部，但是判断方位还是需要指定为外部视口
             viewport={() => document.body}>
-            <span>hover~</span>
+            <span style={{ position: 'relative' }}>hover~</span>
           </Popover>
         }>
         <Button>内部嵌套</Button>

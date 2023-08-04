@@ -31,22 +31,25 @@ Popover 气泡弹框。
 <code src="./demo/disabled.tsx"></code>
 <code src="./demo/appendTo.tsx"></code>
 <code src="./demo/nest.tsx"></code>
+<code src="./demo/fixed.tsx"></code>
+<code src="./demo/contextmenu.tsx"></code>
 
 ## API
 
 Popover 的属性说明如下：
 
-| 属性      | 说明                                                                                                                        | 类型                          | 默认值              | 版本 |
-| --------- | --------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------------------- | ---- |
-| content   | Popover 显示内容                                                                                                            | React.ReactNode               | --                  | --   |
-| children  | 触发 Popover 显示的目标(必填)                                                                                               | React.ReactNode               | --                  | --   |
-| placement | 同 [WordBalloon](/components/word-balloon#api)                                                                              |                               | 'top'               | --   |
-| showArrow | 同 [WordBalloon](/components/word-balloon#api)                                                                              | boolean                       | true                | --   |
-| trigger   | 触发显示的方式                                                                                                              | 'hover' \| 'click' \| 'focus' | 'hover'             | --   |
-| disabled  | 禁用任何触发显示操作                                                                                                        | boolean                       | false               | --   |
-| offset    | Popover 窗体偏移量 (px)                                                                                                     | number                        | 10                  | --   |
-| visible   | 手动控制 Popover 的显示与隐藏                                                                                               | boolean                       | --                  | --   |
-| appendTo  | Popover 窗体插入指定的 html 标签中；如果为 null 的话会插入当前组件包裹的 children(不能是类似 input 这种自闭合的标签元素) 中 | null \| () => HTMLElement     | () => document.body | --   |
-| viewport  | 用于计算窗体位置，需要搭配 appendTo=null 使用；默认 viewport 是 appendTo 对象，不过嵌套使用时需要指定 viewport              | () => HTMLElement             | --                  | --   |
+| 属性        | 说明                                                                                                                        | 类型                                           | 默认值              | 版本 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------- | ---- |
+| content     | Popover 显示内容                                                                                                            | React.ReactNode                                | --                  | --   |
+| children    | 触发 Popover 显示的目标(必填)                                                                                               | React.ReactNode                                | --                  | --   |
+| placement   | 同 [WordBalloon](/components/word-balloon#api)                                                                              |                                                | 'top'               | --   |
+| showArrow   | 同 [WordBalloon](/components/word-balloon#api)                                                                              | boolean                                        | true                | --   |
+| trigger     | 触发显示的方式                                                                                                              | 'hover' \| 'click' \| 'focus' \| 'contextmenu' | 'hover'             | --   |
+| disabled    | 禁用任何触发显示操作                                                                                                        | boolean                                        | false               | --   |
+| offset      | Popover 窗体偏移量 (px)                                                                                                     | number                                         | 10                  | --   |
+| visible     | 手动控制 Popover 的显示与隐藏                                                                                               | boolean                                        | --                  | --   |
+| appendTo    | Popover 窗体插入指定的 html 标签中；如果为 null 的话会插入当前组件包裹的 children(不能是类似 input 这种自闭合的标签元素) 中 | null \| () => HTMLElement                      | () => document.body | --   |
+| viewport    | 用于计算窗体位置，需要搭配 appendTo=null 使用；默认 viewport 是 appendTo 对象，不过嵌套使用时需要指定 viewport              | () => HTMLElement                              | --                  | --   |
+| childrenRef | 用于获取 Popover 包裹的 ref viewport                                                                                        | () => HTMLElement                              | --                  | --   |
 
 组件根元素支持原生 HTML 的其他所有属性。

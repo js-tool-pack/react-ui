@@ -89,13 +89,11 @@ export function calcPosition(
   refEl: HTMLElement,
   relEl: HTMLElement,
   placement: Placement_12 = 'top',
-  containerEl = globalThis.document?.body,
   offset = 10,
+  [distanceT, distanceL]: [number, number] = [0, 0],
 ): { x: number; y: number } {
   const ref = getSize(refEl);
   const rel = getSize(relEl);
-
-  const [distanceT, distanceL] = calcDistanceWithParent(refEl, containerEl);
 
   const commonFn = {
     vtcX: () => distanceL + (ref.width - rel.width) / 2,

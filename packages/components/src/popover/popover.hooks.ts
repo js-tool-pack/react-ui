@@ -7,6 +7,7 @@ import {
   addOuterEventListener,
   collectScroller,
   isChildHTMLElement,
+  calcDistanceWithParent,
 } from '@tool-pack/dom';
 import { getComponentClass, PLACEMENTS_12 } from '@pkg/shared';
 
@@ -48,11 +49,15 @@ export function usePosition(
       if (!ref || !balloon || balloon.style.display === 'none') return;
 
       const viewportEl = appendTo?.() || getViewportEl?.() || ref;
-      const containerEl = appendTo?.() || (ref.offsetParent as HTMLElement);
+      const containerEl =
+        appendTo?.() || (ref.offsetParent as HTMLElement) || ref;
 
       const lastPlace = _placement.current;
       const place = calcPlacement(ref, balloon, lastPlace, viewportEl, offset);
-      const { x, y } = calcPosition(ref, balloon, place, containerEl, offset);
+
+      const distance: [number, number] =
+        appendTo === null ? [0, 0] : calcDistanceWithParent(ref, containerEl);
+      const { x, y } = calcPosition(ref, balloon, place, offset, distance);
       balloon.style.top = y + 'px';
       balloon.style.left = x + 'px';
 
@@ -189,6 +194,9 @@ export function useShowController(
             el.removeEventListener('focus', enterHandler);
             el.removeEventListener('blur', leaveHandler);
           };
+        case 'contextmenu':
+          // eslint-disable-next-line @typescript-eslint/no-empty-function
+          return () => {};
       }
     });
 

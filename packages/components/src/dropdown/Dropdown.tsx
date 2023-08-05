@@ -63,7 +63,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
           />
         );
       }
-      const { type, label, key, tag, children, ...rest } = opt;
+      const { type, label, key, tag, children, attrs, ...rest } = opt;
 
       if (type === 'group') {
         return (
@@ -71,9 +71,11 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
             <Option
               {...rest}
               tag="div"
-              role={'heading'}
+              attrs={{
+                role: 'heading',
+                className: `${rootClass}__group-title`,
+              }}
               size={size}
-              className={`${rootClass}__group-title`}
               readonly>
               {label}
             </Option>
@@ -90,7 +92,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       };
 
       const onClick = (e: React.MouseEvent<HTMLElement>) => {
-        opt.onClick?.(e);
+        attrs?.onClick?.(e);
         e.stopPropagation();
         if (opt.disabled || opt.type === 'group' || children?.length) return;
         emit(opt, parents);
@@ -102,7 +104,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
           key={key}
           size={size}
           expandable={children && !!children.length}
-          onClick={onClick}>
+          attrs={{ ...attrs, onClick }}>
           {label}
         </Option>
       );

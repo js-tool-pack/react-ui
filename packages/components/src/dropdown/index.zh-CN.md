@@ -45,14 +45,17 @@ export type DropdownDivider = DividerProps & {
   key: React.Key;
 };
 
-export type OptionProps = React.HTMLAttributes<HTMLElement> & {
+export interface OptionProps {
   tag?: keyof HTMLElementTagNameMap;
   size?: Size;
   disabled?: boolean;
   expandable?: boolean;
   readonly?: boolean;
   icon?: React.ReactNode;
-};
+  ref?: React.ForwardedRef<HTMLElement>;
+  attrs?: Partial<React.HTMLAttributes<HTMLElement>>;
+  children: React.ReactNode;
+}
 
 export type DropdownOption = Omit<OptionProps, 'size' | 'children'> & {
   type?: 'group' | 'option';

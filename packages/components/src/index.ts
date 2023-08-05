@@ -9,7 +9,12 @@ export * from './space';
 export * from './message';
 export * from './divider';
 export * from './drawer';
-export { PLACEMENTS, PLACEMENTS_8, PLACEMENTS_12 } from '@pkg/shared';
+export {
+  PLACEMENTS,
+  PLACEMENTS_8,
+  PLACEMENTS_12,
+  TIMING_FNS,
+} from '@pkg/shared';
 export * from './resizer';
 export * from './word-balloon';
 export * from './tooltip';
@@ -19,3 +24,4 @@ export * from './collapse-transition';
 export * from './collapse';
 export * from './option';
 export * from './dropdown';
+export * from './number-transition';

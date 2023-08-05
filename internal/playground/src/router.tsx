@@ -106,6 +106,11 @@ export const baseRouter = [
     path: '/dropdown',
     element: getDemos(import.meta.glob('~/dropdown/demo/*.tsx')),
   },
+  {
+    name: 'number-transition 数值动画',
+    path: '/number-transition',
+    element: getDemos(import.meta.glob('~/number-transition/demo/*.tsx')),
+  },
   /*insert target*/
 ];
 

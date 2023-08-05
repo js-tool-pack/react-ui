@@ -1,0 +1,7 @@
+@use '../namespace' as Name;
+
+$r: Name.$number-transition;
+
+.#{$r} {
+  color: var(--t-text-color);
+}

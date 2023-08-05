@@ -29,3 +29,11 @@ export const PLACEMENTS_12 = [
   PLACEMENTS[3],
   'left-end',
 ] as const;
+
+export const TIMING_FNS = [
+  'ease',
+  'linear',
+  'ease-in',
+  'ease-out',
+  'ease-in-out',
+] as const;

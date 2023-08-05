@@ -90,6 +90,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       };
 
       const onClick = (e: React.MouseEvent<HTMLElement>) => {
+        opt.onClick?.(e);
         e.stopPropagation();
         if (opt.disabled || opt.type === 'group' || children?.length) return;
         emit(opt, parents);

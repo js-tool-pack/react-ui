@@ -1,4 +1,13 @@
 $prefix: 't-';
+
+// class
 $class-size-sm: '#{$prefix}-size-sm';
 $class-size-m: '#{$prefix}-size-m';
 $class-size-lg: '#{$prefix}-size-lg';
+
+// color
+$primary-color: #1677ff;
+$success-color: #67c23a;
+$info-color: #909399;
+$warning-color: #e6a23c;
+$danger-color: #ff0000;

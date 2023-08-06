@@ -1,10 +1,31 @@
 @use './scss.variable' as Var;
+@use 'sass:color' as Col;
+
+@mixin type-color($type, $color) {
+  --t-color-#{$type}: #{$color};
+
+  // 透明度
+  @for $i from 2 through 7 {
+    --t-color-#{$type}-a-#{$i}: #{rgba(
+      $color,
+      calc((100 - 15 * ($i - 1)) / 100)
+    )};
+  }
+
+  // 亮度
+  @for $i from 2 through 7 {
+    --t-color-#{$type}-l-#{$i}: #{Col.scale(
+      $color,
+      $lightness: calc(15% * ($i - 1))
+    )};
+  }
+}
 :root {
-  --t-color-primary: #1677ff;
-  --t-color-danger: red;
-  --t-color-success: #67c23a;
-  --t-color-warning: #e6a23c;
-  --t-color-info: #909399;
+  @include type-color(primary, Var.$primary-color);
+  @include type-color(success, Var.$success-color);
+  @include type-color(danger, Var.$danger-color);
+  @include type-color(warning, Var.$warning-color);
+  @include type-color(info, Var.$info-color);
 
   // ---
 
@@ -27,7 +48,7 @@
     --t-text-hover-color: #c2c2c2;
     --t-text-reverse-color: black;
     --t-bg-color: #424242;
-    --t-disabled-text-color:  rgb(255 255 255 / 38%);
+    --t-disabled-text-color: rgb(255 255 255 / 38%);
   }
   .#{Var.$class-size-sm} {
     --t-radius: 4px;

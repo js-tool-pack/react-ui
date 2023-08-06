@@ -40,7 +40,9 @@ const App: React.FC = () => {
         {holder}
         {Object.keys(Icons).map((k) => (
           <Tooltip key={k} title={k} destroyOnHide>
-            <Icon onClick={() => copy(k)}>{React.createElement(Icons[k])}</Icon>
+            <Icon onClick={() => copy(k)}>
+              {React.createElement(Icons[k as keyof typeof Icons])}
+            </Icon>
           </Tooltip>
         ))}
       </Space>

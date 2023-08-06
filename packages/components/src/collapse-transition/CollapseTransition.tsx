@@ -21,8 +21,8 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
   >;
   const memorizedSize = useRef('');
 
-  const sizeType: 'max-width' | 'max-height' = useMemo(
-    () => (width ? 'max-width' : 'max-height'),
+  const sizeType: 'maxWidth' | 'maxHeight' = useMemo(
+    () => (width ? 'maxWidth' : 'maxHeight'),
     [width],
   );
 
@@ -40,7 +40,7 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
 
         // el.style[sizeType] = 'none'; // css 未加 !important 时有效，无法添加 !important
         // el.style.cssText = `${sizeType}: none!important;`; // 会导致行内样式丢失
-        el.style.setProperty(sizeType, 'none', 'important');
+        el.style.setProperty('max-width', 'none', 'important');
         const w = el.offsetWidth + 'px';
         el.style[sizeType] = '';
         void el.offsetWidth;

@@ -5,6 +5,7 @@ atomId: Layout
 demo:
   cols: 2
 group:
+  order: 2
   title: 布局
 ---
 

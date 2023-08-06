@@ -5,7 +5,7 @@ atomId: CollapseTransition
 demo:
   cols: 1
 group:
-  title: 通用
+  title: 动画
 ---
 
 CollapseTransition 折叠动画。

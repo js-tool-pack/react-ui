@@ -5,7 +5,7 @@ atomId: NumberTransition
 demo:
   cols: 2
 group:
-  title: 通用
+  title: 动画
 ---
 
 NumberTransition 说明。

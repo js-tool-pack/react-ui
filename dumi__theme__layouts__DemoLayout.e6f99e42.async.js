@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_tool_pack_react_ui_monorepo=self.webpackChunk_tool_pack_react_ui_monorepo||[]).push([[9252],{15833:function(l,t,o){o.r(t),o.d(t,{default:function(){return a}});var n=o(33574),u=o(60903),r=o(11527),a=function(){var e=(0,n.pC)();return(0,r.jsx)(u.Z,{children:e})}}}]);

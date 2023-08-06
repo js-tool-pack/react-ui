@@ -1,10 +1,7 @@
 import React from 'react';
+import { PropsBase } from '@pkg/shared';
 
-export interface AlertProps {
-  attrs?: Partial<React.HTMLAttributes<HTMLElement>>;
-  children?: React.ReactNode;
-  ref?: React.ForwardedRef<HTMLElement>;
-
+export interface AlertProps extends PropsBase<HTMLDivElement> {
   type?: 'default' | 'success' | 'info' | 'warning' | 'error';
   bordered?: boolean;
   closable?: boolean;

@@ -111,6 +111,11 @@ export const baseRouter = [
     path: '/number-transition',
     element: getDemos(import.meta.glob('~/number-transition/demo/*.tsx')),
   },
+  {
+    name: 'alert 提示',
+    path: '/alert',
+    element: getDemos(import.meta.glob('~/alert/demo/*.tsx')),
+  },
   /*insert target*/
 ];
 

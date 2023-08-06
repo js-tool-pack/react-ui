@@ -25,3 +25,4 @@ export * from './collapse';
 export * from './option';
 export * from './dropdown';
 export * from './number-transition';
+export * from './alert';

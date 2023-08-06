@@ -1,9 +1,5 @@
-import {
-  type Size,
-  CLASS_SIZE_LG,
-  CLASS_SIZE_M,
-  CLASS_SIZE_SM,
-} from '../constant';
+import { CLASS_SIZE_LG, CLASS_SIZE_M, CLASS_SIZE_SM } from '../constant';
+import type { Size } from '../types';
 
 export function getSizeClassName(size: Size): string {
   const map: Record<Size, string> = {

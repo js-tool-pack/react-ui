@@ -78,11 +78,11 @@ function initComponent(): InitRes {
   const content = `
 import React from 'react';
 import type { ${props} } from './${getFilename('types').replace(/\.ts$/, '')}';
-import { getComponentClass } from '@pkg/shared';
+import { getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 
-const rootName = getComponentClass('${config.name}');
+const cls = getClasses('${config.name}', [], []);
 const defaultProps = {} satisfies Partial<${props}>;
 
 export const ${componentName}: React.FC<${props}> = (props) => {
@@ -91,7 +91,7 @@ export const ${componentName}: React.FC<${props}> = (props) => {
     keyof typeof defaultProps
   >;
   return (
-    <div {...attrs} className={getClassNames(rootName, attrs?.className)}>
+    <div {...attrs} className={getClassNames(cls.root, attrs?.className)}>
       {children}
     </div>
   );
@@ -107,12 +107,10 @@ function initTypes(): InitRes {
   const props = `${config.componentName}Props`;
   const filename = getFilename('types');
   const content = `
-import React from 'react';
+import { PropsBase } from '@pkg/shared';
 
-export interface ${props} {
-  attrs?: Partial<React.HTMLAttributes<HTMLElement>>;
-  children?: React.ReactNode;
-  ref?: React.ForwardedRef<HTMLElement>;
+export interface ${props} extends PropsBase {
+  name?: string;
 }
   `;
   return [filename, content];

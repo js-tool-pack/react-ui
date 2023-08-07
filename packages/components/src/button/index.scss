@@ -47,6 +47,7 @@ $g: Name.$button-group;
   outline: 0;
   user-select: none;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition-property: background-color, width, height, color, padding-top,
     padding-left, padding-right, padding-bottom, opacity;
 

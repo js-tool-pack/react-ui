@@ -26,3 +26,4 @@ export * from './option';
 export * from './dropdown';
 export * from './number-transition';
 export * from './alert';
+export * from './switch';

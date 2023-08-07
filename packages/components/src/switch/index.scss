@@ -1,0 +1,171 @@
+@use '../namespace' as Name;
+@use '../scss.variable' as Var;
+
+$r: Name.$switch;
+:root {
+  --t-switch-bg-color: rgb(0 0 0 / 45%);
+  &.dark {
+    --t-switch-bg-color: rgb(255 255 255 / 25%);
+  }
+}
+
+.#{$r} {
+  $switch-padding: 2px;
+
+  --t-switch-shadow: 0 0 0 2px var(--t-color-info-a-6);
+  --t-switch-active-shadow: 0 0 0 2px var(--t-color-primary-a-6);
+  --t-switch-color: white;
+  --t-switch-active-bg-color: var(--t-color-primary);
+  --t-switch-size: 22px;
+  --t-switch-handle-size: calc(var(--t-switch-size) - #{($switch-padding * 2)});
+  --t-switch-handle-radius: calc(var(--t-switch-handle-size) / 2);
+  --t-switch-radius: calc(var(--t-switch-size) / 2);
+  --t-switch-duration: var(--t-transition-duration);
+  --t-switch-icon-color: var(--t-color-info);
+
+  position: relative;
+  display: inline-flex;
+  padding: $switch-padding;
+  min-width: calc(var(--t-switch-handle-size) * 2.2);
+  height: var(--t-switch-size);
+  border: 0;
+  border-radius: var(--t-switch-radius);
+  color: var(--t-switch-color);
+  background-color: var(--t-switch-bg-color);
+  box-sizing: border-box;
+  outline: 0;
+  user-select: none;
+  transition-property: background-color, color, opacity, box-shadow;
+  transition-duration: var(--t-switch-duration);
+  -webkit-tap-highlight-color: transparent;
+
+  // size
+  &.#{Var.$class-size-sm} {
+    --t-switch-size: 18px;
+  }
+  &.#{Var.$class-size-lg} {
+    --t-switch-size: 26px;
+  }
+
+  // children
+  &__slider {
+    overflow: hidden;
+    padding-left: var(--t-switch-handle-size);
+    transition: padding var(--t-switch-duration);
+    > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 6px;
+      height: var(--t-switch-handle-size);
+      transition: margin var(--t-switch-duration);
+    }
+  }
+  &__handle {
+    position: absolute;
+    top: $switch-padding;
+    left: $switch-padding;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--t-switch-handle-size);
+    height: var(--t-switch-handle-size);
+    border-radius: var(--t-switch-handle-radius);
+    background-color: white;
+    transition: left var(--t-switch-duration), width var(--t-switch-duration);
+    &::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px 0 rgb(0 35 11 / 20%);
+      transition: all 0.2s ease-in-out;
+      content: '';
+    }
+  }
+  &__checked {
+    margin-right: calc(100% + var(--t-switch-handle-size));
+    margin-left: calc(-100% - var(--t-switch-handle-size));
+  }
+  &__unchecked {
+    margin-top: calc(var(--t-switch-handle-size) * -1);
+    margin-right: 0;
+    margin-left: 0;
+  }
+  &__icon {
+    font-size: calc(var(--t-switch-handle-size) - 4px);
+    color: var(--t-switch-icon-color);
+  }
+
+  // status
+  &:not(.#{$r}--disabled):not(.#{$r}--loading) {
+    cursor: pointer;
+    &:active {
+      box-shadow: var(--t-switch-shadow-focus);
+      &.#{$r}--unchecked {
+        .#{$r}__unchecked {
+          // margin-right: -4px;
+          // margin-left: 4px;
+        }
+        .#{$r}__handle::before {
+          inset-inline-end: -30%;
+          inset-inline-start: 0;
+        }
+      }
+      &.#{$r}--checked {
+        .#{$r}__handle::before {
+          inset-inline-end: 0;
+          inset-inline-start: -30%;
+        }
+        .#{$r}__checked {
+          // margin-right: 4px;
+          // margin-left: -4px;
+        }
+      }
+    }
+    &:hover {
+      box-shadow: var(--t-switch-shadow);
+    }
+  }
+  &--checked {
+    --t-switch-bg-color: var(--t-switch-active-bg-color);
+    --t-switch-shadow: var(--t-switch-active-shadow);
+    --t-switch-icon-color: var(--t-switch-bg-color);
+
+    .#{$r}__slider {
+      padding-right: var(--t-switch-handle-size);
+      padding-left: 0;
+    }
+    .#{$r}__checked {
+      margin-right: 0;
+      margin-left: 0;
+    }
+    .#{$r}__unchecked {
+      margin-right: calc(-100% - var(--t-switch-handle-size));
+      margin-left: calc(100% + var(--t-switch-handle-size));
+    }
+    .#{$r}__handle {
+      left: calc(100% - var(--t-switch-handle-size) - $switch-padding);
+    }
+  }
+  &--loading,
+  &--disabled {
+    opacity: 0.7;
+  }
+  &--loading {
+    cursor: wait;
+  }
+  &--disabled {
+    cursor: not-allowed;
+  }
+
+  // transition
+  &-enter-active,
+  &-leave-active {
+    transition: opacity var(--t-switch-duration);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}

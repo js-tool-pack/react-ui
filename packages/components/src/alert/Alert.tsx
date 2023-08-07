@@ -34,7 +34,10 @@ const Icons: Record<Required<AlertProps>['type'], React.FC> = {
   success: CircleSuccessFill,
 };
 
-export const Alert: React.FC<AlertProps> = (props) => {
+export const Alert: React.FC<AlertProps> = React.forwardRef<
+  HTMLDivElement,
+  AlertProps
+>((props, ref) => {
   const { attrs, icon, type, title, bordered, closable, onClose, children } =
     props as RequiredPart<AlertProps, keyof typeof defaultProps>;
 
@@ -51,6 +54,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
   const Body = (
     <div
       {...attrs}
+      ref={ref}
       className={getClassNames(cls.root, attrs?.className, {
         [cls['--'].bordered]: bordered,
         [cls['--'].centered]: title && !children,
@@ -75,7 +79,7 @@ export const Alert: React.FC<AlertProps> = (props) => {
 
   if (!closable) return Body;
   return <CollapseTransition>{visible && Body}</CollapseTransition>;
-};
+});
 
 Alert.defaultProps = defaultProps;
 Alert.displayName = 'Alert';

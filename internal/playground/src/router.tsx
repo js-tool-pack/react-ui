@@ -116,6 +116,11 @@ export const baseRouter = [
     path: '/alert',
     element: getDemos(import.meta.glob('~/alert/demo/*.tsx')),
   },
+  {
+    name: 'switch 开关',
+    path: '/switch',
+    element: getDemos(import.meta.glob('~/switch/demo/*.tsx')),
+  },
   /*insert target*/
 ];
 

@@ -8,7 +8,7 @@ demo:
   cols: 2
 group:
   title: 反馈
-  order: 2
+  order: 4
 ---
 
 对话框。

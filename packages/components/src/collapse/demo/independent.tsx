@@ -12,20 +12,20 @@ const App: React.FC = () => {
   }, []);
   return (
     <div>
-      <Divider style={{ margin: '10px 0' }} />
+      <Divider attrs={{ style: { margin: '10px 0' } }} />
 
       <Collapse title={'第十三章'} expanded>
         宠辱若惊，贵大患若身。何谓宠辱若惊？宠为下，得之若惊，失之若惊，是谓宠辱若惊。何谓贵大患若身？吾所以有大患者，为吾有身，及吾无身，吾有何患！故贵以身为天下，若可寄天下；爱以身为天下，若可托天下。
       </Collapse>
 
-      <Divider style={{ margin: '10px 0' }} />
+      <Divider attrs={{ style: { margin: '10px 0' } }} />
 
       <Collapse title={'第十四章'} size="small" disabled>
         视之不见名曰夷，听之不闻名曰希，搏之不得名曰微。此三者不可致诘（jié），故混（hùn）而为一。其上不皦（jiǎo皎），其下不昧。绳绳(mǐn
         mǐn)不可名，复归于无物，是谓无状之状，无物之象。是谓惚恍。迎之不见其首，随之不见其后。执古之道，以御今之有，能知古始，是谓道纪。
       </Collapse>
 
-      <Divider style={{ margin: '10px 0' }} />
+      <Divider attrs={{ style: { margin: '10px 0' } }} />
 
       <Collapse
         title={'第十五章'}
@@ -43,7 +43,7 @@ const App: React.FC = () => {
         </div>
       </Collapse>
 
-      <Divider style={{ margin: '10px 0' }} />
+      <Divider attrs={{ style: { margin: '10px 0' } }} />
     </div>
   );
 };

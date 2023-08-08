@@ -1,10 +1,11 @@
-import React from 'react';
+import { CSSProperties } from 'react';
+import { PropsBase } from '@pkg/shared';
 
-export type DividerProps = React.HTMLAttributes<HTMLDivElement> & {
-  lineStyle?: React.CSSProperties['borderStyle'];
-  lineColor?: React.CSSProperties['borderColor'];
-  lineWidth?: React.CSSProperties['borderWidth'];
+export interface DividerProps extends PropsBase {
+  lineStyle?: CSSProperties['borderStyle'];
+  lineColor?: CSSProperties['borderColor'];
+  lineWidth?: CSSProperties['borderWidth'];
   placement?: 'left' | 'center' | 'right';
   vertical?: boolean;
   tag?: keyof HTMLElementTagNameMap;
-};
+}

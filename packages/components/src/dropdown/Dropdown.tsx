@@ -53,15 +53,13 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   ): React.ReactElement[] => {
     return options.map((opt) => {
       if (isDivider(opt)) {
-        const { key, type: _type, tag = 'li', className, ...rest } = opt;
-        return (
-          <Divider
-            {...rest}
-            tag={tag}
-            className={getClassNames(className, `${rootClass}__divider`)}
-            key={key}
-          />
+        const { key, type: _type, tag = 'li', ...rest } = opt;
+        rest.attrs ||= {};
+        rest.attrs.className = getClassNames(
+          rest.attrs.className,
+          `${rootClass}__divider`,
         );
+        return <Divider {...rest} tag={tag} key={key} />;
       }
       const { type, label, key, tag, children, attrs, ...rest } = opt;
 

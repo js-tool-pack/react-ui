@@ -19,19 +19,17 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
 >((props, ref) => {
   const {
     tag,
-    className,
     children,
     vertical,
     placement,
-    style,
     lineStyle,
     lineColor,
     lineWidth,
-    ...rest
+    attrs = {},
   } = props as RequiredPart<DividerProps, keyof typeof defaultProps>;
 
   const _style = {
-    ...style,
+    ...attrs.style,
     '--t-divider-border-color': lineColor,
     '--t-divider-border-style': lineStyle,
     '--t-divider-border-width': lineWidth,
@@ -39,7 +37,7 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
 
   const _className = getClassNames(
     rootName,
-    className,
+    attrs.className,
     `${rootName}--${placement}`,
     {
       [`${rootName}--vertical`]: vertical,
@@ -50,7 +48,7 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
   return React.createElement(
     tag,
     {
-      ...rest,
+      ...attrs,
       ref,
       style: _style,
       className: _className,

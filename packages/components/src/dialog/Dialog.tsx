@@ -1,11 +1,11 @@
-import React, { memo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { getClassNames } from '@tool-pack/basic';
 import { getComponentClass, Z_INDEX } from '@pkg/shared';
 import { Close as CloseIcon } from '@pkg/icons';
-import { Icon } from '../icon';
-import { Button } from '../button';
-import { Footer, Header, Layout, Main } from '../layouts';
+import { Icon } from '~/icon';
+import { Button } from '~/button';
+import { Footer, Header, Layout, Main } from '~/layouts';
 import {
   Transition,
   TRANSITION_LIFE_CIRCLE,
@@ -16,10 +16,13 @@ import { useEsc, useShow, useTransitionOrigin } from './dialog.hooks';
 import { RequiredPart } from '@tool-pack/types';
 
 const rootClass = getComponentClass('dialog');
+const defaultProps = {
+  zIndex: Z_INDEX,
+  esc: false,
+} satisfies Partial<DialogProps>;
 
-export const Dialog: React.FC<DialogProps> = memo((props) => {
+export const Dialog: React.FC<DialogProps> = (props) => {
   const {
-    className,
     visible,
     header,
     footer,
@@ -29,9 +32,9 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     center,
     centered,
     zIndex,
-    style,
     esc,
-    ...rest
+    attrs = {},
+    bodyAttrs = {},
   } = props as RequiredPart<DialogProps, keyof typeof defaultProps>;
 
   const [show, close] = useShow(visible);
@@ -69,13 +72,12 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
       })}>
       <Layout
         key="dialog-box"
-        {...rest}
-        className={getClassNames(rootClass, {
-          [className as string]: className,
+        {...bodyAttrs}
+        className={getClassNames(rootClass, bodyAttrs.className, {
           [`${rootClass}__center`]: center,
         })}
         style={{
-          ...style,
+          ...bodyAttrs.style,
           transformOrigin,
         }}
         vertical>
@@ -105,9 +107,10 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     <Transition name="t-dialog" on={onTransitionChange}>
       {show && (
         <div
+          {...attrs}
           key={rootClass}
-          className={`${rootClass}__root`}
-          style={{ zIndex }}>
+          className={getClassNames(`${rootClass}__root`, attrs.className)}
+          style={{ ...attrs.style, zIndex }}>
           {Mask}
           {Box}
         </div>
@@ -115,12 +118,8 @@ export const Dialog: React.FC<DialogProps> = memo((props) => {
     </Transition>,
     document.body,
   );
-});
+};
 
-const defaultProps = {
-  zIndex: Z_INDEX,
-  esc: false,
-} satisfies Partial<DialogProps>;
 Dialog.defaultProps = defaultProps;
 
 Dialog.displayName = 'Dialog';

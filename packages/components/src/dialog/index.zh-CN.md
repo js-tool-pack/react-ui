@@ -29,14 +29,16 @@ group:
 
 dialog 的属性说明如下：
 
-| 属性             | 说明                      | 类型       | 默认值 | 版本 |
-| ---------------- | ------------------------- | ---------- | ------ | ---- |
-| visible          | 开关                      | boolean    | false  |      |
-| header           | 窗体头部                  | ReactNode  | -      |      |
-| footer           | 窗体尾部                  | ReactNode  | -      |      |
-| onClose          | 内部关闭回调              | () => void | -      |      |
-| closeOnClickMask | 点击遮罩关闭 dialog       | boolean    | false  |      |
-| center           | header 与 footer 水平居中 | boolean    | false  |      |
-| centered         | 窗体垂直居中              | boolean    | false  |      |
-| esc              | 按下 esc 关闭 dialog      | boolean    | false  |      |
-| zIndex           | dialog 的 css z-index     | number     | 100    |      |
+| 属性             | 说明                             | 类型                                         | 默认值 | 版本 |
+| ---------------- | -------------------------------- | -------------------------------------------- | ------ | ---- |
+| visible          | 开关                             | boolean                                      | false  |      |
+| header           | 窗体头部                         | ReactNode                                    | -      |      |
+| footer           | 窗体尾部                         | ReactNode                                    | -      |      |
+| onClose          | 内部关闭回调                     | () => void                                   | -      |      |
+| closeOnClickMask | 点击遮罩关闭 dialog              | boolean                                      | false  |      |
+| center           | header 与 footer 水平居中        | boolean                                      | false  |      |
+| centered         | 窗体垂直居中                     | boolean                                      | false  |      |
+| esc              | 按下 esc 关闭 dialog             | boolean                                      | false  |      |
+| zIndex           | dialog 的 css z-index            | number                                       | 100    |      |
+| attrs            | 组件 html 根元素的所有属性       | Partial\<React.HTMLAttributes\<HTMLElement>> | --     | --   |
+| bodyAttrs        | 组件抽屉窗体 html 元素的所有属性 | Partial\<React.HTMLAttributes\<HTMLElement>> | --     | --   |

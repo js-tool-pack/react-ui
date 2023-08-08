@@ -1,6 +1,8 @@
 import React from 'react';
+import { PropsBase } from '@pkg/shared';
 
-export type DialogProps = React.HTMLAttributes<HTMLElement> & {
+export interface DialogProps extends Omit<PropsBase, 'ref'> {
+  bodyAttrs?: PropsBase['attrs'];
   visible?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
@@ -10,4 +12,4 @@ export type DialogProps = React.HTMLAttributes<HTMLElement> & {
   centered?: boolean;
   zIndex?: number;
   esc?: boolean;
-};
+}

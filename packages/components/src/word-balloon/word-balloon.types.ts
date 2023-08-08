@@ -1,11 +1,11 @@
 import React from 'react';
-import { PLACEMENTS_12 } from '@pkg/shared';
+import type { Placement_12, PropsBase } from '@pkg/shared';
 
-export type WordBalloonProps = React.HTMLAttributes<HTMLDivElement> & {
-  placement?: (typeof PLACEMENTS_12)[number];
+export interface WordBalloonProps extends PropsBase<HTMLDivElement> {
+  placement?: Placement_12;
   contentStyle?: React.CSSProperties;
   arrowStyle?: React.CSSProperties;
+  // 因为是箭头和窗体两个元素共用一个背景，所以抽取出来
   background?: React.CSSProperties['background'];
   showArrow?: boolean;
-  ref?: React.Ref<HTMLDivElement>;
-};
+}

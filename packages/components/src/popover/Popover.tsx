@@ -80,7 +80,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       key="ballon"
       placement={placement}
       ref={balloonRef as React.Ref<HTMLDivElement>}
-      className={getClassNames(rootName, className)}>
+      attrs={{ className: getClassNames(rootName, className) }}>
       {content}
     </WordBalloon>
   );

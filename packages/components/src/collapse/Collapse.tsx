@@ -3,15 +3,19 @@ import { getComponentClass, getSizeClassName } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import type { CollapseProps } from './collapse.types';
-import { CollapseTransition } from '../collapse-transition';
-import { Icon } from '../icon';
+import { CollapseTransition } from '~/collapse-transition';
+import { Icon } from '~/icon';
 import { Right } from '@pkg/icons';
 import { Space } from '@pkg/components';
 
 const rootName = getComponentClass('collapse');
 
-export const Collapse: React.FC<CollapseProps> = (props) => {
+export const Collapse: React.FC<CollapseProps> = React.forwardRef<
+  HTMLElement,
+  CollapseProps
+>((props, ref) => {
   const {
+    attrs = {},
     icon,
     size,
     extra,
@@ -21,10 +25,8 @@ export const Collapse: React.FC<CollapseProps> = (props) => {
     disabled,
     expanded,
     onChange,
-    className,
     iconPlacement,
     destroyOnHide,
-    ...rest
   } = props as RequiredPart<CollapseProps, keyof typeof defaultProps>;
 
   const [visible, setVisible] = useState(expanded || false);
@@ -72,11 +74,18 @@ export const Collapse: React.FC<CollapseProps> = (props) => {
 
   return (
     <section
-      {...rest}
-      className={getClassNames(rootName, className, getSizeClassName(size), {
-        [`${rootName}--active`]: visible,
-        [`${rootName}--disabled`]: disabled,
-      })}>
+      {...attrs}
+      ref={ref}
+      role={attrs.role || 'tab'}
+      className={getClassNames(
+        rootName,
+        attrs.className,
+        getSizeClassName(size),
+        {
+          [`${rootName}--active`]: visible,
+          [`${rootName}--disabled`]: disabled,
+        },
+      )}>
       <Space
         tag="div"
         className={`${rootName}__header`}
@@ -92,13 +101,12 @@ export const Collapse: React.FC<CollapseProps> = (props) => {
       </CollapseTransition>
     </section>
   );
-};
+});
 
 const defaultProps = {
   destroyOnHide: 'mixed',
   size: 'medium',
   iconPlacement: 'start',
-  role: 'tab',
 } satisfies Partial<CollapseProps>;
 Collapse.defaultProps = defaultProps;
 Collapse.displayName = 'Collapse';

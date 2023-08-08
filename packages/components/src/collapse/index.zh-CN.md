@@ -59,6 +59,7 @@ export type CollapseGroupItem = CollapseProps & {
 
 | 属性          | 说明                          | 类型                                                              | 默认值 | 版本 |
 | ------------- | ----------------------------- | ----------------------------------------------------------------- | ------ | ---- |
+| tag           | html 标签名                   | keyof HTMLElementTagNameMap                                       | 'div'  | --   |
 | accordion     | 手风琴效果                    | boolean                                                           | false  | --   |
 | items         | 面板 item 数组                | CollapseGroupItem[]                                               | --     | --   |
 | collapseProps | items 的公共选项              | Partial\<CollapseProps>                                           | --     | --   |

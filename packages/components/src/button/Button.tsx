@@ -17,24 +17,27 @@ const defaultProps = {
   type: 'default',
   shape: 'default',
 } satisfies Partial<ButtonProps>;
-
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     const context = useContext(ButtonContext);
+    const attrs = {
+      ...context.attrs,
+      ...props.attrs,
+      style: { ...context.style, ...props.style },
+    } as Required<ButtonProps>['attrs'];
     const {
       className,
-      htmlType,
+      htmlType = attrs.type,
       onClick,
       plain,
       size,
       type,
-      children,
-      disabled,
+      children = attrs.children,
+      disabled = attrs.disabled,
       shape,
       loading,
       icon,
       rightIcon,
-      ...rest
     } = { ...defaultProps, ...context, ...props } as RequiredPart<
       ButtonProps,
       keyof typeof defaultProps
@@ -49,13 +52,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       if (disabled || loading) return;
       if (plain !== 'text') activateWave();
       onClick?.(e);
+      attrs.onClick?.(e);
     };
 
     const iconOnly = !children && icon;
 
     return (
       <button
-        {...rest}
+        {...attrs}
         disabled={disabled}
         ref={ref}
         type={htmlType}
@@ -63,6 +67,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={getClassNames(
           rootClass,
           className,
+          attrs.className,
           `${rootClass}--type-${type}`,
           {
             [CLASS_SIZE_SM]: size === 'small',

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import type { DrawerProps } from './drawer.types';
 import { getComponentClass, numToPx, Z_INDEX } from '@pkg/shared';
 import { getClassNames, isString } from '@tool-pack/basic';
@@ -24,9 +24,8 @@ const resizePlaceMap: Record<PL, PL> = {
   bottom: 'top',
 };
 
-const _Drawer: React.FC<DrawerProps> = (props) => {
+export const Drawer: React.FC<DrawerProps> = (props) => {
   const {
-    className,
     header,
     footer,
     children,
@@ -40,11 +39,11 @@ const _Drawer: React.FC<DrawerProps> = (props) => {
     closeIcon,
     destroyOnClose,
     placement,
-    style,
     size,
     appendTo,
     resizeable,
-    ...rest
+    attrs = {},
+    bodyAttrs = {},
   } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
 
   const close = () => {
@@ -89,22 +88,20 @@ const _Drawer: React.FC<DrawerProps> = (props) => {
   };
 
   const bodyStyle = useMemo(() => {
-    const res: React.CSSProperties = { ...style };
+    const res: React.CSSProperties = { ...bodyAttrs.style };
     const value = numToPx(size, defaultProps.size);
 
     if (['left', 'right'].includes(placement)) res.width = value;
     else res.height = value;
 
     return res;
-  }, [style, size, placement]);
+  }, [bodyAttrs, size, placement]);
 
   const Body = (
     <Layout
-      {...rest}
+      {...bodyAttrs}
       style={bodyStyle}
-      className={getClassNames(rootClass, {
-        [className as string]: className,
-      })}
+      className={getClassNames(rootClass, bodyAttrs.className)}
       vertical>
       {resizeable && (
         <Resizer
@@ -126,15 +123,17 @@ const _Drawer: React.FC<DrawerProps> = (props) => {
 
   const Root = (
     <div
+      {...attrs}
       key={rootClass}
       className={getClassNames(
         `${rootClass}__root`,
+        attrs.className,
         `${rootClass}--${placement}`,
         {
           [`${rootClass}--fixed`]: appendTo === document.body,
         },
       )}
-      style={{ zIndex }}>
+      style={{ ...attrs.style, zIndex }}>
       {Mask}
       {Body}
     </div>
@@ -181,7 +180,5 @@ const defaultProps = {
   appendTo: globalThis.document?.body,
 } satisfies Partial<DrawerProps>;
 
-_Drawer.defaultProps = defaultProps;
-_Drawer.displayName = 'Drawer';
-
-export const Drawer = memo(_Drawer);
+Drawer.defaultProps = defaultProps;
+Drawer.displayName = 'Drawer';

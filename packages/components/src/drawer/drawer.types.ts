@@ -1,7 +1,8 @@
 import React from 'react';
-import type { PLACEMENTS } from '@pkg/shared';
+import type { PLACEMENTS, PropsBase } from '@pkg/shared';
 
-export type DrawerProps = React.HTMLAttributes<HTMLElement> & {
+export interface DrawerProps extends Omit<PropsBase, 'ref'> {
+  bodyAttrs?: PropsBase['attrs'];
   visible: boolean;
   header?: React.ReactNode;
   title?: React.ReactNode;
@@ -17,4 +18,4 @@ export type DrawerProps = React.HTMLAttributes<HTMLElement> & {
   size?: React.CSSProperties['width'];
   appendTo?: HTMLElement | null;
   resizeable?: boolean;
-};
+}

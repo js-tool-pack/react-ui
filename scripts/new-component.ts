@@ -85,17 +85,23 @@ import { getClassNames } from '@tool-pack/basic';
 const cls = getClasses('${config.name}', [], []);
 const defaultProps = {} satisfies Partial<${props}>;
 
-export const ${componentName}: React.FC<${props}> = (props) => {
+export const ${componentName}: React.FC<${props}> = React.forwardRef<
+  HTMLDivElement,
+  ${props}
+>((props, ref) => {
   const { attrs, children } = props as RequiredPart<
     ${props},
     keyof typeof defaultProps
   >;
   return (
-    <div {...attrs} className={getClassNames(cls.root, attrs?.className)}>
+    <div
+      {...attrs}
+      ref={ref}
+      className={getClassNames(cls.root, attrs?.className)}>
       {children}
     </div>
   );
-};
+});
 
 ${componentName}.defaultProps = defaultProps;
 ${componentName}.displayName = '${componentName}';
@@ -109,7 +115,7 @@ function initTypes(): InitRes {
   const content = `
 import { PropsBase } from '@pkg/shared';
 
-export interface ${props} extends PropsBase {
+export interface ${props} extends PropsBase<HTMLDivElement> {
   name?: string;
 }
   `;

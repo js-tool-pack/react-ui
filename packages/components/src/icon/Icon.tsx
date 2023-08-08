@@ -8,7 +8,8 @@ export const Icon: React.FC<IconProps> = React.forwardRef<
   HTMLElement,
   IconProps
 >((props, ref) => {
-  const { size, role, color, className, style = {}, ...rest } = props;
+  const { size, color, children, className, attrs = {} } = props;
+  const { style = {}, role = 'img' } = attrs;
 
   const fontSize =
     size === undefined
@@ -19,10 +20,12 @@ export const Icon: React.FC<IconProps> = React.forwardRef<
 
   return (
     <i
-      {...rest}
+      {...attrs}
       ref={ref}
-      role={role || 'img'}
-      className={getClassNames(rootClass, className)}
-      style={{ ...style, fontSize, color: color || style.color }}></i>
+      role={role}
+      className={getClassNames(rootClass, attrs.className, className)}
+      style={{ ...style, fontSize, color: color || style.color }}>
+      {children ?? attrs.children}
+    </i>
   );
 });

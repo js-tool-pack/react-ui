@@ -141,7 +141,7 @@ export function useTransition(
   children?: El,
   innerCB?: CB,
   cb?: CB,
-  { className, style, ...rest }: Partial<TransitionProps> = {},
+  { attrs = {} }: Partial<TransitionProps> = {},
 ) {
   const elRef = useRef<HTMLElement | null>(null);
 
@@ -188,14 +188,14 @@ export function useTransition(
     return;
 
   return cloneElement(children, {
-    ...rest,
+    ...attrs,
     ref: elRef,
-    className: getClassNames(children.props.className, className, {
+    className: getClassNames(children.props.className, attrs.className, {
       [classes?.fromClassName]: classes && status === STATUS.show,
     }),
     style: {
       ...children.props.style,
-      ...style,
+      ...attrs.style,
       display:
         STATUS.invisible === status ? 'none' : children.props.style?.display,
     },

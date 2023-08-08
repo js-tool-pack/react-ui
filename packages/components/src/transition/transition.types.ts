@@ -11,8 +11,8 @@ export type CB = (
   lifeCircle: LIFE_CIRCLE,
 ) => void;
 
-export interface TransitionProps
-  extends Omit<React.HTMLAttributes<HTMLElement>, 'children'> {
+export interface TransitionProps {
+  attrs?: Partial<Omit<React.HTMLAttributes<HTMLElement>, 'children'>>;
   name?: string;
   mode?: Mode;
   children?: React.ReactElement | boolean;

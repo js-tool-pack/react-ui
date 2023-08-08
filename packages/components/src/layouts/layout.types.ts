@@ -1,8 +1,11 @@
 import React from 'react';
+import { PropsBase } from '@pkg/shared';
 
-export type BaseLayoutsProps = React.HTMLAttributes<HTMLElement> & {
+export interface BaseLayoutsProps
+  extends PropsBase,
+    Pick<React.HTMLAttributes<HTMLElement>, 'className' | 'style'> {
   tag?: keyof HTMLElementTagNameMap;
-};
-export type LayoutProps = BaseLayoutsProps & {
+}
+export interface LayoutProps extends BaseLayoutsProps {
   vertical?: boolean;
-};
+}

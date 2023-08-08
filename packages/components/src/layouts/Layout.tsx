@@ -8,14 +8,20 @@ import { RequiredPart } from '@tool-pack/types';
 const rootClass = getComponentClass('layout');
 export const Layout = React.forwardRef<HTMLElement, LayoutProps>(
   (props, ref) => {
-    const { tag, vertical, className, children, ...rest } =
-      props as RequiredPart<LayoutProps, 'tag'>;
+    const {
+      tag,
+      vertical,
+      className,
+      children,
+      style,
+      attrs = {},
+    } = props as RequiredPart<LayoutProps, 'tag'>;
     return React.createElement(tag, {
-      ...rest,
+      ...attrs,
       ref,
-      className: getClassNames(rootClass, {
+      style: { ...attrs.style, ...style },
+      className: getClassNames(rootClass, className, attrs.className, {
         vertical,
-        [className as string]: className,
       }),
       children,
     });
@@ -27,36 +33,48 @@ Layout.defaultProps = {
 
 // main
 const mainRootClass = getComponentClass('main');
-export const Main: React.FC<BaseLayoutsProps> = (props) => {
-  return useElement(props, mainRootClass);
-};
+export const Main: React.FC<BaseLayoutsProps> = React.forwardRef<
+  HTMLElement,
+  BaseLayoutsProps
+>((props, ref) => {
+  return useElement(props, ref, mainRootClass);
+});
 Main.defaultProps = {
   tag: 'main',
 } satisfies Partial<BaseLayoutsProps>;
 
 // aside
 const asideRootClass = getComponentClass('aside');
-export const Aside: React.FC<BaseLayoutsProps> = (props) => {
-  return useElement(props, asideRootClass);
-};
+export const Aside: React.FC<BaseLayoutsProps> = React.forwardRef<
+  HTMLElement,
+  BaseLayoutsProps
+>((props, ref) => {
+  return useElement(props, ref, asideRootClass);
+});
 Aside.defaultProps = {
   tag: 'aside',
 } satisfies Partial<BaseLayoutsProps>;
 
 // header
 const headerRootClass = getComponentClass('header');
-export const Header: React.FC<BaseLayoutsProps> = (props) => {
-  return useElement(props, headerRootClass);
-};
+export const Header: React.FC<BaseLayoutsProps> = React.forwardRef<
+  HTMLElement,
+  BaseLayoutsProps
+>((props, ref) => {
+  return useElement(props, ref, headerRootClass);
+});
 Header.defaultProps = {
   tag: 'header',
 } satisfies Partial<BaseLayoutsProps>;
 
 // footer
 const footerRootClass = getComponentClass('footer');
-export const Footer: React.FC<BaseLayoutsProps> = (props) => {
-  return useElement(props, footerRootClass);
-};
+export const Footer: React.FC<BaseLayoutsProps> = React.forwardRef<
+  HTMLElement,
+  BaseLayoutsProps
+>((props, ref) => {
+  return useElement(props, ref, footerRootClass);
+});
 Footer.defaultProps = {
   tag: 'footer',
 } satisfies Partial<BaseLayoutsProps>;

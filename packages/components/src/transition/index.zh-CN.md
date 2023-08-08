@@ -8,7 +8,8 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*Lp1kTYmSsgoAAA
 demo:
   cols: 2
 group:
-  title: 通用
+  order: 1
+  title: 动画
 ---
 
 Transition 会在一个元素或组件进入和离开 DOM 时应用动画，类似于 Vue 官方的 Transition 组件。

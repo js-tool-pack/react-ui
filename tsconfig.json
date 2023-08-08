@@ -16,7 +16,7 @@
 
     "allowJs": true,
     "moduleResolution": "node",
-    "suppressImplicitAnyIndexErrors": true,
+    // "suppressImplicitAnyIndexErrors": true,
     "strict": true,
     "resolveJsonModule": true,
 

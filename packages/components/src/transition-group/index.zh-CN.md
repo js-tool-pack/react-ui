@@ -8,7 +8,7 @@ coverDark: https://mdn.alipayobjects.com/huamei_7uahnr/afts/img/A*Lp1kTYmSsgoAAA
 demo:
   cols: 1
 group:
-  title: 通用
+  title: 动画
 ---
 
 用于给一组 html 元素添加动画。

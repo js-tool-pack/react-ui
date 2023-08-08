@@ -1,0 +1,76 @@
+@use '../namespace' as Name;
+@use '../scss.variable' as Var;
+
+$r: Name.$alert;
+
+@mixin color($type) {
+  --t-alert-icon-color: var(--t-color-#{$type});
+  --t-alert-bg-color: var(--t-color-#{$type}-a-7);
+  --t-alert-border-color: var(--t-color-#{$type}-a-6);
+}
+
+@mixin status-color($status, $type) {
+  &--#{$status} {
+    @include color($type);
+  }
+}
+
+.#{$r} {
+  @include color(primary);
+
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  border-radius: var(--t-radius);
+  background-color: var(--t-alert-bg-color);
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
+
+  // children
+  &__icon {
+    margin-right: 12px;
+    font-size: 24px;
+    color: var(--t-alert-icon-color);
+  }
+  &__title {
+    font-size: 16px;
+  }
+  &__desc {
+    font-size: 14px;
+  }
+  &__title + &__desc {
+    margin-top: 8px;
+  }
+  &__content {
+    flex: 1;
+  }
+  &__close-icon {
+    font-size: 0.8em;
+  }
+
+  // status
+  &--bordered {
+    border: 1px solid var(--t-alert-border-color);
+  }
+  &--centered {
+    align-items: center;
+  }
+  @include status-color(success, success);
+  @include status-color(info, info);
+  @include status-color(warning, warning);
+  @include status-color(error, danger);
+
+  // collapse-transition
+  &.#{Name.$collapse-transition}-enter-active,
+  &.#{Name.$collapse-transition}-leave-active {
+    transition-property: max-width, max-height, margin-left, margin-right,
+      margin-top, margin-bottom, padding-top, padding-right, padding-bottom,
+      padding-left, opacity, transform;
+    transition-duration: 0.3s;
+  }
+  &.#{Name.$collapse-transition}-leave-to {
+    transform-origin: top;
+    transform: scale(0.5) translateY(-10px);
+    opacity: 0;
+  }
+}

@@ -12,6 +12,7 @@ const rootPath = Path.resolve(__dirname, '../');
 const config = {
   name: '',
   componentName: '',
+  alias: '',
   componentsPath: Path.resolve(rootPath, 'packages/components/src'),
 };
 async function run() {
@@ -52,10 +53,19 @@ async function getConfig() {
   config.name = kebabCase(name);
   config.componentName = pascalCase(config.name);
 
+  const { alias } = await prompt<{ alias: string }>({
+    type: 'input',
+    name: 'alias',
+    message: '输入组件别名(中文)',
+    required: true,
+  });
+
+  config.alias = alias;
+
   const { confirm } = await prompt<{ confirm: boolean }>({
     type: 'confirm',
     name: 'confirm',
-    message: `确认添加组件(${config.name})?`,
+    message: `确认添加组件(${config.name} ${alias})?`,
   });
 
   if (!confirm) throw new Error('放弃添加组件');
@@ -68,25 +78,31 @@ function initComponent(): InitRes {
   const content = `
 import React from 'react';
 import type { ${props} } from './${getFilename('types').replace(/\.ts$/, '')}';
-import { getComponentClass } from '@pkg/shared';
+import { getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 
-const rootName = getComponentClass('${config.name}');
+const cls = getClasses('${config.name}', [], []);
+const defaultProps = {} satisfies Partial<${props}>;
 
-export const ${componentName}: React.FC<${props}> = (props) => {
-  const { children, className, ...rest } = props as RequiredPart<
+export const ${componentName}: React.FC<${props}> = React.forwardRef<
+  HTMLDivElement,
+  ${props}
+>((props, ref) => {
+  const { attrs, children } = props as RequiredPart<
     ${props},
     keyof typeof defaultProps
   >;
   return (
-    <div {...rest} className={getClassNames(rootName, className)}>
+    <div
+      {...attrs}
+      ref={ref}
+      className={getClassNames(cls.root, attrs?.className)}>
       {children}
     </div>
   );
-};
+});
 
-const defaultProps = {} satisfies Partial<${props}>;
 ${componentName}.defaultProps = defaultProps;
 ${componentName}.displayName = '${componentName}';
   `;
@@ -97,11 +113,11 @@ function initTypes(): InitRes {
   const props = `${config.componentName}Props`;
   const filename = getFilename('types');
   const content = `
-import React from 'react';
+import { PropsBase } from '@pkg/shared';
 
-export type ${props} = React.HTMLAttributes<HTMLElement> & {
+export interface ${props} extends PropsBase<HTMLDivElement> {
   name?: string;
-};
+}
   `;
   return [filename, content];
 }
@@ -152,7 +168,7 @@ function initDoc(): InitRes {
   const content = `
 ---
 category: Components
-title: ${config.componentName} ${config.componentName}
+title: ${config.componentName} ${config.alias}
 atomId: ${config.componentName}
 demo:
   cols: 2
@@ -160,7 +176,7 @@ group:
   title: 通用
 ---
 
-${config.componentName} 说明。
+${config.componentName} ${config.alias}。
 
 ## 代码演示
 
@@ -202,7 +218,7 @@ function appendPlayground() {
 
   const insertTarget = '/*insert target*/';
   const insertContent = `{
-    name: '${config.name} ${config.name}',
+    name: '${config.name} ${config.alias}',
     path: '/${config.name}',
     element: getDemos(import.meta.glob('~/${config.name}/demo/*.tsx')),
   },

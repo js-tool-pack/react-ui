@@ -6,7 +6,11 @@
   display: inline-block;
   width: 1em;
   height: 1em;
+  font-style: normal;
   line-height: 1em;
+  text-align: center;
+  fill: currentcolor;
+  transform: translateZ(0);
   > svg {
     width: 1em;
     height: 1em;

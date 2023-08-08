@@ -1,6 +1,5 @@
 export const UI_PREFIX = 't';
 export const SIZES = ['small', 'medium', 'large'] as const;
-export type Size = (typeof SIZES)[number];
 export const CLASS_SIZE_SM = `${UI_PREFIX}--size-sm`;
 export const CLASS_SIZE_M = `${UI_PREFIX}--size-m`;
 export const CLASS_SIZE_LG = `${UI_PREFIX}--size-lg`;
@@ -28,4 +27,12 @@ export const PLACEMENTS_12 = [
   'left-start',
   PLACEMENTS[3],
   'left-end',
+] as const;
+
+export const TIMING_FNS = [
+  'ease',
+  'linear',
+  'ease-in',
+  'ease-out',
+  'ease-in-out',
 ] as const;

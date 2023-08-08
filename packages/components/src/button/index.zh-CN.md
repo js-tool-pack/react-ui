@@ -5,6 +5,7 @@ atomId: Button
 demo:
   cols: 2
 group:
+  order: 0
   title: 通用
 ---
 

@@ -1,6 +1,9 @@
 import React from 'react';
+import type { PropsBase } from '@pkg/shared';
 
-export type SpaceProps = React.HTMLAttributes<HTMLElement> & {
+export interface SpaceProps extends PropsBase {
+  className?: string;
+  style?: React.CSSProperties;
   gap?: number | string;
   vertical?: boolean;
   tag?: keyof HTMLElementTagNameMap;
@@ -8,5 +11,4 @@ export type SpaceProps = React.HTMLAttributes<HTMLElement> & {
   inline?: boolean;
   fill?: boolean;
   fillRatio?: number;
-  ref?: React.Ref<HTMLElement>;
-};
+}

@@ -90,7 +90,7 @@ export const Collapse: React.FC<CollapseProps> = React.forwardRef<
         tag="div"
         className={`${rootName}__header`}
         gap={12}
-        onClick={handleHeaderClick}>
+        attrs={{ onClick: handleHeaderClick }}>
         {HeaderContent}
       </Space>
       <CollapseTransition

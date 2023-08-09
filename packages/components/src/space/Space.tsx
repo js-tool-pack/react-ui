@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { SpaceProps } from './space.types';
+import type { SpaceProps } from './space.types';
 import { getComponentClass, numToPx } from '@pkg/shared';
 import {
   castArray,
@@ -7,9 +7,13 @@ import {
   getSafeNum,
   joinArray,
 } from '@tool-pack/basic';
+import { RequiredPart } from '@tool-pack/types';
 
 const rootClass = getComponentClass('space');
-// const itemClass = getComponentClass('space-item');
+const defaultProps = {
+  tag: 'section',
+  fillRatio: 100,
+} satisfies Partial<SpaceProps>;
 
 export const Space: React.FC<SpaceProps> = React.forwardRef<
   HTMLElement,
@@ -20,33 +24,35 @@ export const Space: React.FC<SpaceProps> = React.forwardRef<
     tag,
     inline,
     className,
-    style,
     gap,
     children,
     vertical,
     fill,
     fillRatio,
-    ...rest
-  } = props;
+    attrs = {},
+  } = props as RequiredPart<SpaceProps, keyof typeof defaultProps>;
 
-  const _gap = numToPx(gap, style?.gap);
+  const style = {
+    ...attrs.style,
+    ...props.style,
+    gap: gap ?? props.style?.gap ?? attrs.style?.gap,
+    [`--t-space-fill-ratio`]: getSafeNum(fillRatio as number, 0, 100) + '%',
+  } as React.CSSProperties;
+
+  style.gap = numToPx(gap, style.gap);
   const _children = useChildren(children, separator);
 
   return React.createElement(
     tag as string,
     {
-      ...rest,
+      ...attrs,
       ref,
       className: getClassNames(rootClass, className, {
         [`${rootClass}--vertical`]: vertical,
         [`${rootClass}--inline`]: inline,
         [`${rootClass}--fill`]: fill,
       }),
-      style: {
-        ...style,
-        gap: _gap,
-        [`--t-space-fill-ratio`]: getSafeNum(fillRatio as number, 0, 100) + '%',
-      },
+      style,
     },
     _children,
   );
@@ -79,9 +85,5 @@ function useChildren(
   }, [children, separator]);
 }
 
-Space.defaultProps = {
-  tag: 'section',
-  fillRatio: 100,
-};
-
+Space.defaultProps = defaultProps;
 Space.displayName = 'Space';

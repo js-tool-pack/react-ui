@@ -106,7 +106,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
       {resizeable && (
         <Resizer
           placement={resizePlaceMap[placement]}
-          style={{ zIndex: 1 }}
+          attrs={{ style: { zIndex: 1 } }}
           min={10}
         />
       )}

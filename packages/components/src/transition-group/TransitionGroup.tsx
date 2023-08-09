@@ -4,6 +4,7 @@ import { useWrapper } from './useWrapper';
 import { useChildMap } from './useChildMap';
 import type { TransitionGroupProps } from './transition-group.types';
 import { RequiredPart } from '@tool-pack/types';
+import { useForwardRef } from '@pkg/shared';
 
 /**
  * v1 版有部分 bug 不好解决。
@@ -20,17 +21,21 @@ const defaultProps = {
   name: 't-group',
 } satisfies TransitionGroupProps;
 
-const TransitionGroup: React.FC<TransitionGroupProps> = (props) => {
+const TransitionGroup: React.FC<TransitionGroupProps> = React.forwardRef<
+  HTMLDivElement,
+  TransitionGroupProps
+>((props, _ref) => {
   const { name, children, ...rest } = props as RequiredPart<
     TransitionGroupProps,
     keyof typeof defaultProps
   >;
 
+  const ref = useForwardRef(_ref);
   const childMap = useChildMap(children, name);
-  const [wrapper, parentRef] = useWrapper(childMap, rest);
-  useFlips(parentRef, childMap, name);
+  const wrapper = useWrapper(childMap, rest, ref);
+  useFlips(ref, childMap, name);
   return wrapper;
-};
+});
 
 TransitionGroup.defaultProps = defaultProps;
 TransitionGroup.displayName = 'TransitionGroup';

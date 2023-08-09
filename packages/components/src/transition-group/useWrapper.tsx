@@ -1,26 +1,33 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { RequiredPart } from '@tool-pack/types';
 import type { ChildMap, TransitionGroupProps } from './transition-group.types';
+import { getComponentClass } from '@pkg/shared';
+import { getClassNames } from '@tool-pack/basic';
 
-export function useWrapper(childMap: ChildMap, props: TransitionGroupProps) {
-  const { tag, className, ...rest } = props as RequiredPart<
-    TransitionGroupProps,
-    'tag'
-  >;
-  const wrapperRef = useRef<HTMLElement>();
+const rootClass = getComponentClass('transition-group');
+export function useWrapper(
+  childMap: ChildMap,
+  props: TransitionGroupProps,
+  ref: React.ForwardedRef<HTMLDivElement>,
+) {
+  const {
+    tag,
+    className,
+    attrs = {},
+  } = props as RequiredPart<TransitionGroupProps, 'tag'>;
   const children = getMapValues(childMap);
 
   const WrapChildNode = React.createElement(
     tag,
     {
-      ...rest,
-      className,
-      ref: wrapperRef,
+      ...attrs,
+      className: getClassNames(rootClass, className, attrs.className),
+      ref: ref,
     },
     children,
   );
 
-  return [<>{WrapChildNode}</>, wrapperRef] as const;
+  return <>{WrapChildNode}</>;
 }
 
 function getMapValues<T extends Map<unknown, unknown>>(

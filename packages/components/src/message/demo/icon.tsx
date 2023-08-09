@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Button, Space, useMessage, Icon, Icons } from '@tool-pack/react-ui';
+import { Button, Space, useMessage, Icons } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const Message = useMessage();
@@ -17,11 +17,7 @@ const App: React.FC = () => {
         type="danger"
         onClick={() =>
           Message.error('hello world', {
-            icon: (
-              <Icon color="blue" size={28}>
-                <Icons.CircleClose />
-              </Icon>
-            ),
+            icon: <Icons.CircleClose />,
           })
         }>
         show message

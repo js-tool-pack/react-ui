@@ -22,7 +22,7 @@ export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
   MessageQueueRef,
   MessageQueueProps
 >((props, ref) => {
-  const { className, ...rest } = props;
+  const { attrs = {} } = props;
   const forceUpdate = useForceUpdate();
 
   type MsgItem = MessagePushOptions & { key: number };
@@ -66,10 +66,10 @@ export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
 
   return createPortal(
     <TransitionGroup
-      {...rest}
+      {...attrs}
       name={rootClass}
       tag="ul"
-      className={getClassNames(rootClass, className)}>
+      className={getClassNames(rootClass, attrs.className)}>
       {MsgList.current.map((it) => {
         const { key, content, ...rest } = it;
         return (

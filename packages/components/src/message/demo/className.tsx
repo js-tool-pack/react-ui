@@ -8,8 +8,10 @@ import { Button, Icon, Space, useMessage, Icons } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const Message = useMessage({
-    className: 'custom-class-name',
-    containerClassName: 'container-class-name',
+    // 为窗体添加className
+    attrs: { className: 'custom-class-name' },
+    // 为容器添加classname
+    containerAttrs: { className: 'container-class-name' },
     duration: 0,
     showClose: true,
   });
@@ -22,7 +24,8 @@ const App: React.FC = () => {
         type="info"
         onClick={() =>
           Message.info('hello world', {
-            className: 'custom-class-name2',
+            // 为窗体添加className
+            attrs: { className: 'custom-class-name2' },
           })
         }>
         show message

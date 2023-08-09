@@ -26,16 +26,15 @@ type Res = readonly [
  * @param commonOptions 可以填入公共的duration、icon、showClose参数
  */
 export function useMessageHolder(
-  commonOptions: Pick<
-    MessagePushOptions,
-    'duration' | 'icon' | 'showClose' | 'hoverKeep' | 'className'
-  > & { containerClassName?: string } = {},
+  commonOptions: Omit<MessagePushOptions, 'type' | 'content'> & {
+    containerAttrs?: MessagePushOptions['attrs'];
+  } = {},
 ): Res {
-  const { containerClassName, ...restOptions } = commonOptions;
+  const { containerAttrs, ...restOptions } = commonOptions;
   const ref = useRef<MessageQueueRef>(null);
   const holder = useMemo(
-    () => <MessageQueue className={containerClassName} ref={ref} />,
-    [containerClassName],
+    () => <MessageQueue attrs={containerAttrs} ref={ref} />,
+    [containerAttrs],
   );
 
   const push = useCallback(

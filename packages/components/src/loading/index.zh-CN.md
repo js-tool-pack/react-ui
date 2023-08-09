@@ -59,16 +59,16 @@ loading 有三种函数式调用方式：
 
 loading 的属性说明如下：
 
-| 属性         | 说明                         | 类型                        | 默认值                   | 版本 |
-| ------------ | ---------------------------- | --------------------------- | ------------------------ | ---- |
-| classNames   | 语义化结构 class             | Record<SemanticDOM, string> | -                        |      |
-| visible      | 开关                         | boolean                     | false                    |      |
-| closeOnClick | 点击遮罩后关闭按钮           | boolean                     | false                    |      |
-| color        | 字体和 icon 的颜色           | string                      | `var(--t-text-color)`    |      |
-| background   | 遮罩背景色                   | string                      | `var(--t-mask-bg-color)` |      |
-| icon         | 设置按钮的图标               | ReactNode                   | 默认图标                 |      |
-| text         | 设置按钮的图标               | ReactNode                   | `loading...`             |      |
-| zIndex       | css z-index                  | number                      | 100                      |      |
-| mode         | 设置 loading 的包裹模式      | `insert` \| `wrap`          | `insert`                 |      |
-| onLeave      | loading 关闭动画完成后的回调 | () => void                  | -                        |      |
-| onClose      | loading 内部关闭后的回调     | () => void                  | -                        |      |
+| 属性         | 说明                         | 类型                                         | 默认值                   | 版本 |
+| ------------ | ---------------------------- | -------------------------------------------- | ------------------------ | ---- |
+| visible      | 开关                         | boolean                                      | false                    |      |
+| closeOnClick | 点击遮罩后关闭按钮           | boolean                                      | false                    |      |
+| color        | 字体和 icon 的颜色           | string                                       | `var(--t-text-color)`    |      |
+| background   | 遮罩背景色                   | string                                       | `var(--t-mask-bg-color)` |      |
+| icon         | 设置按钮的图标               | ReactNode                                    | 默认图标                 |      |
+| text         | 设置按钮的图标               | ReactNode                                    | `loading...`             |      |
+| zIndex       | css z-index                  | number                                       | 100                      |      |
+| mode         | 设置 loading 的包裹模式      | `insert` \| `wrap`                           | `insert`                 |      |
+| onLeave      | loading 关闭动画完成后的回调 | () => void                                   | -                        |      |
+| onClose      | loading 内部关闭后的回调     | () => void                                   | -                        |      |
+| attrs        | 组件弹窗窗体元素的所有属性   | Partial\<React.HTMLAttributes\<HTMLElement>> | --                       | --   |

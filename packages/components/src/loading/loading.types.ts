@@ -1,16 +1,15 @@
 import React from 'react';
+import type { PropsBase } from '@pkg/shared';
 
-export interface LoadingProps {
+export interface LoadingProps extends Omit<PropsBase, 'ref'> {
   visible: boolean;
   closeOnClick?: boolean;
   text?: React.ReactNode;
   icon?: React.ReactNode;
   background?: string;
   color?: string;
-  className?: string;
   zIndex?: number;
   mode?: 'insert' | 'wrap';
-  children?: React.ReactNode;
   onLeave?: () => void;
   onClose?: () => void;
 }

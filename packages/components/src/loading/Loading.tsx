@@ -1,47 +1,78 @@
 import { LoadingProps } from './loading.types';
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
-} from '../transition';
+} from '~/transition';
 import { getComponentClass, Z_INDEX } from '@pkg/shared';
 import { Loading as LoadingIcon } from '@pkg/icons';
-import { Icon } from '../icon';
+import { Icon } from '~/icon';
+import { getClassNames } from '@tool-pack/basic';
+import { RequiredPart } from '@tool-pack/types';
 
 const rootClass = getComponentClass('loading');
 const refClass = `${rootClass}__ref`;
 
+const defaultProps = {
+  background: 'var(--t-mask-bg-color)',
+  // color: 'var(--t-text-color)',
+  mode: 'insert',
+  zIndex: Z_INDEX,
+  text: 'loading...',
+} satisfies Partial<LoadingProps>;
+
 /**
  * loading组件
  */
-export const Loading: React.FC<LoadingProps> = memo((props) => {
-  const [visible, setVisible] = useState(props.visible);
+export const Loading: React.FC<LoadingProps> = (props) => {
+  const {
+    attrs = {},
+    zIndex,
+    color,
+    background,
+    closeOnClick,
+    mode,
+    onClose,
+    onLeave,
+    icon,
+    children,
+    text,
+    visible,
+  } = props as RequiredPart<LoadingProps, keyof typeof defaultProps>;
+  const [show, setShow] = useState(visible);
 
   useEffect(() => {
-    setVisible(props.visible);
-  }, [props.visible]);
+    setShow(visible);
+  }, [visible]);
 
-  const closeLoading = () => {
-    if (!props.closeOnClick) return;
-    props.onClose?.();
-    setVisible(false);
+  const closeLoading: React.MouseEventHandler<HTMLElement> = (e) => {
+    attrs.onClick?.(e);
+    if (!closeOnClick) return;
+    onClose?.();
+    setShow(false);
   };
 
   const LoadingBody = (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
+      {...attrs}
       onClick={closeLoading}
-      className={`${rootClass} ${props.className || ''}`}
+      className={getClassNames(rootClass, attrs.className, attrs.className)}
       style={{
-        background: props.background,
-        zIndex: props.zIndex,
-        color: props.color,
+        ...attrs.style,
+        background: background,
+        zIndex: zIndex,
+        color: color,
       }}>
       <div className={`${rootClass}__box`}>
-        <div className={`${rootClass}__icon`}>{props.icon}</div>
-        <div className={`${rootClass}__text`}>{props.text}</div>
+        {icon !== null && (
+          <div className={`${rootClass}__icon`}>
+            <Icon size={38}>{icon || <LoadingIcon />}</Icon>
+          </div>
+        )}
+        <div className={`${rootClass}__text`}>{text}</div>
       </div>
     </div>
   );
@@ -54,49 +85,38 @@ export const Loading: React.FC<LoadingProps> = memo((props) => {
         on={(_el, status, lifeCircle) =>
           lifeCircle === TRANSITION_LIFE_CIRCLE.after &&
           status === TRANSITION_STATUS.hide &&
-          props.onLeave?.()
+          onLeave?.()
         }>
-        {visible && LoadingBody}
+        {show && LoadingBody}
       </Transition>
     ),
-    [visible, props.onLeave],
+    [show, onLeave],
   );
 
   // 没有children传到body下
-  if (!props.children) return createPortal(TransitionLoading, document.body);
+  if (!children) return createPortal(TransitionLoading, document.body);
 
   // 插入children
   // 当传入的children是非html元素时，不使用插入模式
-  if (props.mode === 'insert' && React.isValidElement(props.children))
+  if (mode === 'insert' && React.isValidElement(children))
     return React.cloneElement(
-      props.children,
+      children,
       {
-        ...props.children.props,
-        className: `${props.children.props.className || ''} ${refClass}`.trim(),
+        ...children.props,
+        className: getClassNames(children.props.className, refClass),
       },
-      props.children.props.children,
+      children.props.children,
       TransitionLoading,
     );
 
   // 包裹children
   return (
     <div className={refClass}>
-      {props.children}
+      {children}
       {TransitionLoading}
     </div>
   );
-});
-
-Loading.defaultProps = {
-  className: '',
-  background: 'var(--t-mask-bg-color)',
-  // color: 'var(--t-text-color)',
-  mode: 'insert',
-  zIndex: Z_INDEX,
-  text: 'loading...',
-  icon: (
-    <Icon size={38}>
-      <LoadingIcon />
-    </Icon>
-  ),
 };
+
+Loading.defaultProps = defaultProps;
+Loading.displayName = 'Loading';

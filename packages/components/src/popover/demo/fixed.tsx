@@ -24,7 +24,7 @@ const App: React.FC = () => {
           placement="right"
           content={<span>不如登高之博见也</span>}
           appendTo={null}
-          style={{ width: 'max-content' }}
+          attrs={{ style: { width: 'max-content' } }}
           viewport={() => document.body}>
           <div style={{ position: 'relative' }}>吾尝跂而望矣</div>
         </Popover>
@@ -42,7 +42,7 @@ const App: React.FC = () => {
             <Popover
               placement="right"
               content="test"
-              style={{ width: 'max-content' }}>
+              attrs={{ style: { width: 'max-content' } }}>
               <div style={{ position: 'relative', display: 'inline-block' }}>
                 fake fixed hover
               </div>

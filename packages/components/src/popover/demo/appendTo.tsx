@@ -40,7 +40,7 @@ const App: React.FC = () => {
           <Popover
             trigger="click"
             appendTo={() => rootRef.current || document.body}
-            style={{ width: '200px' }}
+            attrs={{ style: { width: '200px' } }}
             content={'渲染在指定的html元素内'}>
             <Button attrs={{ id: 'btn1' }}>click</Button>
           </Popover>

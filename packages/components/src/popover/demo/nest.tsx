@@ -11,7 +11,7 @@ const App: React.FC = () => {
   return (
     <Space>
       <Popover
-        style={{ width: '100px' }}
+        attrs={{ style: { width: '100px' } }}
         content={
           <Popover placement="right" content="父子窗体相互独立">
             <span>hover~</span>
@@ -20,12 +20,12 @@ const App: React.FC = () => {
         <Button>普通嵌套</Button>
       </Popover>
       <Popover
-        style={{ width: '100px' }}
+        attrs={{ style: { width: '100px' } }}
         content={
           <Popover
             placement="right"
             content="子窗体嵌入父窗体内部"
-            style={{ width: 'max-content' }}
+            attrs={{ style: { width: 'max-content' } }}
             // appendTo 为 null 时窗体会插入 span 内部
             appendTo={null}
             // 虽然子窗体嵌入了内部，但是判断方位还是需要指定为外部视口

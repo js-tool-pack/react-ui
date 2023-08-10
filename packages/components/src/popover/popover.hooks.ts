@@ -1,6 +1,6 @@
 /*eslint no-case-declarations: "off"*/
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Placement_12, PopoverProps } from './popover.types';
+import { PopoverProps } from './popover.types';
 import { calcPlacement, calcPosition } from './popover.utils';
 import { castArray, throttle } from '@tool-pack/basic';
 import {
@@ -9,7 +9,11 @@ import {
   isChildHTMLElement,
   calcDistanceWithParent,
 } from '@tool-pack/dom';
-import { getComponentClass, PLACEMENTS_12 } from '@pkg/shared';
+import {
+  getComponentClass,
+  PLACEMENTS_12,
+  type Placement_12,
+} from '@pkg/shared';
 
 export function useResizeObserver(
   enable: boolean,

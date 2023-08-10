@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import type { PopConfirmProps } from './pop-confirm.types';
 import { getComponentClass } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames, isPromiseLike } from '@tool-pack/basic';
-import { Popover } from '../popover';
-import { Layout, Footer, Main } from '../layouts';
-import { Button } from '../button';
-import { Space } from '../space';
-import { Icon } from '../icon';
+import { isPromiseLike } from '@tool-pack/basic';
+import { Popover } from '~/popover';
+import { Layout, Footer, Main } from '~/layouts';
+import { Button } from '~/button';
+import { Space } from '~/space';
+import { Icon } from '~/icon';
 import { CircleInfoFill } from '@pkg/icons';
 
 const rootName = getComponentClass('pop-confirm');
@@ -21,7 +21,6 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
     cancelText,
     children,
     content,
-    className,
     ...rest
   } = props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
 
@@ -90,11 +89,7 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   );
 
   return (
-    <Popover
-      {...rest}
-      visible={visible}
-      className={getClassNames(rootName, className)}
-      content={Content}>
+    <Popover {...rest} visible={visible} content={Content}>
       {children}
     </Popover>
   );

@@ -31,20 +31,6 @@ Dropdown 说明。
 Dropdown 的属性说明如下：
 
 ```typescript
-export type DividerProps = React.HTMLAttributes<HTMLDivElement> & {
-  lineStyle?: React.CSSProperties['borderStyle'];
-  lineColor?: React.CSSProperties['borderColor'];
-  lineWidth?: React.CSSProperties['borderWidth'];
-  placement?: 'left' | 'center' | 'right';
-  vertical?: boolean;
-  tag?: keyof HTMLElementTagNameMap;
-};
-
-export type DropdownDivider = DividerProps & {
-  type: 'divider';
-  key: React.Key;
-};
-
 export interface OptionProps {
   tag?: keyof HTMLElementTagNameMap;
   size?: Size;
@@ -57,14 +43,20 @@ export interface OptionProps {
   children: React.ReactNode;
 }
 
-export type DropdownOption = Omit<OptionProps, 'size' | 'children'> & {
+export interface DropdownDivider extends DividerProps {
+  type: 'divider';
+  key: React.Key;
+}
+export interface DropdownOption extends Omit<OptionProps, 'size' | 'children'> {
   type?: 'group' | 'option';
   key: React.Key;
   label: React.ReactNode;
   children?: DropdownOptionsItem[];
-};
+}
 export type DropdownOptionsItem = DropdownOption | DropdownDivider;
 ```
+
+[【DividerProps】](./divider#api)
 
 | 属性        | 说明                 | 类型                                                        | 默认值   | 版本 |
 | ----------- | -------------------- | ----------------------------------------------------------- | -------- | ---- |

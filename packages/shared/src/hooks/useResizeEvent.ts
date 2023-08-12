@@ -8,7 +8,6 @@ export function useResizeEvent(
   useEffect(() => {
     if (!enable) return;
     const handler = () => {
-      console.log('resize');
       callback();
     };
     window.addEventListener('resize', handler, options);

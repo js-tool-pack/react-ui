@@ -11,13 +11,13 @@ const App: React.FC = () => {
       <WordBalloon
         placement="left-start"
         background={'#b8cfef'}
-        style={{ alignSelf: 'flex-end', maxWidth: '50%' }}>
+        attrs={{ style: { alignSelf: 'flex-end', maxWidth: '50%' } }}>
         {'你是谁? 你是谁? 你是谁?\n'.repeat(5)}
       </WordBalloon>
       <WordBalloon
         placement="right-start"
         background={'#9eec9e'}
-        style={{ alignSelf: 'flex-start', maxWidth: '50%' }}>
+        attrs={{ style: { alignSelf: 'flex-start', maxWidth: '50%' } }}>
         {'你好，我是ChatGPT，我是ChatGPT，我真的是ChatGPT。\n'.repeat(5)}
       </WordBalloon>
 

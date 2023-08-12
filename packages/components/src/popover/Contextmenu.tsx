@@ -39,7 +39,7 @@ export const Contextmenu: React.FC<PopoverProps> = (props) => {
           <div
             className={getClassNames(
               `${rootClass}__contextmenu_trigger`,
-              rest.className,
+              rest.attrs?.className,
             )}></div>
         </Popover>,
         document.body,

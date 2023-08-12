@@ -9,7 +9,7 @@ import { Right as RightIcon } from '@pkg/icons';
 const defaultProps = {
   tag: 'div',
   size: 'medium',
-  role: 'option',
+  attrs: { role: 'option' },
 } satisfies Partial<OptionProps>;
 
 const rootName = getComponentClass('option');
@@ -18,16 +18,13 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
   HTMLElement,
   OptionProps
 >((props, ref) => {
-  const {
-    children,
-    icon,
-    readonly,
-    expandable,
-    size,
-    tag,
-    className,
-    ...rest
-  } = props as RequiredPart<OptionProps, keyof typeof defaultProps>;
+  const { children, icon, readonly, expandable, size, tag, disabled } =
+    props as RequiredPart<OptionProps, keyof typeof defaultProps>;
+
+  const attrs = {
+    ...defaultProps.attrs,
+    ...props.attrs,
+  } as OptionProps['attrs'];
 
   const Child = (
     <>
@@ -48,11 +45,17 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
   return React.createElement(
     tag,
     {
-      ...rest,
+      ...attrs,
       ref,
-      className: getClassNames(rootName, className, getSizeClassName(size), {
-        [`${rootName}--readonly`]: readonly,
-      }),
+      disabled,
+      className: getClassNames(
+        rootName,
+        attrs?.className,
+        getSizeClassName(size),
+        {
+          [`${rootName}--readonly`]: readonly,
+        },
+      ),
     },
     Child,
   );

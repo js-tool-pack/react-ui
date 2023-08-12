@@ -25,7 +25,6 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
     header,
     footer,
     size,
-    className,
     showArrow,
     onSelect,
     options,
@@ -53,27 +52,35 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   ): React.ReactElement[] => {
     return options.map((opt) => {
       if (isDivider(opt)) {
-        const { key, type: _type, tag = 'li', className, ...rest } = opt;
-        return (
-          <Divider
-            {...rest}
-            tag={tag}
-            className={getClassNames(className, `${rootClass}__divider`)}
-            key={key}
-          />
+        const { key, type: _type, tag = 'li', ...rest } = opt;
+        rest.attrs ||= {};
+        rest.attrs.className = getClassNames(
+          rest.attrs.className,
+          `${rootClass}__divider`,
         );
+        return <Divider {...rest} tag={tag} key={key} />;
       }
-      const { type, label, key, tag, children, ...rest } = opt;
+      const {
+        type,
+        label,
+        key,
+        tag,
+        children,
+        attrs: optAttrs = {},
+        ...optRest
+      } = opt;
 
       if (type === 'group') {
         return (
           <li className={`${rootClass}__group`} key={key}>
             <Option
-              {...rest}
+              {...optRest}
               tag="div"
-              role={'heading'}
+              attrs={{
+                role: 'heading',
+                className: `${rootClass}__group-title`,
+              }}
               size={size}
-              className={`${rootClass}__group-title`}
               readonly>
               {label}
             </Option>
@@ -90,24 +97,28 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       };
 
       const onClick = (e: React.MouseEvent<HTMLElement>) => {
-        opt.onClick?.(e);
+        optAttrs.onClick?.(e);
         e.stopPropagation();
         if (opt.disabled || opt.type === 'group' || children?.length) return;
         emit(opt, parents);
       };
       const option = (
         <Option
-          {...rest}
+          {...optRest}
           tag={tag || 'li'}
           key={key}
           size={size}
           expandable={children && !!children.length}
-          onClick={onClick}>
+          attrs={{ ...optAttrs, onClick }}>
           {label}
         </Option>
       );
 
-      if (!children || rest.disabled) return option;
+      if (!children || optRest.disabled) return option;
+      const _attrs = {
+        ...rest.attrs,
+        className: getClassNames(rest.attrs?.className, `${rootClass}__nest`),
+      };
       return (
         <Dropdown
           placement={'right-start'}
@@ -121,7 +132,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
           onSelect={(option, parents) => emit(option, [opt, ...parents])}
           viewport={() => document.body}
           options={children}
-          className={`${rootClass}__nest`}
+          attrs={_attrs}
           destroyOnHide={false}>
           {option}
         </Dropdown>
@@ -145,7 +156,6 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       name={name}
       showArrow={showArrow}
       visible={show}
-      className={getClassNames(className)}
       content={Box}>
       {children}
     </Popover>

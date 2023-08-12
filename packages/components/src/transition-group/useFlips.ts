@@ -3,7 +3,7 @@ import { applyTranslation } from './transition-group.utils';
 import type { ChildMap } from './transition-group.types';
 
 export function useFlips(
-  wrapperRef: React.MutableRefObject<HTMLElement | undefined>,
+  wrapperRef: React.MutableRefObject<HTMLElement | null>,
   childMap: ChildMap,
   name: string,
 ) {
@@ -50,7 +50,7 @@ export function useFlips(
 }
 
 function getChildRects(
-  wrapperEl: HTMLElement | undefined,
+  wrapperEl: HTMLElement | undefined | null,
   childMap: ChildMap,
 ): Record<React.Key, DOMRect> | void {
   if (!wrapperEl) return;

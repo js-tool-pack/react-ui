@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import type { PopoverProps } from './popover.types';
 import {
   getComponentClass,
@@ -21,7 +21,18 @@ import {
   transitionCBAdapter,
 } from '~/transition';
 
-export const Popover: React.FC<PopoverProps> = (props) => {
+const defaultProps = {
+  placement: 'top',
+  trigger: 'hover',
+  offset: 10,
+  name: 'popover',
+  appendTo: () => document.body,
+} satisfies Partial<PopoverProps>;
+
+export const Popover: React.FC<PopoverProps> = React.forwardRef<
+  HTMLDivElement,
+  PopoverProps
+>((props, ref) => {
   const {
     disabled,
     visible,
@@ -29,7 +40,6 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     placement,
     children,
     content,
-    className,
     offset,
     destroyOnHide,
     name,
@@ -37,7 +47,8 @@ export const Popover: React.FC<PopoverProps> = (props) => {
     appendTo,
     viewport,
     childrenRef: kidRef,
-    ...rest
+    showArrow,
+    attrs = {},
   } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
   const rootName = getComponentClass(name);
 
@@ -52,7 +63,11 @@ export const Popover: React.FC<PopoverProps> = (props) => {
   }, []);
 
   const childrenRef = useForwardRef(kidRef);
-  const balloonRef = useRef<HTMLDivElement>();
+  const [balloonRef, refreshBalloonRef] = useForwardRef(ref, true) as [
+    React.MutableRefObject<HTMLDivElement>,
+    () => void,
+  ];
+
   const [refreshPosition, resetPlacement] = usePosition(
     placement,
     childrenRef,
@@ -76,18 +91,21 @@ export const Popover: React.FC<PopoverProps> = (props) => {
 
   const Balloon = (
     <WordBalloon
-      {...rest}
       key="ballon"
       placement={placement}
+      showArrow={showArrow}
       ref={balloonRef as React.Ref<HTMLDivElement>}
-      className={getClassNames(rootName, className)}>
+      attrs={{
+        ...attrs,
+        className: getClassNames(rootName, attrs.className),
+      }}>
       {content}
     </WordBalloon>
   );
-
   const onTransitionChange = useMemo<TransitionCB>(() => {
     const refreshRef = (el: HTMLElement) => {
       balloonRef.current = el as HTMLDivElement;
+      refreshBalloonRef();
       refreshPosition();
     };
     const cb = transitionCBAdapter({
@@ -126,14 +144,7 @@ export const Popover: React.FC<PopoverProps> = (props) => {
       {createPortal(Trans, appendTo())}
     </>
   );
-};
+});
 
-const defaultProps = {
-  placement: 'top',
-  trigger: 'hover',
-  offset: 10,
-  name: 'popover',
-  appendTo: () => document.body,
-} satisfies Partial<PopoverProps>;
 Popover.defaultProps = defaultProps;
 Popover.displayName = 'Popover';

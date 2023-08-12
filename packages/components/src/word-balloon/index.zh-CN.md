@@ -26,5 +26,6 @@ WordBalloon 的属性说明如下：
 | background   | 气泡内容和箭头的背景色                                  | React.CSSProperties['background']                                                                                                                                  | --     | --   |
 | showArrow    | 是否显示箭头                                            | boolean                                                                                                                                                            | true   | --   |
 | placement    | 箭头对应气泡的位置<br /><div style="width:200px"></div> | 'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end' | 'top'  | --   |
+| attrs        | 组件 html 根元素的所有属性                              | Partial\<React.HTMLAttributes\<HTMLDivElement>>                                                                                                                    | --     | --   |
 
 组件根元素支持原生 HTML 的其他所有属性。

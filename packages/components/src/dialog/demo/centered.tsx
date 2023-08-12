@@ -56,7 +56,7 @@ const App: React.FC = () => {
             </Button>
           </>
         }
-        style={{ top: '20px' }}
+        bodyAttrs={{ style: { top: '20px' } }}
         centered
         onClose={close}>
         {children}

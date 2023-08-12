@@ -19,7 +19,7 @@ const App: React.FC = () => {
         visible={visible}
         header="title"
         footer="footer"
-        style={{ top: '100px' }}
+        bodyAttrs={{ style: { top: '100px' } }}
         onClose={setVisible}>
         <div>随便说说</div>
         <textarea

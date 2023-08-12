@@ -1,4 +1,4 @@
-import type { Placement, Placement_12 } from './popover.types';
+import type { Placement, Placement_12 } from '@pkg/shared';
 import { calcDistanceWithParent } from '@tool-pack/dom';
 
 /**

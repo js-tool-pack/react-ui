@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useMemo, useRef } from 'react';
+import React, { cloneElement, useEffect, useMemo, useRef } from 'react';
 import { addTransition, getClasses, isSameEl } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 import type { CB, El, Mode, TransitionProps } from './transition.types';
@@ -141,7 +141,7 @@ export function useTransition(
   children?: El,
   innerCB?: CB,
   cb?: CB,
-  { className, style, ...rest }: Partial<TransitionProps> = {},
+  { attrs = {} }: Partial<TransitionProps> = {},
 ) {
   const elRef = useRef<HTMLElement | null>(null);
 
@@ -187,17 +187,40 @@ export function useTransition(
   if (!children || STATUS.none === status || typeof children === 'boolean')
     return;
 
-  return cloneElement(children, {
-    ...rest,
-    ref: elRef,
-    className: getClassNames(children.props.className, className, {
+  const style = {
+    ...children.props.attrs?.style,
+    ...children.props.style,
+    ...attrs.style,
+    display:
+      STATUS.invisible === status ? 'none' : children.props.style?.display,
+  };
+
+  const className = getClassNames(
+    children.props.className,
+    children.props.attrs?.className,
+    attrs.className,
+    {
       [classes?.fromClassName]: classes && status === STATUS.show,
-    }),
-    style: {
-      ...children.props.style,
-      ...style,
-      display:
-        STATUS.invisible === status ? 'none' : children.props.style?.display,
     },
-  });
+  );
+
+  const props = {
+    ...attrs,
+    ref: elRef,
+    className,
+    style,
+    attrs: children.props.attrs,
+  } as React.HTMLAttributes<HTMLElement> &
+    React.DOMAttributes<HTMLElement> & {
+      attrs: React.HTMLAttributes<HTMLElement>;
+    };
+
+  if (typeof children.props.attrs === 'object') {
+    props.attrs = { ...children.props.attrs, className, style };
+  } else {
+    props.className = className;
+    props.style = style;
+  }
+
+  return cloneElement(children, props);
 }

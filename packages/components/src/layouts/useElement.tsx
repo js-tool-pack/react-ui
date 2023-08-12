@@ -3,16 +3,25 @@ import { RequiredPart } from '@tool-pack/types';
 import React from 'react';
 import { getClassNames } from '@tool-pack/basic';
 
-export function useElement(props: BaseLayoutsProps, rootClass: string) {
-  const { children, className, tag, ...rest } = props as RequiredPart<
-    BaseLayoutsProps,
-    'tag'
-  >;
+export function useElement(
+  props: BaseLayoutsProps,
+  ref: React.ForwardedRef<HTMLElement>,
+  rootClass: string,
+) {
+  const {
+    children,
+    className,
+    tag,
+    style,
+    attrs = {},
+  } = props as RequiredPart<BaseLayoutsProps, 'tag'>;
   return React.createElement(
     tag,
     {
-      ...rest,
-      className: getClassNames(rootClass, {
+      ...attrs,
+      ref,
+      style: { ...attrs.style, ...style },
+      className: getClassNames(rootClass, attrs.className, {
         [className as string]: className,
       }),
     },

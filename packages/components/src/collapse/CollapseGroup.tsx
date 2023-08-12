@@ -7,9 +7,18 @@ import { Collapse } from './Collapse';
 
 const rootName = getComponentClass('collapse-group');
 
-export const CollapseGroup: React.FC<CollapseGroupProps> = (props) => {
-  const { collapseProps, onChange, accordion, items, className, ...rest } =
-    props as RequiredPart<CollapseGroupProps, keyof typeof defaultProps>;
+export const CollapseGroup: React.FC<CollapseGroupProps> = React.forwardRef<
+  HTMLElement,
+  CollapseGroupProps
+>((props, ref) => {
+  const {
+    collapseProps,
+    onChange,
+    accordion,
+    items,
+    tag,
+    attrs = {},
+  } = props as RequiredPart<CollapseGroupProps, keyof typeof defaultProps>;
 
   const list = useRef(items);
   const forceUpdate = useForceUpdate();
@@ -29,24 +38,30 @@ export const CollapseGroup: React.FC<CollapseGroupProps> = (props) => {
     currentItem.expanded = active;
   };
 
-  return (
-    <div {...rest} className={getClassNames(rootName, className)}>
-      {list.current.map(({ onChange, ...rest }, i) => {
-        const opts = { ...collapseProps, ...rest };
-        return (
-          <Collapse
-            {...opts}
-            onChange={(active) => {
-              onChange?.(active);
-              changeHandler(i, active);
-            }}
-          />
-        );
-      })}
-    </div>
+  return React.createElement(
+    tag,
+    {
+      ...attrs,
+      ref,
+      className: getClassNames(rootName, attrs.className),
+    },
+    list.current.map(({ onChange, ...rest }, i) => {
+      const opts = { ...collapseProps, ...rest };
+      return (
+        <Collapse
+          {...opts}
+          onChange={(active) => {
+            onChange?.(active);
+            changeHandler(i, active);
+          }}
+        />
+      );
+    }),
   );
-};
+});
 
-const defaultProps = {} satisfies Partial<CollapseGroupProps>;
+const defaultProps = {
+  tag: 'div',
+} satisfies Partial<CollapseGroupProps>;
 CollapseGroup.defaultProps = defaultProps;
 CollapseGroup.displayName = 'CollapseGroup';

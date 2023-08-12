@@ -11,6 +11,9 @@ const App: React.FC = () => {
     visible: false,
     closeOnClick: false,
     text: `全屏useLoadingHolder，点击任意处关闭....`,
+    attrs: {
+      id: 'useLoadingHolder',
+    },
   });
 
   useEffect(() => {

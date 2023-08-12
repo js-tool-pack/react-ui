@@ -15,10 +15,9 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
     placement,
     showArrow,
     background,
-    style,
     contentStyle,
     arrowStyle,
-    className,
+    attrs = {},
     ...rest
   } = props as RequiredPart<WordBalloonProps, keyof typeof defaultProps>;
   return (
@@ -27,13 +26,13 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
       ref={ref}
       style={
         {
-          ...style,
+          ...attrs.style,
           '--t-word-balloon-bg': background || '',
         } as React.CSSProperties
       }
       className={getClassNames(
         rootName,
-        className,
+        attrs.className,
         `${rootName}--${placement}`,
       )}>
       <div className={`${rootName}__content`} style={contentStyle}>

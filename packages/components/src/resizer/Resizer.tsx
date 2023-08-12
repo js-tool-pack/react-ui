@@ -1,18 +1,29 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import type { ResizerProps } from './resizer.types';
-import { getComponentClass, getElRealSize } from '@pkg/shared';
+import { getComponentClass, getElRealSize, useForwardRef } from '@pkg/shared';
 import { onDragEvent } from '@tool-pack/dom';
 import { getClassNames } from '@tool-pack/basic';
 import type { RequiredPart } from '@tool-pack/types';
 
 const rootName = getComponentClass('resizer');
 
-export const Resizer: React.FC<ResizerProps> = (props) => {
-  const { placement, min, max, className, ...rest } = props as RequiredPart<
-    ResizerProps,
-    keyof typeof defaultProps
-  >;
-  const ref = useRef<HTMLDivElement>(null);
+const defaultProps = {
+  placement: 'bottom',
+  min: 0,
+  max: Number.MAX_SAFE_INTEGER,
+} satisfies Partial<ResizerProps>;
+
+export const Resizer: React.FC<ResizerProps> = React.forwardRef<
+  HTMLDivElement,
+  ResizerProps
+>((props, _ref) => {
+  const {
+    placement,
+    min,
+    max,
+    attrs = {},
+  } = props as RequiredPart<ResizerProps, keyof typeof defaultProps>;
+  const ref = useForwardRef(_ref);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -56,21 +67,15 @@ export const Resizer: React.FC<ResizerProps> = (props) => {
   }, [placement, min, max]);
   return (
     <div
-      {...rest}
+      {...attrs}
       ref={ref}
       className={getClassNames(
         rootName,
-        className,
+        attrs.className,
         `${rootName}--${placement}`,
       )}></div>
   );
-};
-
-const defaultProps = {
-  placement: 'bottom',
-  min: 0,
-  max: Number.MAX_SAFE_INTEGER,
-} satisfies Partial<ResizerProps>;
+});
 
 Resizer.defaultProps = defaultProps;
 Resizer.displayName = 'Resizer';

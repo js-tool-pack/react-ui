@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <Space>
       <PopConfirm
-        style={{ width: '220px' }}
+        attrs={{ style: { width: '220px' } }}
         confirmText="confirm"
         cancelText="No, Thanks"
         content="确认要删除？">
@@ -22,7 +22,7 @@ const App: React.FC = () => {
       </PopConfirm>
 
       <PopConfirm
-        style={{ width: '220px' }}
+        attrs={{ style: { width: '220px' } }}
         confirmText={null}
         placement="left-start"
         content="确认要删除？确认要删除？确认要删除？确认要删除？确认要删除？">

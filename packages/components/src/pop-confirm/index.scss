@@ -1,18 +1,31 @@
 @use '../namespace' as Name;
+@use '../popover/index' as Pop;
 
 $r: Name.$pop-confirm;
+$wr: Name.$word-balloon;
 $space: Name.$space;
 
 .#{$r} {
+  --t-popconfirm-transition-duration: calc(var(--t-transition-duration) / 2);
+
+  @include Pop.pop-style(var(--t-popconfirm-transition-duration));
+
   width: 180px;
+  .#{$wr}__content {
+    padding: 0;
+  }
   &__icon {
     color: var(--t-color-warning);
+  }
+  &__main,
+  &__footer {
+    padding: 12px 14px;
   }
   &__content {
     flex: 1;
   }
   &__footer {
-    margin-top: 12px;
+    padding-top: 0;
     .#{$space} {
       justify-content: flex-end;
     }

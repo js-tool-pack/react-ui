@@ -12,17 +12,24 @@ import { CircleInfoFill } from '@pkg/icons';
 
 const rootName = getComponentClass('pop-confirm');
 
+const defaultProps = {
+  trigger: 'click',
+} satisfies Partial<PopConfirmProps>;
+
 export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   const {
     icon,
-    onConfirm,
-    confirmText,
-    onCancel,
-    cancelText,
     children,
     content,
+    cancelProps = {},
+    confirmProps = {},
+    onCancel,
+    onConfirm,
     ...rest
   } = props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
+
+  const _confirm = confirmProps ?? {};
+  const _cancel = cancelProps ?? {};
 
   const [visible, setVisible] = useState<boolean | undefined>();
 
@@ -36,18 +43,27 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
     const hide = () => setVisible(false);
 
     if (isPromiseLike(res)) {
-      res.then(hide).catch();
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      res.then(hide, () => {});
       return;
     }
     if (res === undefined || res) hide();
   };
 
-  const _onCancel = useCallback(() => {
-    handleCallback(onCancel?.());
-  }, [onCancel]);
-  const _onConfirm = useCallback(() => {
-    handleCallback(onConfirm?.());
-  }, [onConfirm]);
+  const _onCancel: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      _cancel.attrs?.onClick?.(e);
+      handleCallback(onCancel?.());
+    },
+    [onCancel],
+  );
+  const _onConfirm: React.MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      _confirm.attrs?.onClick?.(e);
+      handleCallback(onConfirm?.());
+    },
+    [onConfirm],
+  );
 
   const Content = (
     <Layout className={`${rootName}__layout`} vertical>
@@ -64,23 +80,31 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
       </Main>
       <Footer tag="section" className={`${rootName}__footer`}>
         <Space>
-          {cancelText !== null && (
+          {cancelProps !== null && (
             <Button
-              type="info"
-              plain
-              className={`${rootName}__cancel`}
-              size="small"
-              onClick={_onCancel}>
-              {cancelText}
+              {..._cancel}
+              type={_cancel.type || 'info'}
+              size={_cancel.size || 'small'}
+              plain={_cancel.plain || true}
+              attrs={{
+                ..._cancel.attrs,
+                className: `${rootName}__cancel`,
+                onClick: _onCancel,
+              }}>
+              {_cancel.children ?? '取消'}
             </Button>
           )}
-          {confirmText !== null && (
+          {confirmProps !== null && (
             <Button
-              type="primary"
-              className={`${rootName}__confirm`}
-              size="small"
-              onClick={_onConfirm}>
-              {confirmText}
+              {..._confirm}
+              type={_confirm.type || 'primary'}
+              size={_confirm.size || 'small'}
+              attrs={{
+                ..._confirm.attrs,
+                className: `${rootName}__confirm`,
+                onClick: _onConfirm,
+              }}>
+              {_confirm.children ?? '确认'}
             </Button>
           )}
         </Space>
@@ -89,16 +113,11 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   );
 
   return (
-    <Popover {...rest} visible={visible} content={Content}>
+    <Popover {...rest} name="pop-confirm" visible={visible} content={Content}>
       {children}
     </Popover>
   );
 };
 
-const defaultProps = {
-  trigger: 'click',
-  confirmText: '确认',
-  cancelText: '取消',
-} satisfies Partial<PopConfirmProps>;
 PopConfirm.defaultProps = defaultProps;
 PopConfirm.displayName = 'PopConfirm';

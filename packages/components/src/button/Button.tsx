@@ -56,6 +56,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const iconOnly = !children && icon;
+    const hasIcon = Boolean(icon || loading);
 
     return (
       <button
@@ -79,8 +80,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             [`${rootClass}--plain-dashed`]: plain === 'dashed',
             [`${rootClass}--loading`]: loading,
             [`${rootClass}--icon-only`]: iconOnly,
-            [`${rootClass}--icon-l`]: !iconOnly && !rightIcon,
-            [`${rootClass}--icon-r`]: !iconOnly && rightIcon,
+            [`${rootClass}--icon-l`]: hasIcon && !iconOnly && !rightIcon,
+            [`${rootClass}--icon-r`]: hasIcon && !iconOnly && rightIcon,
           },
         )}>
         {!rightIcon && btnIcon}

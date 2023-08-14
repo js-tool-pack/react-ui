@@ -6,11 +6,7 @@ import { Close as CloseIcon } from '@pkg/icons';
 import { Icon } from '~/icon';
 import { Button } from '~/button';
 import { Footer, Header, Layout, Main } from '~/layouts';
-import {
-  Transition,
-  TRANSITION_LIFE_CIRCLE,
-  TRANSITION_STATUS,
-} from '../transition';
+import { Transition } from '../transition';
 import { DialogProps } from './dialog.types';
 import { useEsc, useShow, useTransitionOrigin } from './dialog.hooks';
 import { RequiredPart } from '@tool-pack/types';
@@ -39,27 +35,17 @@ export const Dialog: React.FC<DialogProps> = (props) => {
 
   const [show, close] = useShow(visible);
   const transformOrigin = useTransitionOrigin(props, show);
-  useEsc(show, esc, close);
+
+  const handleClose = useCallback(() => {
+    close();
+    onClose?.();
+  }, [onClose]);
+
+  useEsc(show, esc, handleClose);
 
   const handleMaskClick = useCallback(() => {
-    closeOnClickMask && close();
-  }, [closeOnClickMask, close]);
-
-  const onTransitionChange = useCallback(
-    (
-      _: HTMLElement,
-      status: TRANSITION_STATUS,
-      lifeCircle: TRANSITION_LIFE_CIRCLE,
-    ) => {
-      if (
-        status === TRANSITION_STATUS.hide &&
-        lifeCircle === TRANSITION_LIFE_CIRCLE.after
-      ) {
-        onClose?.();
-      }
-    },
-    [onClose],
-  );
+    closeOnClickMask && handleClose();
+  }, [closeOnClickMask, handleClose]);
 
   const Mask = (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -88,7 +74,7 @@ export const Dialog: React.FC<DialogProps> = (props) => {
               className={`${rootClass}__btn-close`}
               plain="text"
               size="small"
-              onClick={close}>
+              onClick={handleClose}>
               <Icon>
                 <CloseIcon />
               </Icon>
@@ -104,7 +90,7 @@ export const Dialog: React.FC<DialogProps> = (props) => {
   );
 
   return createPortal(
-    <Transition name="t-dialog" on={onTransitionChange}>
+    <Transition name="t-dialog">
       {show && (
         <div
           {...attrs}

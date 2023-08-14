@@ -1,21 +1,31 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useRef } from 'react';
+import { useForceUpdate } from './useForceUpdate';
 
 export function useVisible(
-  visibleDep: boolean | void,
+  outerVisible: boolean | void,
   onHide?: () => boolean | Promise<void> | void,
 ): [boolean, () => Promise<void> | void] {
-  const [visible, setVisible] = useState(visibleDep || false);
+  const forceUpdate = useForceUpdate();
+  const lastOuterVisibleRef = useRef(outerVisible);
+  const visibleRef = useRef(outerVisible || false);
 
-  useEffect(() => {
-    setVisible(visibleDep || false);
-  }, [visibleDep]);
+  if (lastOuterVisibleRef.current !== outerVisible) {
+    visibleRef.current = outerVisible || false;
+  }
+  lastOuterVisibleRef.current = outerVisible;
 
   const hide = useCallback((): Promise<void> | void => {
-    const close = () => setVisible(false);
+    if (visibleRef.current === false) return;
+
+    const close = () => {
+      visibleRef.current = false;
+      forceUpdate();
+    };
     if (!onHide) {
       close();
       return;
     }
+
     const res = onHide();
     switch (typeof res) {
       case 'boolean':
@@ -34,5 +44,5 @@ export function useVisible(
     }
   }, [onHide]);
 
-  return [visible, hide];
+  return [visibleRef.current, hide];
 }

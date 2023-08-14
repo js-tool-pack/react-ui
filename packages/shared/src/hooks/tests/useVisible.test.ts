@@ -27,7 +27,10 @@ describe('useVisible', () => {
 
     await act(close);
     expect(result.current[0]).toBe(false);
-    expect(renderTimes).toBe(8);
+
+    await act(close);
+    await act(close);
+    expect(renderTimes).toBe(5);
   });
   test('boolean', async () => {
     const hook = renderHook(() => {

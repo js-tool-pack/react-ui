@@ -14,6 +14,7 @@
   "jest": {
     "moduleNameMapper": {
       "^@pkg/(.+)$": "<rootDir>/../../packages/$1/src",
+      "^@tool-pack/react-ui$": "<rootDir>/../../packages/react-ui/src",
       "^~/(.+)$": "<rootDir>/src/$1"
     }
   }

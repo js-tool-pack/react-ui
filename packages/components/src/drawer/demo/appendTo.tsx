@@ -28,6 +28,7 @@ const App: React.FC = () => {
     setAppendTo(document.querySelector('.drawer-demo-nest') as HTMLElement);
     setTimeout(() => setVisible(true));
   };
+
   return (
     <Space
       style={{
@@ -48,7 +49,7 @@ const App: React.FC = () => {
         zIndex={1}
         onClose={hide}
         header={null}
-        appendTo={appendTo}>
+        appendTo={() => appendTo}>
         hello world
       </Drawer>
     </Space>

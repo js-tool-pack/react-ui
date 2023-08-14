@@ -1,6 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import type { DrawerProps } from './drawer.types';
-import { getComponentClass, numToPx, useVisible, Z_INDEX } from '@pkg/shared';
+import {
+  getComponentClass,
+  numToPx,
+  useAppendTo,
+  useVisible,
+  Z_INDEX,
+} from '@pkg/shared';
 import { getClassNames, isString } from '@tool-pack/basic';
 import { createPortal } from 'react-dom';
 import { Footer, Header, Layout, Main } from '~/layouts';
@@ -25,6 +31,17 @@ const resizePlaceMap: Record<PL, PL> = {
   bottom: 'top',
 };
 
+const defaultProps = {
+  zIndex: Z_INDEX,
+  placement: 'right',
+  closeOnClickMask: true,
+  destroyOnClose: 'mixed',
+  showClose: true,
+  size: '35%',
+  appendTo: () => globalThis.document?.body,
+  esc: false,
+} satisfies Partial<DrawerProps>;
+
 export const Drawer: React.FC<DrawerProps> = (props) => {
   const {
     header,
@@ -48,6 +65,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     bodyAttrs = {},
   } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
 
+  const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
   const [visible, close] = useVisible(outerVisible, onClose);
 
   useEsc(visible, esc, close);
@@ -132,7 +150,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
         attrs.className,
         `${rootClass}--${placement}`,
         {
-          [`${rootClass}--fixed`]: appendTo === document.body,
+          [`${rootClass}--fixed`]: appendToTarget === document.body,
         },
       )}
       style={{ ...attrs.style, zIndex }}>
@@ -167,21 +185,10 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     </Transition>
   );
 
-  if (appendTo === null) return Trans;
+  if (appendToTarget === null) return Trans;
 
-  return createPortal(Trans, appendTo || document.body);
+  return createPortal(Trans, appendToTarget);
 };
-
-const defaultProps = {
-  zIndex: Z_INDEX,
-  placement: 'right',
-  closeOnClickMask: true,
-  destroyOnClose: 'mixed',
-  showClose: true,
-  size: '35%',
-  appendTo: globalThis.document?.body,
-  esc: false,
-} satisfies Partial<DrawerProps>;
 
 Drawer.defaultProps = defaultProps;
 Drawer.displayName = 'Drawer';

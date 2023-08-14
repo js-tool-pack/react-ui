@@ -16,7 +16,7 @@ export interface DrawerProps extends Omit<PropsBase, 'ref'> {
   placement?: (typeof PLACEMENTS)[number];
   destroyOnClose?: boolean | 'mixed';
   size?: React.CSSProperties['width'];
-  appendTo?: HTMLElement | null;
+  appendTo?: (() => HTMLElement | null) | null;
   resizeable?: boolean;
   esc?: boolean;
 }

@@ -6,7 +6,9 @@ import { sleep } from '@tool-pack/basic';
 describe('useWatch', () => {
   test('common', async () => {
     let no: (number | void)[] = [];
+    let renderTimes = 0;
     const { result } = renderHook(() => {
+      renderTimes++;
       const [state, setState] = useState(1);
       useWatch(state, (newVal, oldVal) => {
         times++;
@@ -30,6 +32,8 @@ describe('useWatch', () => {
     expect(result.current[0]).toBe(3);
     expect(times).toBe(2);
     expect(no).toEqual([3, 2]);
+
+    expect(renderTimes).toBe(3);
   });
   test('immediate', async () => {
     let times = 0;

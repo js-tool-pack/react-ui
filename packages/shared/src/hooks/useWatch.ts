@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 export function useWatch<T>(
   value: T,
@@ -9,15 +9,14 @@ export function useWatch<T>(
   const isInitRef = useRef(true);
   const canceledRef = useRef(false);
 
-  useEffect(() => {
-    if (canceledRef.current) return;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  if (canceledRef.current) return () => {};
 
-    const oldVal = oldValRef.current;
-    if (value === oldVal) return;
-
-    oldValRef.current = value;
+  const oldVal = oldValRef.current;
+  oldValRef.current = value;
+  if (oldVal !== value) {
     cb(value, oldVal);
-  }, [cb, value]);
+  }
 
   // immediate
   if (immediate && isInitRef.current) cb(value);

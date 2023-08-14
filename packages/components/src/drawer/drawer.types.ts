@@ -8,7 +8,7 @@ export interface DrawerProps extends Omit<PropsBase, 'ref'> {
   title?: React.ReactNode;
   showClose?: boolean;
   closeIcon?: React.ReactNode;
-  onClose?: () => void;
+  onClose?: () => boolean | Promise<void> | void;
   footer?: React.ReactNode;
   onLeave?: () => void;
   zIndex?: number;
@@ -18,4 +18,5 @@ export interface DrawerProps extends Omit<PropsBase, 'ref'> {
   size?: React.CSSProperties['width'];
   appendTo?: HTMLElement | null;
   resizeable?: boolean;
+  esc?: boolean;
 }

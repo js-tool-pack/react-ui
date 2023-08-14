@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
 import type { DrawerProps } from './drawer.types';
-import { getComponentClass, numToPx, Z_INDEX } from '@pkg/shared';
+import { getComponentClass, numToPx, useVisible, Z_INDEX } from '@pkg/shared';
 import { getClassNames, isString } from '@tool-pack/basic';
 import { createPortal } from 'react-dom';
-import { Footer, Header, Layout, Main } from '../layouts';
+import { Footer, Header, Layout, Main } from '~/layouts';
 import {
   Button,
   Icon,
@@ -14,6 +14,7 @@ import {
 } from '@pkg/components';
 import { Close as CloseIcon } from '@pkg/icons';
 import { RequiredPart } from '@tool-pack/types';
+import { useEsc } from '~/dialog/dialog.hooks';
 
 const rootClass = getComponentClass('drawer');
 type PL = Required<DrawerProps>['placement'];
@@ -29,7 +30,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     header,
     footer,
     children,
-    visible,
+    visible: outerVisible,
     onClose,
     onLeave,
     title,
@@ -42,13 +43,14 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     size,
     appendTo,
     resizeable,
+    esc,
     attrs = {},
     bodyAttrs = {},
   } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
 
-  const close = () => {
-    onClose?.();
-  };
+  const [visible, close] = useVisible(outerVisible, onClose);
+
+  useEsc(visible, esc, close);
 
   const handleMaskClick = () => {
     closeOnClickMask && close();
@@ -178,6 +180,7 @@ const defaultProps = {
   showClose: true,
   size: '35%',
   appendTo: globalThis.document?.body,
+  esc: false,
 } satisfies Partial<DrawerProps>;
 
 Drawer.defaultProps = defaultProps;

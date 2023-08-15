@@ -1,0 +1,408 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popover appendTo fn 1`] = `
+<div
+  class="wrapper"
+>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      <div>
+        foo bar
+      </div>
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Popover appendTo null 1`] = `
+<button
+  class="t-button t-button--type-default t--size-m"
+>
+  <span>
+    foo bar
+    <div
+      class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+      style="top: -10px; left: 0px;"
+    >
+      <div
+        class="t-word-balloon__content"
+      >
+        <div>
+          foo bar
+        </div>
+      </div>
+      <div
+        class="t-word-balloon__arrow"
+      >
+        <svg
+          viewBox="-8 -5.5 16 5.515"
+        >
+          <path
+            d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+          />
+        </svg>
+      </div>
+    </div>
+  </span>
+</button>
+`;
+
+exports[`Popover appendTo undefined(default) 1`] = `
+<button
+  class="t-button t-button--type-default t--size-m"
+>
+  <span>
+    foo bar
+  </span>
+</button>
+`;
+
+exports[`Popover appendTo undefined(default) 2`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        foo bar
+      </span>
+    </button>
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      <div>
+        foo bar
+      </div>
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger arr click 1`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        click触发
+      </span>
+      <span
+        class="t-button__wave t-button__wave--active"
+      />
+    </button>
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      click
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger arr focus 1`] = `
+<body>
+  <div>
+    <input
+      placeholder="focus 触发"
+      type="text"
+    />
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      focus
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger click 1`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        click触发
+      </span>
+    </button>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger click 2`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        click触发
+      </span>
+      <span
+        class="t-button__wave t-button__wave--active"
+      />
+    </button>
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      click
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger click disabled 1`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        click触发
+      </span>
+    </button>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger click disabled 2`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        click触发
+      </span>
+      <span
+        class="t-button__wave t-button__wave--active"
+      />
+    </button>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger contextmenu 1`] = `
+<body>
+  <div>
+    <div
+      class="trigger"
+    >
+      鼠标右击触发
+    </div>
+  </div>
+  <div
+    class="t-popover__contextmenu_trigger"
+  />
+</body>
+`;
+
+exports[`Popover trigger contextmenu 2`] = `
+<body>
+  <div>
+    <div
+      class="trigger"
+    >
+      鼠标右击触发
+    </div>
+  </div>
+  <div
+    class="t-popover__contextmenu_trigger"
+    style="left: 0px; top: 0px;"
+  />
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      contextmenu
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger focus 1`] = `
+<body>
+  <div>
+    <input
+      placeholder="focus 触发"
+      type="text"
+    />
+  </div>
+</body>
+`;
+
+exports[`Popover trigger focus 2`] = `
+<body>
+  <div>
+    <input
+      placeholder="focus 触发"
+      type="text"
+    />
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      focus
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger hover 1`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        hover触发
+      </span>
+    </button>
+  </div>
+</body>
+`;
+
+exports[`Popover trigger hover 2`] = `
+<body>
+  <div>
+    <button
+      class="t-button t-button--type-default t--size-m"
+    >
+      <span>
+        hover触发
+      </span>
+    </button>
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top t-popover-enter-active t-popover-enter-to"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      hover
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;

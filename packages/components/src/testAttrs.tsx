@@ -2,10 +2,14 @@ import React from 'react';
 import type { PropsBase } from '@pkg/shared';
 import { render, fireEvent } from '@testing-library/react';
 
-export function testAttrs(FC: React.FC<PropsBase>, displayName?: string) {
-  const name = displayName || FC.displayName || FC.name;
+export function testAttrs<
+  T extends { attrs?: Partial<React.HTMLAttributes<HTMLElement>> },
+>(component: React.FC<T>, displayName?: string) {
+  const name = displayName || component.displayName || component.name;
   test(name ? `${name} attrs` : `attrs`, () => {
     const onClick = jest.fn();
+
+    const FC = component as React.FC<PropsBase>;
     const { container } = render(
       <FC
         attrs={{

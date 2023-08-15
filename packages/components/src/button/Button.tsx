@@ -23,7 +23,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const attrs = {
       ...context.attrs,
       ...props.attrs,
-      style: { ...context.style, ...props.style },
+      style: { ...context.style, ...props.attrs?.style, ...props.style },
     } as Required<ButtonProps>['attrs'];
     const {
       className,

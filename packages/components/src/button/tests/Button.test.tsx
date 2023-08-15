@@ -1,8 +1,11 @@
 import { render, fireEvent } from '@testing-library/react';
 import { Button } from '..';
 import * as Icons from '@pkg/icons';
+import { testAttrs } from '~/testAttrs';
 
 describe('Button', () => {
+  testAttrs(Button);
+
   test('base', () => {
     const onClick = jest.fn();
     const { container } = render(<Button onClick={onClick}>foo bar</Button>);

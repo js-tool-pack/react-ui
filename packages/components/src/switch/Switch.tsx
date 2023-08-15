@@ -22,7 +22,7 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
   SwitchProps
 >((props, ref) => {
   const {
-    attrs,
+    attrs = {},
     checked,
     onChange,
     checkedChildren,
@@ -41,7 +41,7 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
   }, [checked]);
 
   const onClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    attrs?.onClick?.(e);
+    attrs.onClick?.(e);
     if (disabled || loading) return;
     const value = !active;
     setActive(value);
@@ -56,7 +56,7 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
     <button
       {...attrs}
       ref={ref}
-      role="switch"
+      role={attrs.role || 'switch'}
       disabled={disabled}
       aria-checked={active}
       aria-disabled={disabled}
@@ -64,7 +64,7 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
       className={getClassNames(
         cls.root,
         getSizeClassName(size),
-        attrs?.className,
+        attrs.className,
         { [cls['--'].checked]: active },
         { [cls['--'].unchecked]: !active },
         { [cls['--'].disabled]: disabled },

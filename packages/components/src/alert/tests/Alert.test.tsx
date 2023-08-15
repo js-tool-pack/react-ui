@@ -1,8 +1,11 @@
 import { render, fireEvent } from '@testing-library/react';
 import { Alert } from '..';
 import { Left } from '@pkg/icons';
+import { testAttrs } from '~/testAttrs';
 
 describe('Alert', () => {
+  testAttrs(Alert);
+
   test('basic', () => {
     expect(
       render(<Alert title="Tips">foo bar</Alert>).container.firstChild,

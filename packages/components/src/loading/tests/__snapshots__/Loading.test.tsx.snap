@@ -1,5 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Loading basic 1`] = `
+<div
+  class="t-loading__ref"
+  style="margin-top: 20px; height: 100px; background: lime; line-height: 100px;"
+>
+  我是内容
+</div>
+`;
+
+exports[`Loading basic 2`] = `
+<div
+  class="t-loading__ref"
+  style="margin-top: 20px; height: 100px; background: lime; line-height: 100px;"
+>
+  我是内容
+  <div
+    class="t-loading t-loading-enter-active t-loading-enter-to"
+    style="z-index: 1000;"
+  >
+    <div
+      class="t-loading__box"
+    >
+      <div
+        class="t-loading__icon"
+      >
+        <i
+          class="t-icon"
+          role="img"
+          style="font-size: 38px;"
+        >
+          <svg
+            class="t-loading-icon"
+            viewBox="0 0 66 66"
+          >
+            <circle
+              class="t-loading-icon__path"
+              cx="33"
+              cy="33"
+              fill="none"
+              r="30"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="6"
+            />
+          </svg>
+        </i>
+      </div>
+      <div
+        class="t-loading__text"
+      >
+        loading...
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Loading global 1`] = `
 <body>
   <div>

@@ -1,13 +1,17 @@
 import { render } from '@testing-library/react';
 import { Divider } from '..';
+import { testAttrs } from '~/testAttrs';
 
 describe('Divider', () => {
+  testAttrs(Divider);
+
   test('basic', () => {
     expect(render(<Divider />).container.firstChild).toMatchSnapshot();
     expect(
       render(<Divider>hello world</Divider>).container.firstChild,
     ).toMatchSnapshot();
   });
+
   test('placement', () => {
     const def = render(<Divider>hello world</Divider>).container.firstChild;
     expect(def).toHaveClass('t-divider--center');

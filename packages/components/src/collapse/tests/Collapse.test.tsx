@@ -1,8 +1,11 @@
 import { render } from '@testing-library/react';
 import { Collapse } from '..';
 import { Left } from '@pkg/icons';
+import { testAttrs } from '~/testAttrs';
 
 describe('Collapse', () => {
+  testAttrs(Collapse);
+
   test('basic', () => {
     expect(
       render(

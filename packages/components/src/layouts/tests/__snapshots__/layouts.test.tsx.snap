@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`layouts tag 1`] = `
+<span
+  class="t-layout"
+/>
+`;
+
+exports[`layouts tag 2`] = `
+<span
+  class="t-main"
+/>
+`;
+
+exports[`layouts tag 3`] = `
+<span
+  class="t-aside"
+/>
+`;
+
+exports[`layouts tag 4`] = `
+<span
+  class="t-header"
+/>
+`;
+
+exports[`layouts tag 5`] = `
+<span
+  class="t-footer"
+/>
+`;
+
+exports[`layouts vertical 1`] = `
+<section
+  class="t-layout t-layout--v"
+>
+  <header
+    class="t-header"
+  >
+    header
+  </header>
+  <section
+    class="t-layout"
+  >
+    <aside
+      class="t-aside"
+    >
+      aside
+    </aside>
+    <main
+      class="t-main"
+    >
+      main
+    </main>
+  </section>
+  <footer
+    class="t-footer"
+  >
+    footer
+  </footer>
+</section>
+`;

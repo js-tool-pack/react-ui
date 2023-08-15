@@ -47,7 +47,7 @@ export const Space: React.FC<SpaceProps> = React.forwardRef<
     {
       ...attrs,
       ref,
-      className: getClassNames(rootClass, className, {
+      className: getClassNames(rootClass, attrs.className, className, {
         [`${rootClass}--vertical`]: vertical,
         [`${rootClass}--inline`]: inline,
         [`${rootClass}--fill`]: fill,

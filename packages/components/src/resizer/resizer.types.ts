@@ -1,7 +1,7 @@
-import type { PLACEMENTS, PropsBase } from '@pkg/shared';
+import type { Placement, PropsBase } from '@pkg/shared';
 
 export interface ResizerProps extends PropsBase<HTMLDivElement> {
-  placement?: (typeof PLACEMENTS)[number];
+  placement?: Placement;
   min?: number;
   max?: number;
 }

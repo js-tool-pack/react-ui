@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch checked 1`] = `
+<button
+  aria-checked="true"
+  class="t-switch t--size-m t-switch--checked"
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  />
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    />
+    <div
+      class="t-switch__unchecked"
+    />
+  </div>
+</button>
+`;
+
+exports[`Switch content 1`] = `
+<button
+  aria-checked="false"
+  class="t-switch t--size-m t-switch--unchecked"
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  />
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    >
+      true
+    </div>
+    <div
+      class="t-switch__unchecked"
+    >
+      false
+    </div>
+  </div>
+</button>
+`;
+
+exports[`Switch disabled 1`] = `
+<button
+  aria-checked="false"
+  aria-disabled="true"
+  class="t-switch t--size-m t-switch--unchecked t-switch--disabled"
+  disabled=""
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  />
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    />
+    <div
+      class="t-switch__unchecked"
+    />
+  </div>
+</button>
+`;
+
+exports[`Switch icon 1`] = `
+<button
+  aria-checked="false"
+  class="t-switch t--size-m t-switch--unchecked"
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  >
+    <i
+      class="t-icon t-switch__icon"
+      role="img"
+    >
+      2
+    </i>
+  </div>
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    />
+    <div
+      class="t-switch__unchecked"
+    />
+  </div>
+</button>
+`;
+
+exports[`Switch icon 2`] = `
+<button
+  aria-checked="true"
+  class="t-switch t--size-m t-switch--checked"
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  >
+    <i
+      class="t-icon t-switch__icon"
+      role="img"
+    >
+      1
+    </i>
+  </div>
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    />
+    <div
+      class="t-switch__unchecked"
+    />
+  </div>
+</button>
+`;
+
+exports[`Switch loading 1`] = `
+<button
+  aria-checked="false"
+  class="t-switch t--size-m t-switch--unchecked t-switch--loading"
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  >
+    <i
+      class="t-icon t-switch__icon"
+      role="img"
+    >
+      <svg
+        class="t-loading-icon"
+        viewBox="0 0 66 66"
+      >
+        <circle
+          class="t-loading-icon__path"
+          cx="33"
+          cy="33"
+          fill="none"
+          r="30"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-width="6"
+        />
+      </svg>
+    </i>
+  </div>
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    />
+    <div
+      class="t-switch__unchecked"
+    />
+  </div>
+</button>
+`;
+
+exports[`Switch snap 1`] = `
+<button
+  aria-checked="false"
+  class="t-switch t--size-m t-switch--unchecked"
+  role="switch"
+>
+  <div
+    class="t-switch__handle"
+  />
+  <div
+    class="t-switch__slider"
+  >
+    <div
+      class="t-switch__checked"
+    />
+    <div
+      class="t-switch__unchecked"
+    />
+  </div>
+</button>
+`;

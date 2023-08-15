@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Space separator 1`] = `
+<section
+  class="t-space"
+  style="--t-space-fill-ratio: 100%;"
+>
+  <div>
+    1
+  </div>
+  <div
+    class="sep t-space__separator"
+  >
+    |
+  </div>
+  <div>
+    2
+  </div>
+</section>
+`;
+
+exports[`Space snap 1`] = `
+<section
+  class="t-space"
+  style="--t-space-fill-ratio: 100%;"
+>
+  <div>
+    1
+  </div>
+  <div>
+    2
+  </div>
+</section>
+`;
+
+exports[`Space tag 1`] = `
+<div
+  class="t-space"
+  style="--t-space-fill-ratio: 100%;"
+/>
+`;

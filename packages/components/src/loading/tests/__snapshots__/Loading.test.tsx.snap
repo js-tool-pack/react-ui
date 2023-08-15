@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading global 1`] = `
+<body>
+  <div>
+    <div
+      style="text-align: center;"
+    >
+      <button
+        class="t-button t-button--type-primary t--size-m"
+      >
+        <span>
+          显示
+          全屏的loading
+        </span>
+      </button>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Loading global 2`] = `
+<body>
+  <div>
+    <div
+      style="text-align: center;"
+    >
+      <button
+        class="t-button t-button--type-primary t--size-m"
+      >
+        <span>
+          隐藏
+          全屏的loading
+        </span>
+        <span
+          class="t-button__wave t-button__wave--active"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    class="t-loading t-loading-enter-active t-loading-enter-to"
+    style="z-index: 1000;"
+  >
+    <div
+      class="t-loading__box"
+    >
+      <div
+        class="t-loading__icon"
+      >
+        <i
+          class="t-icon"
+          role="img"
+          style="font-size: 38px;"
+        >
+          <svg
+            class="t-loading-icon"
+            viewBox="0 0 66 66"
+          >
+            <circle
+              class="t-loading-icon__path"
+              cx="33"
+              cy="33"
+              fill="none"
+              r="30"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-width="6"
+            />
+          </svg>
+        </i>
+      </div>
+      <div
+        class="t-loading__text"
+      >
+        loading...
+      </div>
+    </div>
+  </div>
+</body>
+`;

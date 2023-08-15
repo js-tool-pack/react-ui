@@ -4,7 +4,7 @@
   display: flex;
   flex: 1;
   overflow: hidden;
-  &.vertical {
+  &--v {
     flex-direction: column;
   }
 }

@@ -88,7 +88,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
         plain="text"
         size="small"
         className={`${rootClass}__close`}
-        onClick={close}>
+        onClick={() => close()}>
         {isEl(closeIcon) ? (
           closeIcon
         ) : (

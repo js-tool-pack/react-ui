@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PopConfirm icon 1`] = `
+<div
+  class="t-word-balloon t-pop-confirm t-word-balloon--top t-pop-confirm-enter-active t-pop-confirm-enter-to"
+  style="top: -10px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    <section
+      class="t-layout t-pop-confirm__layout t-layout--v"
+    >
+      <section
+        class="t-main t-pop-confirm__main"
+      >
+        <div
+          class="t-space t-pop-confirm__space"
+          style="--t-space-fill-ratio: 100%;"
+        >
+          foo-bar
+          <div
+            class="t-pop-confirm__content"
+          >
+            bar
+          </div>
+        </div>
+      </section>
+      <section
+        class="t-footer t-pop-confirm__footer"
+      >
+        <section
+          class="t-space"
+          style="--t-space-fill-ratio: 100%;"
+        >
+          <button
+            class="t-button t-pop-confirm__cancel t-button--type-info t--size-sm t-button--plain"
+          >
+            <span>
+              取消
+            </span>
+          </button>
+          <button
+            class="t-button t-pop-confirm__confirm t-button--type-primary t--size-sm"
+          >
+            <span>
+              确认
+            </span>
+          </button>
+        </section>
+      </section>
+    </section>
+  </div>
+  <div
+    class="t-word-balloon__arrow"
+  >
+    <svg
+      viewBox="-8 -5.5 16 5.515"
+    >
+      <path
+        d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+      />
+    </svg>
+  </div>
+</div>
+`;

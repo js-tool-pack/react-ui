@@ -56,7 +56,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const iconOnly = !children && icon;
-    const hasIcon = Boolean(icon || loading);
 
     return (
       <button
@@ -80,8 +79,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             [`${rootClass}--plain-dashed`]: plain === 'dashed',
             [`${rootClass}--loading`]: loading,
             [`${rootClass}--icon-only`]: iconOnly,
-            [`${rootClass}--icon-l`]: hasIcon && !iconOnly && !rightIcon,
-            [`${rootClass}--icon-r`]: hasIcon && !iconOnly && rightIcon,
+            // 默认也要显示，否则 loading 出入场动画会不流畅
+            [`${rootClass}--icon-l`]: !iconOnly && !rightIcon,
+            [`${rootClass}--icon-r`]: !iconOnly && rightIcon,
           },
         )}>
         {!rightIcon && btnIcon}

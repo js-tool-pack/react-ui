@@ -31,7 +31,6 @@ $r: Name.$drawer;
   &__close {
     margin-right: calc(var(--t-btn-padding) * -1);
     margin-left: 0.5em;
-    font-size: 1.2em;
   }
   &__title {
     flex: 1;
@@ -52,22 +51,22 @@ $r: Name.$drawer;
   &--fixed {
     position: fixed;
   }
-  &--right .#{$r} {
+  &--right > .#{$r} {
     top: 0;
     right: 0;
     bottom: 0;
   }
-  &--left .#{$r} {
+  &--left > .#{$r} {
     top: 0;
     bottom: 0;
     left: 0;
   }
-  &--top .#{$r} {
+  &--top > .#{$r} {
     top: 0;
     right: 0;
     left: 0;
   }
-  &--bottom .#{$r} {
+  &--bottom > .#{$r} {
     right: 0;
     bottom: 0;
     left: 0;
@@ -75,23 +74,29 @@ $r: Name.$drawer;
   &-enter-active,
   &-leave-active {
     transition: opacity var(--t-dialog-transition-duration) linear;
-    .#{$r} {
+    > .#{$r}__mask {
+      transition: opacity var(--t-dialog-transition-duration) linear;
+    }
+    > .#{$r} {
       transition: all var(--t-dialog-transition-duration) ease;
     }
   }
   &-enter-from,
   &-leave-to {
-    opacity: 0;
-    &.#{$r}--right .#{$r} {
+    opacity: 0.999;
+    > .#{$r}__mask {
+      opacity: 0;
+    }
+    &.#{$r}--right > .#{$r} {
       transform: translateX(100%);
     }
-    &.#{$r}--left .#{$r} {
+    &.#{$r}--left > .#{$r} {
       transform: translateX(-100%);
     }
-    &.#{$r}--top .#{$r} {
+    &.#{$r}--top > .#{$r} {
       transform: translateY(-100%);
     }
-    &.#{$r}--bottom .#{$r} {
+    &.#{$r}--bottom > .#{$r} {
       transform: translateY(100%);
     }
   }

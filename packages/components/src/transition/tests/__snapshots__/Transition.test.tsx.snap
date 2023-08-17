@@ -19,7 +19,7 @@ exports[`Transition appear 2`] = `
 exports[`Transition mode default 1`] = `
 <div>
   <button
-    class="t-button t-button--type-primary t--size-m t-button--shape-round"
+    class="t-button t-button--type-primary t--size-m t-button--shape-round t-button--icon-l"
   >
     <span>
       切 换
@@ -36,7 +36,7 @@ exports[`Transition mode default 1`] = `
 exports[`Transition mode in-out 1`] = `
 <div>
   <button
-    class="t-button t-button--type-primary t--size-m t-button--shape-round"
+    class="t-button t-button--type-primary t--size-m t-button--shape-round t-button--icon-l"
   >
     <span>
       切 换
@@ -53,7 +53,7 @@ exports[`Transition mode in-out 1`] = `
 exports[`Transition mode out-in 1`] = `
 <div>
   <button
-    class="t-button t-button--type-primary t--size-m t-button--shape-round"
+    class="t-button t-button--type-primary t--size-m t-button--shape-round t-button--icon-l"
   >
     <span>
       切 换

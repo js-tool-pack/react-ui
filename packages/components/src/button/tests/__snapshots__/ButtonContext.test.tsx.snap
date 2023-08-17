@@ -3,10 +3,10 @@
 exports[`ButtonContext other 1`] = `
 HTMLCollection [
   <button
-    class="t-button t-button--type-primary t--size-m"
+    class="t-button t-button--type-primary t--size-m t-button--icon-l"
   />,
   <button
-    class="t-button t-button--type-info t--size-m"
+    class="t-button t-button--type-info t--size-m t-button--icon-l"
   />,
 ]
 `;
@@ -17,10 +17,10 @@ exports[`ButtonContext size 1`] = `
   role="group"
 >
   <button
-    class="t-button t-button--type-default t--size-sm"
+    class="t-button t-button--type-default t--size-sm t-button--icon-l"
   />
   <button
-    class="t-button t-button--type-default t--size-sm"
+    class="t-button t-button--type-default t--size-sm t-button--icon-l"
   />
 </div>
 `;
@@ -28,10 +28,10 @@ exports[`ButtonContext size 1`] = `
 exports[`ButtonContext size 2`] = `
 HTMLCollection [
   <button
-    class="t-button t-button--type-default t--size-lg"
+    class="t-button t-button--type-default t--size-lg t-button--icon-l"
   />,
   <button
-    class="t-button t-button--type-default t--size-sm"
+    class="t-button t-button--type-default t--size-sm t-button--icon-l"
   />,
 ]
 `;

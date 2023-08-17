@@ -2,7 +2,7 @@
 
 exports[`Button base 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m"
+  class="t-button t-button--type-default t--size-m t-button--icon-l"
 >
   <span>
     foo bar
@@ -12,7 +12,7 @@ exports[`Button base 1`] = `
 
 exports[`Button disabled 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m"
+  class="t-button t-button--type-default t--size-m t-button--icon-l"
   disabled=""
 >
   <span>

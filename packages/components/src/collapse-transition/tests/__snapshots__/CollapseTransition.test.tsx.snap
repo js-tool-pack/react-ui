@@ -8,7 +8,7 @@ exports[`CollapseTransition basic 1`] = `
     style="padding-bottom: 8px; text-align: center;"
   >
     <button
-      class="t-button t-button--type-default t--size-m"
+      class="t-button t-button--type-default t--size-m t-button--icon-l"
     >
       <span>
         toggle
@@ -48,7 +48,7 @@ exports[`CollapseTransition basic 2`] = `
     style="padding-bottom: 8px; text-align: center;"
   >
     <button
-      class="t-button t-button--type-default t--size-m"
+      class="t-button t-button--type-default t--size-m t-button--icon-l"
     >
       <span>
         toggle

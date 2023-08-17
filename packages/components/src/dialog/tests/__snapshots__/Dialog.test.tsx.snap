@@ -12,7 +12,7 @@ exports[`Dialog attrs 1`] = `
     class="t-dialog__wrapper"
   >
     <section
-      class="t-layout t-dialog bar t-dialog__center vertical"
+      class="t-layout t-dialog bar t-dialog__center t-layout--v"
       style="transform-origin: calc(50% + 0px) calc(0px - 50%);"
     >
       <header
@@ -22,7 +22,7 @@ exports[`Dialog attrs 1`] = `
           class="t-dialog__title"
         />
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text"
+          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
         >
           <span>
             <i
@@ -59,7 +59,7 @@ exports[`Dialog basic 1`] = `
       style="text-align: center;"
     >
       <button
-        class="t-button t-button--type-primary t--size-m"
+        class="t-button t-button--type-primary t--size-m t-button--icon-l"
       >
         <span>
           打开
@@ -83,7 +83,7 @@ exports[`Dialog basic 2`] = `
     class="t-dialog__wrapper"
   >
     <section
-      class="t-layout t-dialog vertical"
+      class="t-layout t-dialog t-layout--v"
       style="top: 100px; transform-origin: calc(50% + 0px) calc(0px - 100px);"
     >
       <header
@@ -95,7 +95,7 @@ exports[`Dialog basic 2`] = `
           title
         </span>
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text"
+          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
         >
           <span>
             <i
@@ -147,7 +147,7 @@ exports[`Dialog footer content 1`] = `
     class="t-dialog__wrapper"
   >
     <section
-      class="t-layout t-dialog vertical"
+      class="t-layout t-dialog t-layout--v"
       style="transform-origin: calc(50% + 0px) calc(0px - 50%);"
     >
       <header
@@ -157,7 +157,7 @@ exports[`Dialog footer content 1`] = `
           class="t-dialog__title"
         />
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text"
+          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
         >
           <span>
             <i
@@ -201,7 +201,7 @@ exports[`Dialog footer null 1`] = `
     class="t-dialog__wrapper"
   >
     <section
-      class="t-layout t-dialog vertical"
+      class="t-layout t-dialog t-layout--v"
       style="transform-origin: calc(50% + 0px) calc(0px - 50%);"
     >
       <header
@@ -211,7 +211,7 @@ exports[`Dialog footer null 1`] = `
           class="t-dialog__title"
         />
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text"
+          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
         >
           <span>
             <i
@@ -250,7 +250,7 @@ exports[`Dialog header content 1`] = `
     class="t-dialog__wrapper"
   >
     <section
-      class="t-layout t-dialog vertical"
+      class="t-layout t-dialog t-layout--v"
       style="transform-origin: calc(50% + 0px) calc(0px - 50%);"
     >
       <header
@@ -262,7 +262,7 @@ exports[`Dialog header content 1`] = `
           123
         </span>
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text"
+          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
         >
           <span>
             <i
@@ -304,7 +304,7 @@ exports[`Dialog header null 1`] = `
     class="t-dialog__wrapper"
   >
     <section
-      class="t-layout t-dialog vertical"
+      class="t-layout t-dialog t-layout--v"
       style="transform-origin: calc(50% + 0px) calc(0px - 50%);"
     >
       <main

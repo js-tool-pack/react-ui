@@ -6,10 +6,10 @@ exports[`ButtonGroup size 1`] = `
   role="group"
 >
   <button
-    class="t-button t-button--type-default t--size-sm"
+    class="t-button t-button--type-default t--size-sm t-button--icon-l"
   />
   <button
-    class="t-button t-button--type-default t--size-sm"
+    class="t-button t-button--type-default t--size-sm t-button--icon-l"
   />
 </div>
 `;
@@ -20,10 +20,10 @@ exports[`ButtonGroup size 2`] = `
   role="group"
 >
   <button
-    class="t-button t-button--type-default t--size-lg"
+    class="t-button t-button--type-default t--size-lg t-button--icon-l"
   />
   <button
-    class="t-button t-button--type-default t--size-lg"
+    class="t-button t-button--type-default t--size-lg t-button--icon-l"
   />
 </div>
 `;

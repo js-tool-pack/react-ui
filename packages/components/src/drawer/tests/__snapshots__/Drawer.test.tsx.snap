@@ -9,7 +9,7 @@ exports[`Drawer attrs 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer bar vertical"
+    class="t-layout t-drawer bar t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -19,7 +19,7 @@ exports[`Drawer attrs 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           <i
@@ -80,7 +80,7 @@ exports[`Drawer basic 1`] = `
         </label>
       </div>
       <button
-        class="t-button t-button--type-primary t--size-m"
+        class="t-button t-button--type-primary t--size-m t-button--icon-l"
       >
         <span>
           打开
@@ -100,7 +100,7 @@ exports[`Drawer basic 2`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -112,7 +112,7 @@ exports[`Drawer basic 2`] = `
         Basic Drawer
       </span>
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           <i
@@ -135,7 +135,7 @@ exports[`Drawer basic 2`] = `
       class="t-main t-drawer__main"
     >
       <section
-        class="t-layout vertical"
+        class="t-layout t-layout--v"
       >
         body
         <br />
@@ -337,7 +337,7 @@ exports[`Drawer footer content 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -347,7 +347,7 @@ exports[`Drawer footer content 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           <i
@@ -387,7 +387,7 @@ exports[`Drawer footer null 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -397,7 +397,7 @@ exports[`Drawer footer null 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           <i
@@ -432,7 +432,7 @@ exports[`Drawer header closeIcon 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -442,7 +442,7 @@ exports[`Drawer header closeIcon 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           foo
@@ -465,7 +465,7 @@ exports[`Drawer header content 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -489,7 +489,7 @@ exports[`Drawer header null 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <main
@@ -508,7 +508,7 @@ exports[`Drawer header showClose 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -534,7 +534,7 @@ exports[`Drawer header title 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <header
@@ -546,7 +546,7 @@ exports[`Drawer header title 1`] = `
         123
       </span>
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           <i
@@ -581,7 +581,7 @@ exports[`Drawer resizeable 1`] = `
     class="t-drawer__mask"
   />
   <section
-    class="t-layout t-drawer vertical"
+    class="t-layout t-drawer t-layout--v"
     style="width: 35%;"
   >
     <div
@@ -595,7 +595,7 @@ exports[`Drawer resizeable 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text"
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
       >
         <span>
           <i

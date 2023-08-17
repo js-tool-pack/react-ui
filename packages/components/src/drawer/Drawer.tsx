@@ -1,9 +1,10 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import type { DrawerProps } from './drawer.types';
 import {
   getComponentClass,
   numToPx,
   useAppendTo,
+  useScrollLock,
   useVisible,
   Z_INDEX,
 } from '@pkg/shared';
@@ -67,7 +68,18 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
 
   const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
   const [visible, close] = useVisible(outerVisible, onClose);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
+  useScrollLock(
+    visible,
+    useCallback(
+      () =>
+        appendToTarget ||
+        bodyRef.current?.parentElement?.parentElement ||
+        undefined,
+      [appendToTarget],
+    ),
+  );
   useEsc(visible, esc, close);
 
   const handleMaskClick = () => {
@@ -120,6 +132,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
   const Body = (
     <Layout
       {...bodyAttrs}
+      ref={bodyRef}
       style={bodyStyle}
       className={getClassNames(rootClass, bodyAttrs.className)}
       vertical>

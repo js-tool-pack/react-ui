@@ -1,22 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DialogProps } from './dialog.types';
 import { useClientSize } from '@pkg/shared';
 
-export function useShow(visible?: boolean) {
-  const [show, setShow] = useState(visible || false);
-
-  useEffect(() => {
-    setShow(visible || false);
-  }, [visible]);
-
-  const close = useCallback(() => {
-    setShow(false);
-  }, []);
-
-  return [show, close] as const;
-}
-
-export function useTransitionOrigin(props: DialogProps, show: boolean) {
+export function useTransitionOrigin(props: DialogProps, show?: boolean) {
   const { centered, bodyAttrs = {} } = props;
 
   const [point, setPoint] = useState([0, 0] as [number, number]);
@@ -47,7 +33,11 @@ export function useTransitionOrigin(props: DialogProps, show: boolean) {
   return transformOrigin;
 }
 
-export function useEsc(show: boolean, esc: boolean, handler: () => void) {
+export function useEsc(
+  show: boolean | void,
+  esc: boolean,
+  handler: () => void,
+) {
   useEffect(() => {
     if (!show || !esc) return;
     const _handler = (e: KeyboardEvent) => e.key === 'Escape' && handler();

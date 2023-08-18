@@ -72,3 +72,4 @@ loading 的属性说明如下：
 | onLeave      | loading 关闭动画完成后的回调 | () => void                                   | -                        |      |
 | onClose      | loading 内部关闭后的回调     | () => void                                   | -                        |      |
 | attrs        | 组件弹窗窗体元素的所有属性   | Partial\<React.HTMLAttributes\<HTMLElement>> | --                       | --   |
+| wrapperAttrs | 包裹元素的所有属性           | Partial\<React.HTMLAttributes\<HTMLElement>> | --                       | --   |

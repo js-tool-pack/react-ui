@@ -19,7 +19,7 @@ const App: React.FC = () => {
           style={{
             marginTop: '20px',
             height: '100px',
-            background: 'lime',
+            background: 'deeppink',
             lineHeight: '100px',
           }}>
           我是内容

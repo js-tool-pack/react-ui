@@ -8,7 +8,8 @@ $r: Name.$loading;
   backdrop-filter: blur(2px);
   line-height: initial;
   color: white;
-  &__ref {
+  &__ref,
+  &__wrapper {
     position: relative;
   }
   &__box {
@@ -48,7 +49,6 @@ $r: Name.$loading;
 body > .#{$r} {
   position: fixed;
 }
-
 
 @keyframes loading-rotate {
   100% {

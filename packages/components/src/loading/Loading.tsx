@@ -1,19 +1,22 @@
 import { LoadingProps } from './loading.types';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import {
   Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
 } from '~/transition';
-import { getComponentClass, Z_INDEX } from '@pkg/shared';
+import { getClasses, useScrollLock, useVisible, Z_INDEX } from '@pkg/shared';
 import { Loading as LoadingIcon } from '@pkg/icons';
 import { Icon } from '~/icon';
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
 
-const rootClass = getComponentClass('loading');
-const refClass = `${rootClass}__ref`;
+const cls = getClasses(
+  'loading',
+  ['ref', 'wrapper', 'box', 'icon', 'text'],
+  [],
+);
 
 const defaultProps = {
   background: 'var(--t-mask-bg-color)',
@@ -39,19 +42,23 @@ export const Loading: React.FC<LoadingProps> = (props) => {
     icon,
     children,
     text,
-    visible,
+    visible: outerVisible,
+    wrapperAttrs = {},
   } = props as RequiredPart<LoadingProps, keyof typeof defaultProps>;
-  const [show, setShow] = useState(visible);
 
-  useEffect(() => {
-    setShow(visible);
-  }, [visible]);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [visible, hide] = useVisible(outerVisible);
+
+  const getContainer = useCallback(() => {
+    return !children ? document.body : wrapperRef.current || undefined;
+  }, [children]);
+  useScrollLock(visible, getContainer);
 
   const closeLoading: React.MouseEventHandler<HTMLElement> = (e) => {
     attrs.onClick?.(e);
     if (!closeOnClick) return;
     onClose?.();
-    setShow(false);
+    hide();
   };
 
   const LoadingBody = (
@@ -59,20 +66,20 @@ export const Loading: React.FC<LoadingProps> = (props) => {
     <div
       {...attrs}
       onClick={closeLoading}
-      className={getClassNames(rootClass, attrs.className, attrs.className)}
+      className={getClassNames(cls.root, attrs.className, attrs.className)}
       style={{
         ...attrs.style,
         background: background,
         zIndex: zIndex,
         color: color,
       }}>
-      <div className={`${rootClass}__box`}>
+      <div className={cls.__.box}>
         {icon !== null && (
-          <div className={`${rootClass}__icon`}>
+          <div className={cls.__.icon}>
             <Icon size={38}>{icon || <LoadingIcon />}</Icon>
           </div>
         )}
-        <div className={`${rootClass}__text`}>{text}</div>
+        <div className={cls.__.text}>{text}</div>
       </div>
     </div>
   );
@@ -80,17 +87,17 @@ export const Loading: React.FC<LoadingProps> = (props) => {
   const TransitionLoading = useMemo(
     () => (
       <Transition
-        name={rootClass}
+        name={cls.root}
         appear={true}
         on={(_el, status, lifeCircle) =>
           lifeCircle === TRANSITION_LIFE_CIRCLE.after &&
           status === TRANSITION_STATUS.hide &&
           onLeave?.()
         }>
-        {show && LoadingBody}
+        {visible && LoadingBody}
       </Transition>
     ),
-    [show, onLeave],
+    [visible, onLeave],
   );
 
   // 没有children传到body下
@@ -103,7 +110,8 @@ export const Loading: React.FC<LoadingProps> = (props) => {
       children,
       {
         ...children.props,
-        className: getClassNames(children.props.className, refClass),
+        ref: wrapperRef,
+        className: getClassNames(children.props.className, cls.__.ref),
       },
       children.props.children,
       TransitionLoading,
@@ -111,7 +119,10 @@ export const Loading: React.FC<LoadingProps> = (props) => {
 
   // 包裹children
   return (
-    <div className={refClass}>
+    <div
+      {...wrapperAttrs}
+      ref={wrapperRef}
+      className={getClassNames(cls.__.wrapper, wrapperAttrs.className)}>
       {children}
       {TransitionLoading}
     </div>

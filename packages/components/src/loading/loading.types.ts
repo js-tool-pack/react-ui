@@ -12,4 +12,5 @@ export interface LoadingProps extends Omit<PropsBase, 'ref'> {
   mode?: 'insert' | 'wrap';
   onLeave?: () => void;
   onClose?: () => void;
+  wrapperAttrs?: React.HTMLAttributes<HTMLElement>;
 }

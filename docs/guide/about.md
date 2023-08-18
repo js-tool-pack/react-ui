@@ -1,9 +1,10 @@
-# @tool-pack/react-ui
-
-[![NPM version](https://img.shields.io/npm/v/@tool-pack/react-ui.svg?style=flat)](https://npmjs.org/package/@tool-pack/react-ui)
-[![NPM downloads](http://img.shields.io/npm/dm/@tool-pack/react-ui.svg?style=flat)](https://npmjs.org/package/@tool-pack/react-ui)
-
-🎨 一个普普通通、面向过去(大家都在面向未来，无奈只能面向过去，大家都有光明的未来 🤘)的 React UI 组件库
+---
+title: 关于
+category: guide
+order: -1
+nav:
+  title: 指南
+---
 
 ## 为什么要重复造轮子？
 
@@ -29,43 +30,6 @@ _现在确实很多组件库使用的 Web Component 开发，号称面向未来�
 
 **你使用 Web Component 开发组件库，我使用 React 开发组件库，他使用 Vue 开发组件库，大家都有光明的未来 🤘。**
 
-## Usage
+## 是否值得？
 
-```bash
-$ pnpm add @tool-pack/react-ui -S
-```
-
-```typescript jsx
-import React from 'react';
-import { Button, Space } from '@tool-pack/react-ui';
-import '@tool-pack/react-ui/dist/index.css';
-
-const App: React.FC = () => (
-  <Space>
-    <Button size="small">small</Button>
-    <Button>default</Button>
-    <Button size="medium">medium</Button>
-    <Button size="large">large</Button>
-  </Space>
-);
-
-export default App;
-```
-
-## Development
-
-```bash
-# install dependencies
-$ pnpm install
-
-# develop library by docs demo
-$ pnpm docs:dev
-```
-
-## 样式类型
-
-目前的 UI 库 css
-
-## LICENSE
-
-MIT
+当然。在这个项目中我学到了很多之前没见过的技巧，学到了很多东西，也不惘花费精力搞这么个组件库。

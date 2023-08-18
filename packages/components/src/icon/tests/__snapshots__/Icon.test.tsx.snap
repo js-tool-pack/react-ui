@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon basic 1`] = `
+<i
+  class="t-icon"
+  role="img"
+  style="font-size: 20px;"
+>
+  123
+</i>
+`;

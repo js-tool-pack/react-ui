@@ -18,11 +18,10 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
     contentStyle,
     arrowStyle,
     attrs = {},
-    ...rest
   } = props as RequiredPart<WordBalloonProps, keyof typeof defaultProps>;
   return (
     <div
-      {...rest}
+      {...attrs}
       ref={ref}
       style={
         {

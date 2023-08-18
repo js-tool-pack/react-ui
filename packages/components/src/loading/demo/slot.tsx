@@ -26,7 +26,7 @@ const App: React.FC = () => {
           style={{
             marginTop: '20px',
             height: '100px',
-            background: 'lime',
+            background: 'wheat',
             lineHeight: '100px',
           }}>
           我是内容

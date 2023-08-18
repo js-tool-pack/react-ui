@@ -1,5 +1,5 @@
 import React from 'react';
-import type { PLACEMENTS, PropsBase } from '@pkg/shared';
+import type { Placement, PropsBase } from '@pkg/shared';
 
 export interface DrawerProps extends Omit<PropsBase, 'ref'> {
   bodyAttrs?: PropsBase['attrs'];
@@ -8,14 +8,15 @@ export interface DrawerProps extends Omit<PropsBase, 'ref'> {
   title?: React.ReactNode;
   showClose?: boolean;
   closeIcon?: React.ReactNode;
-  onClose?: () => void;
+  onClose?: () => boolean | Promise<void> | void;
   footer?: React.ReactNode;
   onLeave?: () => void;
   zIndex?: number;
   closeOnClickMask?: boolean;
-  placement?: (typeof PLACEMENTS)[number];
+  placement?: Placement;
   destroyOnClose?: boolean | 'mixed';
   size?: React.CSSProperties['width'];
-  appendTo?: HTMLElement | null;
+  appendTo?: (() => HTMLElement | null) | null;
   resizeable?: boolean;
+  esc?: boolean;
 }

@@ -21,7 +21,7 @@ export const Layout = React.forwardRef<HTMLElement, LayoutProps>(
       ref,
       style: { ...attrs.style, ...style },
       className: getClassNames(rootClass, className, attrs.className, {
-        vertical,
+        [`${rootClass}--v`]: vertical,
       }),
       children,
     });

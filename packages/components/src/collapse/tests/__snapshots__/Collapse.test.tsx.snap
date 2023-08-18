@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Collapse basic 1`] = `
+<section
+  class="t-collapse t--size-m"
+  role="tab"
+>
+  <div
+    class="t-space t-collapse__header"
+    style="gap: 12px; --t-space-fill-ratio: 100%;"
+  >
+    <i
+      class="t-icon t-collapse__icon"
+      role="img"
+    >
+      <svg
+        viewBox="0 0 1024 1024"
+      >
+        <path
+          d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+          fill="currentColor"
+        />
+      </svg>
+    </i>
+    <div
+      class="t-collapse__title"
+    >
+      第十四章
+    </div>
+  </div>
+</section>
+`;
+
+exports[`Collapse extra 1`] = `
+<section
+  class="t-collapse t--size-m"
+  role="tab"
+>
+  <div
+    class="t-space t-collapse__header"
+    style="gap: 12px; --t-space-fill-ratio: 100%;"
+  >
+    <i
+      class="t-icon t-collapse__icon"
+      role="img"
+    >
+      <svg
+        viewBox="0 0 1024 1024"
+      >
+        <path
+          d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+          fill="currentColor"
+        />
+      </svg>
+    </i>
+    <div
+      class="t-collapse__title"
+    >
+      第十四章
+    </div>
+    《道德经》
+  </div>
+</section>
+`;
+
+exports[`Collapse icon 1`] = `
+<section
+  class="t-collapse t--size-m"
+  role="tab"
+>
+  <div
+    class="t-space t-collapse__header"
+    style="gap: 12px; --t-space-fill-ratio: 100%;"
+  >
+    <svg
+      viewBox="0 0 1024 1024"
+    >
+      <path
+        d="M808.12630286 92.94690423l-81.20590149-81.20590149-500.29730201 500.52713049 500.25899727 500.02916876 81.24420623-81.28251096-419.01479101-418.78496257z"
+        fill="currentColor"
+      />
+    </svg>
+    <div
+      class="t-collapse__title"
+    >
+      第十四章
+    </div>
+  </div>
+</section>
+`;
+
+exports[`Collapse icon-placement 1`] = `
+<section
+  class="t-collapse t--size-m"
+  role="tab"
+>
+  <div
+    class="t-space t-collapse__header"
+    style="gap: 12px; --t-space-fill-ratio: 100%;"
+  >
+    <div
+      class="t-collapse__title"
+    >
+      第十四章
+    </div>
+    <svg
+      viewBox="0 0 1024 1024"
+    >
+      <path
+        d="M808.12630286 92.94690423l-81.20590149-81.20590149-500.29730201 500.52713049 500.25899727 500.02916876 81.24420623-81.28251096-419.01479101-418.78496257z"
+        fill="currentColor"
+      />
+    </svg>
+  </div>
+</section>
+`;

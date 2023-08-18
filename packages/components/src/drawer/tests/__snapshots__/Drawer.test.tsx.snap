@@ -1,0 +1,622 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer attrs 1`] = `
+<div
+  class="t-drawer__root foo t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer bar t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      />
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          <i
+            class="t-icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer basic 1`] = `
+<body>
+  <div>
+    <section
+      class="t-space"
+      style="--t-space-fill-ratio: 100%;"
+    >
+      <div>
+        <label>
+          <input
+            type="radio"
+          />
+          top
+        </label>
+        <label>
+          <input
+            checked=""
+            type="radio"
+          />
+          right
+        </label>
+        <label>
+          <input
+            type="radio"
+          />
+          bottom
+        </label>
+        <label>
+          <input
+            type="radio"
+          />
+          left
+        </label>
+      </div>
+      <button
+        class="t-button t-button--type-primary t--size-m t-button--icon-l"
+      >
+        <span>
+          打开
+        </span>
+      </button>
+    </section>
+  </div>
+</body>
+`;
+
+exports[`Drawer basic 2`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed t-drawer-enter-active t-drawer-enter-to"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      >
+        Basic Drawer
+      </span>
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          <i
+            class="t-icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    >
+      <section
+        class="t-layout t-layout--v"
+      >
+        body
+        <br />
+        <br />
+        <div
+          class="t-divider t-divider--center t-divider--horizontal"
+          style="--t-divider-border-style: dashed; --t-divider-border-width: 1px;"
+        >
+          <div
+            class="t-divider__content"
+          >
+            华丽的分割线
+          </div>
+        </div>
+        <textarea
+          rows="8"
+        />
+        <div
+          class="t-divider t-divider--center t-divider--horizontal"
+          style="--t-divider-border-style: dashed; --t-divider-border-width: 1px;"
+        >
+          <div
+            class="t-divider__content"
+          >
+            华丽的分割线
+          </div>
+        </div>
+        <ul
+          style="padding: 20px;"
+        >
+          <li>
+            0
+          </li>
+          <li>
+            1
+          </li>
+          <li>
+            2
+          </li>
+          <li>
+            3
+          </li>
+          <li>
+            4
+          </li>
+          <li>
+            5
+          </li>
+          <li>
+            6
+          </li>
+          <li>
+            7
+          </li>
+          <li>
+            8
+          </li>
+          <li>
+            9
+          </li>
+          <li>
+            10
+          </li>
+          <li>
+            11
+          </li>
+          <li>
+            12
+          </li>
+          <li>
+            13
+          </li>
+          <li>
+            14
+          </li>
+          <li>
+            15
+          </li>
+          <li>
+            16
+          </li>
+          <li>
+            17
+          </li>
+          <li>
+            18
+          </li>
+          <li>
+            19
+          </li>
+          <li>
+            20
+          </li>
+          <li>
+            21
+          </li>
+          <li>
+            22
+          </li>
+          <li>
+            23
+          </li>
+          <li>
+            24
+          </li>
+          <li>
+            25
+          </li>
+          <li>
+            26
+          </li>
+          <li>
+            27
+          </li>
+          <li>
+            28
+          </li>
+          <li>
+            29
+          </li>
+          <li>
+            30
+          </li>
+          <li>
+            31
+          </li>
+          <li>
+            32
+          </li>
+          <li>
+            33
+          </li>
+          <li>
+            34
+          </li>
+          <li>
+            35
+          </li>
+          <li>
+            36
+          </li>
+          <li>
+            37
+          </li>
+          <li>
+            38
+          </li>
+          <li>
+            39
+          </li>
+          <li>
+            40
+          </li>
+          <li>
+            41
+          </li>
+          <li>
+            42
+          </li>
+          <li>
+            43
+          </li>
+          <li>
+            44
+          </li>
+          <li>
+            45
+          </li>
+          <li>
+            46
+          </li>
+          <li>
+            47
+          </li>
+          <li>
+            48
+          </li>
+          <li>
+            49
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer
+      class="t-footer t-drawer__footer"
+    >
+      footer
+    </footer>
+  </section>
+</div>
+`;
+
+exports[`Drawer footer content 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      />
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          <i
+            class="t-icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+    <footer
+      class="t-footer t-drawer__footer"
+    >
+      123
+    </footer>
+  </section>
+</div>
+`;
+
+exports[`Drawer footer null 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      />
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          <i
+            class="t-icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer header closeIcon 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      />
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          foo
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer header content 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      123
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer header null 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer header showClose 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      />
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer header title 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      >
+        123
+      </span>
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          <i
+            class="t-icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;
+
+exports[`Drawer resizeable 1`] = `
+<div
+  class="t-drawer__root t-drawer--right t-drawer--fixed"
+  style="z-index: 1000;"
+>
+  <div
+    class="t-drawer__mask"
+  />
+  <section
+    class="t-layout t-drawer t-layout--v"
+    style="width: 35%;"
+  >
+    <div
+      class="t-resizer t-resizer--left"
+      style="z-index: 1;"
+    />
+    <header
+      class="t-header t-drawer__header"
+    >
+      <span
+        class="t-drawer__title"
+      />
+      <button
+        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+      >
+        <span>
+          <i
+            class="t-icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </span>
+      </button>
+    </header>
+    <main
+      class="t-main t-drawer__main"
+    />
+  </section>
+</div>
+`;

@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollapseGroup all 1`] = `
+<div
+  class="t-collapse-group group"
+>
+  <section
+    class="t-collapse t--size-lg"
+    role="tab"
+  >
+    <div
+      class="t-space t-collapse__header"
+      style="gap: 12px; --t-space-fill-ratio: 100%;"
+    >
+      <i
+        class="t-icon t-collapse__icon"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+      <div
+        class="t-collapse__title"
+      >
+        第二十一章
+      </div>
+      《道德经》
+    </div>
+  </section>
+  <section
+    class="t-collapse t--size-lg"
+    role="tab"
+  >
+    <div
+      class="t-space t-collapse__header"
+      style="gap: 12px; --t-space-fill-ratio: 100%;"
+    >
+      <i
+        class="t-icon t-collapse__icon"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+      <div
+        class="t-collapse__title"
+      >
+        第二十二章
+      </div>
+      《道德经》
+    </div>
+  </section>
+  <section
+    class="t-collapse t--size-lg t-collapse--active"
+    role="tab"
+  >
+    <div
+      class="t-space t-collapse__header"
+      style="gap: 12px; --t-space-fill-ratio: 100%;"
+    >
+      <i
+        class="t-icon t-collapse__icon t-collapse__icon--active"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+      <div
+        class="t-collapse__title"
+      >
+        第二十三至二十五章
+      </div>
+      嵌套
+    </div>
+    <div
+      class="t-collapse-transition t-collapse__content t-collapse-transition--h"
+    >
+      <div
+        class="t-collapse__content-inner"
+      >
+        <div
+          class="t-collapse-group"
+        >
+          <section
+            class="t-collapse t--size-m t-collapse--active"
+            role="tab"
+          >
+            <div
+              class="t-space t-collapse__header"
+              style="gap: 12px; --t-space-fill-ratio: 100%;"
+            >
+              <div
+                class="t-collapse__title"
+              >
+                第二十三章
+              </div>
+              <svg
+                viewBox="0 0 1024 1024"
+              >
+                <path
+                  d="M808.12630286 92.94690423l-81.20590149-81.20590149-500.29730201 500.52713049 500.25899727 500.02916876 81.24420623-81.28251096-419.01479101-418.78496257z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-collapse-transition t-collapse__content t-collapse-transition--h"
+            >
+              <div
+                class="t-collapse__content-inner"
+              >
+                希言自然。故飘风不终朝（zhāo），骤雨不终日。孰为此者？天地。天地尚不能久，而况于人乎？故从事于道者，道者同于道，德者同于德，失者同于失。同于道者，道亦乐得之；同于德者，德亦乐得之；同于失者，失亦乐得之。信不足焉，有不信焉。
+              </div>
+            </div>
+          </section>
+          <section
+            class="t-collapse t--size-m t-collapse--active t-collapse--disabled"
+            role="tab"
+          >
+            <div
+              class="t-space t-collapse__header"
+              style="gap: 12px; --t-space-fill-ratio: 100%;"
+            >
+              <i
+                class="t-icon t-collapse__icon t-collapse__icon--active"
+                role="img"
+              >
+                <svg
+                  viewBox="0 0 1024 1024"
+                >
+                  <path
+                    d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </i>
+              <div
+                class="t-collapse__title"
+              >
+                第二十四章
+              </div>
+            </div>
+            <div
+              class="t-collapse-transition t-collapse__content t-collapse-transition--h"
+            >
+              <div
+                class="t-collapse__content-inner"
+              >
+                企者不立，跨者不行，自见（xiàn）者不明，自是者不彰，自伐者无功，自矜者不长。其在道也，曰余食赘（zhuì）行。物或恶（wù）之，故有道者不处（chǔ）。
+              </div>
+            </div>
+          </section>
+          <section
+            class="t-collapse t--size-m t-collapse--active"
+            role="tab"
+          >
+            <div
+              class="t-space t-collapse__header"
+              style="gap: 12px; --t-space-fill-ratio: 100%;"
+            >
+              <i
+                class="t-icon t-collapse__icon t-collapse__icon--active"
+                role="img"
+              >
+                <svg
+                  viewBox="0 0 1024 1024"
+                >
+                  <path
+                    d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </i>
+              <div
+                class="t-collapse__title"
+              >
+                第二十五章
+              </div>
+              <svg
+                viewBox="0 0 1024 1024"
+              >
+                <path
+                  d="M808.12630286 92.94690423l-81.20590149-81.20590149-500.29730201 500.52713049 500.25899727 500.02916876 81.24420623-81.28251096-419.01479101-418.78496257z"
+                  fill="currentColor"
+                />
+              </svg>
+            </div>
+            <div
+              class="t-collapse-transition t-collapse__content t-collapse-transition--h"
+            >
+              <div
+                class="t-collapse__content-inner"
+              >
+                有物混（hùn）成，先天地生。寂兮寥兮，独立不改，周行而不殆，可以为天下母。吾不知其名，字之曰道，强(qiǎng)为之名曰大。大曰逝，逝曰远，远曰反。故道大，天大，地大，王亦大。域中有四大，而王居其一焉。人法地，地法天，天法道，道法自然。
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;

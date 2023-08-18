@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Transition appear 1`] = `
+<div
+  class="trans-enter-active trans-enter-to"
+>
+  foo bar
+</div>
+`;
+
+exports[`Transition appear 2`] = `
+<div
+  class=""
+>
+  foo bar
+</div>
+`;
+
+exports[`Transition mode default 1`] = `
+<div>
+  <button
+    class="t-button t-button--type-primary t--size-m t-button--shape-round t-button--icon-l"
+  >
+    <span>
+      切 换
+    </span>
+  </button>
+  <div
+    class="mode"
+  >
+    default(out)
+  </div>
+</div>
+`;
+
+exports[`Transition mode in-out 1`] = `
+<div>
+  <button
+    class="t-button t-button--type-primary t--size-m t-button--shape-round t-button--icon-l"
+  >
+    <span>
+      切 换
+    </span>
+  </button>
+  <div
+    class="mode"
+  >
+    out
+  </div>
+</div>
+`;
+
+exports[`Transition mode out-in 1`] = `
+<div>
+  <button
+    class="t-button t-button--type-primary t--size-m t-button--shape-round t-button--icon-l"
+  >
+    <span>
+      切 换
+    </span>
+  </button>
+  <div
+    class="mode"
+  >
+    out
+  </div>
+</div>
+`;
+
+exports[`Transition on 1`] = `
+<div
+  class="trans-enter-active trans-enter-to"
+>
+  foo bar
+</div>
+`;
+
+exports[`Transition ref 1`] = `
+<div
+  class="mode"
+>
+  out
+</div>
+`;
+
+exports[`Transition snap 1`] = `
+<div
+  class=""
+>
+  foo bar
+</div>
+`;
+
+exports[`Transition snap 2`] = `
+<div
+  class=""
+  style="display: none;"
+>
+  foo bar
+</div>
+`;

@@ -1,9 +1,16 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import type { DrawerProps } from './drawer.types';
-import { getComponentClass, numToPx, Z_INDEX } from '@pkg/shared';
+import {
+  getComponentClass,
+  numToPx,
+  useAppendTo,
+  useScrollLock,
+  useVisible,
+  Z_INDEX,
+} from '@pkg/shared';
 import { getClassNames, isString } from '@tool-pack/basic';
 import { createPortal } from 'react-dom';
-import { Footer, Header, Layout, Main } from '../layouts';
+import { Footer, Header, Layout, Main } from '~/layouts';
 import {
   Button,
   Icon,
@@ -14,6 +21,7 @@ import {
 } from '@pkg/components';
 import { Close as CloseIcon } from '@pkg/icons';
 import { RequiredPart } from '@tool-pack/types';
+import { useEsc } from '~/dialog/dialog.hooks';
 
 const rootClass = getComponentClass('drawer');
 type PL = Required<DrawerProps>['placement'];
@@ -24,12 +32,23 @@ const resizePlaceMap: Record<PL, PL> = {
   bottom: 'top',
 };
 
+const defaultProps = {
+  zIndex: Z_INDEX,
+  placement: 'right',
+  closeOnClickMask: true,
+  destroyOnClose: 'mixed',
+  showClose: true,
+  size: '35%',
+  appendTo: () => globalThis.document?.body,
+  esc: false,
+} satisfies Partial<DrawerProps>;
+
 export const Drawer: React.FC<DrawerProps> = (props) => {
   const {
     header,
     footer,
     children,
-    visible,
+    visible: outerVisible,
     onClose,
     onLeave,
     title,
@@ -42,13 +61,26 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     size,
     appendTo,
     resizeable,
+    esc,
     attrs = {},
     bodyAttrs = {},
   } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
 
-  const close = () => {
-    onClose?.();
-  };
+  const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
+  const [visible, close] = useVisible(outerVisible, onClose);
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  useScrollLock(
+    visible,
+    useCallback(
+      () =>
+        appendToTarget ||
+        bodyRef.current?.parentElement?.parentElement ||
+        undefined,
+      [appendToTarget],
+    ),
+  );
+  useEsc(visible, esc, close);
 
   const handleMaskClick = () => {
     closeOnClickMask && close();
@@ -68,7 +100,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
         plain="text"
         size="small"
         className={`${rootClass}__close`}
-        onClick={close}>
+        onClick={() => close()}>
         {isEl(closeIcon) ? (
           closeIcon
         ) : (
@@ -100,6 +132,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
   const Body = (
     <Layout
       {...bodyAttrs}
+      ref={bodyRef}
       style={bodyStyle}
       className={getClassNames(rootClass, bodyAttrs.className)}
       vertical>
@@ -130,7 +163,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
         attrs.className,
         `${rootClass}--${placement}`,
         {
-          [`${rootClass}--fixed`]: appendTo === document.body,
+          [`${rootClass}--fixed`]: appendToTarget === document.body,
         },
       )}
       style={{ ...attrs.style, zIndex }}>
@@ -165,20 +198,10 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     </Transition>
   );
 
-  if (appendTo === null) return Trans;
+  if (appendToTarget === null) return Trans;
 
-  return createPortal(Trans, appendTo || document.body);
+  return createPortal(Trans, appendToTarget);
 };
-
-const defaultProps = {
-  zIndex: Z_INDEX,
-  placement: 'right',
-  closeOnClickMask: true,
-  destroyOnClose: 'mixed',
-  showClose: true,
-  size: '35%',
-  appendTo: globalThis.document?.body,
-} satisfies Partial<DrawerProps>;
 
 Drawer.defaultProps = defaultProps;
 Drawer.displayName = 'Drawer';

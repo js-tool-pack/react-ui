@@ -17,7 +17,7 @@ import { CollapseTransition } from '~/collapse-transition';
 
 const cls = getClasses(
   'alert',
-  ['icon', 'content', 'title', 'desc', 'close-icon'],
+  ['icon', 'content', 'title', 'desc', 'close-btn', 'close-icon'],
   ['bordered', 'centered'],
 );
 const defaultProps = {
@@ -68,7 +68,11 @@ export const Alert: React.FC<AlertProps> = React.forwardRef<
         {children && <div className={cls.__.desc}>{children}</div>}
       </div>
       {closable && (
-        <Button size="small" plain="text" onClick={close}>
+        <Button
+          className={cls.__['close-btn']}
+          size="small"
+          plain="text"
+          onClick={close}>
           <Icon className={cls.__['close-icon']}>
             <CloseIcon />
           </Icon>

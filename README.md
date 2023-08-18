@@ -3,7 +3,7 @@
 [![NPM version](https://img.shields.io/npm/v/@tool-pack/react-ui.svg?style=flat)](https://npmjs.org/package/@tool-pack/react-ui)
 [![NPM downloads](http://img.shields.io/npm/dm/@tool-pack/react-ui.svg?style=flat)](https://npmjs.org/package/@tool-pack/react-ui)
 
-🎨 一个普普通通、面向过去(大家都在面向未来，无奈只能面向过去 🤘)的 React UI 组件库
+🎨 一个普普通通、面向过去(大家都在面向未来，无奈只能面向过去，大家都有光明的未来 🤘)的 React UI 组件库
 
 ## Usage
 
@@ -37,6 +37,10 @@ $ pnpm install
 # develop library by docs demo
 $ pnpm docs:dev
 ```
+
+## 样式类型
+
+目前的 UI 库 css
 
 ## LICENSE
 

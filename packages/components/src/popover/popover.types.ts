@@ -9,7 +9,7 @@ export interface PopoverProps
     Pick<WordBalloonProps, 'placement' | 'showArrow'> {
   content?: React.ReactNode;
   children: React.ReactElement;
-  appendTo?: null | (() => HTMLElement);
+  appendTo?: null | (() => HTMLElement | null);
   trigger?: PopoverTrigger[] | PopoverTrigger;
   visible?: boolean;
   disabled?: boolean;

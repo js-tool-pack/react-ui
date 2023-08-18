@@ -41,3 +41,4 @@ Drawer 的属性说明如下：
 | resizeable       | 是否可调整窗体大小                                                                              | boolean                                      | false         | --   |
 | attrs            | 组件 html 根元素的所有属性                                                                      | Partial\<React.HTMLAttributes\<HTMLElement>> | --            | --   |
 | bodyAttrs        | 组件抽屉窗体 html 元素的所有属性                                                                | Partial\<React.HTMLAttributes\<HTMLElement>> | --            | --   |
+| esc              | 按下 esc 关闭 窗体                                                                              | boolean                                      | false         |      |

@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass, Z_INDEX } from '@pkg/shared';
+import {
+  getComponentClass,
+  useScrollLock,
+  useVisible,
+  Z_INDEX,
+} from '@pkg/shared';
 import { Close as CloseIcon } from '@pkg/icons';
 import { Icon } from '~/icon';
 import { Button } from '~/button';
 import { Footer, Header, Layout, Main } from '~/layouts';
-import {
-  Transition,
-  TRANSITION_LIFE_CIRCLE,
-  TRANSITION_STATUS,
-} from '../transition';
+import { Transition } from '~/transition';
 import { DialogProps } from './dialog.types';
-import { useEsc, useShow, useTransitionOrigin } from './dialog.hooks';
+import { useEsc, useTransitionOrigin } from './dialog.hooks';
 import { RequiredPart } from '@tool-pack/types';
 
 const rootClass = getComponentClass('dialog');
@@ -21,9 +22,9 @@ const defaultProps = {
   esc: false,
 } satisfies Partial<DialogProps>;
 
-export const Dialog: React.FC<DialogProps> = (props) => {
+export const Dialog: React.FC<DialogProps> = React.memo((props) => {
   const {
-    visible,
+    visible: outerVisible,
     header,
     footer,
     children,
@@ -37,29 +38,20 @@ export const Dialog: React.FC<DialogProps> = (props) => {
     bodyAttrs = {},
   } = props as RequiredPart<DialogProps, keyof typeof defaultProps>;
 
-  const [show, close] = useShow(visible);
-  const transformOrigin = useTransitionOrigin(props, show);
-  useEsc(show, esc, close);
+  const [visible, close] = useVisible(outerVisible);
+  useScrollLock(visible, document.body);
+  const transformOrigin = useTransitionOrigin(props, visible);
+
+  const handleClose = useCallback(() => {
+    close();
+    onClose?.();
+  }, [onClose]);
+
+  useEsc(visible, esc, handleClose);
 
   const handleMaskClick = useCallback(() => {
-    closeOnClickMask && close();
-  }, [closeOnClickMask, close]);
-
-  const onTransitionChange = useCallback(
-    (
-      _: HTMLElement,
-      status: TRANSITION_STATUS,
-      lifeCircle: TRANSITION_LIFE_CIRCLE,
-    ) => {
-      if (
-        status === TRANSITION_STATUS.hide &&
-        lifeCircle === TRANSITION_LIFE_CIRCLE.after
-      ) {
-        onClose?.();
-      }
-    },
-    [onClose],
-  );
+    closeOnClickMask && handleClose();
+  }, [closeOnClickMask, handleClose]);
 
   const Mask = (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
@@ -88,7 +80,7 @@ export const Dialog: React.FC<DialogProps> = (props) => {
               className={`${rootClass}__btn-close`}
               plain="text"
               size="small"
-              onClick={close}>
+              onClick={handleClose}>
               <Icon>
                 <CloseIcon />
               </Icon>
@@ -104,8 +96,8 @@ export const Dialog: React.FC<DialogProps> = (props) => {
   );
 
   return createPortal(
-    <Transition name="t-dialog" on={onTransitionChange}>
-      {show && (
+    <Transition name="t-dialog">
+      {visible && (
         <div
           {...attrs}
           key={rootClass}
@@ -118,7 +110,7 @@ export const Dialog: React.FC<DialogProps> = (props) => {
     </Transition>,
     document.body,
   );
-};
+});
 
 Dialog.defaultProps = defaultProps;
 

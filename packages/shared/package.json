@@ -7,7 +7,14 @@
     "rm:dist": "rimraf ./dist",
     "build:this": "tsc -p tsconfig.json",
     "build": "pnpm rm:dist && pnpm build:this",
-    "check:ts": "tsc --noEmit -p tsconfig.json"
+    "check:ts": "tsc --noEmit -p tsconfig.json",
+    "test": "react-scripts test"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "jest": {
+    "moduleNameMapper": {
+      "^@pkg/(.+)$": "<rootDir>/../../packages/$1/src",
+      "^@tool-pack/react-ui$": "<rootDir>/../../packages/react-ui/src"
+    }
+  }
 }

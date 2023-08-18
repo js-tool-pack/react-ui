@@ -23,8 +23,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const attrs = {
       ...context.attrs,
       ...props.attrs,
-      style: { ...context.style, ...props.style },
-    } as Required<ButtonProps>['attrs'];
+      style: { ...context.style, ...props.attrs?.style, ...props.style },
+    } as Exclude<ButtonProps['attrs'], undefined>;
     const {
       className,
       htmlType = attrs.type,
@@ -79,6 +79,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             [`${rootClass}--plain-dashed`]: plain === 'dashed',
             [`${rootClass}--loading`]: loading,
             [`${rootClass}--icon-only`]: iconOnly,
+            // 默认也要显示，否则 loading 出入场动画会不流畅
             [`${rootClass}--icon-l`]: !iconOnly && !rightIcon,
             [`${rootClass}--icon-r`]: !iconOnly && rightIcon,
           },

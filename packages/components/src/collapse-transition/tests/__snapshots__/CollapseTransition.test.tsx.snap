@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollapseTransition basic 1`] = `
+<div
+  class="root"
+>
+  <div
+    style="padding-bottom: 8px; text-align: center;"
+  >
+    <button
+      class="t-button t-button--type-default t--size-m t-button--icon-l"
+    >
+      <span>
+        toggle
+      </span>
+    </button>
+  </div>
+  <div
+    class="t-collapse-transition t-collapse-transition--h"
+    style="background: rgb(145, 8, 82); color: white;"
+  >
+    <p>
+      道冲而用之或不盈，渊兮似万物之宗。挫其锐，解其纷，和其光，同其尘。湛兮似或存，吾不知谁之子，象帝之先。
+    </p>
+    <div
+      class="t-divider t-divider--center t-divider--horizontal"
+      style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+    />
+    <p>
+      天地不仁，以万物为刍（chú）狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐龠（tuó yuè）乎？虚而不屈，动而愈出。多言数（shuò）穷，不如守中。
+    </p>
+    <div
+      class="t-divider t-divider--center t-divider--horizontal"
+      style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+    />
+    <p>
+      谷神不死，是谓玄牝（pìn），玄牝之门，是谓天地根。绵绵若存，用之不勤。
+    </p>
+  </div>
+</div>
+`;
+
+exports[`CollapseTransition basic 2`] = `
+<div
+  class="root"
+>
+  <div
+    style="padding-bottom: 8px; text-align: center;"
+  >
+    <button
+      class="t-button t-button--type-default t--size-m t-button--icon-l"
+    >
+      <span>
+        toggle
+      </span>
+      <span
+        class="t-button__wave t-button__wave--active"
+      />
+    </button>
+  </div>
+  <div
+    class="t-collapse-transition t-collapse-transition--h t-collapse-transition-leave-active t-collapse-transition-leave-to"
+    style="background: rgb(145, 8, 82); color: white; max-height: 0;"
+  >
+    <p>
+      道冲而用之或不盈，渊兮似万物之宗。挫其锐，解其纷，和其光，同其尘。湛兮似或存，吾不知谁之子，象帝之先。
+    </p>
+    <div
+      class="t-divider t-divider--center t-divider--horizontal"
+      style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+    />
+    <p>
+      天地不仁，以万物为刍（chú）狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐龠（tuó yuè）乎？虚而不屈，动而愈出。多言数（shuò）穷，不如守中。
+    </p>
+    <div
+      class="t-divider t-divider--center t-divider--horizontal"
+      style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+    />
+    <p>
+      谷神不死，是谓玄牝（pìn），玄牝之门，是谓天地根。绵绵若存，用之不勤。
+    </p>
+  </div>
+</div>
+`;

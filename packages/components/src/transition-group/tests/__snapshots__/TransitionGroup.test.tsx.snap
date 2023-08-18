@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransitionGroup snap 1`] = `
+<div
+  class="t-transition-group"
+>
+  <div
+    class="t-group-enter-active t-group-enter-to"
+  >
+    foo bar
+  </div>
+  <div
+    class=""
+  >
+    foo-bar
+  </div>
+</div>
+`;

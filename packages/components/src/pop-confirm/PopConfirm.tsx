@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import type { PopConfirmProps } from './pop-confirm.types';
-import { getComponentClass } from '@pkg/shared';
+import { getComponentClass, useVisible } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
-import { isPromiseLike } from '@tool-pack/basic';
 import { Popover } from '~/popover';
 import { Layout, Footer, Main } from '~/layouts';
 import { Button } from '~/button';
@@ -21,9 +20,10 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
     icon,
     children,
     content,
-    cancelProps = {},
-    confirmProps = {},
+    cancelProps,
+    confirmProps,
     onCancel,
+    visible: outerVisible,
     onConfirm,
     ...rest
   } = props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
@@ -31,39 +31,20 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   const _confirm = confirmProps ?? {};
   const _cancel = cancelProps ?? {};
 
-  const [visible, setVisible] = useState<boolean | undefined>();
+  const [visible, hide, setVisible] = useVisible(outerVisible);
 
   useEffect(() => {
     visible !== undefined && setVisible(undefined);
   }, [visible]);
 
-  const handleCallback = (
-    res: ReturnType<Required<PopConfirmProps>['onConfirm']>,
-  ) => {
-    const hide = () => setVisible(false);
-
-    if (isPromiseLike(res)) {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      res.then(hide, () => {});
-      return;
-    }
-    if (res === undefined || res) hide();
+  const _onCancel: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    _cancel.attrs?.onClick?.(e);
+    hide(onCancel);
   };
-
-  const _onCancel: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      _cancel.attrs?.onClick?.(e);
-      handleCallback(onCancel?.());
-    },
-    [onCancel],
-  );
-  const _onConfirm: React.MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      _confirm.attrs?.onClick?.(e);
-      handleCallback(onConfirm?.());
-    },
-    [onConfirm],
-  );
+  const _onConfirm: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    _confirm.attrs?.onClick?.(e);
+    hide(onConfirm);
+  };
 
   const Content = (
     <Layout className={`${rootName}__layout`} vertical>

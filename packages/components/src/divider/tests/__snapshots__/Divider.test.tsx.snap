@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider basic 1`] = `
+<div
+  class="t-divider t-divider--center t-divider--horizontal"
+  style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+/>
+`;
+
+exports[`Divider basic 2`] = `
+<div
+  class="t-divider t-divider--center t-divider--horizontal"
+  style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+>
+  <div
+    class="t-divider__content"
+  >
+    hello world
+  </div>
+</div>
+`;
+
+exports[`Divider lineColor 1`] = `
+<div
+  class="t-divider t-divider--center t-divider--horizontal"
+  style="--t-divider-border-color: red; --t-divider-border-style: solid; --t-divider-border-width: 1px;"
+/>
+`;
+
+exports[`Divider lineStyle 1`] = `
+<div
+  class="t-divider t-divider--center t-divider--horizontal"
+  style="--t-divider-border-style: dashed; --t-divider-border-width: 1px;"
+/>
+`;
+
+exports[`Divider vertical 1`] = `
+<div
+  class="t-divider t-divider--center t-divider--vertical"
+  style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
+/>
+`;

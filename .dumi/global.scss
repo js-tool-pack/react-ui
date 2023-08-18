@@ -9,4 +9,8 @@
   position: absolute;
   width: 200px;
 }
-
+.markdown {
+  td:not(:first-child) {
+    word-break: break-word;
+  }
+}

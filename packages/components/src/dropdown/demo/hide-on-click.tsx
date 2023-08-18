@@ -1,6 +1,6 @@
 /**
  * title: 点击选项关闭弹窗
- * description: 下拉菜单默认在点击菜单项后会被隐藏，将 hide-on-click 属性设置为 false 可以关闭此功能。
+ * description: 下拉菜单默认在点击菜单项后会被隐藏，将 hideOnClick 属性设置为 false 可以关闭此功能。
  */
 
 import React from 'react';

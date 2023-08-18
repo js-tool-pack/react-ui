@@ -1,19 +1,17 @@
 import { useEffect } from 'react';
-import { noScroll } from '@tool-pack/dom';
+import { lockScroll } from '@tool-pack/dom';
 
 export function useScrollLock(
   visible: boolean | void,
   container?: HTMLElement | (() => HTMLElement | undefined),
-  options: { enabled?: boolean; delay?: number } = {},
+  options: { enabled?: boolean; delay?: number; preventShaking?: boolean } = {},
 ) {
-  const { enabled = true, delay = 500 } = options;
+  const { enabled = true, delay = 500, preventShaking = true } = options;
+
   useEffect(() => {
     if (!enabled || !visible) return;
     const el = typeof container === 'function' ? container() : container;
-    const unlock = noScroll(
-      el,
-      [document.body, document.documentElement].includes(el!),
-    );
+    const unlock = lockScroll(el, preventShaking);
     return () => {
       // 需要等窗体退场动画结束后才能取消滚动锁定
       setTimeout(unlock, delay);

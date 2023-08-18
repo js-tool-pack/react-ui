@@ -13,7 +13,7 @@ importers:
       '@testing-library/user-event': ^14.4.3
       '@tool-pack/basic': ^0.1.1
       '@tool-pack/bom': 0.0.1-beta.0
-      '@tool-pack/dom': ^0.0.12
+      '@tool-pack/dom': ^0.0.13
       '@tool-pack/types': ^0.0.6
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.1
@@ -79,7 +79,7 @@ importers:
       '@testing-library/user-event': 14.4.3
       '@tool-pack/basic': 0.1.1
       '@tool-pack/bom': 0.0.1-beta.0
-      '@tool-pack/dom': 0.0.12
+      '@tool-pack/dom': 0.0.13
       '@tool-pack/types': 0.0.6
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.2
@@ -4434,8 +4434,8 @@ packages:
       '@tool-pack/types': 0.0.1
     dev: true
 
-  /@tool-pack/dom/0.0.12:
-    resolution: {integrity: sha512-CIY9Uo9plUQBKjONVpz5vkyZ6yzkeiOubW1P0kWEeQnnVbYUIDC5Lyh+465l7a9QwoyJhtMpe6A30VNBOZ8b+w==}
+  /@tool-pack/dom/0.0.13:
+    resolution: {integrity: sha512-ZIFr9C0M3EnMdOdU5Fsqmd2WrVojqTDi8Grgb7ZIFJmC/6owW3RwElmO6C24EWDFOdmE9W506KlEONKL+7lmQQ==}
     dependencies:
       '@tool-pack/basic': 0.1.1
       '@tool-pack/types': 0.0.6

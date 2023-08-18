@@ -2,6 +2,9 @@
 category: Components
 title: Button 按钮
 atomId: Button
+nav:
+  title: 组件
+  order: 2
 demo:
   cols: 2
 group:

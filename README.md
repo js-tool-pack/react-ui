@@ -29,7 +29,7 @@ _现在确实很多组件库使用的 Web Component 开发，号称面向未来�
 
 > 你使用 Web Component 开发组件库，我使用 React 开发组件库，他使用 Vue 开发组件库，大家都有光明的未来 🤘。
 
-## 为什么叫 react-ui
+## 为什么叫 react-ui？
 
 该库我是放在 tool-pack 下的，顾名思义 tool-pack 就是一个工具包，叫 react-ui 仅仅也是因为它是为 React 写的，
 如果它是 Vue 写的那么就叫 vue-ui， 以此类推。

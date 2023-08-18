@@ -75,6 +75,14 @@ exports[`Transition on 1`] = `
 </div>
 `;
 
+exports[`Transition ref 1`] = `
+<div
+  class="mode"
+>
+  out
+</div>
+`;
+
 exports[`Transition snap 1`] = `
 <div
   class=""

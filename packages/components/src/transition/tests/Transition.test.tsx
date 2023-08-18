@@ -1,7 +1,7 @@
 import { testAttrs } from '~/testAttrs';
 import { Transition, TRANSITION_STATUS, TRANSITION_LIFE_CIRCLE } from '..';
 import { fireEvent, render } from '@testing-library/react';
-import { useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { Button } from '~/button';
 
 describe('Transition', () => {
@@ -214,5 +214,26 @@ describe('Transition', () => {
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.running],
       ]);
     });
+  });
+
+  test('ref', () => {
+    let outerRef;
+    const App = () => {
+      const ref = useRef<HTMLDivElement>(null);
+      useEffect(() => {
+        outerRef = ref.current;
+      });
+      return (
+        <Transition name="fade">
+          <div ref={ref} className="mode" key={1}>
+            out
+          </div>
+        </Transition>
+      );
+    };
+    render(<App />);
+
+    expect(outerRef).toHaveClass('mode');
+    expect(outerRef).toMatchSnapshot();
   });
 });

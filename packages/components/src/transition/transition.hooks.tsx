@@ -3,7 +3,7 @@ import { addTransition, getClasses, isSameEl } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 import type { CB, El, Mode, TransitionProps } from './transition.types';
 import { getClassNames, nextTick } from '@tool-pack/basic';
-import { useForceUpdate, useIsInitDep } from '@pkg/shared';
+import { useForceUpdate, useForwardRef, useIsInitDep } from '@pkg/shared';
 
 export function useDispatcher(
   mode: Mode,
@@ -143,7 +143,9 @@ export function useTransition(
   cb?: CB,
   { attrs = {} }: Partial<TransitionProps> = {},
 ) {
-  const elRef = useRef<HTMLElement | null>(null);
+  const elRef = useForwardRef(
+    (children as React.RefAttributes<unknown>)?.ref,
+  ) as React.MutableRefObject<HTMLElement | null>;
 
   const noTrans =
     ([STATUS.none, STATUS.idle, STATUS.invisible] as STATUS[]).includes(

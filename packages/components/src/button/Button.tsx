@@ -24,7 +24,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       ...context.attrs,
       ...props.attrs,
       style: { ...context.style, ...props.attrs?.style, ...props.style },
-    } as Required<ButtonProps>['attrs'];
+    } as Exclude<ButtonProps['attrs'], undefined>;
     const {
       className,
       htmlType = attrs.type,

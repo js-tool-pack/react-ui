@@ -132,7 +132,7 @@ function hoverTriggerHandler(
 export function useShowController(
   disabled: boolean | void,
   visible: boolean | void,
-  trigger: Required<PopoverProps>['trigger'],
+  trigger: Exclude<PopoverProps['trigger'], undefined>,
   children: React.ReactElement,
   refEl: React.RefObject<HTMLElement>,
   relEl: React.MutableRefObject<HTMLElement | undefined>,

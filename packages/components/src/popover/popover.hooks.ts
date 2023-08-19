@@ -14,6 +14,16 @@ import {
   PLACEMENTS_12,
   type Placement_12,
 } from '@pkg/shared';
+import {
+  delay,
+  fromEvent,
+  of,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+  merge,
+} from 'rxjs';
 
 export function useResizeObserver(
   enable: boolean,
@@ -85,47 +95,47 @@ export function usePosition(
 }
 
 function hoverTriggerHandler(
-  el: HTMLElement,
-  relEl: React.MutableRefObject<HTMLElement | undefined>,
+  triggerEl: HTMLElement,
+  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   enterHandler: () => void,
   leaveHandler: () => void,
 ) {
-  const timers: ReturnType<typeof setTimeout>[] = [];
-  const clearTimes = () => {
-    timers.forEach((i) => clearTimeout(i));
-    timers.length = 0;
-  };
+  const triggerEnterEvent = fromEvent(triggerEl, 'mouseenter');
+  const triggerMoveEvent = fromEvent(triggerEl, 'mousemove');
+  const triggerLeaveEvent = fromEvent(triggerEl, 'mouseleave');
 
-  const _leaveHandler = () => {
-    clearTimes();
-    timers.push(setTimeout(leaveHandler, 200));
-  };
+  const openDelay = 0;
+  const closeDelay = 200;
 
-  const balloonEnterHandler = () => {
-    clearTimes();
-  };
+  const sub = triggerEnterEvent
+    .pipe(
+      switchMap(() =>
+        of(null).pipe(delay(openDelay), takeUntil(triggerLeaveEvent)),
+      ),
+      tap(enterHandler),
+      delay(1), // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
+    )
+    .subscribe(() => {
+      const balloonEl = balloonElRef.current!;
+      const balloonEnterEvent = fromEvent(balloonEl, 'mouseenter');
+      const balloonLeaveEvent = fromEvent(balloonEl, 'mouseleave');
 
-  const _enterHandler = () => {
-    clearTimes();
-    enterHandler();
-    // 如果transition隐藏后销毁dom的话balloon不会马上有ref
-    timers.push(
-      setTimeout(() => {
-        relEl.current?.addEventListener('mouseenter', balloonEnterHandler);
-        relEl.current?.addEventListener('mouseleave', _leaveHandler);
-      }, 50),
-    );
-  };
-
-  el.addEventListener('mouseenter', _enterHandler);
-  el.addEventListener('mouseleave', _leaveHandler);
+      merge(balloonLeaveEvent, triggerLeaveEvent)
+        .pipe(
+          switchMap(() =>
+            of(null).pipe(
+              delay(closeDelay),
+              takeUntil(triggerMoveEvent),
+              takeUntil(balloonEnterEvent),
+            ),
+          ),
+          take(1),
+        )
+        .subscribe(leaveHandler);
+    });
 
   return () => {
-    clearTimes();
-    el.removeEventListener('mouseenter', _enterHandler);
-    el.removeEventListener('mouseleave', _leaveHandler);
-    relEl.current?.removeEventListener('mouseenter', balloonEnterHandler);
-    relEl.current?.removeEventListener('mouseleave', _leaveHandler);
+    sub.unsubscribe();
   };
 }
 
@@ -134,15 +144,15 @@ export function useShowController(
   visible: boolean | void,
   trigger: Exclude<PopoverProps['trigger'], undefined>,
   children: React.ReactElement,
-  refEl: React.RefObject<HTMLElement>,
-  relEl: React.MutableRefObject<HTMLElement | undefined>,
+  triggerElRef: React.RefObject<HTMLElement>,
+  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   refreshPosition: () => void,
 ) {
   const [show, setShow] = useState(false);
 
   // 事件触发启动
   useEffect(() => {
-    const el = refEl.current;
+    const el = triggerElRef.current;
     if (disabled) {
       setShow(false);
     }
@@ -161,7 +171,12 @@ export function useShowController(
     const cancellers: Array<() => void> = triggers.map((t) => {
       switch (t) {
         case 'hover':
-          return hoverTriggerHandler(el, relEl, enterHandler, leaveHandler);
+          return hoverTriggerHandler(
+            el,
+            balloonElRef,
+            enterHandler,
+            leaveHandler,
+          );
         case 'click':
           let canceler: void | (() => void);
           const handler = () => {
@@ -172,7 +187,7 @@ export function useShowController(
               'click',
               (e) => {
                 const target = e.target as HTMLElement;
-                const parent = relEl.current as HTMLElement;
+                const parent = balloonElRef.current as HTMLElement;
 
                 if (!target || isChildHTMLElement(target, parent)) return;
 
@@ -219,7 +234,7 @@ export function useShowController(
 
   // show为true时监听滚动
   useEffect(() => {
-    const el = refEl.current;
+    const el = triggerElRef.current;
     if (!el || !show) return;
 
     const scroller: Array<HTMLElement | Window> = collectScroller(el);

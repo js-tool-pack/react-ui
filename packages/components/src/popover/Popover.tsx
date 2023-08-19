@@ -27,6 +27,8 @@ const defaultProps = {
   offset: 10,
   name: 'popover',
   appendTo: () => document.body,
+  delay: 0,
+  leaveDelay: 200,
 } satisfies Partial<PopoverProps>;
 
 export const Popover: React.FC<PopoverProps> = React.forwardRef<
@@ -48,6 +50,8 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     viewport,
     childrenRef: kidRef,
     showArrow,
+    delay,
+    leaveDelay,
     attrs = {},
   } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
   const rootName = getComponentClass(name);
@@ -76,6 +80,8 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     childrenRef,
     balloonRef,
     refreshPosition,
+    delay,
+    leaveDelay,
   );
 
   useResizeObserver(show, balloonRef, refreshPosition);

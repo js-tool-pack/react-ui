@@ -99,18 +99,19 @@ function hoverTriggerHandler(
   balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   enterHandler: () => void,
   leaveHandler: () => void,
+  enterDelay: number,
+  leaveDelay: number,
 ) {
   const triggerEnterEvent = fromEvent(triggerEl, 'mouseenter');
   const triggerMoveEvent = fromEvent(triggerEl, 'mousemove');
   const triggerLeaveEvent = fromEvent(triggerEl, 'mouseleave');
 
-  const openDelay = 0;
-  const closeDelay = 200;
-
   const sub = triggerEnterEvent
     .pipe(
       switchMap(() =>
-        of(null).pipe(delay(openDelay), takeUntil(triggerLeaveEvent)),
+        enterDelay
+          ? of(null).pipe(delay(enterDelay), takeUntil(triggerLeaveEvent))
+          : of(null),
       ),
       tap(enterHandler),
       delay(1), // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
@@ -124,7 +125,7 @@ function hoverTriggerHandler(
         .pipe(
           switchMap(() =>
             of(null).pipe(
-              delay(closeDelay),
+              delay(leaveDelay),
               takeUntil(triggerMoveEvent),
               takeUntil(balloonEnterEvent),
             ),
@@ -147,6 +148,8 @@ export function useShowController(
   triggerElRef: React.RefObject<HTMLElement>,
   balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   refreshPosition: () => void,
+  delay: number,
+  leaveDelay: number,
 ) {
   const [show, setShow] = useState(false);
 
@@ -176,6 +179,8 @@ export function useShowController(
             balloonElRef,
             enterHandler,
             leaveHandler,
+            delay,
+            leaveDelay,
           );
         case 'click':
           let canceler: void | (() => void);

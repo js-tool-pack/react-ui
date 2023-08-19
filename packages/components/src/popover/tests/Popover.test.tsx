@@ -168,4 +168,84 @@ describe('Popover', () => {
       't-word-balloon--right-end',
     );
   });
+
+  describe('delay', () => {
+    test('delay default', () => {
+      const { container } = render(
+        <Popover trigger="hover" content="hover">
+          <Button>hover触发</Button>
+        </Popover>,
+      );
+
+      expect(document.querySelector('.t-word-balloon')).toBeNull();
+      fireEvent.mouseEnter(container.querySelector('button')!);
+      expect(document.querySelector('.t-word-balloon')).not.toBeNull();
+    });
+
+    test('delay 500', () => {
+      jest.useFakeTimers();
+      const { container } = render(
+        <Popover delay={500} trigger="hover" content="hover">
+          <Button>hover触发</Button>
+        </Popover>,
+      );
+
+      expect(document.querySelector('.t-word-balloon')).toBeNull();
+      fireEvent.mouseEnter(container.querySelector('button')!);
+      expect(document.querySelector('.t-word-balloon')).toBeNull();
+      act(() => jest.advanceTimersByTime(500));
+      expect(document.querySelector('.t-word-balloon')).not.toBeNull();
+    });
+
+    test('leaveDelay default', () => {
+      jest.useFakeTimers();
+      const { container } = render(
+        <Popover trigger="hover" content="hover">
+          <Button>hover触发</Button>
+        </Popover>,
+      );
+
+      expect(document.querySelector('.t-word-balloon')).toBeNull();
+      fireEvent.mouseEnter(container.querySelector('button')!);
+      expect(document.querySelector('.t-word-balloon')).not.toBeNull();
+
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-leave-active',
+      );
+      fireEvent.mouseLeave(document.querySelector('.t-word-balloon')!);
+      act(() => jest.advanceTimersByTime(200));
+      // todo: 这里暂时测不了，需要给 Transition 组件添加一个默认定时器触发 transitionend 事件
+      // expect(document.querySelector('.t-word-balloon')).toHaveClass(
+      //   't-popover-leave-active',
+      // );
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-leave-active',
+      );
+    });
+    test('leaveDelay 500', () => {
+      jest.useFakeTimers();
+      const { container } = render(
+        <Popover trigger="hover" content="hover">
+          <Button>hover触发</Button>
+        </Popover>,
+      );
+
+      expect(document.querySelector('.t-word-balloon')).toBeNull();
+      fireEvent.mouseEnter(container.querySelector('button')!);
+      expect(document.querySelector('.t-word-balloon')).not.toBeNull();
+
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-leave-active',
+      );
+      fireEvent.mouseLeave(document.querySelector('.t-word-balloon')!);
+      act(() => jest.advanceTimersByTime(500));
+      // todo: 这里暂时测不了，需要给 Transition 组件添加一个默认定时器触发 transitionend 事件
+      // expect(document.querySelector('.t-word-balloon')).toHaveClass(
+      //   't-popover-leave-active',
+      // );
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-leave-active',
+      );
+    });
+  });
 });

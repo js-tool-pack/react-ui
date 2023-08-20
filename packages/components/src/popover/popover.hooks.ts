@@ -3,16 +3,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PopoverProps } from './popover.types';
 import { calcPlacement, calcPosition } from './popover.utils';
 import { castArray, throttle } from '@tool-pack/basic';
-import {
-  addOuterEventListener,
-  collectScroller,
-  isChildHTMLElement,
-  calcDistanceWithParent,
-} from '@tool-pack/dom';
+import { collectScroller, calcDistanceWithParent } from '@tool-pack/dom';
 import {
   getComponentClass,
   PLACEMENTS_12,
   type Placement_12,
+  outerEventObserve,
 } from '@pkg/shared';
 import {
   delay,
@@ -148,7 +144,7 @@ export function useShowController(
   triggerElRef: React.RefObject<HTMLElement>,
   balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   refreshPosition: () => void,
-  delay: number,
+  enterDelay: number,
   leaveDelay: number,
 ) {
   const [show, setShow] = useState(false);
@@ -179,38 +175,18 @@ export function useShowController(
             balloonElRef,
             enterHandler,
             leaveHandler,
-            delay,
+            enterDelay,
             leaveDelay,
           );
         case 'click':
-          let canceler: void | (() => void);
-          const handler = () => {
-            if (canceler) return;
-            enterHandler();
-            const removeOuter = addOuterEventListener(
-              el,
-              'click',
-              (e) => {
-                const target = e.target as HTMLElement;
-                const parent = balloonElRef.current as HTMLElement;
-
-                if (!target || isChildHTMLElement(target, parent)) return;
-
-                leaveHandler();
-                canceler?.();
-              },
-              true,
-            );
-            canceler = () => {
-              removeOuter();
-              canceler = undefined;
-            };
-          };
-          el.addEventListener('click', handler);
-          return () => {
-            el.removeEventListener('click', handler);
-            canceler?.();
-          };
+          const sub = fromEvent<MouseEvent>(el, 'click')
+            .pipe(tap(enterHandler), delay(0))
+            .subscribe(() => {
+              outerEventObserve(() => [el, balloonElRef.current], 'click')
+                .pipe(take(1))
+                .subscribe(leaveHandler);
+            });
+          return sub.unsubscribe.bind(sub);
         case 'focus':
           el.addEventListener('focus', enterHandler);
           el.addEventListener('blur', leaveHandler);

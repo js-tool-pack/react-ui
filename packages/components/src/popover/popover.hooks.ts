@@ -19,6 +19,7 @@ import {
   takeUntil,
   tap,
   merge,
+  takeWhile,
 } from 'rxjs';
 
 export function useResizeObserver(
@@ -150,20 +151,10 @@ export function useShowController(
   // 事件触发启动
   useEffect(() => {
     const el = triggerElRef.current;
-    if (disabled) {
-      setShow(false);
-    }
+    if (disabled) close();
     if (!el || typeof visible === 'boolean' || disabled) return;
 
     const triggers = [...new Set(castArray(trigger))];
-
-    const open = (/*e: MouseEvent*/) => {
-      setShow(true);
-    };
-
-    const close = () => {
-      setShow(false);
-    };
 
     const cancellers: Array<() => void> = triggers.map((t) => {
       switch (t) {
@@ -178,10 +169,16 @@ export function useShowController(
           );
         case 'click':
           const clickSub = fromEvent<MouseEvent>(el, 'click')
-            .pipe(tap(open), delay(0))
+            .pipe(
+              switchMap(() => of(toggle()).pipe(takeWhile((v) => v))),
+              delay(0),
+            )
             .subscribe(() => {
               outerEventObserve(() => [el, balloonElRef.current], 'click')
-                .pipe(take(1))
+                .pipe(
+                  take(1),
+                  takeUntil(fromEvent(el, 'click', { capture: true })),
+                )
                 .subscribe(close);
             });
           return clickSub.unsubscribe.bind(clickSub);
@@ -204,11 +201,6 @@ export function useShowController(
   }, [children, trigger, disabled, visible]);
 
   const cancelListRef = useRef<Array<() => void>>([]);
-
-  const unwatchScroller = () => {
-    cancelListRef.current.forEach((i) => i());
-    cancelListRef.current.length = 0;
-  };
 
   // show为true时监听滚动
   useEffect(() => {
@@ -239,4 +231,20 @@ export function useShowController(
   }, [visible, disabled]);
 
   return show;
+
+  function unwatchScroller(): void {
+    cancelListRef.current.forEach((i) => i());
+    cancelListRef.current.length = 0;
+  }
+  function open(/*e: MouseEvent*/): void {
+    setShow(true);
+  }
+  function close(): void {
+    setShow(false);
+  }
+  function toggle(): boolean {
+    let visible = false;
+    setShow((v) => (visible = !v));
+    return visible;
+  }
 }

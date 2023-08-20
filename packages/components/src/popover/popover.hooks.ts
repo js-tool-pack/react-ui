@@ -3,17 +3,27 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { PopoverProps } from './popover.types';
 import { calcPlacement, calcPosition } from './popover.utils';
 import { castArray, throttle } from '@tool-pack/basic';
-import {
-  addOuterEventListener,
-  collectScroller,
-  isChildHTMLElement,
-  calcDistanceWithParent,
-} from '@tool-pack/dom';
+import { collectScroller, calcDistanceWithParent } from '@tool-pack/dom';
 import {
   getComponentClass,
   PLACEMENTS_12,
   type Placement_12,
+  outerEventObserve,
 } from '@pkg/shared';
+import {
+  delay,
+  fromEvent,
+  of,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+  merge,
+  takeWhile,
+  interval,
+  filter,
+  defer,
+} from 'rxjs';
 
 export function useResizeObserver(
   enable: boolean,
@@ -85,48 +95,62 @@ export function usePosition(
 }
 
 function hoverTriggerHandler(
-  el: HTMLElement,
-  relEl: React.MutableRefObject<HTMLElement | undefined>,
-  enterHandler: () => void,
-  leaveHandler: () => void,
+  triggerEl: HTMLElement,
+  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
+  open: () => void,
+  close: () => void,
+  enterDelay: number,
+  leaveDelay: number,
 ) {
-  const timers: ReturnType<typeof setTimeout>[] = [];
-  const clearTimes = () => {
-    timers.forEach((i) => clearTimeout(i));
-    timers.length = 0;
-  };
+  const triggerEnterEvent = fromEvent(triggerEl, 'mouseenter');
+  const triggerMoveEvent = fromEvent(triggerEl, 'mousemove');
+  const triggerLeaveEvent = fromEvent(triggerEl, 'mouseleave');
 
-  const _leaveHandler = () => {
-    clearTimes();
-    timers.push(setTimeout(leaveHandler, 200));
-  };
+  const sub = triggerEnterEvent
+    .pipe(
+      switchMap(() =>
+        enterDelay
+          ? of(null).pipe(delay(enterDelay), takeUntil(triggerLeaveEvent))
+          : of(null),
+      ),
+      tap(open),
+    )
+    .subscribe(() => {
+      // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
+      // 采用轮询的方式获取el，一般chrome系列会快一点(1~2)，safari慢一点(1~3)
+      const balloonLeaveEvent = interval(1)
+        .pipe(
+          // 正常 1～3 次 balloonEl 就渲染出来了，不能无限循环
+          takeWhile((v) => v < 5),
+          filter(() => Boolean(balloonElRef.current)),
+          take(1),
+        )
+        .pipe(switchMap(() => fromEvent(balloonElRef.current!, 'mouseleave')));
 
-  const balloonEnterHandler = () => {
-    clearTimes();
-  };
+      // 轮询替代方案：固定延迟时间
+      // const balloonLeaveEvent = of(null).pipe(
+      //   delay(50), // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
+      //   switchMap(() => fromEvent(balloonElRef.current!, 'mouseleave')),
+      // );
 
-  const _enterHandler = () => {
-    clearTimes();
-    enterHandler();
-    // 如果transition隐藏后销毁dom的话balloon不会马上有ref
-    timers.push(
-      setTimeout(() => {
-        relEl.current?.addEventListener('mouseenter', balloonEnterHandler);
-        relEl.current?.addEventListener('mouseleave', _leaveHandler);
-      }, 50),
-    );
-  };
+      merge(triggerLeaveEvent, balloonLeaveEvent)
+        .pipe(
+          switchMap(() =>
+            of(null).pipe(
+              delay(leaveDelay),
+              takeUntil(triggerMoveEvent),
+              takeUntil(
+                defer(() => fromEvent(balloonElRef.current!, 'mouseenter')),
+              ),
+            ),
+          ),
+          takeUntil(triggerEnterEvent),
+          take(1),
+        )
+        .subscribe(close);
+    });
 
-  el.addEventListener('mouseenter', _enterHandler);
-  el.addEventListener('mouseleave', _leaveHandler);
-
-  return () => {
-    clearTimes();
-    el.removeEventListener('mouseenter', _enterHandler);
-    el.removeEventListener('mouseleave', _leaveHandler);
-    relEl.current?.removeEventListener('mouseenter', balloonEnterHandler);
-    relEl.current?.removeEventListener('mouseleave', _leaveHandler);
-  };
+  return sub.unsubscribe.bind(sub);
 }
 
 export function useShowController(
@@ -134,70 +158,54 @@ export function useShowController(
   visible: boolean | void,
   trigger: Exclude<PopoverProps['trigger'], undefined>,
   children: React.ReactElement,
-  refEl: React.RefObject<HTMLElement>,
-  relEl: React.MutableRefObject<HTMLElement | undefined>,
+  triggerElRef: React.RefObject<HTMLElement>,
+  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   refreshPosition: () => void,
+  enterDelay: number,
+  leaveDelay: number,
 ) {
   const [show, setShow] = useState(false);
 
   // 事件触发启动
   useEffect(() => {
-    const el = refEl.current;
-    if (disabled) {
-      setShow(false);
-    }
+    const el = triggerElRef.current;
+    if (disabled) close();
     if (!el || typeof visible === 'boolean' || disabled) return;
 
     const triggers = [...new Set(castArray(trigger))];
 
-    const enterHandler = (/*e: MouseEvent*/) => {
-      setShow(true);
-    };
-
-    const leaveHandler = () => {
-      setShow(false);
-    };
-
     const cancellers: Array<() => void> = triggers.map((t) => {
       switch (t) {
         case 'hover':
-          return hoverTriggerHandler(el, relEl, enterHandler, leaveHandler);
+          return hoverTriggerHandler(
+            el,
+            balloonElRef,
+            open,
+            close,
+            enterDelay,
+            leaveDelay,
+          );
         case 'click':
-          let canceler: void | (() => void);
-          const handler = () => {
-            if (canceler) return;
-            enterHandler();
-            const removeOuter = addOuterEventListener(
-              el,
-              'click',
-              (e) => {
-                const target = e.target as HTMLElement;
-                const parent = relEl.current as HTMLElement;
-
-                if (!target || isChildHTMLElement(target, parent)) return;
-
-                leaveHandler();
-                canceler?.();
-              },
-              true,
-            );
-            canceler = () => {
-              removeOuter();
-              canceler = undefined;
-            };
-          };
-          el.addEventListener('click', handler);
-          return () => {
-            el.removeEventListener('click', handler);
-            canceler?.();
-          };
+          const clickSub = fromEvent<MouseEvent>(el, 'click')
+            .pipe(
+              switchMap(() => of(toggle()).pipe(takeWhile((v) => v))),
+              delay(0),
+            )
+            .subscribe(() => {
+              outerEventObserve(() => [el, balloonElRef.current], 'click')
+                .pipe(
+                  take(1),
+                  takeUntil(fromEvent(el, 'click', { capture: true })),
+                )
+                .subscribe(close);
+            });
+          return clickSub.unsubscribe.bind(clickSub);
         case 'focus':
-          el.addEventListener('focus', enterHandler);
-          el.addEventListener('blur', leaveHandler);
-          return () => {
-            el.removeEventListener('focus', enterHandler);
-            el.removeEventListener('blur', leaveHandler);
-          };
+          const focusSub = fromEvent(el, 'focus').subscribe(() => {
+            open();
+            fromEvent(el, 'blur').pipe(take(1)).subscribe(close);
+          });
+          return focusSub.unsubscribe.bind(focusSub);
         case 'contextmenu':
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           return () => {};
@@ -212,14 +220,9 @@ export function useShowController(
 
   const cancelListRef = useRef<Array<() => void>>([]);
 
-  const unwatchScroller = () => {
-    cancelListRef.current.forEach((i) => i());
-    cancelListRef.current.length = 0;
-  };
-
   // show为true时监听滚动
   useEffect(() => {
-    const el = refEl.current;
+    const el = triggerElRef.current;
     if (!el || !show) return;
 
     const scroller: Array<HTMLElement | Window> = collectScroller(el);
@@ -246,4 +249,20 @@ export function useShowController(
   }, [visible, disabled]);
 
   return show;
+
+  function unwatchScroller(): void {
+    cancelListRef.current.forEach((i) => i());
+    cancelListRef.current.length = 0;
+  }
+  function open(/*e: MouseEvent*/): void {
+    setShow(true);
+  }
+  function close(): void {
+    setShow(false);
+  }
+  function toggle(): boolean {
+    let visible = false;
+    setShow((v) => (visible = !v));
+    return visible;
+  }
 }

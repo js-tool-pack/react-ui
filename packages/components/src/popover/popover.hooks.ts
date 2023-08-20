@@ -93,8 +93,8 @@ export function usePosition(
 function hoverTriggerHandler(
   triggerEl: HTMLElement,
   balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
-  enterHandler: () => void,
-  leaveHandler: () => void,
+  open: () => void,
+  close: () => void,
   enterDelay: number,
   leaveDelay: number,
 ) {
@@ -109,7 +109,7 @@ function hoverTriggerHandler(
           ? of(null).pipe(delay(enterDelay), takeUntil(triggerLeaveEvent))
           : of(null),
       ),
-      tap(enterHandler),
+      tap(open),
       delay(1), // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
     )
     .subscribe(() => {
@@ -128,12 +128,10 @@ function hoverTriggerHandler(
           ),
           take(1),
         )
-        .subscribe(leaveHandler);
+        .subscribe(close);
     });
 
-  return () => {
-    sub.unsubscribe();
-  };
+  return sub.unsubscribe.bind(sub);
 }
 
 export function useShowController(
@@ -159,11 +157,11 @@ export function useShowController(
 
     const triggers = [...new Set(castArray(trigger))];
 
-    const enterHandler = (/*e: MouseEvent*/) => {
+    const open = (/*e: MouseEvent*/) => {
       setShow(true);
     };
 
-    const leaveHandler = () => {
+    const close = () => {
       setShow(false);
     };
 
@@ -173,26 +171,26 @@ export function useShowController(
           return hoverTriggerHandler(
             el,
             balloonElRef,
-            enterHandler,
-            leaveHandler,
+            open,
+            close,
             enterDelay,
             leaveDelay,
           );
         case 'click':
           const sub = fromEvent<MouseEvent>(el, 'click')
-            .pipe(tap(enterHandler), delay(0))
+            .pipe(tap(open), delay(0))
             .subscribe(() => {
               outerEventObserve(() => [el, balloonElRef.current], 'click')
                 .pipe(take(1))
-                .subscribe(leaveHandler);
+                .subscribe(close);
             });
           return sub.unsubscribe.bind(sub);
         case 'focus':
-          el.addEventListener('focus', enterHandler);
-          el.addEventListener('blur', leaveHandler);
+          el.addEventListener('focus', open);
+          el.addEventListener('blur', close);
           return () => {
-            el.removeEventListener('focus', enterHandler);
-            el.removeEventListener('blur', leaveHandler);
+            el.removeEventListener('focus', open);
+            el.removeEventListener('blur', close);
           };
         case 'contextmenu':
           // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -177,21 +177,20 @@ export function useShowController(
             leaveDelay,
           );
         case 'click':
-          const sub = fromEvent<MouseEvent>(el, 'click')
+          const clickSub = fromEvent<MouseEvent>(el, 'click')
             .pipe(tap(open), delay(0))
             .subscribe(() => {
               outerEventObserve(() => [el, balloonElRef.current], 'click')
                 .pipe(take(1))
                 .subscribe(close);
             });
-          return sub.unsubscribe.bind(sub);
+          return clickSub.unsubscribe.bind(clickSub);
         case 'focus':
-          el.addEventListener('focus', open);
-          el.addEventListener('blur', close);
-          return () => {
-            el.removeEventListener('focus', open);
-            el.removeEventListener('blur', close);
-          };
+          const focusSub = fromEvent(el, 'focus').subscribe(() => {
+            open();
+            fromEvent(el, 'blur').pipe(take(1)).subscribe(close);
+          });
+          return focusSub.unsubscribe.bind(focusSub);
         case 'contextmenu':
           // eslint-disable-next-line @typescript-eslint/no-empty-function
           return () => {};

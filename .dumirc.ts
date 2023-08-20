@@ -1,6 +1,7 @@
 import { defineConfig } from 'dumi';
-import Fs from 'fs';
+import * as Fs from 'fs';
 import * as Path from 'path';
+// @ts-ignore
 import pkg from './package.json';
 
 const pkgs = Fs.readdirSync(Path.resolve(__dirname, 'packages'));

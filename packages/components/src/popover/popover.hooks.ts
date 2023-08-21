@@ -20,9 +20,8 @@ import {
   tap,
   merge,
   takeWhile,
-  interval,
-  filter,
   defer,
+  retry,
 } from 'rxjs';
 
 export function useResizeObserver(
@@ -117,21 +116,9 @@ function hoverTriggerHandler(
     )
     .subscribe(() => {
       // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
-      // 采用轮询的方式获取el，一般chrome系列会快一点(1~2)，safari慢一点(1~3)
-      const balloonLeaveEvent = interval(1)
-        .pipe(
-          // 正常 1～3 次 balloonEl 就渲染出来了，不能无限循环
-          takeWhile((v) => v < 5),
-          filter(() => Boolean(balloonElRef.current)),
-          take(1),
-        )
-        .pipe(switchMap(() => fromEvent(balloonElRef.current!, 'mouseleave')));
-
-      // 轮询替代方案：固定延迟时间
-      // const balloonLeaveEvent = of(null).pipe(
-      //   delay(50), // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
-      //   switchMap(() => fromEvent(balloonElRef.current!, 'mouseleave')),
-      // );
+      const balloonLeaveEvent = defer(() =>
+        fromEvent(balloonElRef.current!, 'mouseleave'),
+      ).pipe(retry({ count: 5, delay: 2 }), take(1));
 
       merge(triggerLeaveEvent, balloonLeaveEvent)
         .pipe(

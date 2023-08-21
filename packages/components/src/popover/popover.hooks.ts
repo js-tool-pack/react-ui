@@ -113,29 +113,30 @@ function hoverTriggerHandler(
           : of(null),
       ),
       tap(open),
-    )
-    .subscribe(() => {
-      // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
-      const balloonLeaveEvent = defer(() =>
-        fromEvent(balloonElRef.current!, 'mouseleave'),
-      ).pipe(retry({ count: 5, delay: 2 }), take(1));
+      switchMap(() => {
+        // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
+        const balloonLeaveEvent = defer(() =>
+          fromEvent(balloonElRef.current!, 'mouseleave'),
+        ).pipe(retry({ count: 5, delay: 2 }), take(1));
 
-      merge(triggerLeaveEvent, balloonLeaveEvent)
-        .pipe(
-          switchMap(() =>
-            of(null).pipe(
-              delay(leaveDelay),
-              takeUntil(triggerMoveEvent),
-              takeUntil(
-                defer(() => fromEvent(balloonElRef.current!, 'mouseenter')),
+        return merge(triggerLeaveEvent, balloonLeaveEvent)
+          .pipe(
+            switchMap(() =>
+              of(null).pipe(
+                delay(leaveDelay),
+                takeUntil(triggerMoveEvent),
+                takeUntil(
+                  defer(() => fromEvent(balloonElRef.current!, 'mouseenter')),
+                ),
               ),
             ),
-          ),
-          takeUntil(triggerEnterEvent),
-          take(1),
-        )
-        .subscribe(close);
-    });
+            takeUntil(triggerEnterEvent),
+            take(1),
+          )
+          .pipe(tap(close));
+      }),
+    )
+    .subscribe();
 
   return sub.unsubscribe.bind(sub);
 }
@@ -176,22 +177,26 @@ export function useShowController(
           const clickSub = fromEvent<MouseEvent>(el, 'click')
             .pipe(
               switchMap(() => of(toggle()).pipe(takeWhile((v) => v))),
-              delay(0),
-            )
-            .subscribe(() => {
-              outerEventObserve(() => [el, balloonElRef.current], 'click')
-                .pipe(
-                  take(1),
+              switchMap(() =>
+                outerEventObserve(
+                  () => [el, balloonElRef.current],
+                  'click',
+                ).pipe(
+                  tap(close),
                   takeUntil(fromEvent(el, 'click', { capture: true })),
-                )
-                .subscribe(close);
-            });
+                  take(1),
+                ),
+              ),
+            )
+            .subscribe();
           return clickSub.unsubscribe.bind(clickSub);
         case 'focus':
-          const focusSub = fromEvent(el, 'focus').subscribe(() => {
-            open();
-            fromEvent(el, 'blur').pipe(take(1)).subscribe(close);
-          });
+          const focusSub = fromEvent(el, 'focus')
+            .pipe(
+              tap(open),
+              switchMap(() => fromEvent(el, 'blur').pipe(tap(close), take(1))),
+            )
+            .subscribe();
           return focusSub.unsubscribe.bind(focusSub);
         case 'contextmenu':
           // eslint-disable-next-line @typescript-eslint/no-empty-function

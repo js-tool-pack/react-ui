@@ -17,7 +17,7 @@ exports[`Loading basic 2`] = `
   我是内容
   <div
     class="t-loading t-loading-enter-active t-loading-enter-to"
-    style="z-index: 1000; margin-top: 0px; margin-bottom: 0px;"
+    style="z-index: 1000;"
   >
     <div
       class="t-loading__box"

@@ -1,17 +1,6 @@
 import React from 'react';
 import type { CB } from './transition.types';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
-import {
-  tap,
-  map,
-  race,
-  take,
-  merge,
-  timer,
-  filter,
-  fromEvent,
-  Subscription,
-} from 'rxjs';
 
 export function getClasses(name: string, show: boolean) {
   const el = show ? 'enter' : 'leave';
@@ -46,55 +35,34 @@ export function addTransition({
   };
 
   const handlers = {
-    start: () => {
+    start: (e: TransitionEvent) => {
+      if (e.target !== e.currentTarget) return;
+      el.removeEventListener('transitionstart', handlers.start);
       on(LIFE_CIRCLE.start);
     },
-    cancel() {
+    cancel(e: TransitionEvent) {
+      if (e.target !== e.currentTarget) return;
+      el.removeEventListener('transitioncancel', handlers.cancel);
       on(LIFE_CIRCLE.cancel);
     },
-    end() {
+    end(e: TransitionEvent) {
+      if (e.target !== e.currentTarget) return;
+      clearListener();
       on(LIFE_CIRCLE.after);
       removeClass();
     },
   };
-  let sub: Subscription;
   const addListener = () => {
-    sub?.unsubscribe();
-
-    const startEvent = fromEvent<TransitionEvent>(el, 'transitionstart');
-    const endEvent = fromEvent<TransitionEvent>(el, 'transitionend');
-    const cancelEvent = fromEvent<TransitionEvent>(el, 'transitioncancel');
-
-    enum RaceType {
-      Transition,
-      Timer,
-    }
-    const due = 150;
-    const raceObserve = race(
-      // transition
-      startEvent.pipe(
-        filterTarget(),
-        map(() => RaceType.Transition),
-      ),
-      // timer
-      timer(due).pipe(map(() => RaceType.Timer)),
-    );
-
-    sub = merge(
-      raceObserve.pipe(
-        tap((type) => handlers[type === RaceType.Timer ? 'end' : 'start']()),
-        take(1),
-      ),
-      cancelEvent.pipe(filterTarget(), tap(handlers.cancel), take(1)),
-      endEvent.pipe(filterTarget(), tap(handlers.end), take(1)),
-    ).subscribe();
-
-    function filterTarget() {
-      return filter<TransitionEvent>((value) => value.target === el);
-    }
+    // console.log('addListener');
+    el.addEventListener('transitionstart', handlers.start);
+    el.addEventListener('transitionend', handlers.end);
+    el.addEventListener('transitioncancel', handlers.cancel);
   };
   const clearListener = () => {
-    sub?.unsubscribe();
+    // console.log('clearListener');
+    el.removeEventListener('transitionstart', handlers.start);
+    el.removeEventListener('transitionend', handlers.end);
+    el.removeEventListener('transitioncancel', handlers.cancel);
   };
   const start = () => {
     if (!el) return;

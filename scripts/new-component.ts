@@ -26,6 +26,7 @@ async function run() {
     writeFile(...initDemo());
     writeFile(...initIndex());
     writeFile(...initDoc());
+    writeFile(...initTest());
     appendIndex();
     console.log(chalk.cyan('添加组件成功'));
   } catch (e) {
@@ -163,6 +164,20 @@ export * from './${config.componentName}';
   return [filename, content];
 }
 
+function initTest(): InitRes {
+  const filename = getFilename('test');
+  const content = `
+import { render, fireEvent } from '@testing-library/react';
+import { ${config.componentName} } from '..';
+import { testAttrs } from '~/testAttrs';
+
+describe('${config.componentName}', () => {
+  testAttrs(${config.componentName});
+});
+`;
+  return [filename, content];
+}
+
 function initDoc(): InitRes {
   const filename = getFilename('doc');
   const content = `
@@ -231,7 +246,15 @@ function appendPlayground() {
 }
 
 function getFilename(
-  type: 'doc' | 'scss' | 'index' | 'component' | 'types' | 'demo' | 'namespace',
+  type:
+    | 'doc'
+    | 'scss'
+    | 'index'
+    | 'component'
+    | 'types'
+    | 'demo'
+    | 'namespace'
+    | 'test',
 ) {
   const name = config.name;
   return (
@@ -243,6 +266,7 @@ function getFilename(
       index: 'index.ts',
       types: `${name}.types.ts`,
       demo: 'demo/basic.tsx',
+      test: `__tests__/${config.componentName}.test.tsx`,
     } as Record<typeof type, string>
   )[type];
 }

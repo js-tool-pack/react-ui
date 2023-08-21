@@ -46,6 +46,7 @@ Transition 会在一个元素或组件进入和离开 DOM 时应用动画，类�
 <code src="./demo/appear.tsx"></code>
 <code src="./demo/mode.tsx"></code>
 <code src="./demo/on.tsx"></code>
+<code src="./demo/adpter.tsx"></code>
 <code src="./demo/input.tsx"></code>
 <code src="./demo/show.tsx"></code>
 <code src="./demo/show-appear.tsx"></code>

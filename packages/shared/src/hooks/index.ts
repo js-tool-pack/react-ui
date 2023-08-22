@@ -9,3 +9,4 @@ export * from './useWatch';
 export * from './useVisible';
 export * from './useAppendTo';
 export * from './useScrollLock';
+export * from './useNextEffect';

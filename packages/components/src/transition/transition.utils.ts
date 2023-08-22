@@ -88,7 +88,6 @@ export function transitionCBAdapter(
       | 'onEnterReady'
       | 'onBeforeEnter'
       | 'onEnterRun'
-      | 'onEnterRunning'
       | 'onEnterStart'
       | 'onAfterEnter'
       | 'onEnterCancel'
@@ -96,7 +95,6 @@ export function transitionCBAdapter(
       | 'onLeaveReady'
       | 'onBeforeLeave'
       | 'onLeaveRun'
-      | 'onLeaveRunning'
       | 'onLeaveStart'
       | 'onAfterLeave'
       | 'onLeaveCancel'
@@ -128,7 +126,6 @@ export function transitionCBAdapter(
           [LIFE_CIRCLE.ready]: cbs.onEnterReady,
           [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
           [LIFE_CIRCLE.run]: cbs.onEnterRun,
-          [LIFE_CIRCLE.running]: cbs.onEnterRunning,
           [LIFE_CIRCLE.start]: cbs.onEnterStart,
           [LIFE_CIRCLE.after]: cbs.onAfterEnter,
           [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
@@ -140,7 +137,6 @@ export function transitionCBAdapter(
           [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
           [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
           [LIFE_CIRCLE.run]: cbs.onLeaveRun,
-          [LIFE_CIRCLE.running]: cbs.onLeaveRunning,
           [LIFE_CIRCLE.start]: cbs.onLeaveStart,
           [LIFE_CIRCLE.after]: cbs.onAfterLeave,
           [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,

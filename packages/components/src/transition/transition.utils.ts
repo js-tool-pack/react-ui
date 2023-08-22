@@ -7,9 +7,9 @@ export function getClasses(name: string, show: boolean) {
   const nameEl = `${name}-${el}`;
 
   return {
-    activeClassName: `${nameEl}-active`,
-    fromClassName: `${nameEl}-from`,
-    toClassName: `${nameEl}-to`,
+    active: `${nameEl}-active`,
+    from: `${nameEl}-from`,
+    to: `${nameEl}-to`,
   };
 }
 export function addTransition({
@@ -22,17 +22,6 @@ export function addTransition({
   classes: ReturnType<typeof getClasses>;
 }) {
   const _classes = { ...classes };
-
-  const addClass = () => {
-    el.classList.add(_classes.activeClassName, _classes.toClassName);
-  };
-  const removeClass = () => {
-    const { fromClassName, toClassName, activeClassName } = _classes;
-    el.classList.remove(fromClassName, toClassName);
-    requestAnimationFrame(() => {
-      el && el.classList.remove(activeClassName);
-    });
-  };
 
   const handlers = {
     start: (e: TransitionEvent) => {
@@ -49,7 +38,6 @@ export function addTransition({
       if (e.target !== e.currentTarget) return;
       clearListener();
       on(LIFE_CIRCLE.after);
-      removeClass();
     },
   };
   const addListener = () => {
@@ -66,21 +54,18 @@ export function addTransition({
   };
   const start = () => {
     if (!el) return;
+
     on(LIFE_CIRCLE.before);
+
+    void el.offsetHeight;
     addListener();
-    el.classList.add(_classes.fromClassName);
-    // 使用offsetHeight强制刷新ui
-    reflow(el);
-    run();
-  };
-  const run = () => {
+    el.classList.remove(_classes.from);
+    el.classList.add(_classes.active, _classes.to);
+
     on(LIFE_CIRCLE.run);
-    el.classList.remove(_classes.fromClassName);
-    addClass();
-    on(LIFE_CIRCLE.running);
   };
 
-  return { start, clearListener, removeClass };
+  return { start, clearListener };
 }
 
 export function isSameEl(prev: unknown, next: unknown): boolean {
@@ -91,11 +76,6 @@ export function isSameEl(prev: unknown, next: unknown): boolean {
     prev.key !== null &&
     prev.key === next.key
   );
-}
-
-export function reflow(el?: HTMLElement) {
-  // 使用offsetHeight强制刷新ui
-  void el?.offsetHeight;
 }
 
 /**

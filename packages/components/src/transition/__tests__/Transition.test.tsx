@@ -56,12 +56,11 @@ describe('Transition', () => {
       ).container.firstChild,
     ).toMatchSnapshot();
     expect(on).toBeCalled();
-    expect(on.mock.calls.length).toBe(4);
+    expect(on.mock.calls.length).toBe(3);
     expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.run],
-      [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.running],
     ]);
   });
 
@@ -103,19 +102,17 @@ describe('Transition', () => {
 
       fireEvent.click(container.querySelector('.t-button')!);
 
-      expect(on.mock.calls.length).toBe(9);
+      expect(on.mock.calls.length).toBe(7);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
         [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
         // hide
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.before],
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.run],
-        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.running],
         // show
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.run],
-        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.running],
       ]);
     });
     test('out-in', () => {
@@ -155,14 +152,13 @@ describe('Transition', () => {
 
       fireEvent.click(container.querySelector('.t-button')!);
 
-      expect(on.mock.calls.length).toBe(5);
+      expect(on.mock.calls.length).toBe(4);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
         [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
         // hide
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.before],
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.run],
-        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.running],
       ]);
     });
     test('in-out', () => {
@@ -202,7 +198,7 @@ describe('Transition', () => {
 
       fireEvent.click(container.querySelector('.t-button')!);
 
-      expect(on.mock.calls.length).toBe(6);
+      expect(on.mock.calls.length).toBe(5);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
         [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
         // out idle
@@ -211,7 +207,6 @@ describe('Transition', () => {
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.run],
-        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.running],
       ]);
     });
   });

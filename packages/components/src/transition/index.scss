@@ -1,0 +1,9 @@
+@use '../namespace' as Name;
+
+$r: Name.$transition;
+
+.#{$r} {
+  &--invisible {
+    display: none !important;
+  }
+}

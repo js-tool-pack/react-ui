@@ -12,7 +12,9 @@ const App: React.FC = () => {
   return (
     <div className={styles['root']}>
       <div style={{ paddingBottom: '8px', textAlign: 'center' }}>
-        <Button onClick={() => setShow((v) => !v)}>toggle</Button>
+        <Button onClick={() => setShow((v) => !v)}>
+          {show ? '收起' : '展开'}
+        </Button>
       </div>
       <CollapseTransition show={show}>
         <div style={{ background: '#910852', color: 'white' }}>

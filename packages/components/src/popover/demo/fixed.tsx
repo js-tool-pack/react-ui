@@ -3,10 +3,19 @@
  * debug: true
  */
 
-import React from 'react';
-import { Popover } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
+import { Button, Popover } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+
+  const openLoading = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3500);
+  };
+
   return (
     <>
       <div
@@ -41,7 +50,13 @@ const App: React.FC = () => {
             }}>
             <Popover
               placement="right"
-              content="test"
+              content={
+                <div>
+                  <Button onClick={openLoading} loading={loading}>
+                    123123
+                  </Button>
+                </div>
+              }
               attrs={{ style: { width: 'max-content' } }}>
               <div style={{ position: 'relative', display: 'inline-block' }}>
                 fake fixed hover

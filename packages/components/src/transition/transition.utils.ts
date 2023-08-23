@@ -2,15 +2,15 @@ import React from 'react';
 import type { CB } from './transition.types';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 import {
+  tap,
+  map,
+  race,
+  take,
+  merge,
+  timer,
   filter,
   fromEvent,
-  map,
-  merge,
-  race,
   Subscription,
-  take,
-  tap,
-  timer,
 } from 'rxjs';
 
 export function getClasses(name: string, show: boolean) {
@@ -44,7 +44,7 @@ export function addTransition({
       Transition,
       Timer,
     }
-    const due = 150;
+    const due = 300;
     const raceObserve = race(
       // transition
       startEvent.pipe(
@@ -57,7 +57,7 @@ export function addTransition({
 
     sub = merge(
       raceObserve.pipe(
-        tap((type) => (type === RaceType.Timer ? onEnd() : onStart())),
+        tap((type) => (type === RaceType.Timer ? onExpired() : onStart())),
         take(1),
       ),
       cancelEvent.pipe(filterTarget(), tap(onCancel), take(1)),
@@ -72,6 +72,9 @@ export function addTransition({
     }
     function onCancel() {
       on(LIFE_CIRCLE.cancel);
+    }
+    function onExpired() {
+      on(LIFE_CIRCLE.expired);
     }
     function onEnd() {
       on(LIFE_CIRCLE.after);
@@ -118,6 +121,7 @@ export function transitionCBAdapter(
     onEnterGo: Cb;
     onEnterStart: Cb;
     onEnterCancel: Cb;
+    onEnterExpired: Cb;
     onAfterEnter: Cb;
     // ---- leave ----
     onBeforeLeave: Cb;
@@ -125,6 +129,7 @@ export function transitionCBAdapter(
     onLeaveGo: Cb;
     onLeaveStart: Cb;
     onLeaveCancel: Cb;
+    onLeaveExpired: Cb;
     onAfterLeave: Cb;
     // ---- idle ----
     onIdle: Cb;
@@ -153,8 +158,9 @@ export function transitionCBAdapter(
           [LIFE_CIRCLE.ready]: cbs.onEnterReady,
           [LIFE_CIRCLE.go]: cbs.onEnterGo,
           [LIFE_CIRCLE.start]: cbs.onEnterStart,
-          [LIFE_CIRCLE.after]: cbs.onAfterEnter,
           [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
+          [LIFE_CIRCLE.expired]: cbs.onEnterExpired,
+          [LIFE_CIRCLE.after]: cbs.onAfterEnter,
         };
         map[lifeCircle]?.(el);
       },
@@ -164,8 +170,9 @@ export function transitionCBAdapter(
           [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
           [LIFE_CIRCLE.go]: cbs.onLeaveGo,
           [LIFE_CIRCLE.start]: cbs.onLeaveStart,
-          [LIFE_CIRCLE.after]: cbs.onAfterLeave,
           [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,
+          [LIFE_CIRCLE.expired]: cbs.onLeaveExpired,
+          [LIFE_CIRCLE.after]: cbs.onAfterLeave,
         };
         map[lifeCircle]?.(el);
       },

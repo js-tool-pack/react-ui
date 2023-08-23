@@ -30,7 +30,7 @@ export function useDispatcher(
 
   const createAfterHandler = (p = STATUS.none, n = STATUS.idle): CB => {
     return (_el, _status, lifeCircle) => {
-      if (LIFE_CIRCLE.after === lifeCircle) {
+      if ([LIFE_CIRCLE.after, LIFE_CIRCLE.expired].includes(lifeCircle)) {
         statusCacheRef.current = [p, n];
         cbRef.current = undefined;
         forceUpdate();
@@ -56,7 +56,11 @@ export function useDispatcher(
           nextStatus = show ? STATUS.show : STATUS.invisible;
           break;
       }
-    } else if (!isShowChanged && prevLifeRef.current[1] === LIFE_CIRCLE.start) {
+    } else if (
+      !isShowChanged &&
+      (prevLifeRef.current[1] === LIFE_CIRCLE.start ||
+        prevLifeRef.current[0] === LIFE_CIRCLE.expired)
+    ) {
       // 这里产出 idle 和 invisible，且没有下一步操作
       // 判断是否正常的事件，这里只有after才能进来，但是有些交叉的after的前面并不是start
       // 奇怪的问题，不过只会在频繁切换show时出现，如果是不正常的事件那就重新再启动动画

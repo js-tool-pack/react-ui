@@ -1,6 +1,6 @@
 import { testAttrs } from '~/testAttrs';
 import { Transition, TRANSITION_STATUS, TRANSITION_LIFE_CIRCLE } from '..';
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { useEffect, useReducer, useRef } from 'react';
 import { Button } from '~/button';
 
@@ -47,6 +47,7 @@ describe('Transition', () => {
   });
 
   test('on', () => {
+    jest.useFakeTimers();
     const on = jest.fn();
     expect(
       render(
@@ -55,12 +56,32 @@ describe('Transition', () => {
         </Transition>,
       ).container.firstChild,
     ).toMatchSnapshot();
+
+    act(() => jest.advanceTimersByTime(500));
+
     expect(on).toBeCalled();
-    expect(on.mock.calls.length).toBe(3);
+    expect(on.mock.calls.length).toBe(5);
     expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.go],
+      [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.expired],
+      [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
+    ]);
+
+    on.mock.calls.length = 0;
+
+    render(
+      <Transition appear={false} on={on}>
+        <div>foo bar</div>
+      </Transition>,
+    );
+
+    act(() => jest.advanceTimersByTime(500));
+
+    expect(on.mock.calls.length).toBe(1);
+    expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
+      [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
     ]);
   });
 

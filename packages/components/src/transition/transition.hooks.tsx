@@ -167,8 +167,8 @@ export function useTransition(
     // console.log(from, 'status', STATUS[status], !!transRef.current);
     if (!el) return;
 
-    innerCB?.(el, status, LIFE_CIRCLE.ready);
-    cb?.(el, status, LIFE_CIRCLE.ready);
+    innerCB?.(el, status, LIFE_CIRCLE.before);
+    cb?.(el, status, LIFE_CIRCLE.before);
 
     if (noTrans) return;
 

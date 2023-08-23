@@ -58,9 +58,9 @@ describe('Transition', () => {
     expect(on).toBeCalled();
     expect(on.mock.calls.length).toBe(3);
     expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-      [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
       [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
-      [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.run],
+      [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
+      [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.go],
     ]);
   });
 
@@ -97,22 +97,22 @@ describe('Transition', () => {
       expect(on).toBeCalled();
       expect(on.mock.calls.length).toBe(1);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
       ]);
 
       fireEvent.click(container.querySelector('.t-button')!);
 
       expect(on.mock.calls.length).toBe(7);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
         // hide
-        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.before],
-        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.run],
+        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.go],
         // show
-        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
-        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.run],
+        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.go],
       ]);
     });
     test('out-in', () => {
@@ -147,18 +147,18 @@ describe('Transition', () => {
       expect(on).toBeCalled();
       expect(on.mock.calls.length).toBe(1);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
       ]);
 
       fireEvent.click(container.querySelector('.t-button')!);
 
       expect(on.mock.calls.length).toBe(4);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
         // hide
-        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.before],
-        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.run],
+        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.hide, TRANSITION_LIFE_CIRCLE.go],
       ]);
     });
     test('in-out', () => {
@@ -193,20 +193,20 @@ describe('Transition', () => {
       expect(on).toBeCalled();
       expect(on.mock.calls.length).toBe(1);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
       ]);
 
       fireEvent.click(container.querySelector('.t-button')!);
 
       expect(on.mock.calls.length).toBe(5);
       expect(on.mock.calls.map((it) => it.slice(1))).toEqual([
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
         // out idle
-        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.idle, TRANSITION_LIFE_CIRCLE.before],
         // show
-        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
         [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.before],
-        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.run],
+        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.ready],
+        [TRANSITION_STATUS.show, TRANSITION_LIFE_CIRCLE.go],
       ]);
     });
   });

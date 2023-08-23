@@ -1,7 +1,7 @@
 export enum LIFE_CIRCLE {
-  ready,
   before,
-  run,
+  ready,
+  go,
   start,
   after,
   cancel,

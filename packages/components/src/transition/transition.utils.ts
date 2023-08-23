@@ -83,14 +83,14 @@ export function addTransition({
   const start = () => {
     if (!el) return;
 
-    on(LIFE_CIRCLE.before);
+    on(LIFE_CIRCLE.ready);
 
     void el.offsetHeight;
     addListener();
     el.classList.remove(classes.from);
     el.classList.add(classes.active, classes.to);
 
-    on(LIFE_CIRCLE.run);
+    on(LIFE_CIRCLE.go);
   };
 
   return { start, clearListener };
@@ -106,33 +106,31 @@ export function isSameEl(prev: unknown, next: unknown): boolean {
   );
 }
 
+type Cb = (el: HTMLElement) => void;
 /**
  * 回调适配器
  */
 export function transitionCBAdapter(
-  cbs: Partial<
-    Record<
-      // ---- enter ----
-      | 'onEnterReady'
-      | 'onBeforeEnter'
-      | 'onEnterRun'
-      | 'onEnterStart'
-      | 'onAfterEnter'
-      | 'onEnterCancel'
-      // ---- leave ----
-      | 'onLeaveReady'
-      | 'onBeforeLeave'
-      | 'onLeaveRun'
-      | 'onLeaveStart'
-      | 'onAfterLeave'
-      | 'onLeaveCancel'
-      // ---- idle ----
-      | 'onIdle'
-      // ---- invisible ----
-      | 'onInvisible',
-      (el: HTMLElement) => void
-    >
-  >,
+  cbs: Partial<{
+    // ---- enter ----
+    onBeforeEnter: Cb;
+    onEnterReady: Cb;
+    onEnterGo: Cb;
+    onEnterStart: Cb;
+    onEnterCancel: Cb;
+    onAfterEnter: Cb;
+    // ---- leave ----
+    onBeforeLeave: Cb;
+    onLeaveReady: Cb;
+    onLeaveGo: Cb;
+    onLeaveStart: Cb;
+    onLeaveCancel: Cb;
+    onAfterLeave: Cb;
+    // ---- idle ----
+    onIdle: Cb;
+    // ---- invisible ----
+    onInvisible: Cb;
+  }>,
   log = false,
 ): CB {
   return (el, status, lifeCircle): void => {
@@ -151,9 +149,9 @@ export function transitionCBAdapter(
     const maches: Record<STATUS, () => void> = {
       [STATUS.show]() {
         const map: LIFE_MAP = {
-          [LIFE_CIRCLE.ready]: cbs.onEnterReady,
           [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
-          [LIFE_CIRCLE.run]: cbs.onEnterRun,
+          [LIFE_CIRCLE.ready]: cbs.onEnterReady,
+          [LIFE_CIRCLE.go]: cbs.onEnterGo,
           [LIFE_CIRCLE.start]: cbs.onEnterStart,
           [LIFE_CIRCLE.after]: cbs.onAfterEnter,
           [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
@@ -162,9 +160,9 @@ export function transitionCBAdapter(
       },
       [STATUS.hide]() {
         const map: LIFE_MAP = {
-          [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
           [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
-          [LIFE_CIRCLE.run]: cbs.onLeaveRun,
+          [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
+          [LIFE_CIRCLE.go]: cbs.onLeaveGo,
           [LIFE_CIRCLE.start]: cbs.onLeaveStart,
           [LIFE_CIRCLE.after]: cbs.onAfterLeave,
           [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,

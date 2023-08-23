@@ -18,15 +18,17 @@ describe('useScrollLock', () => {
 
     expect(document.body).toHaveStyle({
       overflow: 'hidden',
-      maxWidth: 'calc(100% - 0px)',
     });
     expect(document.body.style.cssText).toBe(
-      'max-width: calc(100% - 0px); overflow: hidden;',
+      'max-width: calc(100% - 1024px); overflow: hidden;',
     );
+
+    expect(window.innerWidth).toBe(1024);
+    expect(document.documentElement.offsetWidth).toBe(0);
 
     fireEvent.click(document.querySelector('button')!);
     expect(document.body.style.cssText).toBe(
-      'max-width: calc(100% - 0px); overflow: hidden;',
+      'max-width: calc(100% - 1024px); overflow: hidden;',
     );
     act(() => jest.advanceTimersByTime(500));
     expect(document.body.style.cssText).toBe('');

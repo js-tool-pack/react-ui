@@ -8,7 +8,8 @@
     "build:this": "tsc -p tsconfig.json",
     "build": "pnpm rm:dist && pnpm build:this",
     "check:ts": "tsc --noEmit -p tsconfig.json",
-    "test": "react-scripts test"
+    "test:cli": "react-scripts test",
+    "test": "react-scripts test --watchAll=false"
   },
   "devDependencies": {},
   "jest": {

@@ -11,7 +11,7 @@
     "start": "pnpm -C internal/playground start",
     "build:rollup": "tsx scripts/build.ts -t",
     "build": "pnpm -C packages/react-ui build",
-    "test": "react-scripts test",
+    "test": "pnpm -C packages/shared test && pnpm -C packages/components test",
     "eject": "react-scripts eject",
     "check:lint": "eslint \"**/*.{ts,tsx}\"",
     "check:ts": "tsc -p tsconfig.noEmit.json --noEmit",

@@ -93,8 +93,7 @@ exports[`Transition snap 1`] = `
 
 exports[`Transition snap 2`] = `
 <div
-  class=""
-  style="display: none;"
+  class="t-transition--invisible"
 >
   foo bar
 </div>

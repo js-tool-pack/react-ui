@@ -11,7 +11,7 @@ exports[`CollapseTransition basic 1`] = `
       class="t-button t-button--type-default t--size-m t-button--icon-l"
     >
       <span>
-        toggle
+        收起
       </span>
     </button>
   </div>
@@ -51,7 +51,7 @@ exports[`CollapseTransition basic 2`] = `
       class="t-button t-button--type-default t--size-m t-button--icon-l"
     >
       <span>
-        toggle
+        展开
       </span>
       <span
         class="t-button__wave t-button__wave--active"

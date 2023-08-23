@@ -62,12 +62,12 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
       // --- show ---
       if (TRANSITION_STATUS.show === status) {
         switch (lifeCircle) {
-          case TRANSITION_LIFE_CIRCLE.before:
-            el.style.display = '';
+          case TRANSITION_LIFE_CIRCLE.ready:
+            // el.style.display = '';
             memorySize();
             closeSize();
             break;
-          case TRANSITION_LIFE_CIRCLE.running:
+          case TRANSITION_LIFE_CIRCLE.go:
             restoreSize();
             // case TRANSITION_LIFE_CIRCLE.run:
             // el.style.transition = 'none';
@@ -86,16 +86,16 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
       // --- hide ---
       if (TRANSITION_STATUS.hide === status) {
         switch (lifeCircle) {
-          case TRANSITION_LIFE_CIRCLE.before:
+          case TRANSITION_LIFE_CIRCLE.ready:
             memorySize();
             restoreSize();
             break;
-          case TRANSITION_LIFE_CIRCLE.running:
+          case TRANSITION_LIFE_CIRCLE.go:
             closeSize();
             break;
           case TRANSITION_LIFE_CIRCLE.after:
             clearSize();
-            el.style.display = 'none';
+            // el.style.display = 'none';
             break;
         }
       }

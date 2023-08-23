@@ -100,44 +100,44 @@ function hoverTriggerHandler(
   close: () => void,
   enterDelay: number,
   leaveDelay: number,
+  show: boolean,
 ) {
   const triggerEnterEvent = fromEvent(triggerEl, 'mouseenter');
   const triggerMoveEvent = fromEvent(triggerEl, 'mousemove');
   const triggerLeaveEvent = fromEvent(triggerEl, 'mouseleave');
 
-  const sub = triggerEnterEvent
+  // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
+  const balloonLeaveEvent = defer(() =>
+    fromEvent(balloonElRef.current!, 'mouseleave'),
+  ).pipe(retry({ count: 5, delay: 2 }));
+
+  const leaveEvent = merge(triggerLeaveEvent, balloonLeaveEvent)
     .pipe(
       switchMap(() =>
-        enterDelay
-          ? of(null).pipe(delay(enterDelay), takeUntil(triggerLeaveEvent))
-          : of(null),
+        of(null).pipe(
+          delay(leaveDelay),
+          takeUntil(triggerMoveEvent),
+          takeUntil(
+            defer(() => fromEvent(balloonElRef.current!, 'mouseenter')),
+          ),
+        ),
       ),
-      tap(open),
-      switchMap(() => {
-        // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
-        const balloonLeaveEvent = defer(() =>
-          fromEvent(balloonElRef.current!, 'mouseleave'),
-        ).pipe(retry({ count: 5, delay: 2 }), take(1));
-
-        return merge(triggerLeaveEvent, balloonLeaveEvent)
-          .pipe(
-            switchMap(() =>
-              of(null).pipe(
-                delay(leaveDelay),
-                takeUntil(triggerMoveEvent),
-                takeUntil(
-                  defer(() => fromEvent(balloonElRef.current!, 'mouseenter')),
-                ),
-              ),
-            ),
-            takeUntil(triggerEnterEvent),
-            take(1),
-          )
-          .pipe(tap(close));
-      }),
+      takeUntil(triggerEnterEvent),
+      take(1),
     )
-    .subscribe();
+    .pipe(tap(close));
 
+  const enterEvent = triggerEnterEvent.pipe(
+    switchMap(() =>
+      enterDelay
+        ? of(null).pipe(delay(enterDelay), takeUntil(triggerLeaveEvent))
+        : of(null),
+    ),
+    tap(open),
+    switchMap(() => leaveEvent),
+  );
+
+  const sub = (show ? merge(leaveEvent, enterEvent) : enterEvent).subscribe();
   return sub.unsubscribe.bind(sub);
 }
 
@@ -172,31 +172,32 @@ export function useShowController(
             close,
             enterDelay,
             leaveDelay,
+            show,
           );
         case 'click':
-          const clickSub = fromEvent<MouseEvent>(el, 'click')
-            .pipe(
-              switchMap(() => of(toggle()).pipe(takeWhile((v) => v))),
-              switchMap(() =>
-                outerEventObserve(
-                  () => [el, balloonElRef.current],
-                  'click',
-                ).pipe(
-                  tap(close),
-                  takeUntil(fromEvent(el, 'click', { capture: true })),
-                  take(1),
-                ),
-              ),
-            )
-            .subscribe();
+          const outerEvent = outerEventObserve(
+            () => [el, balloonElRef.current],
+            'click',
+          ).pipe(
+            tap(close),
+            takeUntil(fromEvent(el, 'click', { capture: true })),
+            take(1),
+          );
+          const queueEvent = fromEvent<MouseEvent>(el, 'click').pipe(
+            switchMap(() => of(toggle()).pipe(takeWhile((v) => v))),
+            switchMap(() => outerEvent),
+          );
+          // 当弹窗已经打开时(例如Button loading时会刷新该effect)，添加点击和外部点击订阅
+          // 不然只有点击触发器才能外部点击订阅，否则如果很多popover的话会有一堆外部点击订阅
+          const clickSub = (
+            show ? merge(outerEvent, queueEvent) : queueEvent
+          ).subscribe();
           return clickSub.unsubscribe.bind(clickSub);
         case 'focus':
-          const focusSub = fromEvent(el, 'focus')
-            .pipe(
-              tap(open),
-              switchMap(() => fromEvent(el, 'blur').pipe(tap(close), take(1))),
-            )
-            .subscribe();
+          const focusSub = merge(
+            fromEvent(el, 'focus').pipe(tap(open)),
+            fromEvent(el, 'blur').pipe(tap(close)),
+          ).subscribe();
           return focusSub.unsubscribe.bind(focusSub);
         case 'contextmenu':
           // eslint-disable-next-line @typescript-eslint/no-empty-function

@@ -3,10 +3,19 @@
  * debug: true
  */
 
-import React from 'react';
-import { Popover } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
+import { Button, Divider, Popover } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+
+  const openLoading = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 3500);
+  };
+
   return (
     <>
       <div
@@ -40,12 +49,51 @@ const App: React.FC = () => {
               zIndex: 10,
             }}>
             <Popover
+              placement="left"
+              trigger="click"
+              content={
+                <div>
+                  <Button onClick={openLoading} loading={loading}>
+                    123123
+                  </Button>
+                </div>
+              }
+              attrs={{ style: { width: 'max-content' } }}>
+              <div style={{ position: 'relative', display: 'inline-block' }}>
+                fake fixed click
+              </div>
+            </Popover>
+            <Divider vertical />
+            <Popover
               placement="right"
-              content="test"
+              trigger="hover"
+              content={
+                <div>
+                  <Button onClick={openLoading} loading={loading}>
+                    123123
+                  </Button>
+                </div>
+              }
               attrs={{ style: { width: 'max-content' } }}>
               <div style={{ position: 'relative', display: 'inline-block' }}>
                 fake fixed hover
               </div>
+            </Popover>
+            <Divider vertical />
+            <Popover
+              placement="bottom"
+              trigger="focus"
+              content={
+                <div>
+                  <Button onClick={openLoading} loading={loading}>
+                    123123
+                  </Button>
+                </div>
+              }
+              attrs={{ style: { width: 'max-content' } }}>
+              <button style={{ position: 'relative', display: 'inline-block' }}>
+                fake fixed focus
+              </button>
             </Popover>
           </div>
         </div>

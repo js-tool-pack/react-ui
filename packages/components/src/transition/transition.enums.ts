@@ -1,11 +1,11 @@
 export enum LIFE_CIRCLE {
-  ready,
   before,
-  run,
-  running,
+  ready,
+  go,
   start,
-  after,
   cancel,
+  expired,
+  after,
 }
 
 export enum STATUS {

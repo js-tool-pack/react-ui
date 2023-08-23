@@ -3,7 +3,15 @@ import { addTransition, getClasses, isSameEl } from './transition.utils';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
 import type { CB, El, Mode, TransitionProps } from './transition.types';
 import { getClassNames, nextTick } from '@tool-pack/basic';
-import { useForceUpdate, useForwardRef, useIsInitDep } from '@pkg/shared';
+import {
+  getComponentClass,
+  useForceUpdate,
+  useForwardRef,
+  useIsChanged,
+  useIsInitDep,
+} from '@pkg/shared';
+
+const rootClass = getComponentClass('transition');
 
 export function useDispatcher(
   mode: Mode,
@@ -14,30 +22,21 @@ export function useDispatcher(
   const forceUpdate = useForceUpdate();
   const isInitDep = useIsInitDep(children);
   const isInitShow = useIsInitDep(show);
+  const [isShowChanged] = useIsChanged(show);
   const [prev, next] = useChildren(children);
-  const showCacheRef = useRef<boolean | void>();
   const statusCacheRef = useRef<[STATUS, STATUS]>();
   const cbRef = useRef<CB>();
-
-  const setVisible = (el: HTMLElement) => {
-    const originVis = el.style.visibility;
-    el.style.visibility = 'hidden';
-    setTimeout(() => (el.style.visibility = originVis));
-  };
+  const prevLifeRef = useRef<LIFE_CIRCLE[]>([]);
 
   const createAfterHandler = (p = STATUS.none, n = STATUS.idle): CB => {
-    return (el, status, lifeCircle) => {
-      if (show && status === STATUS.show && LIFE_CIRCLE.ready === lifeCircle) {
-        el.style.display = '';
-      }
-      if (status === STATUS.hide && LIFE_CIRCLE.after === lifeCircle) {
-        setVisible(el);
-      }
-      if (LIFE_CIRCLE.after === lifeCircle) {
+    return (_el, _status, lifeCircle) => {
+      if ([LIFE_CIRCLE.after, LIFE_CIRCLE.expired].includes(lifeCircle)) {
         statusCacheRef.current = [p, n];
         cbRef.current = undefined;
         forceUpdate();
       }
+      prevLifeRef.current.unshift(lifeCircle);
+      prevLifeRef.current.length = 2;
     };
   };
 
@@ -57,8 +56,20 @@ export function useDispatcher(
           nextStatus = show ? STATUS.show : STATUS.invisible;
           break;
       }
-    } else if (show === showCacheRef.current) {
-      nextStatus = show ? STATUS.idle : STATUS.invisible;
+    } else if (
+      !isShowChanged &&
+      (prevLifeRef.current[1] === LIFE_CIRCLE.start ||
+        prevLifeRef.current[0] === LIFE_CIRCLE.expired)
+    ) {
+      // 这里产出 idle 和 invisible，且没有下一步操作
+      // 判断是否正常的事件，这里只有after才能进来，但是有些交叉的after的前面并不是start
+      // 奇怪的问题，不过只会在频繁切换show时出现，如果是不正常的事件那就重新再启动动画
+      // prevLifeRef.current[1] === LIFE_CIRCLE.start
+      if (statusCacheRef.current) {
+        nextStatus = statusCacheRef.current[1];
+      } else {
+        nextStatus = show ? STATUS.idle : STATUS.invisible;
+      }
     }
     if (nextStatus !== undefined) return [STATUS.none, nextStatus];
 
@@ -98,14 +109,7 @@ export function useDispatcher(
       childs = [undefined, next];
       return [STATUS.none, STATUS.idle];
     }
-    if (c) {
-      const cc = [...c] as [STATUS, STATUS];
-      // 直接设置为undefined会刷新dom失败，hide后也会显示dom
-      // 需要异步才行
-      // cache.current = undefined;
-      nextTick(() => (statusCacheRef.current = undefined));
-      return cc;
-    }
+    if (c) return c;
     if (isInitDep && !appear) {
       return [STATUS.idle, STATUS.idle];
     }
@@ -117,9 +121,11 @@ export function useDispatcher(
   };
 
   const status = getStatus();
-  useEffect(() => {
-    showCacheRef.current = show;
-  });
+
+  // ⚠️: 直接设置为undefined会刷新dom失败，hide后也会显示dom
+  // 需要异步才行
+  // statusCacheRef.current = undefined;
+  nextTick(() => (statusCacheRef.current = undefined));
   return [...childs, ...status, cbRef.current] as const;
 }
 
@@ -165,8 +171,8 @@ export function useTransition(
     // console.log(from, 'status', STATUS[status], !!transRef.current);
     if (!el) return;
 
-    innerCB?.(el, status, LIFE_CIRCLE.ready);
-    cb?.(el, status, LIFE_CIRCLE.ready);
+    innerCB?.(el, status, LIFE_CIRCLE.before);
+    cb?.(el, status, LIFE_CIRCLE.before);
 
     if (noTrans) return;
 
@@ -181,8 +187,6 @@ export function useTransition(
     trans.start();
     return () => {
       trans.clearListener();
-      // 如果把active的class也清理掉就跟vue的差不多了，不过那种动画会从头开始
-      // trans.removeClass();
     };
   }, [children, status, classes, cb]);
 
@@ -193,8 +197,6 @@ export function useTransition(
     ...children.props.attrs?.style,
     ...children.props.style,
     ...attrs.style,
-    display:
-      STATUS.invisible === status ? 'none' : children.props.style?.display,
   };
 
   const className = getClassNames(
@@ -202,7 +204,8 @@ export function useTransition(
     children.props.attrs?.className,
     attrs.className,
     {
-      [classes?.fromClassName]: classes && status === STATUS.show,
+      [classes?.from]: classes && status === STATUS.show,
+      [`${rootClass}--invisible`]: STATUS.invisible === status,
     },
   );
 

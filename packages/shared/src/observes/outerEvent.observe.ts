@@ -1,4 +1,4 @@
-import { fromEvent, type Observable, of, switchMap, takeWhile } from 'rxjs';
+import { filter, fromEvent, type Observable } from 'rxjs';
 import { isChildHTMLElement } from '@tool-pack/dom';
 import { castArray } from '@tool-pack/basic';
 
@@ -40,16 +40,12 @@ export function outerEventObserve(
     typeof inners === 'function' ? inners : () => inners;
 
   return fromEvent<MouseEvent>(window, eventName).pipe(
-    switchMap((e) =>
-      of(e).pipe(
-        takeWhile((e) => {
-          const target = e.target as HTMLElement | null;
-          if (!target) return false;
-          return castArray(getEls()).every(
-            (el) => !el || (target !== el && !isChildHTMLElement(target, el)),
-          );
-        }),
-      ),
-    ),
+    filter((e) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return false;
+      return castArray(getEls()).every(
+        (el) => !el || (target !== el && !isChildHTMLElement(target, el)),
+      );
+    }),
   );
 }

@@ -188,6 +188,7 @@ $g: Name.$button-group;
     border-radius: inherit;
     animation-duration: 0.5s;
     animation-iteration-count: 1;
+    pointer-events: none;
   }
 
   .#{$r}__wave--active {

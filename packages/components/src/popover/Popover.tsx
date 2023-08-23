@@ -107,7 +107,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
       refreshPosition();
     };
     const cb = transitionCBAdapter({
-      onEnterReady: refreshRef,
+      onBeforeEnter: refreshRef,
       onIdle: refreshRef,
       onAfterLeave: resetPlacement,
     });

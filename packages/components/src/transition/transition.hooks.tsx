@@ -73,6 +73,9 @@ export function useDispatcher(
     }
     if (nextStatus !== undefined) return [STATUS.none, nextStatus];
 
+    // 防止在严格模式下第二次渲染时直接变为下一个状态
+    prevLifeRef.current = [];
+
     cbRef.current = createAfterHandler(
       STATUS.none,
       show ? STATUS.idle : STATUS.invisible,

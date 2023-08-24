@@ -7,7 +7,7 @@ import React from 'react';
 import { Alert, AlertProps } from '@tool-pack/react-ui';
 
 const Types: Required<AlertProps>['type'][] = [
-  'default',
+  'primary',
   'info',
   'success',
   'warning',

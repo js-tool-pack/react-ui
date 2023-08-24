@@ -2,7 +2,7 @@
 
 exports[`Alert basic 1`] = `
 <div
-  class="t-alert"
+  class="t-alert t-alert--bordered"
 >
   <i
     class="t-icon t-alert__icon"
@@ -36,7 +36,7 @@ exports[`Alert basic 1`] = `
 
 exports[`Alert closable 1`] = `
 <div
-  class="t-collapse-transition t-alert t-collapse-transition--h"
+  class="t-collapse-transition t-alert t-alert--bordered t-collapse-transition--h"
 >
   <i
     class="t-icon t-alert__icon"
@@ -89,7 +89,7 @@ exports[`Alert closable 1`] = `
 
 exports[`Alert icon 1`] = `
 <div
-  class="t-alert"
+  class="t-alert t-alert--bordered"
 >
   <i
     class="t-icon t-alert__icon"
@@ -123,7 +123,7 @@ exports[`Alert icon 1`] = `
 
 exports[`Alert icon 2`] = `
 <div
-  class="t-alert"
+  class="t-alert t-alert--bordered"
 >
   <div
     class="t-alert__content"
@@ -144,7 +144,7 @@ exports[`Alert icon 2`] = `
 
 exports[`Alert partial 1`] = `
 <div
-  class="t-alert t-alert--centered"
+  class="t-alert t-alert--bordered t-alert--centered"
 >
   <i
     class="t-icon t-alert__icon"
@@ -173,7 +173,7 @@ exports[`Alert partial 1`] = `
 
 exports[`Alert partial 2`] = `
 <div
-  class="t-alert"
+  class="t-alert t-alert--bordered"
 >
   <i
     class="t-icon t-alert__icon"

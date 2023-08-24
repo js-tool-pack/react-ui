@@ -12,14 +12,21 @@ const App: React.FC = () => {
       <Alert title="完全状态" bordered closable>
         完全状态包含：边框、图标、标题、描述、关闭按钮
       </Alert>
-      <Alert icon={null} title="移除部分">
+      <Alert icon={null} bordered={false} title="移除部分">
         移除边框、图标、关闭按钮
       </Alert>
-      <Alert title="移除描述" closable />
-      <Alert title="只留下标题和关闭按钮" icon={null} closable />
+      <Alert title="移除描述" bordered={false} closable />
+      <Alert
+        title="只留下标题和关闭按钮"
+        bordered={false}
+        icon={null}
+        closable
+      />
 
-      <Alert closable>移除title</Alert>
-      <Alert icon={null} />
+      <Alert closable bordered={false}>
+        移除title
+      </Alert>
+      <Alert icon={null} bordered={false} />
     </Space>
   );
 };

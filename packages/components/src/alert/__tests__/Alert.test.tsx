@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 import { Alert } from '..';
 import { Left } from '@pkg/icons';
 import { testAttrs } from '~/testAttrs';
@@ -15,6 +15,13 @@ describe('Alert', () => {
   test('bordered', () => {
     expect(
       render(<Alert title="Tips">foo bar</Alert>).container.firstChild,
+    ).toHaveClass('t-alert--bordered');
+    expect(
+      render(
+        <Alert title="Tips" bordered={false}>
+          foo bar
+        </Alert>,
+      ).container.firstChild,
     ).not.toHaveClass('t-alert--bordered');
     expect(
       render(
@@ -52,15 +59,38 @@ describe('Alert', () => {
     ).toMatchSnapshot();
   });
 
-  test('onClose', () => {
-    const onClose = jest.fn();
-    const { container } = render(
-      <Alert title="Tips" closable onClose={onClose}>
-        foo bar
-      </Alert>,
-    );
-    fireEvent.click(container.querySelector('.t-alert__close-btn')!);
-    expect(onClose).toBeCalled();
+  describe('onClose', () => {
+    test('basic', () => {
+      jest.useFakeTimers();
+      const onClose = jest.fn();
+      const { container } = render(
+        <Alert title="Tips" closable onClose={onClose}>
+          foo bar
+        </Alert>,
+      );
+      expect(onClose).not.toBeCalled();
+      fireEvent.click(container.querySelector('.t-alert__close-btn')!);
+      expect(onClose).toBeCalled();
+      expect(container.firstChild).not.toBeNull();
+      act(() => jest.advanceTimersByTime(300));
+      expect(container.firstChild).toBeNull();
+    });
+
+    test('preventDefault', () => {
+      jest.useFakeTimers();
+      const onClose = jest.fn((e) => e.preventDefault());
+      const { container } = render(
+        <Alert title="Tips" closable onClose={onClose}>
+          foo bar
+        </Alert>,
+      );
+      expect(onClose).not.toBeCalled();
+      fireEvent.click(container.querySelector('.t-alert__close-btn')!);
+      expect(onClose).toBeCalled();
+      expect(container.firstChild).not.toBeNull();
+      act(() => jest.advanceTimersByTime(300));
+      expect(container.firstChild).not.toBeNull();
+    });
   });
 
   test('partial', () => {

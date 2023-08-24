@@ -26,10 +26,10 @@ Alert 的属性说明如下：
 
 | 属性     | 说明                                  | 类型                                                     | 默认值    | 版本 |
 | -------- | ------------------------------------- | -------------------------------------------------------- | --------- | ---- |
-| type     | 提示类型                              | 'default' \| 'success' \| 'info' \| 'warning' \| 'error' | 'default' | --   |
-| bordered | 是否显示边框                          | boolean                                                  | false     | --   |
+| type     | 提示类型                              | 'primary' \| 'success' \| 'info' \| 'warning' \| 'error' | 'primary' | --   |
+| bordered | 是否显示边框                          | boolean                                                  | true      | --   |
 | closable | 是否显示关闭按钮                      | boolean                                                  | false     | --   |
 | icon     | 提示图标，为 null 时不显示图标        | React.ReactNode                                          | 预设图标  | --   |
 | title    | 提示标题，为空时不显示标题            | React.ReactNode                                          | --        | --   |
-| onClose  | 提示关闭时的回调                      | () => void                                               | --        | --   |
+| onClose  | 提示关闭时的回调                      | (e: React.MouseEvent\<HTMLButtonElement\>)               | --        | --   |
 | attrs    | html 标签属性，如 className、style 等 | React.HTMLAttributes\<HTMLElement>                       | --        | --   |

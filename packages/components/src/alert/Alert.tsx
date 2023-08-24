@@ -21,13 +21,13 @@ const cls = getClasses(
   ['bordered', 'centered'],
 );
 const defaultProps = {
-  type: 'default',
-  bordered: false,
+  type: 'primary',
+  bordered: true,
   closable: false,
 } satisfies Partial<AlertProps>;
 
 const Icons: Record<Required<AlertProps>['type'], React.FC> = {
-  default: CircleInfo,
+  primary: CircleInfo,
   info: CircleInfoFill,
   warning: CircleWarningFill,
   error: CircleCloseFill,
@@ -42,14 +42,7 @@ export const Alert: React.FC<AlertProps> = React.forwardRef<
     props as RequiredPart<AlertProps, keyof typeof defaultProps>;
 
   const [visible, setVisible] = useState(true);
-
   const DefaultIcon = Icons[type];
-
-  const close = () => {
-    if (!closable) return;
-    setVisible(false);
-    onClose?.();
-  };
 
   const Body = (
     <div
@@ -58,7 +51,7 @@ export const Alert: React.FC<AlertProps> = React.forwardRef<
       className={getClassNames(cls.root, attrs?.className, {
         [cls['--'].bordered]: bordered,
         [cls['--'].centered]: title && !children,
-        [`${cls.root}--${type}`]: type !== 'default',
+        [`${cls.root}--${type}`]: type !== 'primary',
       })}>
       {icon !== null && (
         <Icon className={cls.__.icon}>{icon || <DefaultIcon />}</Icon>
@@ -83,6 +76,13 @@ export const Alert: React.FC<AlertProps> = React.forwardRef<
 
   if (!closable) return Body;
   return <CollapseTransition>{visible && Body}</CollapseTransition>;
+
+  function close(e: React.MouseEvent<HTMLButtonElement>) {
+    if (!closable) return;
+    onClose?.(e);
+    if (e.isDefaultPrevented()) return;
+    setVisible(false);
+  }
 });
 
 Alert.defaultProps = defaultProps;

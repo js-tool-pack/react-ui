@@ -1,0 +1,104 @@
+@use '../namespace' as Name;
+@use '../scss.variable' as Var;
+
+$r: Name.$tag;
+
+// 'default' | 'primary' | 'info' | 'success' | 'warning' | 'error'
+
+@mixin color($type) {
+  --t-tag-color: var(--t-color-#{$type});
+  --t-tag-hover-color: var(--t-color-#{$type}-a-3);
+  --t-tag-bg-color: var(--t-color-#{$type}-a-7);
+  --t-tag-border-color: var(--t-color-#{$type}-a-6);
+}
+
+@mixin status-color($status, $type) {
+  &--#{$status} {
+    @include color($type);
+  }
+}
+
+// size
+.#{Var.$class-size-sm} {
+  --t-tag-size: 22px;
+  --t-tag-font-size: 12px;
+}
+.#{Var.$class-size-m} {
+  --t-tag-size: 28px;
+  --t-tag-font-size: 14px;
+}
+.#{Var.$class-size-lg} {
+  --t-tag-size: 34px;
+  --t-tag-font-size: 14px;
+}
+
+.#{$r} {
+  @include color('primary');
+
+  --t-tag-radius: var(--t-radius);
+
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--t-tag-radius);
+  height: var(--t-tag-size);
+  font-size: var(--t-tag-font-size);
+  border-radius: var(--t-tag-radius);
+  color: var(--t-tag-color);
+  line-height: 1;
+  background-color: var(--t-tag-bg-color);
+  transition-property: color, background-color, opacity;
+  transition-duration: var(--t-transition-duration);
+  box-sizing: border-box;
+
+  // children
+  &__close {
+    --t-size: calc(var(--t-tag-size) - 2px);
+
+    margin-right: calc(var(--t-btn-padding) * -1);
+    font-size: 0.9em;
+  }
+  &__icon {
+    margin-right: 4px;
+  }
+
+  // status
+  &--round {
+    border-radius: var(--t-tag-size);
+  }
+  &--bordered:not(&--checkable) {
+    border: 1px solid var(--t-tag-border-color);
+  }
+  &--checkable {
+    cursor: pointer;
+    &:not(.#{$r}--checked) {
+      background-color: transparent;
+      &,
+      .#{$r}__close {
+        color: var(--t-text-color);
+      }
+      &:hover {
+        background-color: var(--t-color-info-a-6);
+      }
+    }
+  }
+  &--checked {
+    background-color: var(--t-tag-color);
+    &,
+    .#{$r}__close {
+      color: white;
+    }
+    &:hover {
+      --t-tag-color: var(--t-tag-hover-color);
+    }
+  }
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  $types: 'info' 'info', 'success' 'success', 'warning' 'warning',
+    'error' 'danger';
+  @each $status, $type in $types {
+    @include status-color($status, $type);
+  }
+}

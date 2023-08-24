@@ -161,10 +161,7 @@ export function useTransition(
       status,
     ) || !children;
 
-  const classes = useMemo(
-    () => (noTrans ? undefined : getClasses(name, status === STATUS.show)),
-    [noTrans, name, status],
-  )!;
+  const classes = getClasses(name, status === STATUS.show);
 
   if (!children) elRef.current = null;
 
@@ -174,8 +171,8 @@ export function useTransition(
     // console.log(from, 'status', STATUS[status], !!transRef.current);
     if (!el) return;
 
-    innerCB?.(el, status, LIFE_CIRCLE.before);
-    cb?.(el, status, LIFE_CIRCLE.before);
+    const cbs = [innerCB, cb].filter(Boolean) as CB[];
+    cbs.forEach((cb) => cb(el, status, LIFE_CIRCLE.before));
 
     if (noTrans) return;
 
@@ -183,8 +180,7 @@ export function useTransition(
       el,
       classes,
       on: (lifeCircle) => {
-        innerCB?.(el, status, lifeCircle);
-        cb?.(el, status, lifeCircle);
+        cbs.forEach((cb) => cb(el, status, lifeCircle));
       },
     });
     trans.start();

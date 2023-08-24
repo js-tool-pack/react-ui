@@ -90,7 +90,7 @@ export const ${componentName}: React.FC<${props}> = React.forwardRef<
   HTMLDivElement,
   ${props}
 >((props, ref) => {
-  const { attrs, children } = props as RequiredPart<
+  const { attrs = {}, children } = props as RequiredPart<
     ${props},
     keyof typeof defaultProps
   >;
@@ -98,7 +98,7 @@ export const ${componentName}: React.FC<${props}> = React.forwardRef<
     <div
       {...attrs}
       ref={ref}
-      className={getClassNames(cls.root, attrs?.className)}>
+      className={getClassNames(cls.root, attrs.className)}>
       {children}
     </div>
   );
@@ -202,9 +202,10 @@ ${config.componentName} ${config.alias}。
 
 ${config.componentName} 的属性说明如下：
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| ---- | ---- | ---- | ------ | ---- |
-|  --  |  --  |  --  |   --   |  --  |
+| 属性  | 说明          | 类型                                            | 默认值 | 版本 |
+| ----- | ------------- | ----------------------------------------------- | ------ | ---- |
+| --    | --            | --                                              | --     | --   |
+| attrs | html 标签属性 | Partial\\<React.HTMLAttributes\\<HTMLDivElement>> | --     | --   |
 
 其他说明。
 

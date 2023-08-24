@@ -50,12 +50,12 @@
     --t-bg-color: #424242;
     --t-disabled-text-color: rgb(255 255 255 / 38%);
   }
-  .#{Var.$class-size-sm} {
-    --t-radius: 4px;
-    --t-size: 22px;
-  }
-  .#{Var.$class-size-lg} {
-    --t-radius: 12px;
-    --t-size: 46px;
-  }
+}
+.#{Var.$class-size-sm} {
+  --t-radius: 4px;
+  --t-size: 22px;
+}
+.#{Var.$class-size-lg} {
+  --t-radius: 12px;
+  --t-size: 46px;
 }

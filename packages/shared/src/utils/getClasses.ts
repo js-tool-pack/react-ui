@@ -25,8 +25,11 @@ function handleClasses(
   divider: '__' | '--',
   list: readonly string[],
 ): Record<string, string> {
-  return list.reduce((result, status) => {
-    result[status] = `${root}${divider}${status}`;
-    return result;
-  }, {} as Record<string, string>);
+  return list.reduce(
+    (result, status) => {
+      result[status] = `${root}${divider}${status}`;
+      return result;
+    },
+    {} as Record<string, string>,
+  );
 }

@@ -1,5 +1,5 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, UserConfig } from 'vite';
 import Path, { resolve } from 'path';
 import Fs from 'fs';
 import pkg from './package.json';
@@ -30,26 +30,32 @@ const entryPath = resolve(__dirname, './src/index.ts');
  * Vite configuration
  * https://vitejs.dev/config/
  */
-export default defineConfig(() => {
+export default defineConfig((): UserConfig => {
   return {
     cacheDir: `./.cache`,
     resolve: {
       alias: {
         // '@pkg/*': Path.resolve(__dirname, '../../packages/*/src'),
-        ...pkgs.reduce((prev, cur) => {
-          prev['@pkg/' + cur] = Path.resolve(
-            __dirname,
-            `../../packages/${cur}/src`,
-          );
-          return prev;
-        }, {} as Record<string, string>),
-        ...components.reduce((prev, cur) => {
-          prev['~/' + cur] = Path.resolve(
-            __dirname,
-            `../../packages/components/src/${cur}`,
-          );
-          return prev;
-        }, {} as Record<string, string>),
+        ...pkgs.reduce(
+          (prev, cur) => {
+            prev['@pkg/' + cur] = Path.resolve(
+              __dirname,
+              `../../packages/${cur}/src`,
+            );
+            return prev;
+          },
+          {} as Record<string, string>,
+        ),
+        ...components.reduce(
+          (prev, cur) => {
+            prev['~/' + cur] = Path.resolve(
+              __dirname,
+              `../../packages/components/src/${cur}`,
+            );
+            return prev;
+          },
+          {} as Record<string, string>,
+        ),
       },
     },
     plugins: [

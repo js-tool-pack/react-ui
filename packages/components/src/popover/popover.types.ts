@@ -12,6 +12,7 @@ export interface PopoverProps
   appendTo?: null | (() => HTMLElement | null);
   trigger?: PopoverTrigger[] | PopoverTrigger;
   visible?: boolean;
+  widthByTrigger?: boolean;
   disabled?: boolean;
   offset?: number;
   destroyOnHide?: boolean;

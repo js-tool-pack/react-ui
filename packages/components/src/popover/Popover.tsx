@@ -58,6 +58,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     delay,
     leaveDelay,
     onVisibleChange,
+    widthByTrigger,
     attrs = {},
   } = props as PopoverRequiredPartProps;
   const rootName = getComponentClass(name);
@@ -74,6 +75,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     childrenRef,
     balloonRef,
     {
+      widthByTrigger,
       placement,
       viewport,
       appendTo,

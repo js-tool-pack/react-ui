@@ -47,16 +47,17 @@ function replaceBalloonClass(balloon: HTMLElement, placement: Placement_12) {
 }
 
 export function usePosition(
-  refEl: React.RefObject<HTMLElement>,
-  relEl: React.MutableRefObject<HTMLElement | undefined>,
+  triggerElRef: React.RefObject<HTMLElement>,
+  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   {
     offset,
     placement,
     viewport: getViewportEl,
     appendTo,
+    widthByTrigger,
   }: Pick<
     PopoverRequiredPartProps,
-    'offset' | 'placement' | 'viewport' | 'appendTo'
+    'offset' | 'placement' | 'viewport' | 'appendTo' | 'widthByTrigger'
   >,
 ) {
   const _placement = useRef(placement);
@@ -64,25 +65,46 @@ export function usePosition(
 
   const refreshPosition = useMemo(() => {
     const refreshPosition = (): void => {
-      const ref = refEl.current;
-      const balloon = relEl.current;
-      if (!ref || !balloon || balloon.style.display === 'none') return;
+      const triggerEl = triggerElRef.current;
+      const balloonEl = balloonElRef.current;
+      if (!triggerEl || !balloonEl || balloonEl.style.display === 'none')
+        return;
 
-      const viewportEl = appendTo?.() || getViewportEl?.() || ref;
+      const viewportEl = appendTo?.() || getViewportEl?.() || triggerEl;
       const containerEl =
-        appendTo?.() || (ref.offsetParent as HTMLElement) || ref;
+        appendTo?.() || (triggerEl.offsetParent as HTMLElement) || triggerEl;
+
+      // 窗体宽度跟触发元素一致
+      if (widthByTrigger) {
+        balloonEl.style.width = triggerEl.offsetWidth + 'px';
+        void balloonEl.offsetWidth;
+      }
 
       const lastPlace = _placement.current;
-      const place = calcPlacement(ref, balloon, lastPlace, viewportEl, offset);
+      const place = calcPlacement(
+        triggerEl,
+        balloonEl,
+        lastPlace,
+        viewportEl,
+        offset,
+      );
 
       const distance: [number, number] =
-        appendTo === null ? [0, 0] : calcDistanceWithParent(ref, containerEl);
-      const { x, y } = calcPosition(ref, balloon, place, offset, distance);
-      balloon.style.top = y + 'px';
-      balloon.style.left = x + 'px';
+        appendTo === null
+          ? [0, 0]
+          : calcDistanceWithParent(triggerEl, containerEl);
+      const { x, y } = calcPosition(
+        triggerEl,
+        balloonEl,
+        place,
+        offset,
+        distance,
+      );
+      balloonEl.style.top = y + 'px';
+      balloonEl.style.left = x + 'px';
 
       if (placement !== place || lastPlace !== place)
-        replaceBalloonClass(balloon, place);
+        replaceBalloonClass(balloonEl, place);
 
       _placement.current = place;
     };
@@ -90,7 +112,7 @@ export function usePosition(
       leading: true,
       trailing: true,
     });
-  }, [offset, placement, refEl, relEl]);
+  }, [offset, placement, triggerElRef, balloonElRef, widthByTrigger]);
 
   return [
     refreshPosition,

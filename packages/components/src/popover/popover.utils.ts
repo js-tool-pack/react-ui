@@ -5,8 +5,8 @@ import { calcDistanceWithParent } from '@tool-pack/dom';
  * 计算上下左右4个方位是否可以放得下窗体
  */
 export function calcPlacement(
-  refEl: HTMLElement,
-  relEl: HTMLElement,
+  triggerEl: HTMLElement,
+  balloonEl: HTMLElement,
   placement: Placement_12 = 'top',
   containerEl = globalThis.document?.body,
   offset = 10,
@@ -30,9 +30,9 @@ export function calcPlacement(
     return { width: containerEl.clientWidth, height: containerEl.clientHeight };
   };
 
-  const sizes = { ref: getSize(refEl), rel: getSize(relEl) };
+  const sizes = { ref: getSize(triggerEl), rel: getSize(balloonEl) };
   const viewportSize = getViewportSize();
-  const [distanceT, distanceL] = calcDistanceWithParent(refEl, containerEl);
+  const [distanceT, distanceL] = calcDistanceWithParent(triggerEl, containerEl);
   const [scrollTop, scrollLeft] = getScrollPoint();
 
   const map: Record<Placement, () => Placement> = {
@@ -86,14 +86,14 @@ function getSize(el: HTMLElement): Size {
 }
 
 export function calcPosition(
-  refEl: HTMLElement,
-  relEl: HTMLElement,
+  triggerEl: HTMLElement,
+  balloonEl: HTMLElement,
   placement: Placement_12 = 'top',
   offset = 10,
   [distanceT, distanceL]: [number, number] = [0, 0],
 ): { x: number; y: number } {
-  const ref = getSize(refEl);
-  const rel = getSize(relEl);
+  const ref = getSize(triggerEl);
+  const rel = getSize(balloonEl);
 
   const commonFn = {
     vtcX: () => distanceL + (ref.width - rel.width) / 2,

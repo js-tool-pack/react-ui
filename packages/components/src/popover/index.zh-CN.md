@@ -35,6 +35,7 @@ Popover 气泡弹框。
 <code src="./demo/contextmenu.tsx"></code>
 <code src="./demo/delay.tsx"></code>
 <code src="./demo/on-visible-change.tsx"></code>
+<code src="./demo/width-by-trigger.tsx"></code>
 
 ## API
 
@@ -56,4 +57,5 @@ Popover 的属性说明如下：
 | childrenRef     | 用于获取 Popover 包裹的 ref viewport                                                                                        | () => HTMLElement                               | --                  | --   |
 | delay           | trigger 为 hover 的开启延时                                                                                                 | number                                          | 0 (ms)              | --   |
 | leaveDelay      | trigger 为 hover 的关闭延时                                                                                                 | number                                          | 200 (ms)            | --   |
+| widthByTrigger  | 窗体宽度与触发元素保持一致                                                                                                  | boolean                                         | --                  | --   |
 | attrs           | 组件 html 根元素的所有属性                                                                                                  | Partial\<React.HTMLAttributes\<HTMLDivElement>> | --                  | --   |

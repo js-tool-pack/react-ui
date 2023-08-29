@@ -33,6 +33,7 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
         rootName,
         attrs.className,
         `${rootName}--${placement}`,
+        { [`${rootName}--no-arrow`]: !showArrow },
       )}>
       <div className={`${rootName}__content`} style={contentStyle}>
         {children}

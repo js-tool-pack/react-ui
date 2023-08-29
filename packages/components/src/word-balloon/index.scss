@@ -1,21 +1,47 @@
 @use '../namespace' as Name;
+@use 'sass:map' as Map;
 
 $r: Name.$word-balloon;
 
-@mixin shadow($p) {
+@mixin shadow4($p) {
   $c1: rgb(0 0 0 / 8%);
   $c2: rgb(0 0 0 / 12%);
   $c3: rgb(0 0 0 / 5%);
+  @if $p == top {
+    box-shadow:
+      0 6px 16px 0 $c1,
+      0 3px 6px -4px $c2,
+      0 9px 28px 8px $c3;
+  } @else if $p == bottom {
+    box-shadow:
+      0 -5px 16px 0 $c1,
+      0 0 6px -4px $c2,
+      0 -9px 28px 8px $c3;
+  } @else if $p == left {
+    box-shadow:
+      6px 0 16px 0 $c1,
+      0 0 6px -4px $c2,
+      6px 0 28px 8px $c3;
+  } @else if $p == right {
+    box-shadow:
+      -6px 0 16px 0 $c1,
+      0 0 6px -4px $c2,
+      -6px 0 28px 8px $c3;
+  }
+}
+@mixin shadow($p) {
   .#{$r}__content {
-    @if $p == top {
-      box-shadow: 0 6px 16px 0 $c1, 0 3px 6px -4px $c2, 0 9px 28px 8px $c3;
-    } @else if $p == bottom {
-      box-shadow: 0 -5px 16px 0 $c1, 0 0 6px -4px $c2, 0 -9px 28px 8px $c3;
-    } @else if $p == left {
-      box-shadow: 6px 0 16px 0 $c1, 0 0 6px -4px $c2, 6px 0 28px 8px $c3;
-    } @else if $p == right {
-      box-shadow: -6px 0 16px 0 $c1, 0 0 6px -4px $c2, -6px 0 28px 8px $c3;
-    }
+    @include shadow4($p);
+  }
+  &.#{$r}--no-arrow .#{$r}__content {
+    // 没有箭头时阴影方向反转过来
+    $rp: (
+      'top': 'bottom',
+      'bottom': 'top',
+      'left': 'right',
+      'right': 'left',
+    );
+    @include shadow4(Map.get($rp, $p));
   }
 }
 

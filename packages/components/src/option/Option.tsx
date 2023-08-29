@@ -4,7 +4,6 @@ import { getComponentClass, getSizeClassName } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import { Icon } from '~/icon';
-import { Right as RightIcon } from '@pkg/icons';
 
 const defaultProps = {
   tag: 'div',
@@ -18,7 +17,7 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
   HTMLElement,
   OptionProps
 >((props, ref) => {
-  const { children, icon, readonly, expandable, size, tag, disabled } =
+  const { children, icon, readonly, extra, size, tag, disabled } =
     props as RequiredPart<OptionProps, keyof typeof defaultProps>;
 
   const attrs = {
@@ -29,16 +28,8 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
   const Child = (
     <>
       {icon && <Icon className={`${rootName}__icon`}>{icon}</Icon>}
-      {!icon && !expandable ? (
-        children
-      ) : (
-        <span className={`${rootName}__label`}>{children}</span>
-      )}
-      {expandable && (
-        <Icon className={`${rootName}__expand`}>
-          <RightIcon />
-        </Icon>
-      )}
+      <div className={`${rootName}__label`}>{children}</div>
+      {extra && <div className={`${rootName}__extra`}>{extra}</div>}
     </>
   );
 

@@ -54,8 +54,9 @@ $r: Name.$option;
   &__icon {
     margin-right: 6px;
   }
-  &__expand {
+  &__extra {
+    display: flex;
+    align-items: center;
     margin-left: 1em;
-    font-size: 0.8em;
   }
 }

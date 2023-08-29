@@ -2,15 +2,15 @@ import React, { useRef } from 'react';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import type {
-  DropdownDivider,
   DropdownOptionsItem,
+  DropdownDivider,
+  DropdownOption,
   DropdownProps,
 } from './dropdown.types';
 import { Popover } from '~/popover';
-import { Option } from '~/option';
+import { DropdownInnerOption } from './DropdownInnerOption';
 import { getComponentClass, useStateWithTrailClear } from '@pkg/shared';
 import { Divider } from '~/divider';
-import { DropdownOption } from './dropdown.types';
 
 const defaultProps = {
   placement: 'bottom-start',
@@ -78,7 +78,6 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
         type,
         label,
         key,
-        tag,
         children,
         attrs: optAttrs = {},
         ...optRest
@@ -87,7 +86,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       if (type === 'group') {
         return (
           <li className={`${rootClass}__group`} key={key}>
-            <Option
+            <DropdownInnerOption
               {...optRest}
               tag="div"
               attrs={{
@@ -97,7 +96,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
               size={size}
               readonly>
               {label}
-            </Option>
+            </DropdownInnerOption>
             <ul className={`${rootClass}__group-body`}>
               {handleOptions(children, [...parents, opt])}
             </ul>
@@ -117,15 +116,14 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
         emit(opt, parents);
       };
       const option = (
-        <Option
+        <DropdownInnerOption
           {...optRest}
-          tag={tag || 'li'}
           key={key}
           size={size}
           expandable={children && !!children.length}
           attrs={{ ...optAttrs, onClick }}>
           {label}
-        </Option>
+        </DropdownInnerOption>
       );
 
       if (!children || optRest.disabled) return option;

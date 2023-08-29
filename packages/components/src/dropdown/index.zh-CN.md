@@ -31,23 +31,26 @@ Dropdown 说明。
 Dropdown 的属性说明如下：
 
 ```typescript
-export interface OptionProps {
+export interface OptionProps extends PropsBase {
   tag?: keyof HTMLElementTagNameMap;
   size?: Size;
   disabled?: boolean;
-  expandable?: boolean;
   readonly?: boolean;
   icon?: React.ReactNode;
-  ref?: React.ForwardedRef<HTMLElement>;
-  attrs?: Partial<React.HTMLAttributes<HTMLElement>>;
-  children: React.ReactNode;
+  extra?: React.ReactNode;
+}
+
+export interface DropdownOptionProps extends OptionProps {
+  expandable?: boolean;
 }
 
 export interface DropdownDivider extends DividerProps {
   type: 'divider';
   key: React.Key;
 }
-export interface DropdownOption extends Omit<OptionProps, 'size' | 'children'> {
+
+export interface DropdownOption
+  extends Omit<DropdownOptionProps, 'size' | 'children'> {
   type?: 'group' | 'option';
   key: React.Key;
   label: React.ReactNode;

@@ -19,7 +19,6 @@ export interface PopoverProps
   name?: string;
   on?: TransitionCB;
   viewport?: () => HTMLElement;
-  childrenRef?: React.ForwardedRef<HTMLElement>;
   delay?: number;
   leaveDelay?: number;
   onVisibleChange?: (visible: boolean) => void;

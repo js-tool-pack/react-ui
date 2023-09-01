@@ -9,7 +9,7 @@ const rootClass = getComponentClass('popover');
 
 export const Contextmenu: React.FC<PopoverProps> = (props) => {
   const { children, trigger: _, ...rest } = props;
-  const triggerRef = useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
 
   const onContextMenuCapture = (e: React.MouseEvent<HTMLElement>) => {
@@ -35,8 +35,9 @@ export const Contextmenu: React.FC<PopoverProps> = (props) => {
         children.props.children,
       )}
       {createPortal(
-        <Popover {...rest} trigger="click" childrenRef={triggerRef}>
+        <Popover {...rest} trigger="click">
           <div
+            ref={triggerRef}
             className={getClassNames(
               `${rootClass}__contextmenu_trigger`,
               rest.attrs?.className,

@@ -54,7 +54,6 @@ Popover 的属性说明如下：
 | onVisibleChange | visible 变化时的回调                                                                                                        | (visible:boolean) => void                       | --                  | --   |
 | appendTo        | Popover 窗体插入指定的 html 标签中；如果为 null 的话会插入当前组件包裹的 children(不能是类似 input 这种自闭合的标签元素) 中 | null \| () => HTMLElement                       | () => document.body | --   |
 | viewport        | 用于计算窗体位置，需要搭配 appendTo=null 使用；默认 viewport 是 appendTo 对象，不过嵌套使用时需要指定 viewport              | () => HTMLElement                               | --                  | --   |
-| childrenRef     | 用于获取 Popover 包裹的 ref viewport                                                                                        | () => HTMLElement                               | --                  | --   |
 | delay           | trigger 为 hover 的开启延时                                                                                                 | number                                          | 0 (ms)              | --   |
 | leaveDelay      | trigger 为 hover 的关闭延时                                                                                                 | number                                          | 200 (ms)            | --   |
 | widthByTrigger  | 窗体宽度与触发元素保持一致                                                                                                  | boolean                                         | --                  | --   |

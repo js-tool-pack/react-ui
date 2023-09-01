@@ -53,7 +53,6 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     on,
     appendTo,
     viewport,
-    childrenRef: kidRef,
     showArrow,
     delay,
     leaveDelay,
@@ -65,7 +64,9 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
 
   const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
 
-  const childrenRef = useForwardRef(kidRef);
+  const childrenRef = useForwardRef(
+    (children as React.RefAttributes<unknown>).ref,
+  ) as React.MutableRefObject<HTMLElement | null>;
   const [balloonRef, refreshBalloonRef] = useForwardRef(ref, true) as [
     React.MutableRefObject<HTMLDivElement>,
     () => void,

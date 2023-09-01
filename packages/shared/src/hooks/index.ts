@@ -12,3 +12,4 @@ export * from './useScrollLock';
 export * from './useNextEffect';
 export * from './useIsChanged';
 export * from './useStateWithTrailClear';
+export * from './useMounted';

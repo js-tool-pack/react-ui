@@ -13,3 +13,4 @@ export * from './useNextEffect';
 export * from './useIsChanged';
 export * from './useStateWithTrailClear';
 export * from './useMounted';
+export * from './useEventListenerOnMounted';

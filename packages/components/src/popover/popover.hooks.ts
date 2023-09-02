@@ -7,7 +7,7 @@ import {
   getComponentClass,
   PLACEMENTS_12,
   type Placement_12,
-  outerEventObserve,
+  fromOuterEvent,
   useNextEffect,
 } from '@pkg/shared';
 import {
@@ -217,7 +217,7 @@ export function useShowController(
             show,
           );
         case 'click':
-          const outerEvent = outerEventObserve(
+          const outerEvent = fromOuterEvent(
             () => [el, balloonElRef.current],
             'click',
           ).pipe(

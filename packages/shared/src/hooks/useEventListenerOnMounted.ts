@@ -1,5 +1,5 @@
-import { useMounted } from '@pkg/shared';
 import { isFunction } from '@tool-pack/basic';
+import { useEffect } from 'react';
 
 /**
  * target 是 window
@@ -9,6 +9,7 @@ export function useEventListenerOnMounted<K extends keyof WindowEventMap>(
   eventName: K,
   callback: (this: Window, ev: WindowEventMap[K]) => any,
   options?: boolean | AddEventListenerOptions,
+  enabled?: boolean,
 ): void;
 /**
  * target 是 document
@@ -18,6 +19,7 @@ export function useEventListenerOnMounted<K extends keyof DocumentEventMap>(
   eventName: K,
   callback: (this: Document, ev: DocumentEventMap[K]) => any,
   options?: boolean | AddEventListenerOptions,
+  enabled?: boolean,
 ): void;
 /**
  * target 是 HTMLElement
@@ -27,6 +29,7 @@ export function useEventListenerOnMounted<K extends keyof HTMLElementEventMap>(
   eventName: K,
   callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
   options?: boolean | AddEventListenerOptions,
+  enabled?: boolean,
 ): void;
 /**
  * target 是 ref 需要传函数
@@ -36,6 +39,7 @@ export function useEventListenerOnMounted<K extends keyof HTMLElementEventMap>(
   eventName: K,
   callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
   options?: boolean | AddEventListenerOptions,
+  enabled?: boolean,
 ): void;
 /**
  * 在组件创建时添加事件监听，组件移除时移除事件监听
@@ -58,10 +62,12 @@ export function useEventListenerOnMounted(
   eventName: string,
   callback: (this: unknown, ev: unknown) => unknown,
   options?: boolean | AddEventListenerOptions,
+  enable = true,
 ): void {
-  useMounted(() => {
+  useEffect(() => {
+    if (!enable) return;
     const tg = isFunction(target) ? target() : target;
     tg.addEventListener(eventName, callback, options);
     return () => tg.removeEventListener(eventName, callback, options);
-  });
+  }, [enable]);
 }

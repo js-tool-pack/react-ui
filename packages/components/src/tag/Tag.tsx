@@ -64,7 +64,7 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
           type={closeBtnType}
           size="small"
           plain="text"
-          onClick={handleClose}>
+          attrs={{ onClickCapture: handleClose }}>
           <Icon>
             <Close />
           </Icon>

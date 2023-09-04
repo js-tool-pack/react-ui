@@ -192,5 +192,27 @@ describe('Tag', () => {
       expect(onClose).not.toBeCalled();
       expect(container.firstChild).not.toBeNull();
     });
+
+    test('关闭按钮拦截外部点击事件', () => {
+      const onWindowClick = jest.fn();
+      const onClick = jest.fn();
+      const { container } = render(
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+        <div onClick={onClick}>
+          <Tag closeable>tag</Tag>
+        </div>,
+      );
+
+      window.addEventListener('click', onWindowClick);
+
+      expect(onClick).not.toBeCalled();
+      expect(onWindowClick).not.toBeCalled();
+      expect(container.firstChild!.firstChild).not.toBeNull();
+
+      fireEvent.click(container.querySelector('.t-tag__close')!);
+      expect(onClick).not.toBeCalled();
+      expect(onWindowClick).not.toBeCalled();
+      expect(container.firstChild!.firstChild).toBeNull();
+    });
   });
 });

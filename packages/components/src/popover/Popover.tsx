@@ -102,6 +102,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   );
 
   useResizeObserver(show, balloonRef, refreshPosition);
+  useResizeObserver(show, childrenRef, refreshPosition);
   useResizeEvent(show, refreshPosition);
 
   const Balloon = (

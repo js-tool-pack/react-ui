@@ -28,7 +28,7 @@ import type { PopoverRequiredPartProps } from './Popover';
 
 export function useResizeObserver(
   enable: boolean,
-  elRef: React.MutableRefObject<HTMLElement | undefined>,
+  elRef: React.MutableRefObject<HTMLElement | null>,
   callback: () => void,
 ) {
   useEffect(() => {

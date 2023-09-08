@@ -5,6 +5,8 @@ import { nextTick } from '@tool-pack/basic';
 import { useState } from 'react';
 
 describe('Popover', () => {
+  jest.useFakeTimers();
+
   // 模拟 ResizeObserver，ResizeObserver 不存在于 jsdom 中
   const MockObserverInstance: ResizeObserver = {
     observe: jest.fn(),
@@ -95,6 +97,7 @@ describe('Popover', () => {
 
       expect(document.body).toMatchSnapshot();
       fireEvent.click(container.querySelector('button')!);
+      act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
     });
 
@@ -134,7 +137,7 @@ describe('Popover', () => {
       expect(document.body).toMatchSnapshot();
       fireEvent.contextMenu(container.querySelector('.trigger')!);
       await act(() => nextTick());
-
+      act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
     });
 
@@ -155,6 +158,7 @@ describe('Popover', () => {
         </Popover>,
       );
       fireEvent.click(container.querySelector('button')!);
+      act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
     });
   });
@@ -315,5 +319,36 @@ describe('Popover', () => {
       fireEvent.click(container.firstChild!);
       expect(onVisibleChange).not.toBeCalled();
     });
+  });
+
+  it('触发元素拦截点击事件后禁止触发', () => {
+    jest.useFakeTimers();
+    const App = () => {
+      return (
+        <Popover trigger="click" content="1">
+          <div>
+            click
+            <Button
+              attrs={{
+                onClickCapture: (e) => {
+                  e.stopPropagation();
+                },
+              }}>
+              close
+            </Button>
+          </div>
+        </Popover>
+      );
+    };
+    const { container } = render(<App />);
+
+    document.addEventListener('click', () => console.log('body click'));
+
+    // react 的合成事件无法阻止原生事件冒泡，反过来却可以，
+    // 因为 react 的事件是代理在 document 上的，实际已经冒泡或者捕获在 document 上了
+    // 除非是在捕获阶段拦截
+    fireEvent.click(container.querySelector('button')!);
+    act(() => jest.advanceTimersByTime(500));
+    expect(document.body).toMatchSnapshot();
   });
 });

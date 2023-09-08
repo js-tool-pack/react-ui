@@ -406,3 +406,20 @@ exports[`Popover trigger hover 2`] = `
   </div>
 </body>
 `;
+
+exports[`Popover 触发元素拦截点击事件后禁止触发 1`] = `
+<body>
+  <div>
+    <div>
+      click
+      <button
+        class="t-button t-button--type-default t--size-m t-button--icon-l"
+      >
+        <span>
+          close
+        </span>
+      </button>
+    </div>
+  </div>
+</body>
+`;

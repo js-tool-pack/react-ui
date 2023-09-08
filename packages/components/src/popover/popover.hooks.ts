@@ -226,6 +226,8 @@ export function useShowController(
             take(1),
           );
           const queueEvent = fromEvent<MouseEvent>(el, 'click').pipe(
+            delay(0),
+            takeWhile((e) => !e.defaultPrevented),
             switchMap(() => toggle().pipe(takeWhile((v) => v))),
             switchMap(() => outerEvent),
           );

@@ -72,7 +72,9 @@ $r: Name.$switch;
     height: var(--t-switch-handle-size);
     border-radius: var(--t-switch-handle-radius);
     background-color: white;
-    transition: left var(--t-switch-duration), width var(--t-switch-duration);
+    transition:
+      left var(--t-switch-duration),
+      width var(--t-switch-duration);
     &::before {
       position: absolute;
       inset: 0;
@@ -123,6 +125,7 @@ $r: Name.$switch;
         }
       }
     }
+    &:focus,
     &:hover {
       box-shadow: var(--t-switch-shadow);
     }

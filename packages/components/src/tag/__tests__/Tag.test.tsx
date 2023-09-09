@@ -80,6 +80,17 @@ describe('Tag', () => {
       expect(container.firstChild).not.toHaveClass('t-tag--checked');
     });
 
+    test('closeBtnAttrs', () => {
+      const onChange = jest.fn();
+      const { container } = render(
+        <Tag onChange={onChange} closeable closeBtnAttrs={{ tabIndex: -1 }} />,
+      );
+      expect(container.querySelector('button')).toHaveAttribute(
+        'tabindex',
+        '-1',
+      );
+    });
+
     test('checked', () => {
       const onChange = jest.fn();
       const { container } = render(

@@ -1,0 +1,641 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select basic 1`] = `
+<div
+  class="t-select t--size-m"
+>
+  <input
+    class="t-select-tab-trigger"
+    tabindex="0"
+  />
+  <div
+    class="t-select-selection t--size-m"
+  >
+    <div
+      class="t-select-selection__selected"
+    >
+      <div
+        class="t-select-selection__placeholder"
+      >
+        select
+      </div>
+    </div>
+    <div
+      class="t-select-selection__suffix"
+    >
+      <i
+        class="t-icon t-select-selection__icon"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select clearable|onClear 1`] = `
+<div
+  class="t-select t--size-m t-select--selected t-select--clearable"
+>
+  <input
+    class="t-select-tab-trigger"
+    tabindex="0"
+  />
+  <div
+    class="t-select-selection t--size-m"
+  >
+    <div
+      class="t-select-selection__selected"
+    >
+      <div
+        class="t-select-selection__label"
+      >
+        foo
+      </div>
+    </div>
+    <div
+      class="t-select-selection__suffix"
+    >
+      <i
+        class="t-icon t-select-selection__icon"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+      <i
+        class="t-icon t-select-selection__clear"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M512 14.8973037C238.59351703 14.8973037 14.8973037 238.59351703 14.8973037 512s223.69621333 497.1026963 497.1026963 497.1026963 497.1026963-223.69621333 497.1026963-497.1026963S785.40648297 14.8973037 512 14.8973037zM719.12612347 661.13080889c16.57008987 16.57008987 16.57008987 41.42522469 0 57.99531458s-41.42522469 16.57008987-57.99531458 0L512 569.99531457l-149.13080889 149.1308089c-16.57008987 16.57008987-41.42522469 16.57008987-57.99531458 0s-16.57008987-41.42522469 0-57.99531458L454.00468543 512 304.87387653 362.86919111C288.30378667 346.29910124 288.30378667 321.44396642 304.87387653 304.87387653s41.42522469-16.57008987 57.99531458 0L512 454.00468543l149.13080889-149.1308089c16.57008987-16.57008987 41.42522469-16.57008987 57.99531458 0s16.57008987 41.42522469 0 57.99531458L569.99531457 512 719.12612347 661.13080889z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select disabled 1`] = `
+<div
+  class="t-select t--size-m t-select--disabled"
+>
+  <input
+    class="t-select-tab-trigger"
+    tabindex="-1"
+  />
+  <div
+    class="t-select-selection t--size-m"
+  >
+    <div
+      class="t-select-selection__selected"
+    >
+      <div
+        class="t-select-selection__placeholder"
+      >
+        select
+      </div>
+    </div>
+    <div
+      class="t-select-selection__suffix"
+    >
+      <i
+        class="t-icon t-select-selection__icon"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select group 1`] = `
+<body>
+  <div>
+    <div
+      class="t-select t--size-m t-select--active t-select--focus"
+    >
+      <input
+        class="t-select-tab-trigger"
+        tabindex="-1"
+      />
+      <div
+        class="t-select-selection t--size-m"
+      >
+        <div
+          class="t-select-selection__selected"
+        >
+          <div
+            class="t-select-selection__placeholder"
+          >
+            select
+          </div>
+        </div>
+        <div
+          class="t-select-selection__suffix"
+        >
+          <i
+            class="t-icon t-select-selection__icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
+    style="width: 0px; top: 2px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      <div
+        class="t-select-menu__body"
+      >
+        <ul
+          class="t-select-menu__options"
+        >
+          <li
+            class="t-select-menu__group test"
+          >
+            <div
+              class="t-option t-select-option t-select-menu__group-title t--size-m t-option--readonly"
+              role="heading"
+            >
+              <div
+                class="t-option__label"
+              >
+                1
+              </div>
+            </div>
+            <ul
+              class="t-select-menu__group-body"
+            >
+              <li
+                class="t-option t-select-option t-select-option--picked t--size-m"
+                role="option"
+              >
+                <div
+                  class="t-option__label"
+                >
+                  foo
+                </div>
+              </li>
+              <li
+                class="t-option t-select-option t--size-m"
+                role="option"
+              >
+                <div
+                  class="t-option__label"
+                >
+                  bar
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li
+            class="t-option t-select-option t--size-m"
+            role="option"
+          >
+            <div
+              class="t-option__label"
+            >
+              foo
+            </div>
+          </li>
+          <li
+            class="t-option t-select-option t--size-m"
+            role="option"
+          >
+            <div
+              class="t-option__label"
+            >
+              bar
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Select icon 1`] = `null`;
+
+exports[`Select loading 1`] = `null`;
+
+exports[`Select maxTagCount 1`] = `
+<body>
+  <div>
+    <div
+      class="t-select t--size-m t-select--selected"
+    >
+      <input
+        class="t-select-tab-trigger"
+        tabindex="0"
+      />
+      <div
+        class="t-select-selection t--size-m"
+      >
+        <div
+          class="t-select-selection__selected"
+        >
+          <div
+            class="t-tag t-select-tags__tag t--size-m t-tag--info"
+          >
+            <span
+              class="t-tag__content"
+            >
+              foo
+            </span>
+            <button
+              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              tabindex="-1"
+            >
+              <span>
+                <i
+                  class="t-icon"
+                  role="img"
+                >
+                  <svg
+                    viewBox="0 0 1024 1024"
+                  >
+                    <path
+                      d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </i>
+              </span>
+            </button>
+          </div>
+          <div
+            class="t-tag t-select-tags__tag t-select-tags__count t--size-m t-tag--info"
+          >
+            <span
+              class="t-tag__content"
+            >
+              + 
+              1
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-select-selection__suffix"
+        >
+          <i
+            class="t-icon t-select-selection__icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Select maxTagCount 2`] = `
+<body>
+  <div>
+    <div
+      class="t-select t--size-m t-select--selected"
+    >
+      <input
+        class="t-select-tab-trigger"
+        tabindex="0"
+      />
+      <div
+        class="t-select-selection t--size-m"
+      >
+        <div
+          class="t-select-selection__selected"
+        >
+          <div
+            class="t-tag t-select-tags__tag t--size-m t-tag--info"
+          >
+            <span
+              class="t-tag__content"
+            >
+              foo
+            </span>
+            <button
+              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              tabindex="-1"
+            >
+              <span>
+                <i
+                  class="t-icon"
+                  role="img"
+                >
+                  <svg
+                    viewBox="0 0 1024 1024"
+                  >
+                    <path
+                      d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </i>
+              </span>
+            </button>
+          </div>
+          <div
+            class="t-tag t-select-tags__tag t-select-tags__count t--size-m t-tag--info"
+          >
+            <span
+              class="t-tag__content"
+            >
+              + 
+              1
+            </span>
+          </div>
+        </div>
+        <div
+          class="t-select-selection__suffix"
+        >
+          <i
+            class="t-icon t-select-selection__icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--top"
+    style="top: -10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      <div
+        class="t-select-tags__pop-tags"
+      >
+        <div
+          class="t-tag t-select-tags__tag t--size-m t-tag--info"
+        >
+          <span
+            class="t-tag__content"
+          >
+            bar
+          </span>
+          <button
+            class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+            tabindex="-1"
+          >
+            <span>
+              <i
+                class="t-icon"
+                role="img"
+              >
+                <svg
+                  viewBox="0 0 1024 1024"
+                >
+                  <path
+                    d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Select multiple 1`] = `
+<body>
+  <div>
+    <div
+      class="t-select t--size-m t-select--selected t-select--active t-select--focus"
+    >
+      <input
+        class="t-select-tab-trigger"
+        tabindex="-1"
+      />
+      <div
+        class="t-select-selection t--size-m"
+      >
+        <div
+          class="t-select-selection__selected"
+        >
+          <div
+            class="t-tag t-select-tags__tag t--size-m t-tag--info"
+          >
+            <span
+              class="t-tag__content"
+            >
+              foo
+            </span>
+            <button
+              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              tabindex="-1"
+            >
+              <span>
+                <i
+                  class="t-icon"
+                  role="img"
+                >
+                  <svg
+                    viewBox="0 0 1024 1024"
+                  >
+                    <path
+                      d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </i>
+              </span>
+            </button>
+          </div>
+          <div
+            class="t-tag t-select-tags__tag t--size-m t-tag--info"
+          >
+            <span
+              class="t-tag__content"
+            >
+              bar
+            </span>
+            <button
+              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              tabindex="-1"
+            >
+              <span>
+                <i
+                  class="t-icon"
+                  role="img"
+                >
+                  <svg
+                    viewBox="0 0 1024 1024"
+                  >
+                    <path
+                      d="M574.56865938 513.72328935l366.30945353-364.40941657c17.3212673-17.23289347 17.4096411-45.15901828 0.17674762-62.48028556-17.27708037-17.36545419-45.15901828-17.4096411-62.48028556-0.17674764l-366.39782734 364.45360348-363.21637009-364.32104275C131.77167097 69.55650684 103.80135925 69.46813303 86.48009197 86.70102651 69.20301159 103.93391997 69.15882467 131.90423169 86.39171815 149.22549897l363.12799629 364.23266894L83.38700853 877.64664993c-17.3212673 17.23289347-17.4096411 45.15901828-0.17674763 62.48028558 8.61644674 8.66063363 19.97248167 13.03513737 31.32851659 13.03513736 11.26766112 0 22.53532223-4.28612991 31.15176897-12.85838974l366.22107973-364.27685584 366.53038806 367.63506071c8.61644674 8.66063363 19.92829476 12.99095045 31.2843297 12.99095047 11.31184801 0 22.57950913-4.33031682 31.19595588-12.90257666 17.27708037-17.23289347 17.3212673-45.15901828 0.0883738-62.48028554L574.56865938 513.72328935z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </i>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="t-select-selection__suffix"
+        >
+          <i
+            class="t-icon t-select-selection__icon"
+            role="img"
+          >
+            <svg
+              viewBox="0 0 1024 1024"
+            >
+              <path
+                d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+                fill="currentColor"
+              />
+            </svg>
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
+    style="width: 0px; top: 2px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    >
+      <div
+        class="t-select-menu__body"
+      >
+        <ul
+          class="t-select-menu__options"
+        >
+          <li
+            class="t-option t-select-option t-select-option--selected t-select-option--picked t--size-m"
+            role="option"
+          >
+            <div
+              class="t-option__label"
+            >
+              foo
+            </div>
+            <div
+              class="t-option__extra"
+            >
+              <i
+                class="t-icon t-select-option__selected-icon"
+                role="img"
+              >
+                <svg
+                  viewBox="0 0 1024 1024"
+                >
+                  <path
+                    d="M76.35918602 484.02337646l-71.37237435 71.50703811 331.54487886 330.63589206 682.31316641-674.94026626-71.03571155-71.77636833-610.97445834 604.37587985z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </i>
+            </div>
+          </li>
+          <li
+            class="t-option t-select-option t-select-option--selected t--size-m"
+            role="option"
+          >
+            <div
+              class="t-option__label"
+            >
+              bar
+            </div>
+            <div
+              class="t-option__extra"
+            >
+              <i
+                class="t-icon t-select-option__selected-icon"
+                role="img"
+              >
+                <svg
+                  viewBox="0 0 1024 1024"
+                >
+                  <path
+                    d="M76.35918602 484.02337646l-71.37237435 71.50703811 331.54487886 330.63589206 682.31316641-674.94026626-71.03571155-71.77636833-610.97445834 604.37587985z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </i>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+`;

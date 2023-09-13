@@ -12,13 +12,14 @@ export interface PopoverProps
   appendTo?: null | (() => HTMLElement | null);
   trigger?: PopoverTrigger[] | PopoverTrigger;
   visible?: boolean;
+  widthByTrigger?: boolean;
   disabled?: boolean;
   offset?: number;
   destroyOnHide?: boolean;
   name?: string;
   on?: TransitionCB;
   viewport?: () => HTMLElement;
-  childrenRef?: React.ForwardedRef<HTMLElement>;
   delay?: number;
   leaveDelay?: number;
+  onVisibleChange?: (visible: boolean) => void;
 }

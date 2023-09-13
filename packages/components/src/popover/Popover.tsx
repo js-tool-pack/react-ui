@@ -31,6 +31,11 @@ const defaultProps = {
   leaveDelay: 200,
 } satisfies Partial<PopoverProps>;
 
+export type PopoverRequiredPartProps = RequiredPart<
+  PopoverProps,
+  keyof typeof defaultProps
+>;
+
 export const Popover: React.FC<PopoverProps> = React.forwardRef<
   HTMLDivElement,
   PopoverProps
@@ -48,43 +53,56 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     on,
     appendTo,
     viewport,
-    childrenRef: kidRef,
     showArrow,
     delay,
     leaveDelay,
+    onVisibleChange,
+    widthByTrigger,
     attrs = {},
-  } = props as RequiredPart<PopoverProps, keyof typeof defaultProps>;
+  } = props as PopoverRequiredPartProps;
   const rootName = getComponentClass(name);
 
   const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
 
-  const childrenRef = useForwardRef(kidRef);
+  const childrenRef = useForwardRef(
+    (children as React.RefAttributes<unknown>).ref,
+  ) as React.MutableRefObject<HTMLElement | null>;
   const [balloonRef, refreshBalloonRef] = useForwardRef(ref, true) as [
     React.MutableRefObject<HTMLDivElement>,
     () => void,
   ];
 
   const [refreshPosition, resetPlacement] = usePosition(
-    placement,
     childrenRef,
     balloonRef,
-    appendTo,
-    offset,
-    viewport,
+    {
+      widthByTrigger,
+      placement,
+      viewport,
+      appendTo,
+      offset,
+    },
   );
   const show = useShowController(
-    disabled,
-    visible,
-    trigger,
-    children,
     childrenRef,
     balloonRef,
     refreshPosition,
-    delay,
-    leaveDelay,
+    // 下面👇的对象属性都是在 props 中取的，为什么不直接传 props ？
+    // 因为这样在上面的 props 解构中就可以直观的看出到底有哪些属性是没有用到的；传 props 是不直观的。
+    // 如果看到没有按照这条规则弄的，那就是漏掉了，以该条规则为准。
+    {
+      delay,
+      visible,
+      trigger,
+      children,
+      disabled,
+      leaveDelay,
+      onVisibleChange,
+    },
   );
 
   useResizeObserver(show, balloonRef, refreshPosition);
+  useResizeObserver(show, childrenRef, refreshPosition);
   useResizeEvent(show, refreshPosition);
 
   const Balloon = (

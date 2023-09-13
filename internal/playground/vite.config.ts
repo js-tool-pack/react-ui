@@ -17,20 +17,26 @@ export default defineConfig(() => {
     cacheDir: `./.cache`,
     resolve: {
       alias: {
-        ...pkgs.reduce((prev, cur) => {
-          prev['@pkg/' + cur] = Path.resolve(
-            __dirname,
-            `../../packages/${cur}/src`,
-          );
-          return prev;
-        }, {} as Record<string, string>),
-        ...components.reduce((prev, cur) => {
-          prev['~/' + cur] = Path.resolve(
-            __dirname,
-            `../../packages/components/src/${cur}`,
-          );
-          return prev;
-        }, {} as Record<string, string>),
+        ...pkgs.reduce(
+          (prev, cur) => {
+            prev['@pkg/' + cur] = Path.resolve(
+              __dirname,
+              `../../packages/${cur}/src`,
+            );
+            return prev;
+          },
+          {} as Record<string, string>,
+        ),
+        ...components.reduce(
+          (prev, cur) => {
+            prev['~/' + cur] = Path.resolve(
+              __dirname,
+              `../../packages/components/src/${cur}`,
+            );
+            return prev;
+          },
+          {} as Record<string, string>,
+        ),
         '@tool-pack/react-ui': Path.resolve(
           __dirname,
           '../../packages/react-ui/src',

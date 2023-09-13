@@ -13,6 +13,9 @@
     "test": "react-scripts test --watchAll=false"
   },
   "jest": {
+    "testMatch": [
+      "<rootDir>/src/**/*.(spec|test).(ts|tsx)"
+    ],
     "moduleNameMapper": {
       "^@pkg/(.+)$": "<rootDir>/../../packages/$1/src",
       "^@tool-pack/react-ui$": "<rootDir>/../../packages/react-ui/src",

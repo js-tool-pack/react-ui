@@ -2,7 +2,7 @@
 
 exports[`WordBalloon showArrow 1`] = `
 <div
-  class="t-word-balloon t-word-balloon--top"
+  class="t-word-balloon t-word-balloon--top t-word-balloon--no-arrow"
 >
   <div
     class="t-word-balloon__content"

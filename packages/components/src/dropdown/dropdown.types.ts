@@ -4,11 +4,15 @@ import type { OptionProps } from '~/option';
 import type { PopoverProps } from '~/popover';
 import { DividerProps } from '~/divider';
 
+export interface DropdownOptionProps extends OptionProps {
+  expandable?: boolean;
+}
 export interface DropdownDivider extends DividerProps {
   type: 'divider';
   key: React.Key;
 }
-export interface DropdownOption extends Omit<OptionProps, 'size' | 'children'> {
+export interface DropdownOption
+  extends Omit<DropdownOptionProps, 'size' | 'children'> {
   type?: 'group' | 'option';
   key: React.Key;
   label: React.ReactNode;

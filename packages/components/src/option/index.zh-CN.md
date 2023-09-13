@@ -18,7 +18,7 @@ Option 说明。
 <code src="./demo/readonly.tsx"></code>
 <code src="./demo/disabled.tsx"></code>
 <code src="./demo/icon.tsx"></code>
-<code src="./demo/expandable.tsx"></code>
+<code src="./demo/extra.tsx"></code>
 
 ## API
 

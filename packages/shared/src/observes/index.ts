@@ -1,1 +1,2 @@
-export * from './outerEvent.observe';
+export * from './fromOuterEvent';
+export * from './fromEventDelegation';

@@ -2,7 +2,7 @@
 
 exports[`Dropdown basic 1`] = `
 <div
-  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-dropdown-enter-active t-dropdown-enter-to"
+  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-word-balloon--no-arrow t-dropdown-enter-active t-dropdown-enter-to"
   style="top: 10px; left: 0px;"
 >
   <div
@@ -15,20 +15,28 @@ exports[`Dropdown basic 1`] = `
         class="t-dropdown__options"
       >
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          黄金蛋炒饭
+          <div
+            class="t-option__label"
+          >
+            黄金蛋炒饭
+          </div>
         </li>
         <li
           class="t-divider t-dropdown__divider t-divider--center t-divider--horizontal"
           style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
         />
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          扬州炒饭
+          <div
+            class="t-option__label"
+          >
+            扬州炒饭
+          </div>
         </li>
       </ul>
     </div>
@@ -38,7 +46,7 @@ exports[`Dropdown basic 1`] = `
 
 exports[`Dropdown basic 2`] = `
 <div
-  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-dropdown-leave-active t-dropdown-leave-to"
+  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-word-balloon--no-arrow t-dropdown-leave-active t-dropdown-leave-to"
   style="top: 10px; left: 0px;"
 >
   <div
@@ -51,20 +59,28 @@ exports[`Dropdown basic 2`] = `
         class="t-dropdown__options"
       >
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          黄金蛋炒饭
+          <div
+            class="t-option__label"
+          >
+            黄金蛋炒饭
+          </div>
         </li>
         <li
           class="t-divider t-dropdown__divider t-divider--center t-divider--horizontal"
           style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
         />
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          扬州炒饭
+          <div
+            class="t-option__label"
+          >
+            扬州炒饭
+          </div>
         </li>
       </ul>
     </div>
@@ -74,7 +90,7 @@ exports[`Dropdown basic 2`] = `
 
 exports[`Dropdown disabled 1`] = `
 <div
-  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-dropdown-enter-active t-dropdown-enter-to"
+  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-word-balloon--no-arrow t-dropdown-enter-active t-dropdown-enter-to"
   style="top: 10px; left: 0px;"
 >
   <div
@@ -87,17 +103,25 @@ exports[`Dropdown disabled 1`] = `
         class="t-dropdown__options"
       >
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           disabled=""
           role="option"
         >
-          黄金蛋炒饭
+          <div
+            class="t-option__label"
+          >
+            黄金蛋炒饭
+          </div>
         </li>
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          扬州炒饭
+          <div
+            class="t-option__label"
+          >
+            扬州炒饭
+          </div>
         </li>
       </ul>
     </div>
@@ -107,7 +131,7 @@ exports[`Dropdown disabled 1`] = `
 
 exports[`Dropdown group 1`] = `
 <div
-  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-dropdown-enter-active t-dropdown-enter-to"
+  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-word-balloon--no-arrow t-dropdown-enter-active t-dropdown-enter-to"
   style="top: 10px; left: 0px;"
 >
   <div
@@ -123,53 +147,77 @@ exports[`Dropdown group 1`] = `
           class="t-dropdown__group"
         >
           <div
-            class="t-option t-dropdown__group-title t--size-m t-option--readonly"
+            class="t-option t-dropdown-option t-dropdown__group-title t--size-m t-option--readonly"
             role="heading"
           >
-            饭菜类
+            <div
+              class="t-option__label"
+            >
+              饭菜类
+            </div>
           </div>
           <ul
             class="t-dropdown__group-body"
           >
             <li
-              class="t-option t--size-m"
+              class="t-option t-dropdown-option t--size-m"
               role="option"
             >
-              手撕鸡
+              <div
+                class="t-option__label"
+              >
+                手撕鸡
+              </div>
             </li>
             <li
               class="t-dropdown__group"
             >
               <div
-                class="t-option t-dropdown__group-title t--size-m t-option--readonly"
+                class="t-option t-dropdown-option t-dropdown__group-title t--size-m t-option--readonly"
                 role="heading"
               >
-                炒饭
+                <div
+                  class="t-option__label"
+                >
+                  炒饭
+                </div>
               </div>
               <ul
                 class="t-dropdown__group-body"
               >
                 <li
-                  class="t-option t--size-m"
+                  class="t-option t-dropdown-option t--size-m"
                   role="option"
                 >
-                  黄金蛋炒饭
+                  <div
+                    class="t-option__label"
+                  >
+                    黄金蛋炒饭
+                  </div>
                 </li>
                 <li
-                  class="t-option t--size-m"
+                  class="t-option t-dropdown-option t--size-m"
                   role="option"
                 >
-                  扬州炒饭
+                  <div
+                    class="t-option__label"
+                  >
+                    扬州炒饭
+                  </div>
                 </li>
               </ul>
             </li>
           </ul>
         </li>
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          其他
+          <div
+            class="t-option__label"
+          >
+            其他
+          </div>
         </li>
       </ul>
     </div>
@@ -179,7 +227,7 @@ exports[`Dropdown group 1`] = `
 
 exports[`Dropdown header footer 1`] = `
 <div
-  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-dropdown-enter-active t-dropdown-enter-to"
+  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-word-balloon--no-arrow t-dropdown-enter-active t-dropdown-enter-to"
   style="top: 10px; left: 0px;"
 >
   <div
@@ -199,16 +247,24 @@ exports[`Dropdown header footer 1`] = `
         class="t-dropdown__options"
       >
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          黄金蛋炒饭
+          <div
+            class="t-option__label"
+          >
+            黄金蛋炒饭
+          </div>
         </li>
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          扬州炒饭
+          <div
+            class="t-option__label"
+          >
+            扬州炒饭
+          </div>
         </li>
       </ul>
     </div>
@@ -225,7 +281,7 @@ exports[`Dropdown header footer 1`] = `
 
 exports[`Dropdown nest 1`] = `
 <div
-  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-dropdown-enter-active t-dropdown-enter-to"
+  class="t-word-balloon t-dropdown t-word-balloon--bottom-start t-word-balloon--no-arrow t-dropdown-enter-active t-dropdown-enter-to"
   style="top: 10px; left: 0px;"
 >
   <div
@@ -238,23 +294,27 @@ exports[`Dropdown nest 1`] = `
         class="t-dropdown__options"
       >
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          手撕鸡
+          <div
+            class="t-option__label"
+          >
+            手撕鸡
+          </div>
         </li>
         <li
-          class="t-option nest-option t--size-m"
+          class="t-option t-dropdown-option nest-option t--size-m"
           role="option"
         >
-          <span
+          <div
             class="t-option__label"
           >
             <div>
               蛋炒饭
             </div>
             <div
-              class="t-word-balloon t-dropdown t-dropdown__nest t-word-balloon--right-start t-dropdown-enter-active t-dropdown-enter-to"
+              class="t-word-balloon t-dropdown t-dropdown__nest t-word-balloon--right-start t-word-balloon--no-arrow t-dropdown-enter-active t-dropdown-enter-to"
               style="top: 0px; left: 0px;"
             >
               <div
@@ -267,45 +327,61 @@ exports[`Dropdown nest 1`] = `
                     class="t-dropdown__options"
                   >
                     <li
-                      class="t-option t--size-m"
+                      class="t-option t-dropdown-option t--size-m"
                       role="option"
                     >
-                      黄金蛋炒饭,黄金蛋炒饭
+                      <div
+                        class="t-option__label"
+                      >
+                        黄金蛋炒饭,黄金蛋炒饭
+                      </div>
                     </li>
                     <li
-                      class="t-option t--size-m"
+                      class="t-option t-dropdown-option t--size-m"
                       role="option"
                     >
-                      扬州炒饭
+                      <div
+                        class="t-option__label"
+                      >
+                        扬州炒饭
+                      </div>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-          </span>
-          <i
-            class="t-icon t-option__expand"
-            role="img"
+          </div>
+          <div
+            class="t-option__extra"
           >
-            <svg
-              viewBox="0 0 1024 1024"
+            <i
+              class="t-icon t-dropdown-option__expand"
+              role="img"
             >
-              <path
-                d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
-                fill="currentColor"
-              />
-            </svg>
-          </i>
+              <svg
+                viewBox="0 0 1024 1024"
+              >
+                <path
+                  d="M636.91389854 512.22982846L217.86080278 92.94690423l81.32081573-81.20590149 500.25899726 500.52713049L299.14331376 1012.25899726l-81.20590149-81.282511z"
+                  fill="currentColor"
+                />
+              </svg>
+            </i>
+          </div>
         </li>
         <li
           class="t-divider t-dropdown__divider t-divider--center t-divider--horizontal"
           style="--t-divider-border-style: solid; --t-divider-border-width: 1px;"
         />
         <li
-          class="t-option t--size-m"
+          class="t-option t-dropdown-option t--size-m"
           role="option"
         >
-          榴莲
+          <div
+            class="t-option__label"
+          >
+            榴莲
+          </div>
         </li>
       </ul>
     </div>

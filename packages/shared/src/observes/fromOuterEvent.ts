@@ -7,7 +7,7 @@ import { castArray } from '@tool-pack/basic';
  * @param inner 与外部相对的内部元素
  * @param eventName 事件名
  */
-export function outerEventObserve(
+export function fromOuterEvent(
   inner: HTMLElement,
   eventName: keyof HTMLElementEventMap,
 ): Observable<MouseEvent>;
@@ -16,7 +16,7 @@ export function outerEventObserve(
  * @param getInner 获取与外部相对的内部元素
  * @param eventName 事件名
  */
-export function outerEventObserve(
+export function fromOuterEvent(
   getInner: () => HTMLElement,
   eventName: keyof HTMLElementEventMap,
 ): Observable<MouseEvent>;
@@ -25,11 +25,11 @@ export function outerEventObserve(
  * @param getInners 获取与外部相对的内部元素数组
  * @param eventName 事件名
  */
-export function outerEventObserve(
+export function fromOuterEvent(
   getInners: () => (HTMLElement | undefined)[],
   eventName: keyof HTMLElementEventMap,
 ): Observable<MouseEvent>;
-export function outerEventObserve(
+export function fromOuterEvent(
   inners:
     | (() => (HTMLElement | undefined)[])
     | (() => HTMLElement)

@@ -12,3 +12,4 @@ export * from './up.icon';
 export * from './right.icon';
 export * from './down.icon';
 export * from './left.icon';
+export * from './selected.icon';

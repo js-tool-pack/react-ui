@@ -1,5 +1,6 @@
 import React from 'react';
-import { PropsBase, Size } from '@pkg/shared';
+import type { PropsBase, Size } from '@pkg/shared';
+import type { ButtonProps } from '~/button';
 
 export interface TagProps extends PropsBase<HTMLDivElement> {
   size?: Size;
@@ -9,6 +10,7 @@ export interface TagProps extends PropsBase<HTMLDivElement> {
   onClose?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   closeable?: boolean;
+  closeBtnAttrs?: ButtonProps['attrs'];
   bordered?: boolean;
   checked?: boolean;
   checkable?: boolean;

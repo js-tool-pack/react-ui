@@ -406,3 +406,68 @@ exports[`Popover trigger hover 2`] = `
   </div>
 </body>
 `;
+
+exports[`Popover 被触发元素拦截事件后点击外部事件仍然有效 1`] = `
+<div
+  class="t-word-balloon t-popover t-word-balloon--top"
+  style="top: -10px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    1
+  </div>
+  <div
+    class="t-word-balloon__arrow"
+  >
+    <svg
+      viewBox="-8 -5.5 16 5.515"
+    >
+      <path
+        d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Popover 被触发元素拦截事件后点击外部事件仍然有效 2`] = `
+<div
+  class="t-word-balloon t-popover t-transition--invisible t-word-balloon--top"
+  style="top: -10px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    1
+  </div>
+  <div
+    class="t-word-balloon__arrow"
+  >
+    <svg
+      viewBox="-8 -5.5 16 5.515"
+    >
+      <path
+        d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Popover 触发元素拦截点击事件后禁止触发 1`] = `
+<body>
+  <div>
+    <div>
+      click
+      <button
+        class="t-button t-button--type-default t--size-m t-button--icon-l"
+      >
+        <span>
+          close
+        </span>
+      </button>
+    </div>
+  </div>
+</body>
+`;

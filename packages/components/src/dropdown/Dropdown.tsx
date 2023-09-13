@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import type {
-  DropdownDivider,
   DropdownOptionsItem,
+  DropdownDivider,
+  DropdownOption,
   DropdownProps,
 } from './dropdown.types';
 import { Popover } from '~/popover';
-import { Option } from '~/option';
-import { getComponentClass } from '@pkg/shared';
+import { DropdownInnerOption } from './DropdownInnerOption';
+import { getComponentClass, useStateWithTrailClear } from '@pkg/shared';
 import { Divider } from '~/divider';
-import { DropdownOption } from './dropdown.types';
 
 const defaultProps = {
   placement: 'bottom-start',
@@ -34,22 +34,36 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   } = props as RequiredPart<DropdownProps, keyof typeof defaultProps>;
   const boxRef = useRef<HTMLDivElement>(null);
 
-  const [show, setShow] = useState<boolean | undefined>();
-
-  useEffect(() => {
-    show !== undefined && setShow(undefined);
-  }, [show]);
-  useEffect(() => {
-    setShow(visible);
-  }, [visible]);
+  const [show, setShow] = useStateWithTrailClear(visible);
 
   const name = 'dropdown';
   const rootClass = getComponentClass(name);
 
-  const handleOptions = (
+  const Box = (
+    <>
+      {header && <div className={`${rootClass}__header`}>{header}</div>}
+      <div ref={boxRef} className={`${rootClass}__body`}>
+        <ul className={`${rootClass}__options`}>{handleOptions(options)}</ul>
+      </div>
+      {footer && <div className={`${rootClass}__footer`}>{footer}</div>}
+    </>
+  );
+
+  return (
+    <Popover
+      {...rest}
+      name={name}
+      showArrow={showArrow}
+      visible={show}
+      content={Box}>
+      {children}
+    </Popover>
+  );
+
+  function handleOptions(
     options: DropdownOptionsItem[] = [],
     parents: DropdownOption[] = [],
-  ): React.ReactElement[] => {
+  ): React.ReactElement[] {
     return options.map((opt) => {
       if (isDivider(opt)) {
         const { key, type: _type, tag = 'li', ...rest } = opt;
@@ -64,7 +78,6 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
         type,
         label,
         key,
-        tag,
         children,
         attrs: optAttrs = {},
         ...optRest
@@ -73,7 +86,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       if (type === 'group') {
         return (
           <li className={`${rootClass}__group`} key={key}>
-            <Option
+            <DropdownInnerOption
               {...optRest}
               tag="div"
               attrs={{
@@ -83,7 +96,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
               size={size}
               readonly>
               {label}
-            </Option>
+            </DropdownInnerOption>
             <ul className={`${rootClass}__group-body`}>
               {handleOptions(children, [...parents, opt])}
             </ul>
@@ -103,15 +116,14 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
         emit(opt, parents);
       };
       const option = (
-        <Option
+        <DropdownInnerOption
           {...optRest}
-          tag={tag || 'li'}
           key={key}
           size={size}
           expandable={children && !!children.length}
           attrs={{ ...optAttrs, onClick }}>
           {label}
-        </Option>
+        </DropdownInnerOption>
       );
 
       if (!children || optRest.disabled) return option;
@@ -138,33 +150,11 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
         </Dropdown>
       );
     });
-  };
-
-  const Box = (
-    <>
-      {header && <div className={`${rootClass}__header`}>{header}</div>}
-      <div ref={boxRef} className={`${rootClass}__body`}>
-        <ul className={`${rootClass}__options`}>{handleOptions(options)}</ul>
-      </div>
-      {footer && <div className={`${rootClass}__footer`}>{footer}</div>}
-    </>
-  );
-
-  return (
-    <Popover
-      {...rest}
-      name={name}
-      showArrow={showArrow}
-      visible={show}
-      content={Box}>
-      {children}
-    </Popover>
-  );
+  }
+  function isDivider(opt: DropdownOptionsItem): opt is DropdownDivider {
+    return (opt as DropdownDivider).type === 'divider';
+  }
 };
 
 Dropdown.defaultProps = defaultProps;
 Dropdown.displayName = 'Dropdown';
-
-function isDivider(opt: DropdownOptionsItem): opt is DropdownDivider {
-  return (opt as DropdownDivider).type === 'divider';
-}

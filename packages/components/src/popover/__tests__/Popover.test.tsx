@@ -2,20 +2,10 @@ import { Popover } from '..';
 import { act, fireEvent, render } from '@testing-library/react';
 import { Button } from '~/button';
 import { nextTick } from '@tool-pack/basic';
+import { useRef, useState } from 'react';
 
 describe('Popover', () => {
-  // 模拟 ResizeObserver，ResizeObserver 不存在于 jsdom 中
-  const MockObserverInstance: ResizeObserver = {
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-  };
-  beforeEach(() => {
-    global.ResizeObserver = jest
-      .fn()
-      .mockImplementation(() => MockObserverInstance);
-  });
-
+  jest.useFakeTimers();
   test('attrs', () => {
     const onClick = jest.fn();
     const { container } = render(
@@ -94,6 +84,7 @@ describe('Popover', () => {
 
       expect(document.body).toMatchSnapshot();
       fireEvent.click(container.querySelector('button')!);
+      act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
     });
 
@@ -133,7 +124,7 @@ describe('Popover', () => {
       expect(document.body).toMatchSnapshot();
       fireEvent.contextMenu(container.querySelector('.trigger')!);
       await act(() => nextTick());
-
+      act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
     });
 
@@ -154,6 +145,7 @@ describe('Popover', () => {
         </Popover>,
       );
       fireEvent.click(container.querySelector('button')!);
+      act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
     });
   });
@@ -209,17 +201,29 @@ describe('Popover', () => {
       fireEvent.mouseEnter(container.querySelector('button')!);
       expect(document.querySelector('.t-word-balloon')).not.toBeNull();
 
+      expect(document.querySelector('.t-word-balloon')).toHaveClass(
+        't-popover-enter-active',
+      );
+
+      // Transition 超时300毫秒后会切换为 idle 或 invisible
+      act(() => jest.advanceTimersByTime(300));
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-enter-active',
+      );
+
       expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
         't-popover-leave-active',
       );
       fireEvent.mouseLeave(document.querySelector('.t-word-balloon')!);
+      // 离开 200 毫秒后启动离开动画
       act(() => jest.advanceTimersByTime(200));
-      // todo: 这里暂时测不了，需要给 Transition 组件添加一个默认定时器触发 transitionend 事件
-      // expect(document.querySelector('.t-word-balloon')).toHaveClass(
-      //   't-popover-leave-active',
-      // );
-      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+      expect(document.querySelector('.t-word-balloon')).toHaveClass(
         't-popover-leave-active',
+      );
+      // 300 毫秒后 invisible
+      act(() => jest.advanceTimersByTime(300));
+      expect(document.querySelector('.t-word-balloon')).toHaveClass(
+        't-transition--invisible',
       );
     });
     test('leaveDelay 500', () => {
@@ -234,18 +238,157 @@ describe('Popover', () => {
       fireEvent.mouseEnter(container.querySelector('button')!);
       expect(document.querySelector('.t-word-balloon')).not.toBeNull();
 
+      expect(document.querySelector('.t-word-balloon')).toHaveClass(
+        't-popover-enter-active',
+      );
+      act(() => jest.advanceTimersByTime(500));
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-enter-active',
+      );
+
       expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
         't-popover-leave-active',
       );
       fireEvent.mouseLeave(document.querySelector('.t-word-balloon')!);
       act(() => jest.advanceTimersByTime(500));
-      // todo: 这里暂时测不了，需要给 Transition 组件添加一个默认定时器触发 transitionend 事件
-      // expect(document.querySelector('.t-word-balloon')).toHaveClass(
-      //   't-popover-leave-active',
-      // );
+      expect(document.querySelector('.t-word-balloon')).toHaveClass(
+        't-popover-leave-active',
+      );
+      act(() => jest.advanceTimersByTime(500));
       expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
         't-popover-leave-active',
       );
+      expect(document.querySelector('.t-word-balloon')).toHaveClass(
+        't-transition--invisible',
+      );
     });
+  });
+
+  describe('onVisibleChange', () => {
+    test('basic', () => {
+      jest.useFakeTimers();
+      const onVisibleChange = jest.fn();
+      const { container } = render(
+        <Popover onVisibleChange={onVisibleChange} content="1">
+          <Button>hover</Button>
+        </Popover>,
+      );
+      expect(onVisibleChange).not.toBeCalled();
+
+      fireEvent.mouseEnter(container.firstChild!);
+      expect(onVisibleChange).toBeCalled();
+      expect(onVisibleChange.mock.calls[0][0]).toBeTruthy();
+
+      act(() => jest.advanceTimersByTime(300));
+      fireEvent.mouseLeave(container.firstChild!);
+      act(() => jest.advanceTimersByTime(200));
+      expect(onVisibleChange.mock.calls[1][0]).toBeFalsy();
+    });
+
+    test('external', () => {
+      jest.useFakeTimers();
+      const onVisibleChange = jest.fn();
+
+      const App = () => {
+        const [visible, setVisible] = useState(false);
+        return (
+          <Popover
+            visible={visible}
+            onVisibleChange={onVisibleChange}
+            content="1">
+            <Button onClick={() => setVisible((v) => !v)}>click</Button>
+          </Popover>
+        );
+      };
+      const { container } = render(<App />);
+      expect(onVisibleChange).not.toBeCalled();
+
+      fireEvent.click(container.firstChild!);
+      expect(onVisibleChange).not.toBeCalled();
+    });
+  });
+
+  it('触发元素拦截点击事件后禁止触发', () => {
+    jest.useFakeTimers();
+    const App = () => {
+      return (
+        <Popover trigger="click" content="1">
+          <div>
+            click
+            <Button
+              attrs={{
+                onClickCapture: (e) => {
+                  e.stopPropagation();
+                },
+              }}>
+              close
+            </Button>
+          </div>
+        </Popover>
+      );
+    };
+    const { container } = render(<App />);
+
+    const onClick = jest.fn();
+    document.addEventListener('click', onClick);
+
+    // react 的合成事件无法阻止原生事件冒泡，反过来却可以，
+    // 因为 react 的事件是代理在 document 上的，实际已经冒泡或者捕获在 document 上了
+    // 除非是在捕获阶段拦截
+    fireEvent.click(container.querySelector('button')!);
+    act(() => jest.advanceTimersByTime(500));
+    expect(document.body).toMatchSnapshot();
+
+    expect(onClick).not.toBeCalled();
+  });
+
+  it('被触发元素拦截事件后点击外部事件仍然有效', () => {
+    jest.useFakeTimers();
+    const App = () => {
+      const visibleRef = useRef(false);
+      return (
+        <Popover
+          trigger="click"
+          onVisibleChange={(visible) => (visibleRef.current = visible)}
+          content="1">
+          <div
+            onClick={(e) => {
+              if (visibleRef.current) {
+                e.stopPropagation();
+                e.preventDefault();
+              }
+            }}>
+            <button>click</button>
+          </div>
+        </Popover>
+      );
+    };
+    const { container } = render(<App />);
+
+    expect(getBalloon()).toBeNull();
+
+    fireEvent.click(container.querySelector('button')!);
+    act(() => jest.advanceTimersByTime(0));
+    act(() => jest.advanceTimersByTime(300));
+
+    expect(getBalloon()).toMatchSnapshot();
+    expect(getBalloon()).not.toHaveClass('t-popover-enter-active');
+
+    fireEvent.click(container.querySelector('button')!);
+    expect(getBalloon()).not.toHaveClass('t-popover-leave-active');
+
+    act(() => jest.advanceTimersByTime(300));
+
+    // 未修复前这一步会无效，外部事件会无法被 div 拦截，导致外部点击事件监听被移除而无法关闭弹窗
+    fireEvent.click(document.body);
+    expect(getBalloon()).toHaveClass('t-popover-leave-active');
+
+    act(() => jest.advanceTimersByTime(0));
+    act(() => jest.advanceTimersByTime(300));
+    expect(getBalloon()).toMatchSnapshot();
+
+    function getBalloon() {
+      return document.querySelector('.t-word-balloon') as HTMLElement;
+    }
   });
 });

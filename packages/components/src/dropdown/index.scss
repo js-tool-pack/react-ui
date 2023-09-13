@@ -2,6 +2,7 @@
 @use '../popover/index' as Pop;
 
 $r: Name.$dropdown;
+$o: Name.$dropdown-option;
 $balloon-content: #{Name.$word-balloon}__content;
 $option: Name.$option;
 
@@ -34,5 +35,10 @@ $option: Name.$option;
   }
   &__group-body {
     margin-left: var(--t-radius);
+  }
+}
+.#{$o} {
+  &__expand {
+    font-size: 0.8em;
   }
 }

@@ -1,6 +1,6 @@
-import { outerEventObserve } from '@pkg/shared';
+import { fromOuterEvent } from '@pkg/shared';
 
-describe('outerEventObserve', () => {
+describe('fromOuterEvent', () => {
   test('inner', () => {
     const div1 = document.createElement('div');
     const div2 = document.createElement('div');
@@ -8,7 +8,7 @@ describe('outerEventObserve', () => {
     document.body.appendChild(div2);
 
     const onClick = jest.fn();
-    outerEventObserve(div1, 'click').subscribe(onClick);
+    fromOuterEvent(div1, 'click').subscribe(onClick);
 
     expect(onClick).not.toBeCalled();
 
@@ -32,7 +32,7 @@ describe('outerEventObserve', () => {
     document.body.appendChild(div2);
 
     const onClick = jest.fn();
-    outerEventObserve(() => div1, 'click').subscribe(onClick);
+    fromOuterEvent(() => div1, 'click').subscribe(onClick);
 
     expect(onClick).not.toBeCalled();
 
@@ -56,7 +56,7 @@ describe('outerEventObserve', () => {
     document.body.appendChild(div2);
 
     const onClick = jest.fn();
-    outerEventObserve(() => [div1, div2], 'click').subscribe(onClick);
+    fromOuterEvent(() => [div1, div2], 'click').subscribe(onClick);
 
     expect(onClick).not.toBeCalled();
 

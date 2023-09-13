@@ -16,16 +16,16 @@ describe('Option', () => {
     expect(container.firstChild).toHaveAttribute('disabled', '');
   });
 
-  test('expandable', () => {
-    const { container } = render(<Option expandable>foo bar</Option>);
+  test('extra', () => {
+    const { container } = render(
+      <Option extra={'hello world'}>foo bar</Option>,
+    );
     expect(container.firstChild).toMatchSnapshot();
   });
 
   test('icon', () => {
     const { container } = render(
-      <Option icon={<CircleClose />} expandable>
-        foo bar
-      </Option>,
+      <Option icon={<CircleClose />}>foo bar</Option>,
     );
     expect(container.firstChild).toMatchSnapshot();
   });

@@ -27,6 +27,7 @@ const options: DropdownOptionsItem[] = [
         <div>蛋炒饭</div>
       </Tooltip>
     ),
+    extra: '推荐 ',
     children: [
       {
         key: '4',

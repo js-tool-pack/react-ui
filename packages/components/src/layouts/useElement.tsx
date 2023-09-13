@@ -7,7 +7,7 @@ export function useElement(
   props: BaseLayoutsProps,
   ref: React.ForwardedRef<HTMLElement>,
   rootClass: string,
-) {
+): React.ReactElement {
   const {
     children,
     className,

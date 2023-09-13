@@ -23,6 +23,7 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
   TagProps
 >((props, ref) => {
   const {
+    closeBtnAttrs = {},
     type,
     icon,
     size,
@@ -64,7 +65,7 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
           type={closeBtnType}
           size="small"
           plain="text"
-          onClick={handleClose}>
+          attrs={{ ...closeBtnAttrs, onClickCapture: handleClose }}>
           <Icon>
             <Close />
           </Icon>
@@ -84,6 +85,7 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
     });
   }
   function handleClose(e: React.MouseEvent<HTMLButtonElement>) {
+    closeBtnAttrs.onClickCapture?.(e);
     if (disabled || !closeable) return;
     onClose?.(e);
     if (e.isDefaultPrevented()) return;

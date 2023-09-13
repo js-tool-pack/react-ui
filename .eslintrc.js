@@ -29,6 +29,14 @@ module.exports = {
         sourceType: 'script',
       },
     },
+    {
+      files: ['**.test.ts', '**.test.tsx'],
+      rules: {
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/no-static-element-interactions': 'off',
+      },
+    },
   ],
   env: {
     browser: true,

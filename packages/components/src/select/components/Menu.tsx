@@ -110,12 +110,14 @@ export const Menu: React.FC<Props> = (props) => {
     // 高亮第一个选中的选项
     if (selected.length) {
       activeOptionRef.current = selected[0];
+      forceUpdate();
       return;
     }
     // 高亮第一个选项
     const opts = flattenOptions(options, (option) => !option.disabled);
     if (!opts.length) return;
     activeOptionRef.current = opts[0];
+    forceUpdate();
   }, []);
 
   return (

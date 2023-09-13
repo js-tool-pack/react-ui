@@ -1,6 +1,6 @@
 import { Select, SelectOption } from '~/select';
 import { act, fireEvent, render } from '@testing-library/react';
-import { $$, getBalloon } from './utils';
+import { $, $$, getBalloon } from './utils';
 
 describe('Select.keyboard', () => {
   const options = [
@@ -60,11 +60,27 @@ describe('Select.keyboard', () => {
     expect($options[2]).not.toHaveClass(cls.picked);
   });
 
-  it('should focus TabTrigger when tab keydown', () => {
-    const value = options[1]!.value;
-    render(<Select visible value={value} options={options} />);
+  it('should highlight the first option when tab-trigger trigger', () => {
+    jest.useFakeTimers();
+    render(<Select options={options} />);
 
-    // const tagTrigger = $('')
+    const tabTrigger = $('.t-select-tab-trigger')!;
+    expect(getBalloon()).toBeNull();
+
+    act(() => tabTrigger.focus());
+    expect(tabTrigger).toHaveFocus();
+
+    fireEvent.keyDown(tabTrigger, { code: 'Enter' });
+    expect(getBalloon()).not.toBeNull();
+
+    act(() => jest.advanceTimersByTime(500));
+
+    const $options = $$('.t-select-option');
+    expect($options.length).toBe(3);
+
+    expect($options[0]).toHaveClass(cls.picked);
+    expect($options[1]).not.toHaveClass(cls.picked);
+    expect($options[2]).not.toHaveClass(cls.picked);
   });
 
   it("should allow controlling the selected option using the keyboard's up and down arrow keys and selecting by pressing the Enter key", () => {

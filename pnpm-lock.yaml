@@ -14,7 +14,7 @@ importers:
       '@tool-pack/basic': ^0.1.2
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': ^0.0.13
-      '@tool-pack/types': ^0.0.6
+      '@tool-pack/types': ^0.0.9
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.4
       '@types/node': ^20.5.6
@@ -81,7 +81,7 @@ importers:
       '@tool-pack/basic': 0.1.2
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': 0.0.13
-      '@tool-pack/types': 0.0.6
+      '@tool-pack/types': 0.0.9
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.4
       '@types/node': 20.5.6
@@ -4901,6 +4901,10 @@ packages:
 
   /@tool-pack/types/0.0.6:
     resolution: {integrity: sha512-V2puQW1R2ufXhhHtGy7v5Kt/ulwfpEc87NK8iADwySU058oebY7gv+SdgehgTmbf6H2odqilcH5DeY8Acmhaww==}
+
+  /@tool-pack/types/0.0.9:
+    resolution: {integrity: sha512-Lfog7tSksvgArWAYRaaB4PCOVpzzE/iQ5bqvCaOmIZtL06CzapscJKPcpWZKIa025VPfb4TKXpayT9aAFZYbDw==}
+    dev: true
 
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}

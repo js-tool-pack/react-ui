@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select.remote all 1`] = `
+<div
+  class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
+  style="width: 0px; top: 2px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    <div
+      class="t-select-menu__body"
+    >
+      <div
+        class="t-select-empty"
+      >
+        空空如也
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select.remote all 2`] = `
+<div
+  class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
+  style="width: 0px; top: 2px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    <div
+      class="t-select-menu__body"
+    >
+      <ul
+        class="t-select-menu__options"
+      >
+        <li
+          class="t-option t-select-option t--size-m"
+          role="option"
+        >
+          <div
+            class="t-option__label"
+          >
+            1
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select.remote all 3`] = `
+<div
+  class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
+  style="width: 0px; top: 2px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    <div
+      class="t-select-menu__body"
+    >
+      <ul
+        class="t-select-menu__options"
+      >
+        <li
+          class="t-option t-select-option t--size-m"
+          role="option"
+        >
+          <div
+            class="t-option__label"
+          >
+            other
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select.remote should display the filter-input element when Select is in the open state 1`] = `
+<div
+  class="t-select t--size-m t-select--active t-select--focus"
+>
+  <input
+    class="t-select-tab-trigger"
+    tabindex="-1"
+  />
+  <div
+    class="t-select-selection t--size-m"
+  >
+    <div
+      class="t-select-selection__selected"
+    >
+      <div
+        class="t-select-selection__placeholder"
+      >
+        select
+      </div>
+      <div
+        class="t-select-filter"
+      >
+        <input
+          class="t-select-filter__input"
+          style="width: 0px;"
+          tabindex="-1"
+          value=""
+        />
+        <span
+          class="t-select-filter__mirror"
+        />
+      </div>
+    </div>
+    <div
+      class="t-select-selection__suffix"
+    >
+      <i
+        class="t-icon t-select-selection__icon"
+        role="img"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+        >
+          <path
+            d="M512.22982846 638.25693048L92.98520897 219.20383471 11.74100274 300.4097362l500.52713049 500.25899727 500.02916876-500.25899727-81.28251096-81.20590149z"
+            fill="currentColor"
+          />
+        </svg>
+      </i>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Select.remote should display the filter-input element when Select is in the open state 2`] = `
+<div
+  class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
+  style="width: 0px; top: 2px; left: 0px;"
+>
+  <div
+    class="t-word-balloon__content"
+  >
+    <div
+      class="t-select-menu__body"
+    >
+      <div
+        class="t-select-empty"
+      >
+        <div
+          class="t-select-empty__content"
+        >
+          No Data
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

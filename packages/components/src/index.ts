@@ -28,3 +28,4 @@ export * from './number-transition';
 export * from './alert';
 export * from './switch';
 export * from './tag';
+export * from './select';

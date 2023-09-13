@@ -4,3 +4,15 @@
 // learn more: https://github.com/testing-library/jest-dom
 // learn more: https://create-react-app.dev/docs/running-tests
 import '@testing-library/jest-dom';
+
+// 模拟 ResizeObserver，ResizeObserver 不存在于 jsdom 中
+const MockObserverInstance: ResizeObserver = {
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+};
+beforeEach(() => {
+  global.ResizeObserver = jest
+    .fn()
+    .mockImplementation(() => MockObserverInstance);
+});

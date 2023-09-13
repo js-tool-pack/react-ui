@@ -6,19 +6,6 @@ import { useState } from 'react';
 
 describe('Popover', () => {
   jest.useFakeTimers();
-
-  // 模拟 ResizeObserver，ResizeObserver 不存在于 jsdom 中
-  const MockObserverInstance: ResizeObserver = {
-    observe: jest.fn(),
-    unobserve: jest.fn(),
-    disconnect: jest.fn(),
-  };
-  beforeEach(() => {
-    global.ResizeObserver = jest
-      .fn()
-      .mockImplementation(() => MockObserverInstance);
-  });
-
   test('attrs', () => {
     const onClick = jest.fn();
     const { container } = render(

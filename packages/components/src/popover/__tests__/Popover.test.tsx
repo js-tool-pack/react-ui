@@ -2,7 +2,7 @@ import { Popover } from '..';
 import { act, fireEvent, render } from '@testing-library/react';
 import { Button } from '~/button';
 import { nextTick } from '@tool-pack/basic';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 describe('Popover', () => {
   jest.useFakeTimers();
@@ -329,7 +329,8 @@ describe('Popover', () => {
     };
     const { container } = render(<App />);
 
-    document.addEventListener('click', () => console.log('body click'));
+    const onClick = jest.fn();
+    document.addEventListener('click', onClick);
 
     // react 的合成事件无法阻止原生事件冒泡，反过来却可以，
     // 因为 react 的事件是代理在 document 上的，实际已经冒泡或者捕获在 document 上了
@@ -337,5 +338,57 @@ describe('Popover', () => {
     fireEvent.click(container.querySelector('button')!);
     act(() => jest.advanceTimersByTime(500));
     expect(document.body).toMatchSnapshot();
+
+    expect(onClick).not.toBeCalled();
+  });
+
+  it('被触发元素拦截事件后点击外部事件仍然有效', () => {
+    jest.useFakeTimers();
+    const App = () => {
+      const visibleRef = useRef(false);
+      return (
+        <Popover
+          trigger="click"
+          onVisibleChange={(visible) => (visibleRef.current = visible)}
+          content="1">
+          <div
+            onClick={(e) => {
+              if (visibleRef.current) {
+                e.stopPropagation();
+                e.preventDefault();
+              }
+            }}>
+            <button>click</button>
+          </div>
+        </Popover>
+      );
+    };
+    const { container } = render(<App />);
+
+    expect(getBalloon()).toBeNull();
+
+    fireEvent.click(container.querySelector('button')!);
+    act(() => jest.advanceTimersByTime(0));
+    act(() => jest.advanceTimersByTime(300));
+
+    expect(getBalloon()).toMatchSnapshot();
+    expect(getBalloon()).not.toHaveClass('t-popover-enter-active');
+
+    fireEvent.click(container.querySelector('button')!);
+    expect(getBalloon()).not.toHaveClass('t-popover-leave-active');
+
+    act(() => jest.advanceTimersByTime(300));
+
+    // 未修复前这一步会无效，外部事件会无法被 div 拦截，导致外部点击事件监听被移除而无法关闭弹窗
+    fireEvent.click(document.body);
+    expect(getBalloon()).toHaveClass('t-popover-leave-active');
+
+    act(() => jest.advanceTimersByTime(0));
+    act(() => jest.advanceTimersByTime(300));
+    expect(getBalloon()).toMatchSnapshot();
+
+    function getBalloon() {
+      return document.querySelector('.t-word-balloon') as HTMLElement;
+    }
   });
 });

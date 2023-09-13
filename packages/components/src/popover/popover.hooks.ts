@@ -217,17 +217,15 @@ export function useShowController(
             show,
           );
         case 'click':
+          const triggerClick$ = fromEvent(el, 'click').pipe(
+            delay(0),
+            takeWhile((e) => !e.defaultPrevented),
+          );
           const outerEvent = fromOuterEvent(
             () => [el, balloonElRef.current],
             'click',
-          ).pipe(
-            tap(close),
-            takeUntil(fromEvent(el, 'click', { capture: true })),
-            take(1),
-          );
-          const queueEvent = fromEvent<MouseEvent>(el, 'click').pipe(
-            delay(0),
-            takeWhile((e) => !e.defaultPrevented),
+          ).pipe(tap(close), takeUntil(triggerClick$), take(1));
+          const queueEvent = triggerClick$.pipe(
             switchMap(() => toggle().pipe(takeWhile((v) => v))),
             switchMap(() => outerEvent),
           );

@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
 import { lockScroll } from '@tool-pack/dom';
+import { useEffect } from 'react';
 
 export function useScrollLock(
   visible: boolean | void,
-  container?: HTMLElement | (() => HTMLElement | undefined),
-  options: { enabled?: boolean; delay?: number; preventShaking?: boolean } = {},
+  container?: (() => HTMLElement | undefined) | HTMLElement,
+  options: { preventShaking?: boolean; enabled?: boolean; delay?: number } = {},
 ) {
-  const { enabled = true, delay = 500, preventShaking = true } = options;
+  const { preventShaking = true, enabled = true, delay = 500 } = options;
 
   useEffect(() => {
     if (!enabled || !visible) return;

@@ -2,9 +2,9 @@
  * title: 嵌套
  */
 
-import React from 'react';
 import { Resizer } from '@tool-pack/react-ui';
 import styles from './basic.module.scss';
+import React from 'react';
 
 const App: React.FC = () => {
   return (

@@ -1,13 +1,13 @@
-import { Tooltip } from '..';
 import { fireEvent, render } from '@testing-library/react';
 import { Button } from '~/button';
+import { Tooltip } from '..';
 
 describe('Tooltip', () => {
   // 模拟 ResizeObserver，ResizeObserver 不存在于 jsdom 中
   const MockObserverInstance: ResizeObserver = {
-    observe: jest.fn(),
-    unobserve: jest.fn(),
     disconnect: jest.fn(),
+    unobserve: jest.fn(),
+    observe: jest.fn(),
   };
   beforeEach(() => {
     global.ResizeObserver = jest
@@ -19,9 +19,10 @@ describe('Tooltip', () => {
     const onClick = jest.fn();
     const { container } = render(
       <Tooltip
+        attrs={{ style: { background: '#fff' }, className: 'foo', onClick }}
+        appendTo={null}
         visible
-        attrs={{ className: 'foo', style: { background: '#fff' }, onClick }}
-        appendTo={null}>
+      >
         <Button>foo bar</Button>
       </Tooltip>,
     );

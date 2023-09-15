@@ -2,50 +2,50 @@
  * title: 嵌套
  */
 
-import React from 'react';
 import {
-  Button,
-  ButtonGroup,
-  Dropdown,
   type DropdownOptionsItem,
   type DropdownProps,
-  Icon,
-  Icons,
-  Tooltip,
+  ButtonGroup,
   useMessage,
+  Dropdown,
+  Tooltip,
+  Button,
+  Icons,
+  Icon,
 } from '@tool-pack/react-ui';
+import React from 'react';
 
 const options: DropdownOptionsItem[] = [
   {
-    key: '1',
     label: '手撕鸡',
+    key: '1',
   },
   {
-    key: '2',
+    children: [
+      {
+        label: '黄金蛋炒饭,黄金蛋炒饭',
+        key: '4',
+      },
+      {
+        label: '扬州炒饭',
+        key: '5',
+      },
+    ],
     label: (
       <Tooltip title={'轮胎3🌟推荐'}>
         <div>蛋炒饭</div>
       </Tooltip>
     ),
     extra: '推荐 ',
-    children: [
-      {
-        key: '4',
-        label: '黄金蛋炒饭,黄金蛋炒饭',
-      },
-      {
-        key: '5',
-        label: '扬州炒饭',
-      },
-    ],
+    key: '2',
   },
   {
     type: 'divider',
     key: 'd1',
   },
   {
-    key: '3',
     label: '榴莲',
+    key: '3',
   },
 ];
 const App: React.FC = () => {
@@ -66,14 +66,14 @@ const App: React.FC = () => {
     <>
       <ButtonGroup>
         <Button type="primary">菜单</Button>
-        <Dropdown trigger="click" options={options} onSelect={onSelect}>
+        <Dropdown onSelect={onSelect} options={options} trigger="click">
           <Button
-            type="primary"
             icon={
               <Icon>
                 <Icons.Down />
               </Icon>
             }
+            type="primary"
           />
         </Dropdown>
       </ButtonGroup>

@@ -3,8 +3,8 @@
  * description: PopConfirm 基础用法。
  */
 
+import { PopConfirm, Button } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, PopConfirm } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (

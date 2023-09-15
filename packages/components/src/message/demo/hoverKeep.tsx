@@ -5,25 +5,26 @@
  *   开启以后，鼠标划过 Message 时停止倒计时， 鼠标离开后继续倒计时。
  */
 
+import { useMessage, Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, Space, useMessage } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const Message = useMessage({ hoverKeep: true });
   return (
     <Space className="demo-message">
-      <Button type="success" onClick={() => Message.success('hello')}>
+      <Button onClick={() => Message.success('hello')} type="success">
         success
       </Button>
-      <Button type="success" onClick={() => Message.info('info')}>
+      <Button onClick={() => Message.info('info')} type="success">
         info
       </Button>
-      <Button type="success" onClick={() => Message.warning('warning')}>
+      <Button onClick={() => Message.warning('warning')} type="success">
         warning
       </Button>
       <Button
+        onClick={() => Message.error('error', { hoverKeep: false })}
         type="danger"
-        onClick={() => Message.error('error', { hoverKeep: false })}>
+      >
         hoverKeep: false
       </Button>
     </Space>

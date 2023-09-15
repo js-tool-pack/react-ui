@@ -3,13 +3,13 @@
  * description: 总览。
  */
 
+import { Footer, Header, Layout, Aside, Main } from '@tool-pack/react-ui';
 import React from 'react';
-import { Aside, Footer, Header, Layout, Main } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
-    <Layout vertical style={{ textAlign: 'center', background: '#efefef' }}>
-      <Header className="header" style={{ background: 'pink' }}>
+    <Layout style={{ background: '#efefef', textAlign: 'center' }} vertical>
+      <Header style={{ background: 'pink' }} className="header">
         header
       </Header>
       <Layout>

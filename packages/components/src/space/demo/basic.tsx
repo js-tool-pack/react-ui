@@ -3,8 +3,8 @@
  * description: space 基础用法。
  */
 
+import { Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Button } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (

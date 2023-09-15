@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
-import { useForceUpdate, useBeforeDestroy } from '@pkg/shared';
+import { useBeforeDestroy, useForceUpdate } from '@pkg/shared';
+import { renderHook, act } from '@testing-library/react';
 
 describe('useBeforeDestroy', () => {
   test('basic', () => {

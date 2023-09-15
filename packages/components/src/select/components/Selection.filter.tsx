@@ -1,7 +1,7 @@
+import { ConvertOptional } from '@tool-pack/types';
 import React, { useEffect, useRef } from 'react';
 import { getClasses } from '@pkg/shared';
 import { SelectProps } from '~/select';
-import { ConvertOptional } from '@tool-pack/types';
 
 interface Props
   extends ConvertOptional<Pick<SelectProps, 'ignoreComposition'>> {
@@ -49,15 +49,15 @@ export const SelectionFilter: React.FC<Props> = (props) => {
       <input
         onCompositionStart={onCompositionStart}
         onCompositionEnd={onCompositionEnd}
-        className={cls.__.input}
         onKeyDown={onInputKeyDown}
+        className={cls.__.input}
         onBlur={onInputBlur}
         onChange={onChange}
-        ref={inputRef}
         value={inputValue}
+        ref={inputRef}
         tabIndex={-1}
       />
-      <span ref={mirrorRef} className={cls.__.mirror}>
+      <span className={cls.__.mirror} ref={mirrorRef}>
         {inputValue}
       </span>
     </div>

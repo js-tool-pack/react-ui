@@ -3,8 +3,8 @@
  * description: Collapse 基础用法。
  */
 
-import React, { useLayoutEffect } from 'react';
 import { Collapse, Divider } from '@tool-pack/react-ui';
+import React, { useLayoutEffect } from 'react';
 
 const App: React.FC = () => {
   useLayoutEffect(() => {
@@ -28,16 +28,17 @@ const App: React.FC = () => {
       <Divider attrs={{ style: { margin: '10px 0' } }} />
 
       <Collapse
-        title={'第十五章'}
-        size="large"
-        iconPlacement="end"
         attrs={{
           style: {
             border: '1px solid gray',
             borderRadius: '8px',
             padding: '0 16px',
           },
-        }}>
+        }}
+        iconPlacement="end"
+        title={'第十五章'}
+        size="large"
+      >
         <div style={{ paddingBottom: '20px' }}>
           古之善为士者，微妙玄通，深不可识。夫唯不可识，故强(qiǎng)为之容。豫焉若冬涉川，犹兮若畏四邻，俨兮其若容，涣兮若冰之将释，敦兮其若朴，旷兮其若谷，混兮其若浊。孰能浊以静之徐清？孰能安以久动之徐生？保此道者不欲盈，夫唯不盈，故能蔽不新成。
         </div>

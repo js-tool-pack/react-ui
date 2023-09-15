@@ -1,4 +1,4 @@
-import { renderHook, render, fireEvent, act } from '@testing-library/react';
+import { renderHook, fireEvent, render, act } from '@testing-library/react';
 import { useScrollLock } from '@pkg/shared';
 import { useState } from 'react';
 

@@ -1,14 +1,15 @@
-import { PopConfirm } from '..';
 import { fireEvent, render } from '@testing-library/react';
+import { PopConfirm } from '..';
 
 describe('PopConfirm', () => {
   test('attrs', () => {
     const onClick = jest.fn();
     const { container } = render(
       <PopConfirm
+        attrs={{ style: { background: '#fff' }, className: 'foo', onClick }}
+        appendTo={null}
         visible
-        attrs={{ className: 'foo', style: { background: '#fff' }, onClick }}
-        appendTo={null}>
+      >
         <div>foo bar</div>
       </PopConfirm>,
     );
@@ -25,7 +26,7 @@ describe('PopConfirm', () => {
 
   test('icon', () => {
     const { container } = render(
-      <PopConfirm visible icon="foo-bar" content="bar" appendTo={null}>
+      <PopConfirm appendTo={null} icon="foo-bar" content="bar" visible>
         <div>foo</div>
       </PopConfirm>,
     );
@@ -40,11 +41,12 @@ describe('PopConfirm', () => {
       render(
         <div>
           <PopConfirm
-            visible
-            destroyOnHide
-            icon="foo-bar"
             onCancel={onCancel}
-            content="bar">
+            icon="foo-bar"
+            destroyOnHide
+            content="bar"
+            visible
+          >
             <div>foo</div>
           </PopConfirm>
           <div className="hide">hide</div>
@@ -61,11 +63,12 @@ describe('PopConfirm', () => {
       render(
         <div>
           <PopConfirm
-            visible
-            destroyOnHide
-            icon="foo-bar"
             onCancel={onCancel}
-            content="bar">
+            icon="foo-bar"
+            destroyOnHide
+            content="bar"
+            visible
+          >
             <div>foo</div>
           </PopConfirm>
           <div className="hide">hide</div>
@@ -82,11 +85,12 @@ describe('PopConfirm', () => {
       render(
         <div>
           <PopConfirm
-            visible
-            destroyOnHide
-            icon="foo-bar"
             onConfirm={onConfirm}
-            content="bar">
+            icon="foo-bar"
+            destroyOnHide
+            content="bar"
+            visible
+          >
             <div>foo</div>
           </PopConfirm>
           <div className="hide">hide</div>
@@ -103,11 +107,12 @@ describe('PopConfirm', () => {
       render(
         <div>
           <PopConfirm
-            visible
-            destroyOnHide
-            icon="foo-bar"
             onConfirm={onConfirm}
-            content="bar">
+            icon="foo-bar"
+            destroyOnHide
+            content="bar"
+            visible
+          >
             <div>foo</div>
           </PopConfirm>
           <div className="hide">hide</div>

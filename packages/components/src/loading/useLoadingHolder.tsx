@@ -1,6 +1,6 @@
-import { Loading } from './Loading';
 import type { LoadingProps } from './loading.types';
-import React, { useMemo, useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { Loading } from './Loading';
 
 /**
  * 调用hook开启loading
@@ -23,9 +23,9 @@ export function useLoadingHolder(props: Partial<LoadingProps> = {}) {
 
   return [
     {
+      toggle: () => setVisible(!_visible),
       visible: _visible,
       setVisible,
-      toggle: () => setVisible(!_visible),
     },
     contextHolder,
   ] as const;

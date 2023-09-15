@@ -3,8 +3,8 @@
  * description: 设置 appendTo 可以让 Popover 窗体插入指定的 html标签中。
  */
 
-import React, { useEffect, useRef } from 'react';
 import { Popover, Button } from '@tool-pack/react-ui';
+import React, { useEffect, useRef } from 'react';
 
 const App: React.FC = () => {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -19,29 +19,32 @@ const App: React.FC = () => {
   }, []);
   return (
     <div
-      ref={rootRef}
       style={{
         position: 'relative',
-        height: '200px',
+        alignItems: 'center',
         background: 'cyan',
         overflow: 'hidden',
-        alignItems: 'center',
-      }}>
-      <div ref={scrollerRef} style={{ height: '200px', overflow: 'auto' }}>
+        height: '200px',
+      }}
+      ref={rootRef}
+    >
+      <div style={{ overflow: 'auto', height: '200px' }} ref={scrollerRef}>
         <div
           style={{
-            width: '300%',
-            height: '300%',
-            display: 'flex',
-            alignItems: 'center',
             justifyContent: 'center',
+            alignItems: 'center',
             position: 'relative',
-          }}>
+            display: 'flex',
+            height: '300%',
+            width: '300%',
+          }}
+        >
           <Popover
-            trigger="click"
             appendTo={() => rootRef.current || document.body}
             attrs={{ style: { width: '200px' } }}
-            content={'渲染在指定的html元素内'}>
+            content={'渲染在指定的html元素内'}
+            trigger="click"
+          >
             <Button attrs={{ id: 'btn1' }}>click</Button>
           </Popover>
         </div>

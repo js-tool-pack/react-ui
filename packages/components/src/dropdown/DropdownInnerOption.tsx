@@ -1,10 +1,10 @@
-import React from 'react';
 import { DropdownOptionProps } from '~/dropdown/dropdown.types';
-import { Option } from '~/option';
-import { getComponentClass } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
-import { Icon } from '~/icon';
+import { getComponentClass } from '@pkg/shared';
 import { Right as RightIcon } from '@pkg/icons';
+import { Option } from '~/option';
+import { Icon } from '~/icon';
+import React from 'react';
 
 const rootClass = getComponentClass('dropdown-option');
 const defaultProps = {
@@ -13,15 +13,10 @@ const defaultProps = {
 
 export const DropdownInnerOption: React.FC<DropdownOptionProps> =
   React.forwardRef<HTMLElement, DropdownOptionProps>((props, ref) => {
-    const { expandable, children, extra, attrs = {}, ...rest } = props;
+    const { expandable, attrs = {}, children, extra, ...rest } = props;
     return (
       <Option
         {...rest}
-        ref={ref}
-        attrs={{
-          ...attrs,
-          className: getClassNames(rootClass, attrs.className),
-        }}
         extra={
           (extra || expandable) && (
             <>
@@ -33,7 +28,13 @@ export const DropdownInnerOption: React.FC<DropdownOptionProps> =
               )}
             </>
           )
-        }>
+        }
+        attrs={{
+          ...attrs,
+          className: getClassNames(rootClass, attrs.className),
+        }}
+        ref={ref}
+      >
         {children}
       </Option>
     );

@@ -1,7 +1,7 @@
-import { render, fireEvent, act } from '@testing-library/react';
-import { Alert } from '..';
-import { Left } from '@pkg/icons';
+import { fireEvent, render, act } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
+import { Left } from '@pkg/icons';
+import { Alert } from '..';
 
 describe('Alert', () => {
   testAttrs(Alert);
@@ -18,7 +18,7 @@ describe('Alert', () => {
     ).toHaveClass('t-alert--bordered');
     expect(
       render(
-        <Alert title="Tips" bordered={false}>
+        <Alert bordered={false} title="Tips">
           foo bar
         </Alert>,
       ).container.firstChild,
@@ -45,7 +45,7 @@ describe('Alert', () => {
   test('icon', () => {
     expect(
       render(
-        <Alert title="Tips" icon={<Left />}>
+        <Alert icon={<Left />} title="Tips">
           foo bar
         </Alert>,
       ).container.firstChild,
@@ -64,7 +64,7 @@ describe('Alert', () => {
       jest.useFakeTimers();
       const onClose = jest.fn();
       const { container } = render(
-        <Alert title="Tips" closable onClose={onClose}>
+        <Alert onClose={onClose} title="Tips" closable>
           foo bar
         </Alert>,
       );
@@ -80,7 +80,7 @@ describe('Alert', () => {
       jest.useFakeTimers();
       const onClose = jest.fn((e) => e.preventDefault());
       const { container } = render(
-        <Alert title="Tips" closable onClose={onClose}>
+        <Alert onClose={onClose} title="Tips" closable>
           foo bar
         </Alert>,
       );

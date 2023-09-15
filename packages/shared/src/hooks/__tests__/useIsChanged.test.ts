@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react';
-import { useState } from 'react';
+import { renderHook, act } from '@testing-library/react';
 import { useIsChanged } from '@pkg/shared';
+import { useState } from 'react';
 
 it('useIsChanged', () => {
   let renderTimer = 0;

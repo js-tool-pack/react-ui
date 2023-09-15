@@ -3,17 +3,18 @@
  * description: 自定义按钮文本或去除按钮。
  */
 
+import { PopConfirm, Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, PopConfirm, Space } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
     <Space>
       <PopConfirm
-        attrs={{ style: { width: '220px' } }}
-        confirmProps={{ children: 'confirm' }}
         cancelProps={{ children: 'No, Thanks' }}
-        content="确认要删除？">
+        confirmProps={{ children: 'confirm' }}
+        attrs={{ style: { width: '220px' } }}
+        content="确认要删除？"
+      >
         <Button>自定义文案</Button>
       </PopConfirm>
 
@@ -22,10 +23,11 @@ const App: React.FC = () => {
       </PopConfirm>
 
       <PopConfirm
+        content="确认要删除？确认要删除？确认要删除？确认要删除？确认要删除？"
         attrs={{ style: { width: '220px' } }}
-        confirmProps={null}
         placement="left-start"
-        content="确认要删除？确认要删除？确认要删除？确认要删除？确认要删除？">
+        confirmProps={null}
+      >
         <Button>只有取消</Button>
       </PopConfirm>
     </Space>

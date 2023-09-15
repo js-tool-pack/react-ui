@@ -3,34 +3,35 @@
  * description: 添加className。
  */
 
+import { useMessage, Button, Space, Icons, Icon } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, Icon, Space, useMessage, Icons } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const Message = useMessage({
-    // 为窗体添加className
-    attrs: { className: 'custom-class-name' },
     // 为容器添加classname
     containerAttrs: { className: 'container-class-name' },
-    duration: 0,
+    // 为窗体添加className
+    attrs: { className: 'custom-class-name' },
     showClose: true,
+    duration: 0,
   });
   return (
     <Space className="demo-message-class-name">
-      <Button type="success" onClick={() => Message.success('hello world')}>
+      <Button onClick={() => Message.success('hello world')} type="success">
         show message
       </Button>
       <Button
-        type="info"
         onClick={() =>
           Message.info('hello world', {
             // 为窗体添加className
             attrs: { className: 'custom-class-name2' },
           })
-        }>
+        }
+        type="info"
+      >
         show message
       </Button>
-      <Button type="primary" onClick={() => Message.clear()}>
+      <Button onClick={() => Message.clear()} type="primary">
         <Icon size="1.5em">
           <Icons.CircleClose />
         </Icon>

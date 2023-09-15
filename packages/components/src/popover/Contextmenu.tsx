@@ -1,14 +1,14 @@
-import React, { useRef } from 'react';
-import { getClassNames, nextTick } from '@tool-pack/basic';
 import { getComponentClass, useForceUpdate } from '@pkg/shared';
+import { getClassNames, nextTick } from '@tool-pack/basic';
 import type { PopoverProps } from './popover.types';
-import { Popover } from './Popover';
 import { createPortal } from 'react-dom';
+import React, { useRef } from 'react';
+import { Popover } from './Popover';
 
 const rootClass = getComponentClass('popover');
 
 export const Contextmenu: React.FC<PopoverProps> = (props) => {
-  const { children, trigger: _, ...rest } = props;
+  const { trigger: _, children, ...rest } = props;
   const triggerRef = useRef<HTMLDivElement>(null);
   const forceUpdate = useForceUpdate();
 
@@ -37,11 +37,12 @@ export const Contextmenu: React.FC<PopoverProps> = (props) => {
       {createPortal(
         <Popover {...rest} trigger="click">
           <div
-            ref={triggerRef}
             className={getClassNames(
               `${rootClass}__contextmenu_trigger`,
               rest.attrs?.className,
-            )}></div>
+            )}
+            ref={triggerRef}
+          ></div>
         </Popover>,
         document.body,
       )}

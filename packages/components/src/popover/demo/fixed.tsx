@@ -3,8 +3,8 @@
  * debug: true
  */
 
+import { Divider, Popover, Button } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Button, Divider, Popover } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -24,17 +24,19 @@ const App: React.FC = () => {
           bottom: '10vh',
           right: '10vw',
           zIndex: 10,
-        }}>
+        }}
+      >
         <div>fixed</div>
-        <Popover placement="right" content="不如须臾之所学也">
+        <Popover content="不如须臾之所学也" placement="right">
           <div>吾尝终日而思矣；</div>
         </Popover>
         <Popover
-          placement="right"
-          content={<span>不如登高之博见也</span>}
-          appendTo={null}
           attrs={{ style: { width: 'max-content' } }}
-          viewport={() => document.body}>
+          content={<span>不如登高之博见也</span>}
+          viewport={() => document.body}
+          placement="right"
+          appendTo={null}
+        >
           <div style={{ position: 'relative' }}>吾尝跂而望矣</div>
         </Popover>
       </div>
@@ -44,13 +46,12 @@ const App: React.FC = () => {
           <div
             style={{
               position: 'fixed',
-              top: '2px',
               left: '10px',
+              top: '2px',
               zIndex: 10,
-            }}>
+            }}
+          >
             <Popover
-              placement="left"
-              trigger="click"
               content={
                 <div>
                   <Button onClick={openLoading} loading={loading}>
@@ -58,15 +59,16 @@ const App: React.FC = () => {
                   </Button>
                 </div>
               }
-              attrs={{ style: { width: 'max-content' } }}>
-              <div style={{ position: 'relative', display: 'inline-block' }}>
+              attrs={{ style: { width: 'max-content' } }}
+              placement="left"
+              trigger="click"
+            >
+              <div style={{ display: 'inline-block', position: 'relative' }}>
                 fake fixed click
               </div>
             </Popover>
             <Divider vertical />
             <Popover
-              placement="right"
-              trigger="hover"
               content={
                 <div>
                   <Button onClick={openLoading} loading={loading}>
@@ -74,15 +76,16 @@ const App: React.FC = () => {
                   </Button>
                 </div>
               }
-              attrs={{ style: { width: 'max-content' } }}>
-              <div style={{ position: 'relative', display: 'inline-block' }}>
+              attrs={{ style: { width: 'max-content' } }}
+              placement="right"
+              trigger="hover"
+            >
+              <div style={{ display: 'inline-block', position: 'relative' }}>
                 fake fixed hover
               </div>
             </Popover>
             <Divider vertical />
             <Popover
-              placement="bottom"
-              trigger="focus"
               content={
                 <div>
                   <Button onClick={openLoading} loading={loading}>
@@ -90,8 +93,11 @@ const App: React.FC = () => {
                   </Button>
                 </div>
               }
-              attrs={{ style: { width: 'max-content' } }}>
-              <button style={{ position: 'relative', display: 'inline-block' }}>
+              attrs={{ style: { width: 'max-content' } }}
+              placement="bottom"
+              trigger="focus"
+            >
+              <button style={{ display: 'inline-block', position: 'relative' }}>
                 fake fixed focus
               </button>
             </Popover>

@@ -1,7 +1,7 @@
-import React from 'react';
+import { ConvertOptional } from '@tool-pack/types';
 import { getClasses } from '@pkg/shared';
 import { SelectProps } from '~/select';
-import { ConvertOptional } from '@tool-pack/types';
+import React from 'react';
 
 const cls = getClasses('select-empty', ['content'], []);
 

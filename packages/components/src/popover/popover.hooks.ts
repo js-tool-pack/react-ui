@@ -1,29 +1,29 @@
 /*eslint no-case-declarations: "off"*/
-import { castArray, emptyFn, throttle } from '@tool-pack/basic';
-import { calcPlacement, calcPosition } from './popover.utils';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { collectScroller, calcDistanceWithParent } from '@tool-pack/dom';
 import {
-  getComponentClass,
-  PLACEMENTS_12,
-  type Placement_12,
-  fromOuterEvent,
-  useNextEffect,
-} from '@pkg/shared';
-import {
-  delay,
+  AsyncSubject,
   fromEvent,
-  of,
   switchMap,
-  take,
   takeUntil,
-  tap,
-  merge,
   takeWhile,
+  delay,
+  merge,
   defer,
   retry,
-  AsyncSubject,
+  take,
+  tap,
+  of,
 } from 'rxjs';
+import {
+  getComponentClass,
+  type Placement_12,
+  fromOuterEvent,
+  PLACEMENTS_12,
+  useNextEffect,
+} from '@pkg/shared';
+import { calcDistanceWithParent, collectScroller } from '@tool-pack/dom';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
+import { castArray, throttle, emptyFn } from '@tool-pack/basic';
+import { calcPlacement, calcPosition } from './popover.utils';
 import type { PopoverRequiredPartProps } from './Popover';
 
 export function useResizeObserver(
@@ -50,14 +50,14 @@ export function usePosition(
   triggerElRef: React.RefObject<HTMLElement>,
   balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   {
-    offset,
-    placement,
     viewport: getViewportEl,
-    appendTo,
     widthByTrigger,
+    placement,
+    appendTo,
+    offset,
   }: Pick<
     PopoverRequiredPartProps,
-    'offset' | 'placement' | 'viewport' | 'appendTo' | 'widthByTrigger'
+    'widthByTrigger' | 'placement' | 'viewport' | 'appendTo' | 'offset'
   >,
 ) {
   const _placement = useRef(placement);
@@ -109,8 +109,8 @@ export function usePosition(
       _placement.current = place;
     };
     return throttle(() => refreshPosition(), 5, {
-      leading: true,
       trailing: true,
+      leading: true,
     });
   }, [offset, placement, triggerElRef, balloonElRef, widthByTrigger]);
 
@@ -285,7 +285,7 @@ export function useShowController(
 
   return show;
 
-  function setShow(value: boolean | ((prevValue: boolean) => boolean)): void {
+  function setShow(value: ((prevValue: boolean) => boolean) | boolean): void {
     const onChange: Exclude<typeof onVisibleChange, undefined> = onVisibleChange
       ? (next) => nextEffect(() => onVisibleChange(next), true)
       : emptyFn;

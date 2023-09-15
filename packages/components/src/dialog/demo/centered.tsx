@@ -3,24 +3,24 @@
  * description: 使 dialog 窗体垂直居中。
  */
 
-import React, { useCallback, useMemo, useState } from 'react';
 import {
-  Aside,
   Button,
   Dialog,
   Footer,
   Header,
   Layout,
+  Aside,
   Main,
 } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useMemo } from 'react';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const close = useCallback(() => setVisible(false), []);
   const children = useMemo(() => {
     return (
-      <Layout vertical style={{ textAlign: 'center', background: '#efefef' }}>
-        <Header className="header" style={{ background: 'pink' }}>
+      <Layout style={{ background: '#efefef', textAlign: 'center' }} vertical>
+        <Header style={{ background: 'pink' }} className="header">
           header
         </Header>
         <Layout>
@@ -37,28 +37,30 @@ const App: React.FC = () => {
   }, []);
   return (
     <div style={{ textAlign: 'center' }}>
-      <Button type="primary" onClick={() => setVisible(true)}>
+      <Button onClick={() => setVisible(true)} type="primary">
         {visible ? '关闭' : '打开'}dialog
       </Button>
       <Dialog
-        visible={visible}
-        header="title"
         footer={
           <>
-            <Button type="info" onClick={close} plain="dashed">
+            <Button onClick={close} plain="dashed" type="info">
               cancel
             </Button>
             <Button
-              type="primary"
+              style={{ marginLeft: '10px' }}
               onClick={close}
-              style={{ marginLeft: '10px' }}>
+              type="primary"
+            >
               confirm
             </Button>
           </>
         }
         bodyAttrs={{ style: { top: '20px' } }}
+        visible={visible}
+        onClose={close}
+        header="title"
         centered
-        onClose={close}>
+      >
         {children}
       </Dialog>
     </div>

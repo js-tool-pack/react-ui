@@ -3,8 +3,8 @@
  * description: 因为宽度变化会导致内容重新排列，所以相比垂直折叠需要多操作一步把内部的宽度固定住，限制内容随宽度排列。
  */
 
+import { CollapseTransition, Divider, Button } from '@tool-pack/react-ui';
 import React, { useLayoutEffect, useState } from 'react';
-import { Button, CollapseTransition, Divider } from '@tool-pack/react-ui';
 const App: React.FC = () => {
   const [visible, setVisible] = useState(true);
   useLayoutEffect(() => {

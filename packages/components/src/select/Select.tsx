@@ -1,4 +1,10 @@
-import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
+import {
+  useEventListenerOnMounted,
+  useStateWithTrailClear,
+  getSizeClassName,
+  useForwardRef,
+  getClasses,
+} from '@pkg/shared';
 import type {
   SelectOptionsItem,
   SelectStaticProps,
@@ -7,24 +13,18 @@ import type {
   SelectFC,
 } from './select.types';
 import {
-  useEventListenerOnMounted,
-  useStateWithTrailClear,
-  getSizeClassName,
-  useForwardRef,
-  getClasses,
-} from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
-import { Popover } from '~/popover';
-import { Menu, Selection, TabTrigger } from '~/select/components';
-import { getClassNames } from '@tool-pack/basic';
-import {
   pickOptionsByValue,
   isValueChanged,
   filterOptions,
 } from '~/select/utils';
-import { useEsc } from '~/dialog/dialog.hooks';
+import React, { useImperativeHandle, useEffect, useState, useRef } from 'react';
+import { TabTrigger, Selection, Menu } from '~/select/components';
+import type { RequiredPart } from '@tool-pack/types';
 import { filter as rxFilter, fromEvent } from 'rxjs';
 import { transitionCBAdapter } from '~/transition';
+import { getClassNames } from '@tool-pack/basic';
+import { useEsc } from '~/dialog/dialog.hooks';
+import { Popover } from '~/popover';
 
 const cls = getClasses(
   'select',
@@ -34,13 +34,13 @@ const cls = getClasses(
 const defaultProps = {
   ignoreComposition: true,
   placeholder: 'select',
-  trigger: 'click',
   widthByTrigger: true,
-  showArrow: false,
   placement: 'bottom',
-  offset: 2,
+  showArrow: false,
+  trigger: 'click',
   multiple: false,
   size: 'medium',
+  offset: 2,
 } satisfies Partial<SelectStaticProps>;
 
 const _Select: React.FC<SelectStaticProps> = React.forwardRef<
@@ -52,32 +52,32 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
     onVisibleChange,
     controllerRef,
     popoverAttrs,
-    placeholder,
     maxTagCount,
+    placeholder,
+    attrs = {},
     filterable,
     clearable,
     showArrow,
     disabled,
-    onChange,
-    onSelect,
-    onSearch,
     multiple,
-    onClear,
+    onChange,
+    onSearch,
+    onSelect,
     loading,
+    onClear,
+    onFocus,
     options,
     visible,
-    onFocus,
-    onBlur,
-    header,
     filter,
-    remote,
-    empty,
     footer,
+    header,
+    onBlur,
+    remote,
     status,
+    empty,
     value,
     icon,
     size,
-    attrs = {},
     ...rest
   } = props as RequiredPart<SelectProps, keyof typeof defaultProps>;
 
@@ -148,15 +148,6 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
   const filteredOptions = getFilteredOptions();
 
   const popoverOn = transitionCBAdapter({
-    onBeforeEnter: () => {
-      setOpened(true);
-      onVisibleChange?.(true);
-      setFocus(true);
-    },
-    onBeforeLeave: () => {
-      setOpened(false);
-      onVisibleChange?.(false);
-    },
     onAfterLeave() {
       // 关闭后清理过滤值
       if (!multiple) setPattern('');
@@ -167,30 +158,40 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
         setFocus(false);
       }
     },
+    onBeforeEnter: () => {
+      setOpened(true);
+      onVisibleChange?.(true);
+      setFocus(true);
+    },
+    onBeforeLeave: () => {
+      setOpened(false);
+      onVisibleChange?.(false);
+    },
   });
 
   return (
     <Popover
       {...rest}
-      on={popoverOn}
-      name="select__dropdown"
-      showArrow={showArrow}
-      attrs={popoverAttrs}
-      disabled={disabled}
-      visible={show}
       content={
         <Menu
           onSelectedChange={onSelectedChange}
           options={filteredOptions}
-          selected={selected}
           multiple={multiple}
           onSelect={onSelect}
-          header={header}
-          footer={footer}
+          selected={selected}
           active={opened}
+          footer={footer}
+          header={header}
           empty={empty}
         />
-      }>
+      }
+      name="select__dropdown"
+      showArrow={showArrow}
+      attrs={popoverAttrs}
+      disabled={disabled}
+      on={popoverOn}
+      visible={show}
+    >
       {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
       <div
         {...attrs}
@@ -199,8 +200,8 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
           attrs.className,
           getSizeClassName(size),
           {
-            [`${cls.root}--${status}`]: status,
             [cls['--'].selected]: selected.length,
+            [`${cls.root}--${status}`]: status,
             [cls['--'].clearable]: clearable,
             [cls['--'].disabled]: disabled,
             [cls['--'].active]: opened,
@@ -208,7 +209,8 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
           },
         )}
         onClick={onRootClick}
-        ref={rootRef}>
+        ref={rootRef}
+      >
         <TabTrigger
           disabled={disabled}
           ref={tabTriggerRef}
@@ -219,8 +221,8 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
         />
         <Selection
           ignoreComposition={ignoreComposition}
-          onPatternChange={onPatternChange}
           onSelectedChange={onSelectedChange}
+          onPatternChange={onPatternChange}
           maxTagCount={maxTagCount}
           placeholder={placeholder}
           filterable={filterable}
@@ -228,10 +230,10 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
           disabled={disabled}
           multiple={multiple}
           selected={selected}
-          pattern={pattern}
           loading={loading}
-          options={options}
           onClear={onClear}
+          options={options}
+          pattern={pattern}
           opened={opened}
           remote={remote}
           icon={icon}

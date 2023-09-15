@@ -1,8 +1,8 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { Tag } from '..';
+import { fireEvent, render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
 import Demo from '../demo/basic';
+import React from 'react';
+import { Tag } from '..';
 
 describe('Tag', () => {
   testAttrs(Tag);
@@ -83,7 +83,7 @@ describe('Tag', () => {
     test('closeBtnAttrs', () => {
       const onChange = jest.fn();
       const { container } = render(
-        <Tag onChange={onChange} closeable closeBtnAttrs={{ tabIndex: -1 }} />,
+        <Tag closeBtnAttrs={{ tabIndex: -1 }} onChange={onChange} closeable />,
       );
       expect(container.querySelector('button')).toHaveAttribute(
         'tabindex',
@@ -94,7 +94,7 @@ describe('Tag', () => {
     test('checked', () => {
       const onChange = jest.fn();
       const { container } = render(
-        <Tag onChange={onChange} checked checkable />,
+        <Tag onChange={onChange} checkable checked />,
       );
 
       expect(container.firstChild).toHaveClass(
@@ -130,7 +130,7 @@ describe('Tag', () => {
     test('basic', () => {
       const onClose = jest.fn();
       const { container } = render(
-        <Tag closeable onClose={onClose}>
+        <Tag onClose={onClose} closeable>
           tag
         </Tag>,
       );
@@ -149,7 +149,7 @@ describe('Tag', () => {
     test('preventDefault', () => {
       const onClose = jest.fn((e: React.MouseEvent) => e.preventDefault());
       const { container } = render(
-        <Tag closeable onClose={onClose}>
+        <Tag onClose={onClose} closeable>
           tag
         </Tag>,
       );
@@ -176,7 +176,7 @@ describe('Tag', () => {
     test('checkable', () => {
       const onChange = jest.fn();
       const { container } = render(
-        <Tag onChange={onChange} disabled checkable />,
+        <Tag onChange={onChange} checkable disabled />,
       );
 
       expect(container.firstChild).toHaveClass('t-tag--checkable');
@@ -191,7 +191,7 @@ describe('Tag', () => {
     test('closeable', () => {
       const onClose = jest.fn();
       const { container } = render(
-        <Tag closeable disabled onClose={onClose}>
+        <Tag onClose={onClose} closeable disabled>
           tag
         </Tag>,
       );

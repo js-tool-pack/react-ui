@@ -2,8 +2,8 @@
  * title: 异步加载
  */
 
-import React, { useRef, useState } from 'react';
 import { SelectOption, Select, Icons, Space, Icon } from '@tool-pack/react-ui';
+import React, { useState, useRef } from 'react';
 
 const Options: SelectOption[] = Object.keys(Icons).map((key, index) => {
   const Ico = Icons[key as keyof typeof Icons];
@@ -13,7 +13,6 @@ const Options: SelectOption[] = Object.keys(Icons).map((key, index) => {
     </Icon>
   );
   return {
-    value: key,
     label: (selected, option) => {
       if (selected) {
         return (
@@ -27,7 +26,8 @@ const Options: SelectOption[] = Object.keys(Icons).map((key, index) => {
       return (
         <Space gap={6}>
           <span
-            style={{ flex: '0 0 20px', textAlign: 'right', color: '#949494' }}>
+            style={{ textAlign: 'right', flex: '0 0 20px', color: '#949494' }}
+          >
             {index + 1}
           </span>
           {RenderedIcon}
@@ -35,6 +35,7 @@ const Options: SelectOption[] = Object.keys(Icons).map((key, index) => {
       );
     },
     extra: <span style={{ color: '#c7c7c7' }}>{key} </span>,
+    value: key,
   };
 });
 

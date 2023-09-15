@@ -1,15 +1,15 @@
-import { Dropdown, DropdownOptionsItem } from '..';
-import { act, fireEvent, render } from '@testing-library/react';
-import { Button } from '~/button';
-import { Tooltip } from '~/tooltip';
+import { fireEvent, render, act } from '@testing-library/react';
+import { DropdownOptionsItem, Dropdown } from '..';
 import { nextTick } from '@tool-pack/basic';
+import { Tooltip } from '~/tooltip';
+import { Button } from '~/button';
 
 describe('Dropdown', () => {
   // 模拟 ResizeObserver，ResizeObserver 不存在于 jsdom 中
   const MockObserverInstance: ResizeObserver = {
-    observe: jest.fn(),
-    unobserve: jest.fn(),
     disconnect: jest.fn(),
+    unobserve: jest.fn(),
+    observe: jest.fn(),
   };
   beforeEach(() => {
     global.ResizeObserver = jest
@@ -21,10 +21,11 @@ describe('Dropdown', () => {
     const onClick = jest.fn();
     const { container } = render(
       <Dropdown
-        visible
+        attrs={{ style: { background: '#fff' }, className: 'foo', onClick }}
+        appendTo={null}
         options={[]}
-        attrs={{ className: 'foo', style: { background: '#fff' }, onClick }}
-        appendTo={null}>
+        visible
+      >
         <Button>foo bar</Button>
       </Dropdown>,
     );
@@ -41,13 +42,13 @@ describe('Dropdown', () => {
   test('basic', () => {
     const onSelect = jest.fn();
     const options: DropdownOptionsItem[] = [
-      { key: '1', label: '黄金蛋炒饭' },
-      { key: 'd', type: 'divider' },
-      { key: '2', label: '扬州炒饭' },
+      { label: '黄金蛋炒饭', key: '1' },
+      { type: 'divider', key: 'd' },
+      { label: '扬州炒饭', key: '2' },
     ];
 
     const { container } = render(
-      <Dropdown visible onSelect={onSelect} options={options} appendTo={null}>
+      <Dropdown onSelect={onSelect} options={options} appendTo={null} visible>
         <Button>foo bar</Button>
       </Dropdown>,
     );
@@ -59,7 +60,7 @@ describe('Dropdown', () => {
     expect(balloon).toMatchSnapshot();
     expect(onSelect).toBeCalled();
     expect(onSelect.mock.calls[0]).toEqual([
-      { key: '1', label: '黄金蛋炒饭' }, // option
+      { label: '黄金蛋炒饭', key: '1' }, // option
       [], // parent
     ]);
     expect(balloon).toHaveClass('t-dropdown-leave-to');
@@ -68,12 +69,12 @@ describe('Dropdown', () => {
   test('disabled', () => {
     const onSelect = jest.fn();
     const options: DropdownOptionsItem[] = [
-      { key: '1', label: '黄金蛋炒饭', disabled: true },
-      { key: '2', label: '扬州炒饭' },
+      { label: '黄金蛋炒饭', disabled: true, key: '1' },
+      { label: '扬州炒饭', key: '2' },
     ];
 
     const { container } = render(
-      <Dropdown visible onSelect={onSelect} options={options} appendTo={null}>
+      <Dropdown onSelect={onSelect} options={options} appendTo={null} visible>
         <Button>foo bar</Button>
       </Dropdown>,
     );
@@ -88,17 +89,18 @@ describe('Dropdown', () => {
   test('hideOnClick', () => {
     const onSelect = jest.fn();
     const options: DropdownOptionsItem[] = [
-      { key: '1', label: '黄金蛋炒饭' },
-      { key: '2', label: '扬州炒饭' },
+      { label: '黄金蛋炒饭', key: '1' },
+      { label: '扬州炒饭', key: '2' },
     ];
 
     const { container } = render(
       <Dropdown
-        visible
         hideOnClick={false}
         onSelect={onSelect}
         options={options}
-        appendTo={null}>
+        appendTo={null}
+        visible
+      >
         <Button>foo bar</Button>
       </Dropdown>,
     );
@@ -110,18 +112,19 @@ describe('Dropdown', () => {
   });
   test('header footer', () => {
     const options: DropdownOptionsItem[] = [
-      { key: '1', label: '黄金蛋炒饭' },
-      { key: '2', label: '扬州炒饭' },
+      { label: '黄金蛋炒饭', key: '1' },
+      { label: '扬州炒饭', key: '2' },
     ];
 
     const { container } = render(
       <Dropdown
-        visible
-        header={<h1>header</h1>}
         footer={<div>footer</div>}
+        header={<h1>header</h1>}
         hideOnClick={false}
         options={options}
-        appendTo={null}>
+        appendTo={null}
+        visible
+      >
         <Button>foo bar</Button>
       </Dropdown>,
     );
@@ -132,30 +135,30 @@ describe('Dropdown', () => {
   test('group', () => {
     const options: DropdownOptionsItem[] = [
       {
-        label: '饭菜类',
-        type: 'group',
-        key: 'meals',
         children: [
           {
             key: 'shreddedChicken',
             label: '手撕鸡',
           },
           {
-            label: '炒饭',
-            key: 'friedRice',
-            type: 'group',
             children: [
               {
-                key: 'hjdcf',
                 label: '黄金蛋炒饭',
+                key: 'hjdcf',
               },
               {
-                key: 'yzcf',
                 label: '扬州炒饭',
+                key: 'yzcf',
               },
             ],
+            key: 'friedRice',
+            type: 'group',
+            label: '炒饭',
           },
         ],
+        type: 'group',
+        label: '饭菜类',
+        key: 'meals',
       },
       {
         key: 'others',
@@ -164,7 +167,7 @@ describe('Dropdown', () => {
     ];
 
     const { container } = render(
-      <Dropdown visible options={options} appendTo={null}>
+      <Dropdown options={options} appendTo={null} visible>
         <Button>foo bar</Button>
       </Dropdown>,
     );
@@ -174,26 +177,26 @@ describe('Dropdown', () => {
   test('nest', async () => {
     const onSelect = jest.fn();
     const options: DropdownOptionsItem[] = [
-      { key: '1', label: '手撕鸡' },
+      { label: '手撕鸡', key: '1' },
       {
-        key: '2',
-        attrs: { className: 'nest-option' },
+        children: [
+          { label: '黄金蛋炒饭,黄金蛋炒饭', key: '4' },
+          { label: '扬州炒饭', key: '5' },
+        ],
         label: (
           <Tooltip title={'轮胎3🌟推荐'}>
             <div>蛋炒饭</div>
           </Tooltip>
         ),
-        children: [
-          { key: '4', label: '黄金蛋炒饭,黄金蛋炒饭' },
-          { key: '5', label: '扬州炒饭' },
-        ],
+        attrs: { className: 'nest-option' },
+        key: '2',
       },
       { type: 'divider', key: 'd1' },
-      { key: '3', label: '榴莲' },
+      { label: '榴莲', key: '3' },
     ];
 
     const { container } = render(
-      <Dropdown visible onSelect={onSelect} options={options} appendTo={null}>
+      <Dropdown onSelect={onSelect} options={options} appendTo={null} visible>
         <Button>foo bar</Button>
       </Dropdown>,
     );

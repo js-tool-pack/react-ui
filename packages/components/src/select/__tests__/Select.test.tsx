@@ -1,13 +1,13 @@
 import {
-  Select,
   SelectControllerRef,
-  SelectOption,
   SelectOptionsItem,
+  SelectOption,
+  Select,
 } from '..';
+import { fireEvent, render, act } from '@testing-library/react';
+import { getBalloon, $$, $ } from './utils';
 import { testAttrs } from '~/testAttrs';
-import { act, fireEvent, render } from '@testing-library/react';
 import { useRef } from 'react';
-import { $, $$, getBalloon } from './utils';
 
 describe('Select', () => {
   testAttrs(Select);
@@ -15,12 +15,12 @@ describe('Select', () => {
   test('basic', () => {
     const options: SelectOptionsItem[] = [
       {
-        value: 1,
         label: 'foo',
+        value: 1,
       },
       {
-        value: 2,
         label: 'bar',
+        value: 2,
       },
     ];
     const { container } = render(<Select options={options} />);
@@ -30,12 +30,12 @@ describe('Select', () => {
   describe('select', () => {
     const options: SelectOption[] = [
       {
-        value: 1,
         label: 'foo',
+        value: 1,
       },
       {
-        value: 2,
         label: 'bar',
+        value: 2,
       },
     ];
     test('single', () => {
@@ -43,10 +43,10 @@ describe('Select', () => {
       const onChange = jest.fn();
       render(
         <Select
-          visible
           onChange={onChange}
           onSelect={onSelect}
           options={options}
+          visible
         />,
       );
       expect(onSelect).not.toBeCalled();
@@ -66,11 +66,11 @@ describe('Select', () => {
 
       render(
         <Select
-          visible
-          multiple
           onChange={onChange}
           onSelect={onSelect}
           options={options}
+          multiple
+          visible
         />,
       );
       expect(onSelect).not.toBeCalled();
@@ -102,46 +102,46 @@ describe('Select', () => {
   test('disabled', () => {
     const options: SelectOptionsItem[] = [
       {
-        value: 1,
         label: 'foo',
+        value: 1,
       },
       {
-        value: 2,
         label: 'bar',
+        value: 2,
       },
     ];
-    const { container } = render(<Select disabled options={options} />);
+    const { container } = render(<Select options={options} disabled />);
     expect(container.firstChild).toMatchSnapshot();
   });
 
   test('group', () => {
     const options: SelectOptionsItem[] = [
       {
-        type: 'group',
-        key: 1,
-        label: '1',
-        attrs: { className: 'test' },
         children: [
           {
-            value: 2,
             label: 'foo',
+            value: 2,
           },
           {
-            value: 3,
             label: 'bar',
+            value: 3,
           },
         ],
+        attrs: { className: 'test' },
+        type: 'group',
+        label: '1',
+        key: 1,
       },
       {
-        value: 4,
         label: 'foo',
+        value: 4,
       },
       {
-        value: 5,
         label: 'bar',
+        value: 5,
       },
     ];
-    render(<Select visible={true} options={options} />);
+    render(<Select options={options} visible={true} />);
     expect(document.body).toMatchSnapshot();
   });
 
@@ -149,16 +149,16 @@ describe('Select', () => {
     const onClear = jest.fn();
     const options: SelectOptionsItem[] = [
       {
-        value: 1,
         label: 'foo',
+        value: 1,
       },
       {
-        value: 2,
         label: 'bar',
+        value: 2,
       },
     ];
     const { container } = render(
-      <Select clearable onClear={onClear} value={1} options={options} />,
+      <Select onClear={onClear} options={options} clearable value={1} />,
     );
     expect(container.firstChild).toMatchSnapshot();
     expect(
@@ -182,15 +182,15 @@ describe('Select', () => {
   test('multiple', () => {
     const options: SelectOptionsItem[] = [
       {
-        value: 1,
         label: 'foo',
+        value: 1,
       },
       {
-        value: 2,
         label: 'bar',
+        value: 2,
       },
     ];
-    render(<Select multiple visible value={[1, 2]} options={options} />);
+    render(<Select options={options} value={[1, 2]} multiple visible />);
     expect(document.body).toMatchSnapshot();
   });
 
@@ -198,24 +198,24 @@ describe('Select', () => {
     jest.useFakeTimers();
     const options: SelectOptionsItem[] = [
       {
-        value: 1,
         label: 'foo',
+        value: 1,
       },
       {
+        label: 'bar',
         value: 2,
-        label: 'bar',
       },
       {
+        label: 'bar',
         value: 3,
-        label: 'bar',
       },
       {
+        label: 'bar',
         value: 4,
-        label: 'bar',
       },
       {
-        value: 5,
         label: 'bar',
+        value: 5,
       },
     ];
     render(
@@ -253,37 +253,38 @@ describe('Select', () => {
     function App() {
       const options: SelectOptionsItem[] = [
         {
-          value: 1,
           label: 'foo',
+          value: 1,
         },
         {
+          label: 'bar',
           value: 2,
-          label: 'bar',
         },
         {
+          label: 'bar',
           value: 3,
-          label: 'bar',
         },
         {
+          label: 'bar',
           value: 4,
-          label: 'bar',
         },
         {
-          value: 5,
           label: 'bar',
+          value: 5,
         },
       ];
       const controllerRef = useRef<SelectControllerRef>(null);
       return (
         <>
           <button
-            id="focus"
             onClick={() => {
               controllerRef.current?.focus();
               setTimeout(() => {
                 controllerRef.current?.blur();
               }, 500);
-            }}>
+            }}
+            id="focus"
+          >
             focus
           </button>
           <Select
@@ -305,7 +306,7 @@ describe('Select', () => {
 
   test('icon', () => {
     expect(
-      render(<Select icon="ic" options={[]} />).container.querySelector(
+      render(<Select options={[]} icon="ic" />).container.querySelector(
         '.t-select__suffix',
       ),
     ).toMatchSnapshot();
@@ -313,7 +314,7 @@ describe('Select', () => {
 
   test('loading', () => {
     expect(
-      render(<Select loading options={[]} />).container.querySelector(
+      render(<Select options={[]} loading />).container.querySelector(
         '.t-select__suffix',
       ),
     ).toMatchSnapshot();

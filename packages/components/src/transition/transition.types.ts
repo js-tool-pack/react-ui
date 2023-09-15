@@ -1,9 +1,9 @@
-import React from 'react';
 import { LIFE_CIRCLE, STATUS } from './transition.enums';
+import React from 'react';
 
-export type El = React.ReactElement | void | boolean;
+export type El = React.ReactElement | boolean | void;
 
-export type Mode = 'out-in' | 'in-out' | 'default';
+export type Mode = 'default' | 'out-in' | 'in-out';
 
 export type CB = (
   el: HTMLElement,
@@ -13,10 +13,10 @@ export type CB = (
 
 export interface TransitionProps {
   attrs?: Partial<Omit<React.HTMLAttributes<HTMLElement>, 'children'>>;
-  name?: string;
-  mode?: Mode;
   children?: React.ReactElement | boolean;
   appear?: boolean | null;
-  on?: CB;
   show?: boolean;
+  name?: string;
+  mode?: Mode;
+  on?: CB;
 }

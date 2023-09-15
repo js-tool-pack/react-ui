@@ -2,17 +2,17 @@
  * title: 状态
  */
 
+import { SelectOptionsItem, Select } from '@tool-pack/react-ui';
 import React from 'react';
-import { Select, SelectOptionsItem } from '@tool-pack/react-ui';
 
 const options: SelectOptionsItem[] = [
   {
-    value: 1,
     label: 'foo',
+    value: 1,
   },
   {
-    value: 2,
     label: 'bar',
+    value: 2,
   },
 ];
 const App: React.FC = () => {

@@ -1,6 +1,6 @@
 export const $ = <T extends HTMLElement = HTMLElement>(
   selectors: string,
-): T | null => document.querySelector<T>(selectors);
+): null | T => document.querySelector<T>(selectors);
 export const $$ = (selectors: string) => document.querySelectorAll(selectors);
 
 export function getBalloon() {

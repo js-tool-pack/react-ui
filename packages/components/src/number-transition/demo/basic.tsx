@@ -3,8 +3,8 @@
  * description: NumberTransition 基础用法。
  */
 
+import { NumberTransition, Button, Space } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Button, NumberTransition, Space } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [active, setActive] = useState(false);
@@ -14,20 +14,21 @@ const App: React.FC = () => {
     <Space vertical>
       <Space>
         <Button
-          type="primary"
+          onClick={() => setActive((v) => !v)}
           disabled={disabled}
-          onClick={() => setActive((v) => !v)}>
+          type="primary"
+        >
           {active ? '暂停' : '启动'}
         </Button>
       </Space>
       <NumberTransition
-        active={active}
-        from={30}
-        to={50}
         onFinished={() => {
           setDisabled(true);
           setActive(false);
         }}
+        active={active}
+        from={30}
+        to={50}
       />
     </Space>
   );

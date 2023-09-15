@@ -3,17 +3,18 @@
  * description: boolean | 'dashed' | 'text'。
  */
 
-import React from 'react';
 import { Button, Layout } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => (
   <Layout
     style={{
-      gap: '8px',
-      flexWrap: 'wrap',
-      overflow: 'visible',
       alignItems: 'center',
-    }}>
+      overflow: 'visible',
+      flexWrap: 'wrap',
+      gap: '8px',
+    }}
+  >
     <Button type="primary" plain={false}>
       false
     </Button>

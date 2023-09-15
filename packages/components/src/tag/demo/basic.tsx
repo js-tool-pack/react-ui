@@ -2,8 +2,8 @@
  * title: 基础用法
  */
 
+import { TagProps, Space, Tag } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Tag, TagProps } from '@tool-pack/react-ui';
 const types = [
   'primary',
   'success',
@@ -16,7 +16,7 @@ const App: React.FC = () => {
     <Space>
       <Tag>DEFAULT</Tag>
       {types.map((type) => (
-        <Tag key={type} type={type}>
+        <Tag type={type} key={type}>
           {type.toUpperCase()}
         </Tag>
       ))}

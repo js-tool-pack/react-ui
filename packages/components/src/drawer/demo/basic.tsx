@@ -3,15 +3,15 @@
  * description: Drawer 基础用法。
  */
 
-import React, { useState } from 'react';
 import {
+  PLACEMENTS,
+  Divider,
   Button,
   Drawer,
   Layout,
-  Divider,
-  PLACEMENTS,
   Space,
 } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -27,9 +27,9 @@ const App: React.FC = () => {
         {PLACEMENTS.map((p) => (
           <label key={p}>
             <input
-              type="radio"
-              checked={placement === p}
               onChange={() => setPlacement(p)}
+              checked={placement === p}
+              type="radio"
             />
             {p}
           </label>
@@ -39,20 +39,21 @@ const App: React.FC = () => {
         打开
       </Button>
       <Drawer
-        visible={visible}
-        title="Basic Drawer"
         placement={placement}
+        title="Basic Drawer"
+        visible={visible}
+        footer={'footer'}
         onClose={hide}
-        footer={'footer'}>
+      >
         <Layout vertical>
           body
           <br />
           <br />
           <Divider lineStyle="dashed">华丽的分割线</Divider>
           <textarea
+            onChange={(e) => setValue(e.target.value)}
             value={value}
             rows={8}
-            onChange={(e) => setValue(e.target.value)}
           />
           <Divider lineStyle="dashed">华丽的分割线</Divider>
           <ul style={{ padding: '20px' }}>

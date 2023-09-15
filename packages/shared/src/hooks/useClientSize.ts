@@ -11,7 +11,7 @@ export function useClientSize(
   useEffect(() => {
     if (!container) return;
     const handler = () => {
-      const { clientWidth: cw, clientHeight: ch } = container;
+      const { clientHeight: ch, clientWidth: cw } = container;
       size.current = [cw, ch];
     };
     window.addEventListener('resize', handler);

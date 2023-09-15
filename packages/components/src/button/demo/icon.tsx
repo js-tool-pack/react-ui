@@ -2,26 +2,26 @@
  * title: 图标按钮
  */
 
+import { Divider, Button, Icons, Space, Icon } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, Icons, Space, Divider, Icon } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
     <>
       <Space>
-        <Button size="small" type="danger" icon={<Icons.CircleClose />}>
+        <Button icon={<Icons.CircleClose />} type="danger" size="small">
           Delete
         </Button>
 
-        <Button type="success" icon={<Icons.CircleSuccess />}>
+        <Button icon={<Icons.CircleSuccess />} type="success">
           Commit
         </Button>
 
-        <Button type="info" size="large" icon={<Icons.CircleInfo />}>
+        <Button icon={<Icons.CircleInfo />} size="large" type="info">
           Upload
         </Button>
 
-        <Button type="primary" size="large" icon={<Icons.CircleWarning />} />
+        <Button icon={<Icons.CircleWarning />} type="primary" size="large" />
       </Space>
       <Divider>
         <Space>
@@ -42,25 +42,26 @@ const App: React.FC = () => {
       </Divider>
       <Space>
         <Button
-          size="small"
-          type="danger"
           icon={<Icons.CircleClose />}
-          rightIcon>
+          type="danger"
+          size="small"
+          rightIcon
+        >
           Delete
         </Button>
 
-        <Button type="success" icon={<Icons.CircleSuccess />} rightIcon>
+        <Button icon={<Icons.CircleSuccess />} type="success" rightIcon>
           Commit
         </Button>
 
-        <Button type="info" size="large" icon={<Icons.CircleInfo />} rightIcon>
+        <Button icon={<Icons.CircleInfo />} size="large" type="info" rightIcon>
           Upload
         </Button>
 
         <Button
+          icon={<Icons.CircleWarning />}
           type="primary"
           size="large"
-          icon={<Icons.CircleWarning />}
           rightIcon
         />
       </Space>

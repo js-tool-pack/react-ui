@@ -1,10 +1,10 @@
+import { fireEvent, render } from '@testing-library/react';
 import Demo from '../demo/useMessageHolder';
-import { render, fireEvent } from '@testing-library/react';
-import { Message } from '..';
 import { testAttrs } from '~/testAttrs';
+import { Message } from '..';
 
 describe('Message', () => {
-  testAttrs(({ attrs }) => <Message type="info" attrs={attrs} />);
+  testAttrs(({ attrs }) => <Message attrs={attrs} type="info" />);
 
   test('holder', async () => {
     const { container } = render(<Demo />);

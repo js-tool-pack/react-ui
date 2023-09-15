@@ -1,7 +1,7 @@
-import { render, fireEvent } from '@testing-library/react';
-import Demo from '../demo/basic';
+import { fireEvent, render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
 import { CollapseTransition } from '..';
+import Demo from '../demo/basic';
 
 describe('CollapseTransition', () => {
   testAttrs(({ attrs }) => (

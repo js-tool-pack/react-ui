@@ -2,8 +2,8 @@
  * title: 可选
  */
 
+import { useMessageHolder, TagProps, Space, Tag } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Tag, TagProps, useMessageHolder } from '@tool-pack/react-ui';
 const types = [
   'success',
   'info',
@@ -20,10 +20,11 @@ const App: React.FC = () => {
       </Tag>
       {types.map((type) => (
         <Tag
-          checkable
-          key={type}
+          onChange={(c) => message[type]('checked:' + c)}
           type={type}
-          onChange={(c) => message[type]('checked:' + c)}>
+          key={type}
+          checkable
+        >
           {type.toUpperCase()}
         </Tag>
       ))}

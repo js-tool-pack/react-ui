@@ -14,7 +14,6 @@ const components = Fs.readdirSync(
  */
 export default defineConfig(() => {
   return {
-    cacheDir: `./.cache`,
     resolve: {
       alias: {
         ...pkgs.reduce(
@@ -48,11 +47,12 @@ export default defineConfig(() => {
       // https://github.com/vitejs/vite/tree/main/packages/plugin-react
       react(),
     ],
-    build: {
-      sourcemap: true,
-    },
     css: {
       devSourcemap: true,
     },
+    build: {
+      sourcemap: true,
+    },
+    cacheDir: `./.cache`,
   };
 });

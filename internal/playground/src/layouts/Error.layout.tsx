@@ -1,10 +1,10 @@
-import React from 'react';
 import { useRouteError } from 'react-router-dom';
+import React from 'react';
 
 export function ErrorLayout(): JSX.Element {
   const err = useRouteError() as Error & {
-    status?: number;
     statusText?: string;
+    status?: number;
   };
   return (
     <React.Fragment>

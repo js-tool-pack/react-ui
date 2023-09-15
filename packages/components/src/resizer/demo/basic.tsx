@@ -6,9 +6,9 @@
  *   注意：Resizer 的父元素的 position 不能是 static。
  */
 
-import React from 'react';
 import { Resizer } from '@tool-pack/react-ui';
 import styles from './basic.module.scss';
+import React from 'react';
 
 const App: React.FC = () => {
   return (

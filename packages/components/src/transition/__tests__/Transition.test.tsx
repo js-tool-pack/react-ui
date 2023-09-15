@@ -1,7 +1,7 @@
+import { TRANSITION_LIFE_CIRCLE, TRANSITION_STATUS, Transition } from '..';
+import { fireEvent, render, act } from '@testing-library/react';
+import { useReducer, useEffect, useRef } from 'react';
 import { testAttrs } from '~/testAttrs';
-import { Transition, TRANSITION_STATUS, TRANSITION_LIFE_CIRCLE } from '..';
-import { act, fireEvent, render } from '@testing-library/react';
-import { useEffect, useReducer, useRef } from 'react';
 import { Button } from '~/button';
 
 describe('Transition', () => {
@@ -96,11 +96,11 @@ describe('Transition', () => {
 
         return (
           <div>
-            <Button type="primary" shape="round" onClick={setVisible}>
+            <Button onClick={setVisible} type="primary" shape="round">
               切 换
             </Button>
 
-            <Transition name="fade" on={on} mode="default">
+            <Transition mode="default" name="fade" on={on}>
               {visible ? (
                 <div className="mode" key={1}>
                   default(out)
@@ -146,11 +146,11 @@ describe('Transition', () => {
 
         return (
           <div>
-            <Button type="primary" shape="round" onClick={setVisible}>
+            <Button onClick={setVisible} type="primary" shape="round">
               切 换
             </Button>
 
-            <Transition name="fade" on={on} mode="out-in">
+            <Transition mode="out-in" name="fade" on={on}>
               {visible ? (
                 <div className="mode" key={1}>
                   out
@@ -192,11 +192,11 @@ describe('Transition', () => {
 
         return (
           <div>
-            <Button type="primary" shape="round" onClick={setVisible}>
+            <Button onClick={setVisible} type="primary" shape="round">
               切 换
             </Button>
 
-            <Transition name="fade" on={on} mode="in-out">
+            <Transition mode="in-out" name="fade" on={on}>
               {visible ? (
                 <div className="mode" key={1}>
                   out
@@ -241,7 +241,7 @@ describe('Transition', () => {
       });
       return (
         <Transition name="fade">
-          <div ref={ref} className="mode" key={1}>
+          <div className="mode" ref={ref} key={1}>
             out
           </div>
         </Transition>

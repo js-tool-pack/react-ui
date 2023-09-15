@@ -1,5 +1,5 @@
+import { ButtonContext, ButtonGroup, Button } from '..';
 import { render } from '@testing-library/react';
-import { Button, ButtonGroup, ButtonContext } from '..';
 
 describe('ButtonContext', () => {
   test('size', () => {

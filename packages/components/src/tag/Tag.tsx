@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import type { TagProps } from './tag.types';
-import { getClasses, getSizeClassName, useVisible } from '@pkg/shared';
+import { getSizeClassName, getClasses, useVisible } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
+import { type ButtonProps, Button } from '~/button';
 import { getClassNames } from '@tool-pack/basic';
-import { Button, type ButtonProps } from '~/button';
+import type { TagProps } from './tag.types';
+import React, { useState } from 'react';
 import { Close } from '@pkg/icons';
 import { Icon } from '~/icon';
 
@@ -13,8 +13,8 @@ const cls = getClasses(
   ['bordered', 'checked', 'round', 'checkable', 'disabled'],
 );
 const defaultProps = {
-  size: 'medium',
   type: 'primary',
+  size: 'medium',
   bordered: true,
 } satisfies Partial<TagProps>;
 
@@ -23,20 +23,20 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
   TagProps
 >((props, ref) => {
   const {
-    closeBtnAttrs = {},
-    type,
-    icon,
-    size,
-    attrs = {},
-    round,
-    onClose,
-    closeable,
     checked: outerChecked,
-    disabled,
+    closeBtnAttrs = {},
+    attrs = {},
+    closeable,
     checkable,
+    disabled,
     onChange,
     bordered,
     children,
+    onClose,
+    round,
+    type,
+    icon,
+    size,
   } = props as RequiredPart<TagProps, keyof typeof defaultProps>;
 
   const [closed, setClosed] = useState(false);
@@ -54,18 +54,20 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       {...attrs}
-      ref={ref}
+      className={handleClassName()}
       onClick={handleChange}
-      className={handleClassName()}>
+      ref={ref}
+    >
       {icon && <Icon className={cls.__.icon}>{icon}</Icon>}
       <span className={cls.__.content}>{children}</span>
       {closeable && (
         <Button
+          attrs={{ ...closeBtnAttrs, onClickCapture: handleClose }}
           className={cls.__.close}
           type={closeBtnType}
           size="small"
           plain="text"
-          attrs={{ ...closeBtnAttrs, onClickCapture: handleClose }}>
+        >
           <Icon>
             <Close />
           </Icon>
@@ -76,12 +78,12 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
 
   function handleClassName() {
     return getClassNames(cls.root, attrs?.className, getSizeClassName(size), {
+      [cls['--'].checkable]: checkable,
       [`${cls.root}--${type}`]: type,
-      [cls['--'].round]: round,
       [cls['--'].bordered]: bordered,
       [cls['--'].disabled]: disabled,
-      [cls['--'].checkable]: checkable,
       [cls['--'].checked]: checked,
+      [cls['--'].round]: round,
     });
   }
   function handleClose(e: React.MouseEvent<HTMLButtonElement>) {

@@ -3,17 +3,17 @@
  * description: 调用 useLoadingHolder 函数打开 loading；开启后也可以通过参数修改。
  */
 
+import { useLoadingHolder, Button } from '@tool-pack/react-ui';
 import React, { useEffect } from 'react';
-import { Button, useLoadingHolder } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [{ visible, toggle }, holder] = useLoadingHolder({
-    visible: false,
-    closeOnClick: false,
-    text: `全屏useLoadingHolder，点击任意处关闭....`,
     attrs: {
       id: 'useLoadingHolder',
     },
+    text: `全屏useLoadingHolder，点击任意处关闭....`,
+    closeOnClick: false,
+    visible: false,
   });
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
   return (
     <div style={{ textAlign: 'center' }}>
       {holder}
-      <Button type="primary" onClick={toggle}>
+      <Button onClick={toggle} type="primary">
         useLoadingHolder
       </Button>
     </div>

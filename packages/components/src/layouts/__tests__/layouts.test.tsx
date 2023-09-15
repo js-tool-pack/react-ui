@@ -1,6 +1,6 @@
+import { Header, Layout, Footer, Aside, Main } from '~/layouts';
+import { RenderResult, render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
-import { Header, Layout, Main, Footer, Aside } from '~/layouts';
-import { render, RenderResult } from '@testing-library/react';
 
 describe('layouts', () => {
   describe('attrs', () => {

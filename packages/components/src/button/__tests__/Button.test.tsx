@@ -1,7 +1,7 @@
-import { render, fireEvent } from '@testing-library/react';
-import { Button } from '..';
-import * as Icons from '@pkg/icons';
+import { fireEvent, render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
+import * as Icons from '@pkg/icons';
+import { Button } from '..';
 
 describe('Button', () => {
   testAttrs(Button);
@@ -20,7 +20,7 @@ describe('Button', () => {
   test('disabled', () => {
     const onClick = jest.fn();
     const { container } = render(
-      <Button disabled onClick={onClick}>
+      <Button onClick={onClick} disabled>
         foo bar
       </Button>,
     );
@@ -121,7 +121,7 @@ describe('Button', () => {
   test('loading right-icon', () => {
     expect(
       render(
-        <Button loading rightIcon>
+        <Button rightIcon loading>
           foo bar
         </Button>,
       ).container.firstChild,

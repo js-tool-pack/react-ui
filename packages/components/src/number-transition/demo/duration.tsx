@@ -3,8 +3,8 @@
  * description: 自定义动画时长，单位为毫秒。默认为 3000。
  */
 
+import { NumberTransition, Button, Space } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Button, NumberTransition, Space } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [active, setActive] = useState(false);
@@ -14,20 +14,21 @@ const App: React.FC = () => {
     <Space vertical>
       <Space>
         <Button
-          type="primary"
+          onClick={() => setActive((v) => !v)}
           disabled={disabled}
-          onClick={() => setActive((v) => !v)}>
+          type="primary"
+        >
           {active ? '暂停' : '启动'}
         </Button>
       </Space>
       <NumberTransition
-        active={active}
-        duration={8000}
-        to={25}
         onFinished={() => {
           setDisabled(true);
           setActive(false);
         }}
+        active={active}
+        duration={8000}
+        to={25}
       />
     </Space>
   );

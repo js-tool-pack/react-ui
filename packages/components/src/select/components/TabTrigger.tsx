@@ -1,5 +1,5 @@
-import React from 'react';
 import { getComponentClass } from '@pkg/shared';
+import React from 'react';
 
 interface Props {
   ref?: React.Ref<HTMLInputElement>;
@@ -16,14 +16,14 @@ export const TabTrigger: React.FC<Props> = React.forwardRef<
   HTMLInputElement,
   Props
 >((props, ref) => {
-  const { disabled, opened, onOpen, onFocus, onBlur } = props;
+  const { disabled, onFocus, opened, onOpen, onBlur } = props;
 
   return (
     <input
-      className={cls}
       tabIndex={opened || disabled ? -1 : 0}
       onKeyDown={_onKeyDown}
       onFocus={onFocus}
+      className={cls}
       onBlur={onBlur}
       ref={ref}
     />

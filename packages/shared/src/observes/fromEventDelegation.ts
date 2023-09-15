@@ -1,4 +1,4 @@
-import { filter, fromEvent, type Observable } from 'rxjs';
+import { type Observable, fromEvent, filter } from 'rxjs';
 import { isChildHTMLElement } from '@tool-pack/dom';
 import { isFunction } from '@tool-pack/basic';
 
@@ -19,7 +19,7 @@ export function fromEventDelegation<K extends keyof HTMLElementEventMap>(
   options?: Omit<AddEventListenerOptions, 'signal'>,
 ): Observable<HTMLElementEventMap[K]>;
 export function fromEventDelegation<K extends keyof HTMLElementEventMap>(
-  getEl: HTMLElement | (() => HTMLElement),
+  getEl: (() => HTMLElement) | HTMLElement,
   eventName: K,
   options: Omit<AddEventListenerOptions, 'signal'> = {},
 ): Observable<HTMLElementEventMap[K]> {

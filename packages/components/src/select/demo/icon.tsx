@@ -2,27 +2,27 @@
  * title: 自定义 icon
  */
 
+import { SelectOptionsItem, Select, Icons } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Select, SelectOptionsItem, Icons } from '@tool-pack/react-ui';
 
 const options: SelectOptionsItem[] = [
   {
-    value: 1,
     label: 'foo',
+    value: 1,
   },
   {
-    value: 2,
     label: 'bar',
+    value: 2,
   },
 ];
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
   return (
     <Select
-      onVisibleChange={setVisible}
       icon={visible ? <Icons.Close /> : <Icons.CircleWarningFill />}
-      options={options}
+      onVisibleChange={setVisible}
       placeholder="select"
+      options={options}
       clearable
     />
   );

@@ -5,34 +5,37 @@
  *  可以使用 clear 清理同一个 useMessage 生成的所有 Message。
  */
 
+import { useMessage, Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, Space, useMessage } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const Message = useMessage({ showClose: true, duration: 0 });
   return (
     <Space className="demo-message">
       <Button
+        onClick={() => Message.open('hello', { type: 'success' })}
         type="success"
-        onClick={() => Message.open('hello', { type: 'success' })}>
+      >
         success
       </Button>
       <Button
+        onClick={() => Message.open('info', { type: 'info' })}
         type="info"
-        onClick={() => Message.open('info', { type: 'info' })}>
+      >
         info
       </Button>
-      <Button type="warning" onClick={() => Message.warning('warning')}>
+      <Button onClick={() => Message.warning('warning')} type="warning">
         warning
       </Button>
       <Button
-        type="danger"
         onClick={() =>
           Message.error('error', { showClose: false, duration: 2500 })
-        }>
+        }
+        type="danger"
+      >
         showClose: false
       </Button>
-      <Button type="primary" onClick={() => Message.clear()}>
+      <Button onClick={() => Message.clear()} type="primary">
         clear
       </Button>
     </Space>

@@ -9,13 +9,23 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'prettier',
     'plugin:prettier/recommended',
+    'plugin:perfectionist/recommended-line-length',
   ],
-  plugins: ['jsx-a11y'],
+  plugins: ['jsx-a11y', 'perfectionist'],
   rules: {
     // 'no-unused-vars': [ // 需要使用typescript的unused，否则会对enum误报
     '@typescript-eslint/no-unused-vars': [
       'error',
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+    ],
+    'perfectionist/sort-imports': [
+      'error',
+      {
+        type: 'line-length',
+        order: 'desc',
+        groups: [],
+        'newlines-between': 'never',
+      },
     ],
   },
   overrides: [

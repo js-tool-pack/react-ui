@@ -2,23 +2,23 @@
  * title: 过滤
  */
 
-import React, { useState } from 'react';
 import {
-  Icon,
-  Icons,
-  Select,
   SelectOptionsItem,
+  Select,
+  Icons,
   Space,
+  Icon,
 } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
 
 const options1: SelectOptionsItem[] = [
   {
-    value: 1,
     label: 'foo',
+    value: 1,
   },
   {
-    value: 2,
     label: 'bar',
+    value: 2,
   },
 ];
 
@@ -32,7 +32,6 @@ const options2: SelectOptionsItem[] = Object.keys(Icons)
       </Icon>
     );
     return {
-      value: key,
       label: (selected, option) => {
         if (selected) {
           return (
@@ -47,10 +46,11 @@ const options2: SelectOptionsItem[] = Object.keys(Icons)
           <Space gap={6}>
             <span
               style={{
-                flex: '0 0 20px',
                 textAlign: 'right',
+                flex: '0 0 20px',
                 color: '#949494',
-              }}>
+              }}
+            >
               {index + 1}
             </span>
             {RenderedIcon}
@@ -58,6 +58,7 @@ const options2: SelectOptionsItem[] = Object.keys(Icons)
         );
       },
       extra: <span style={{ color: '#c7c7c7' }}>{key} </span>,
+      value: key,
     };
   });
 
@@ -80,9 +81,9 @@ const App: React.FC = () => {
           if (!v.toLowerCase().includes(pattern.toLowerCase())) return false;
           return !value.includes(v);
         }}
+        onChange={setValue}
         placeholder="隐藏已选"
         options={options2}
-        onChange={setValue}
         value={value}
         filterable
         multiple

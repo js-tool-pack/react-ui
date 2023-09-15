@@ -3,14 +3,14 @@
  * description: 由外部传入的 visible 不会触发回调。
  */
 
-import React, { useState } from 'react';
 import {
+  useMessageHolder,
   Popover,
   Button,
-  useMessageHolder,
-  Space,
   Switch,
+  Space,
 } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
 
 const App: React.FC = () => {
   const [message, holder] = useMessageHolder();
@@ -23,18 +23,20 @@ const App: React.FC = () => {
           onVisibleChange={(visible) => {
             message[visible ? 'success' : 'error']('visible:' + visible);
           }}
-          content="内部事件启动的会触发 onVisibleChange">
+          content="内部事件启动的会触发 onVisibleChange"
+        >
           <Button>hover me</Button>
         </Popover>
 
         <Popover
-          placement="bottom"
-          visible={visible}
           onVisibleChange={(visible) => {
             message[visible ? 'success' : 'error']('visible:' + visible);
           }}
-          content="由外部传入的 visible 并不会触发 onVisibleChange">
-          <Switch checked={visible} onChange={setVisible} />
+          content="由外部传入的 visible 并不会触发 onVisibleChange"
+          placement="bottom"
+          visible={visible}
+        >
+          <Switch onChange={setVisible} checked={visible} />
         </Popover>
       </Space>
     </>

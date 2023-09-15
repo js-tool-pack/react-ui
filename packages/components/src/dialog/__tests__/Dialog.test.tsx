@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import Demo from '../demo/basic';
 import { Dialog } from '..';
 
@@ -15,10 +15,10 @@ describe('Dialog', () => {
   test('attrs', () => {
     render(
       <Dialog
+        bodyAttrs={{ className: 'bar' }}
+        attrs={{ className: 'foo' }}
         visible
         center
-        attrs={{ className: 'foo' }}
-        bodyAttrs={{ className: 'bar' }}
       />,
     );
     expect(getRoot()).toMatchSnapshot();
@@ -32,7 +32,7 @@ describe('Dialog', () => {
   });
 
   test('centered', () => {
-    render(<Dialog visible centered />);
+    render(<Dialog centered visible />);
     expect(getRoot()!.querySelector('.t-dialog__wrapper')).toHaveClass(
       't-dialog__centered',
     );
@@ -42,7 +42,7 @@ describe('Dialog', () => {
     const getMask = () => document.querySelector('.t-dialog__mask');
 
     test('off', () => {
-      render(<Dialog visible closeOnClickMask={false} />);
+      render(<Dialog closeOnClickMask={false} visible />);
       fireEvent.click(getMask()!);
       expect(getRoot()).not.toHaveClass('t-dialog-leave-active');
     });
@@ -50,7 +50,7 @@ describe('Dialog', () => {
     test('on onClose', () => {
       const onClose = jest.fn();
       expect(onClose).not.toBeCalled();
-      render(<Dialog visible closeOnClickMask onClose={onClose} />);
+      render(<Dialog onClose={onClose} closeOnClickMask visible />);
       fireEvent.click(getMask()!);
       expect(getRoot()).toHaveClass('t-dialog-leave-active');
       expect(onClose).toBeCalled();
@@ -61,7 +61,7 @@ describe('Dialog', () => {
     const escKeydown = () => fireEvent.keyDown(window, { key: 'Escape' });
 
     test('off', () => {
-      render(<Dialog visible esc={false} />);
+      render(<Dialog esc={false} visible />);
       escKeydown();
       expect(getRoot()).not.toHaveClass('t-dialog-leave-active');
     });
@@ -69,7 +69,7 @@ describe('Dialog', () => {
     test('on onClose', () => {
       const onClose = jest.fn();
       expect(onClose).not.toBeCalled();
-      render(<Dialog visible esc onClose={onClose} />);
+      render(<Dialog onClose={onClose} visible esc />);
       escKeydown();
       expect(getRoot()).toHaveClass('t-dialog-leave-active');
       expect(onClose).toBeCalled();
@@ -77,19 +77,19 @@ describe('Dialog', () => {
   });
 
   test('zIndex', () => {
-    render(<Dialog visible zIndex={12345} />);
+    render(<Dialog zIndex={12345} visible />);
     expect(getRoot()).toHaveStyle({ zIndex: 12345 });
   });
 
   describe('header', () => {
     test('content', () => {
-      render(<Dialog visible header="123" />);
+      render(<Dialog header="123" visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-dialog__header')).not.toBeNull();
     });
     test('null', () => {
-      render(<Dialog visible header={null} />);
+      render(<Dialog header={null} visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-dialog__header')).toBeNull();
@@ -98,13 +98,13 @@ describe('Dialog', () => {
 
   describe('footer', () => {
     test('content', () => {
-      render(<Dialog visible footer="123" />);
+      render(<Dialog footer="123" visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-dialog__footer')).not.toBeNull();
     });
     test('null', () => {
-      render(<Dialog visible footer={null} />);
+      render(<Dialog footer={null} visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-dialog__footer')).toBeNull();

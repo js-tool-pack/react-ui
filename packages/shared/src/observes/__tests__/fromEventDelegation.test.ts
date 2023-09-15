@@ -47,8 +47,8 @@ describe('fromEventDelegation', () => {
   test('child', () => {
     const child = createHtmlElement('div');
     const parent = createHtmlElement('div', {
-      children: [child],
       parent: document.body,
+      children: [child],
     });
     const onClick = jest.fn();
     fromEventDelegation(parent, 'click').subscribe(onClick);
@@ -75,8 +75,8 @@ describe('fromEventDelegation', () => {
   test('child capture', () => {
     const child = createHtmlElement('div');
     const parent = createHtmlElement('div', {
-      children: [child],
       parent: document.body,
+      children: [child],
     });
     const onClick = jest.fn();
     fromEventDelegation(parent, 'click', { capture: true }).subscribe(onClick);

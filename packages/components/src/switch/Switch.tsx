@@ -1,11 +1,11 @@
+import { getSizeClassName, getClasses } from '@pkg/shared';
+import type { RequiredPart } from '@tool-pack/types';
+import { Loading as LoadingIcon } from '@pkg/icons';
 import React, { useEffect, useState } from 'react';
 import type { SwitchProps } from './switch.types';
-import { getClasses, getSizeClassName } from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import { Loading as LoadingIcon } from '@pkg/icons';
-import { Icon } from '~/icon';
 import { Transition } from '~/transition';
+import { Icon } from '~/icon';
 
 const cls = getClasses(
   'switch',
@@ -22,16 +22,16 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
   SwitchProps
 >((props, ref) => {
   const {
-    attrs = {},
-    checked,
-    onChange,
-    checkedChildren,
     uncheckedChildren,
-    size,
-    disabled,
-    loading,
-    checkedIcon,
+    checkedChildren,
     uncheckedIcon,
+    checkedIcon,
+    attrs = {},
+    onChange,
+    disabled,
+    checked,
+    loading,
+    size,
   } = props as RequiredPart<SwitchProps, keyof typeof defaultProps>;
 
   const [active, setActive] = useState(checked);
@@ -55,12 +55,6 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
   return (
     <button
       {...attrs}
-      ref={ref}
-      role={attrs.role || 'switch'}
-      disabled={disabled}
-      aria-checked={active}
-      aria-disabled={disabled}
-      onClick={onClick}
       className={getClassNames(
         cls.root,
         getSizeClassName(size),
@@ -69,11 +63,18 @@ export const Switch: React.FC<SwitchProps> = React.forwardRef<
         { [cls['--'].unchecked]: !active },
         { [cls['--'].disabled]: disabled },
         { [cls['--'].loading]: loading },
-      )}>
+      )}
+      role={attrs.role || 'switch'}
+      aria-disabled={disabled}
+      aria-checked={active}
+      disabled={disabled}
+      onClick={onClick}
+      ref={ref}
+    >
       <div className={cls.__.handle}>
         <Transition name={cls.root}>
           {showIcon && (
-            <Icon key={cls.__.icon} className={cls.__.icon}>
+            <Icon className={cls.__.icon} key={cls.__.icon}>
               {loading ? (
                 <LoadingIcon />
               ) : showCheckedIcon ? (

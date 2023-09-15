@@ -3,7 +3,7 @@
 exports[`Loading basic 1`] = `
 <div
   class="t-loading__ref"
-  style="margin-top: 20px; height: 100px; background: deeppink; line-height: 100px;"
+  style="background: deeppink; line-height: 100px; margin-top: 20px; height: 100px;"
 >
   我是内容
 </div>
@@ -12,7 +12,7 @@ exports[`Loading basic 1`] = `
 exports[`Loading basic 2`] = `
 <div
   class="t-loading__ref"
-  style="margin-top: 20px; height: 100px; background: deeppink; line-height: 100px; overflow: hidden;"
+  style="background: deeppink; line-height: 100px; margin-top: 20px; height: 100px; overflow: hidden;"
 >
   我是内容
   <div

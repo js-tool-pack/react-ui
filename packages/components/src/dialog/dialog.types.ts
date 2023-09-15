@@ -1,15 +1,15 @@
-import React from 'react';
 import { PropsBase } from '@pkg/shared';
+import React from 'react';
 
 export interface DialogProps extends Omit<PropsBase, 'ref'> {
   bodyAttrs?: PropsBase['attrs'];
-  visible?: boolean;
+  closeOnClickMask?: boolean;
   header?: React.ReactNode;
   footer?: React.ReactNode;
   onClose?: () => void;
-  closeOnClickMask?: boolean;
-  center?: boolean;
   centered?: boolean;
+  visible?: boolean;
+  center?: boolean;
   zIndex?: number;
   esc?: boolean;
 }

@@ -2,23 +2,24 @@
  * title: 图标
  */
 
+import { type TagProps, Space, Icons, Tag } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Tag, type TagProps, Icons } from '@tool-pack/react-ui';
 const sizes = ['small', 'medium', 'large'] satisfies TagProps['size'][];
 const App: React.FC = () => {
   return (
     <Space>
-      <Tag closeable type="warning" icon={<Icons.CircleWarningFill />}>
+      <Tag icon={<Icons.CircleWarningFill />} type="warning" closeable>
         DEFAULT
       </Tag>
       {sizes.map((size) => (
         <Tag
-          round
-          type="success"
-          key={size}
           icon={<Icons.CircleSuccessFill />}
+          type="success"
+          size={size}
+          key={size}
           closeable
-          size={size}>
+          round
+        >
           {size.toUpperCase()}
         </Tag>
       ))}

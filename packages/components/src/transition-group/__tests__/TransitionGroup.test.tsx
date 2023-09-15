@@ -1,7 +1,7 @@
-import { testAttrs } from '~/testAttrs';
-import { TransitionGroup } from '..';
 import { render } from '@testing-library/react';
 import { Transition } from '~/transition';
+import { testAttrs } from '~/testAttrs';
+import { TransitionGroup } from '..';
 
 describe('TransitionGroup', () => {
   testAttrs(TransitionGroup);

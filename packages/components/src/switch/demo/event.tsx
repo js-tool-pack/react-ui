@@ -2,8 +2,8 @@
  * title: 事件
  */
 
-import React from 'react';
 import { useMessageHolder, Switch } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   const [message, holder] = useMessageHolder();

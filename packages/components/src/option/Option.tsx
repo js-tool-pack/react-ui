@@ -1,14 +1,14 @@
-import React from 'react';
-import type { OptionProps } from './option.types';
 import { getComponentClass, getSizeClassName } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
+import type { OptionProps } from './option.types';
 import { getClassNames } from '@tool-pack/basic';
 import { Icon } from '~/icon';
+import React from 'react';
 
 const defaultProps = {
-  tag: 'div',
-  size: 'medium',
   attrs: { role: 'option' },
+  size: 'medium',
+  tag: 'div',
 } satisfies Partial<OptionProps>;
 
 const rootName = getComponentClass('option');
@@ -17,7 +17,7 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
   HTMLElement,
   OptionProps
 >((props, ref) => {
-  const { children, icon, readonly, extra, size, tag, disabled } =
+  const { children, readonly, disabled, extra, icon, size, tag } =
     props as RequiredPart<OptionProps, keyof typeof defaultProps>;
 
   const attrs = {
@@ -37,8 +37,6 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
     tag,
     {
       ...attrs,
-      ref,
-      disabled,
       className: getClassNames(
         rootName,
         attrs?.className,
@@ -47,6 +45,8 @@ export const Option: React.FC<OptionProps> = React.forwardRef<
           [`${rootName}--readonly`]: readonly,
         },
       ),
+      disabled,
+      ref,
     },
     Child,
   );

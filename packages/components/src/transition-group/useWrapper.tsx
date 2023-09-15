@@ -1,8 +1,8 @@
-import React from 'react';
-import { RequiredPart } from '@tool-pack/types';
-import type { ChildMap, TransitionGroupProps } from './transition-group.types';
-import { getComponentClass } from '@pkg/shared';
+import type { TransitionGroupProps, ChildMap } from './transition-group.types';
 import { getClassNames } from '@tool-pack/basic';
+import { RequiredPart } from '@tool-pack/types';
+import { getComponentClass } from '@pkg/shared';
+import React from 'react';
 
 const rootClass = getComponentClass('transition-group');
 export function useWrapper(
@@ -11,9 +11,9 @@ export function useWrapper(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const {
-    tag,
-    className,
     attrs = {},
+    className,
+    tag,
   } = props as RequiredPart<TransitionGroupProps, 'tag'>;
   const children = getMapValues(childMap);
 

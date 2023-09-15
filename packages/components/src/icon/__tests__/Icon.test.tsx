@@ -1,6 +1,6 @@
+import { render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
 import { Icon } from '~/icon';
-import { render } from '@testing-library/react';
 
 describe('Icon', () => {
   testAttrs(Icon);

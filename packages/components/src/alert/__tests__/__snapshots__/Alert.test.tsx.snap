@@ -66,7 +66,7 @@ exports[`Alert closable 1`] = `
     </div>
   </div>
   <button
-    class="t-button t-alert__close-btn t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
+    class="t-button t-alert__close-btn t-button--type-default t-button--icon-l t-button--plain-text t--size-sm"
   >
     <span>
       <i
@@ -144,7 +144,7 @@ exports[`Alert icon 2`] = `
 
 exports[`Alert partial 1`] = `
 <div
-  class="t-alert t-alert--bordered t-alert--centered"
+  class="t-alert t-alert--centered t-alert--bordered"
 >
   <i
     class="t-icon t-alert__icon"

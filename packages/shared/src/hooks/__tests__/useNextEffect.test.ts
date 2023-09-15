@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
 import { useForceUpdate, useNextEffect } from '@pkg/shared';
+import { renderHook, act } from '@testing-library/react';
 
 describe('useNextEffect', () => {
   test('basic', () => {

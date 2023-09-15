@@ -1,12 +1,12 @@
 import { fireEvent, render } from '@testing-library/react';
+import { SelectOptionsItem, Select } from '~/select';
+import { getFilterInput, getBalloon } from './utils';
 import { useState } from 'react';
-import { Select, SelectOptionsItem } from '~/select';
-import { getBalloon, getFilterInput } from './utils';
 
 describe('Select.remote', () => {
   it('should display the filter-input element when Select is in the open state', () => {
     expect(
-      render(<Select options={[]} remote visible />).container.firstChild,
+      render(<Select options={[]} visible remote />).container.firstChild,
     ).toMatchSnapshot();
     expect(getBalloon()).toMatchSnapshot();
   });

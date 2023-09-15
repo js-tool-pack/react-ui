@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import type { AlertProps } from './alert.types';
-import { getClasses } from '@pkg/shared';
+import {
+  Close as CloseIcon,
+  CircleWarningFill,
+  CircleSuccessFill,
+  CircleCloseFill,
+  CircleInfoFill,
+  CircleInfo,
+} from '@pkg/icons';
+import { CollapseTransition } from '~/collapse-transition';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import { Icon } from '~/icon';
-import {
-  CircleInfoFill,
-  CircleWarningFill,
-  CircleCloseFill,
-  CircleSuccessFill,
-  CircleInfo,
-  Close as CloseIcon,
-} from '@pkg/icons';
+import type { AlertProps } from './alert.types';
+import { getClasses } from '@pkg/shared';
+import React, { useState } from 'react';
 import { Button } from '~/button';
-import { CollapseTransition } from '~/collapse-transition';
+import { Icon } from '~/icon';
 
 const cls = getClasses(
   'alert',
@@ -22,23 +22,23 @@ const cls = getClasses(
 );
 const defaultProps = {
   type: 'primary',
-  bordered: true,
   closable: false,
+  bordered: true,
 } satisfies Partial<AlertProps>;
 
 const Icons: Record<Required<AlertProps>['type'], React.FC> = {
-  primary: CircleInfo,
-  info: CircleInfoFill,
   warning: CircleWarningFill,
-  error: CircleCloseFill,
   success: CircleSuccessFill,
+  error: CircleCloseFill,
+  info: CircleInfoFill,
+  primary: CircleInfo,
 };
 
 export const Alert: React.FC<AlertProps> = React.forwardRef<
   HTMLDivElement,
   AlertProps
 >((props, ref) => {
-  const { attrs, icon, type, title, bordered, closable, onClose, children } =
+  const { bordered, closable, children, onClose, attrs, title, icon, type } =
     props as RequiredPart<AlertProps, keyof typeof defaultProps>;
 
   const [visible, setVisible] = useState(true);
@@ -47,12 +47,13 @@ export const Alert: React.FC<AlertProps> = React.forwardRef<
   const Body = (
     <div
       {...attrs}
-      ref={ref}
       className={getClassNames(cls.root, attrs?.className, {
-        [cls['--'].bordered]: bordered,
-        [cls['--'].centered]: title && !children,
         [`${cls.root}--${type}`]: type !== 'primary',
-      })}>
+        [cls['--'].centered]: title && !children,
+        [cls['--'].bordered]: bordered,
+      })}
+      ref={ref}
+    >
       {icon !== null && (
         <Icon className={cls.__.icon}>{icon || <DefaultIcon />}</Icon>
       )}
@@ -63,9 +64,10 @@ export const Alert: React.FC<AlertProps> = React.forwardRef<
       {closable && (
         <Button
           className={cls.__['close-btn']}
+          onClick={close}
           size="small"
           plain="text"
-          onClick={close}>
+        >
           <Icon className={cls.__['close-icon']}>
             <CloseIcon />
           </Icon>

@@ -1,15 +1,15 @@
-import React from 'react';
-import { IconProps } from './icon.types';
-import { getComponentClass } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
+import { getComponentClass } from '@pkg/shared';
+import { IconProps } from './icon.types';
+import React from 'react';
 
 const rootClass = getComponentClass('icon');
 export const Icon: React.FC<IconProps> = React.forwardRef<
   HTMLElement,
   IconProps
 >((props, ref) => {
-  const { size, color, children, className, attrs = {} } = props;
-  const { style = {}, role = 'img' } = attrs;
+  const { attrs = {}, className, children, color, size } = props;
+  const { role = 'img', style = {} } = attrs;
 
   const fontSize =
     size === undefined
@@ -21,10 +21,11 @@ export const Icon: React.FC<IconProps> = React.forwardRef<
   return (
     <i
       {...attrs}
-      ref={ref}
-      role={role}
       className={getClassNames(rootClass, attrs.className, className)}
-      style={{ ...style, fontSize, color: color || style.color }}>
+      style={{ ...style, color: color || style.color, fontSize }}
+      role={role}
+      ref={ref}
+    >
       {children ?? attrs.children}
     </i>
   );

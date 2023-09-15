@@ -1,8 +1,8 @@
-import React from 'react';
 import type { DividerProps } from './divider.types';
-import { getComponentClass } from '@pkg/shared';
 import { getClassNames } from '@tool-pack/basic';
+import { getComponentClass } from '@pkg/shared';
 import { RequiredPart } from '@tool-pack/types';
+import React from 'react';
 
 const rootName = getComponentClass('divider');
 
@@ -18,14 +18,14 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
   DividerProps
 >((props, ref) => {
   const {
-    tag,
-    children,
-    vertical,
+    attrs = {},
     placement,
     lineStyle,
     lineColor,
     lineWidth,
-    attrs = {},
+    children,
+    vertical,
+    tag,
   } = props as RequiredPart<DividerProps, keyof typeof defaultProps>;
 
   const _style = {
@@ -40,8 +40,8 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
     attrs.className,
     `${rootName}--${placement}`,
     {
-      [`${rootName}--vertical`]: vertical,
       [`${rootName}--horizontal`]: !vertical,
+      [`${rootName}--vertical`]: vertical,
     },
   );
 
@@ -49,9 +49,9 @@ export const Divider: React.FC<DividerProps> = React.forwardRef<
     tag,
     {
       ...attrs,
-      ref,
-      style: _style,
       className: _className,
+      style: _style,
+      ref,
     },
     <>
       {!vertical && children && (

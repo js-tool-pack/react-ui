@@ -1,10 +1,10 @@
-import React from 'react';
-import { useFlips } from './useFlips';
-import { useWrapper } from './useWrapper';
-import { useChildMap } from './useChildMap';
 import type { TransitionGroupProps } from './transition-group.types';
 import { RequiredPart } from '@tool-pack/types';
+import { useChildMap } from './useChildMap';
 import { useForwardRef } from '@pkg/shared';
+import { useWrapper } from './useWrapper';
+import { useFlips } from './useFlips';
+import React from 'react';
 
 /**
  * v1 版有部分 bug 不好解决。
@@ -17,15 +17,15 @@ import { useForwardRef } from '@pkg/shared';
  */
 
 const defaultProps = {
-  tag: 'div',
   name: 't-group',
+  tag: 'div',
 } satisfies TransitionGroupProps;
 
 const TransitionGroup: React.FC<TransitionGroupProps> = React.forwardRef<
   HTMLDivElement,
   TransitionGroupProps
 >((props, _ref) => {
-  const { name, children, ...rest } = props as RequiredPart<
+  const { children, name, ...rest } = props as RequiredPart<
     TransitionGroupProps,
     keyof typeof defaultProps
   >;

@@ -6,8 +6,8 @@
  *  相当于通过 show 和 children 控制动画的结合，既不会一开始渲染太多 dom，也不会重复渲染 dom。<br />
  */
 
+import { Transition, Button, Space } from '@tool-pack/react-ui';
 import React, { useReducer, useState } from 'react';
-import { Button, Transition, Space } from '@tool-pack/react-ui';
 import './fade.scss';
 
 const App: React.FC = () => {
@@ -16,16 +16,16 @@ const App: React.FC = () => {
 
   return (
     <Space vertical>
-      <Button type="primary" shape="round" onClick={setVisible}>
+      <Button onClick={setVisible} type="primary" shape="round">
         切 换
       </Button>
-      <Transition name="fade" show={visible} appear={null}>
+      <Transition show={visible} appear={null} name="fade">
         <textarea
-          key={1}
+          placeholder="show与appear搭配. 当初始未显示时不会渲染 dom，之后隐藏不会销毁 dom"
+          onChange={(e) => setValue(e.target.value)}
           value={value}
           rows={5}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="show与appear搭配. 当初始未显示时不会渲染 dom，之后隐藏不会销毁 dom"
+          key={1}
         />
       </Transition>
     </Space>

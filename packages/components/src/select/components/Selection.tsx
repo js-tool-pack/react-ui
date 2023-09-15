@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { getClasses, getSizeClassName } from '@pkg/shared';
-import type { SelectOption, SelectProps } from '~/select';
-import { getClassNames, isFunction } from '@tool-pack/basic';
 import {
-  Down as DownIcon,
   CircleCloseFill as CircleCloseFillIcon,
   Loading as LoadingIcon,
+  Down as DownIcon,
 } from '@pkg/icons';
-import { Icon } from '~/icon';
-import { SelectionTags, SelectionFilter } from '~/select/components';
 import type { ConvertOptional, RequiredPart } from '@tool-pack/types';
+import { SelectionFilter, SelectionTags } from '~/select/components';
+import { getClassNames, isFunction } from '@tool-pack/basic';
+import { getSizeClassName, getClasses } from '@pkg/shared';
+import type { SelectOption, SelectProps } from '~/select';
+import React, { useEffect, useState } from 'react';
+import { Icon } from '~/icon';
 
 interface Props
   extends ConvertOptional<
@@ -33,11 +33,11 @@ interface Props
       'size'
     >
   > {
-  selected: SelectOption[];
   onSelectedChange: (selected: SelectOption[]) => void;
+  onPatternChange: (value: string) => void;
+  selected: SelectOption[];
   opened: boolean;
   pattern: string;
-  onPatternChange: (value: string) => void;
 }
 
 const cls = getClasses(
@@ -56,11 +56,11 @@ export const Selection: React.FC<Props> = React.forwardRef<
     maxTagCount,
     placeholder,
     filterable,
-    pattern,
     clearable,
     disabled,
     multiple,
     selected,
+    pattern,
     loading,
     onClear,
     opened,
@@ -85,9 +85,9 @@ export const Selection: React.FC<Props> = React.forwardRef<
           <SelectionFilter
             ignoreComposition={ignoreComposition}
             onInputValueChange={setInputValue}
-            inputValue={inputValue}
-            onDelete={handleInputDelete}
             onPatternChange={onPatternChange}
+            onDelete={handleInputDelete}
+            inputValue={inputValue}
             opened={opened}
           />
         )}
@@ -97,7 +97,7 @@ export const Selection: React.FC<Props> = React.forwardRef<
           {icon || (loading ? <LoadingIcon /> : <DownIcon />)}
         </Icon>
         {clearable && selected.length > 0 && (
-          <Icon className={cls.__.clear} attrs={{ onClickCapture: _onClear }}>
+          <Icon attrs={{ onClickCapture: _onClear }} className={cls.__.clear}>
             <CircleCloseFillIcon />
           </Icon>
         )}

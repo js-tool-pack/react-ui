@@ -1,8 +1,3 @@
-import React, { cloneElement, useEffect, useMemo, useRef } from 'react';
-import { addTransition, getClasses, isSameEl } from './transition.utils';
-import { LIFE_CIRCLE, STATUS } from './transition.enums';
-import type { CB, El, Mode, TransitionProps } from './transition.types';
-import { getClassNames, nextTick } from '@tool-pack/basic';
 import {
   getComponentClass,
   useForceUpdate,
@@ -10,6 +5,11 @@ import {
   useIsChanged,
   useIsInitDep,
 } from '@pkg/shared';
+import { addTransition, getClasses, isSameEl } from './transition.utils';
+import type { TransitionProps, Mode, CB, El } from './transition.types';
+import React, { cloneElement, useEffect, useMemo, useRef } from 'react';
+import { getClassNames, nextTick } from '@tool-pack/basic';
+import { LIFE_CIRCLE, STATUS } from './transition.enums';
 
 const rootClass = getComponentClass('transition');
 
@@ -30,7 +30,7 @@ export function useDispatcher(
 
   const createAfterHandler = (p = STATUS.none, n = STATUS.idle): CB => {
     return (_el, _status, lifeCircle) => {
-      if ([LIFE_CIRCLE.after, LIFE_CIRCLE.expired].includes(lifeCircle)) {
+      if ([LIFE_CIRCLE.expired, LIFE_CIRCLE.after].includes(lifeCircle)) {
         statusCacheRef.current = [p, n];
         cbRef.current = undefined;
         forceUpdate();
@@ -43,7 +43,7 @@ export function useDispatcher(
   let childs = [prev, next] as [El, El];
 
   const getStatusByShow = (): [STATUS, STATUS] => {
-    let nextStatus: STATUS | undefined;
+    let nextStatus: undefined | STATUS;
     if (isInitShow) {
       switch (appear) {
         case null:
@@ -134,7 +134,7 @@ export function useDispatcher(
 
 export function useChildren<T extends El[] | El>(children: T) {
   const prev = useRef<T>();
-  const memo = useMemo<[T | void, T | void]>(
+  const memo = useMemo<[void | T, void | T]>(
     () => [prev.current, children],
     [children],
   );
@@ -177,11 +177,11 @@ export function useTransition(
     if (noTrans) return;
 
     const trans = addTransition({
-      el,
-      classes,
       on: (lifeCircle) => {
         cbs.forEach((cb) => cb(el, status, lifeCircle));
       },
+      classes,
+      el,
     });
     trans.start();
     return () => {
@@ -203,17 +203,17 @@ export function useTransition(
     children.props.attrs?.className,
     attrs.className,
     {
-      [classes?.from]: classes && status === STATUS.show,
       [`${rootClass}--invisible`]: STATUS.invisible === status,
+      [classes?.from]: classes && status === STATUS.show,
     },
   );
 
   const props = {
     ...attrs,
+    attrs: children.props.attrs,
     ref: elRef,
     className,
     style,
-    attrs: children.props.attrs,
   } as React.HTMLAttributes<HTMLElement> &
     React.DOMAttributes<HTMLElement> & {
       attrs: React.HTMLAttributes<HTMLElement>;

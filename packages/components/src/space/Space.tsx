@@ -1,13 +1,13 @@
-import React, { useMemo } from 'react';
-import type { SpaceProps } from './space.types';
-import { getComponentClass, numToPx } from '@pkg/shared';
 import {
-  castArray,
   getClassNames,
   getSafeNum,
+  castArray,
   joinArray,
 } from '@tool-pack/basic';
+import { getComponentClass, numToPx } from '@pkg/shared';
+import type { SpaceProps } from './space.types';
 import { RequiredPart } from '@tool-pack/types';
+import React, { useMemo } from 'react';
 
 const rootClass = getComponentClass('space');
 const defaultProps = {
@@ -20,23 +20,23 @@ export const Space: React.FC<SpaceProps> = React.forwardRef<
   SpaceProps
 >((props, ref) => {
   const {
+    attrs = {},
     separator,
-    tag,
-    inline,
     className,
-    gap,
+    fillRatio,
     children,
     vertical,
+    inline,
     fill,
-    fillRatio,
-    attrs = {},
+    tag,
+    gap,
   } = props as RequiredPart<SpaceProps, keyof typeof defaultProps>;
 
   const style = {
     ...attrs.style,
     ...props.style,
-    gap: gap ?? props.style?.gap ?? attrs.style?.gap,
     [`--t-space-fill-ratio`]: getSafeNum(fillRatio as number, 0, 100) + '%',
+    gap: gap ?? props.style?.gap ?? attrs.style?.gap,
   } as React.CSSProperties;
 
   style.gap = numToPx(gap, style.gap);
@@ -46,13 +46,13 @@ export const Space: React.FC<SpaceProps> = React.forwardRef<
     tag as string,
     {
       ...attrs,
-      ref,
       className: getClassNames(rootClass, attrs.className, className, {
         [`${rootClass}--vertical`]: vertical,
         [`${rootClass}--inline`]: inline,
         [`${rootClass}--fill`]: fill,
       }),
       style,
+      ref,
     },
     _children,
   );
@@ -72,11 +72,11 @@ function useChildren(
       ? // 为separator添加key，否则会报错
         (i: number) =>
           React.cloneElement(separator as React.ReactElement, {
-            key: i,
             className: getClassNames(
               separator.props.className,
               `${rootClass}__separator`,
             ),
+            key: i,
           })
       : () => separator;
 

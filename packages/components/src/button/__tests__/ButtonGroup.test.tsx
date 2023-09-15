@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { Button, ButtonGroup } from '..';
+import { ButtonGroup, Button } from '..';
 
 describe('ButtonGroup', () => {
   test('size', () => {

@@ -1,33 +1,33 @@
-import React, { useEffect, useRef } from 'react';
 import type { NumberTransitionProps } from './number-transition.types';
+import { createTimeCountDown, getClassNames } from '@tool-pack/basic';
 import { getComponentClass, useForceUpdate } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
-import { createTimeCountDown, getClassNames } from '@tool-pack/basic';
+import React, { useEffect, useRef } from 'react';
 import { animateTo } from '@tool-pack/dom';
 
 const rootName = getComponentClass('number-transition');
 const defaultProps = {
+  format: (value) => value,
+  timingFunction: 'ease',
   duration: 3000,
+  precision: 0,
   from: 0,
   to: 10,
-  precision: 0,
-  timingFunction: 'ease',
-  format: (value) => value,
 } satisfies Partial<NumberTransitionProps>;
 
 export const NumberTransition: React.FC<NumberTransitionProps> =
   React.forwardRef<HTMLDivElement, NumberTransitionProps>((props, ref) => {
     const {
+      timingFunction,
+      resetSignal,
+      onFinished,
+      precision,
       duration,
       active,
-      precision,
+      format,
+      attrs,
       from,
       to,
-      resetSignal,
-      timingFunction,
-      format,
-      onFinished,
-      attrs,
     } = props as RequiredPart<NumberTransitionProps, keyof typeof defaultProps>;
 
     const valueRef = useRef<number | string>(from);
@@ -64,15 +64,15 @@ export const NumberTransition: React.FC<NumberTransitionProps> =
           : (v) => v.toFixed(precision);
 
       const { stop } = animateTo({
-        timeout: durationRef.current,
-        from: initValue,
-        to,
-        timingFn: timingFunction,
         callback: (num) => {
           valueRef.current = getValue(num);
           forceUpdate();
         },
+        timeout: durationRef.current,
+        timingFn: timingFunction,
         after: onFinished,
+        from: initValue,
+        to,
       });
       return (cancelerRef.current = () => {
         durationRef.current = countDown();
@@ -85,8 +85,9 @@ export const NumberTransition: React.FC<NumberTransitionProps> =
     return (
       <div
         {...attrs}
+        className={getClassNames(rootName, attrs?.className)}
         ref={ref}
-        className={getClassNames(rootName, attrs?.className)}>
+      >
         {format(valueRef.current)}
       </div>
     );

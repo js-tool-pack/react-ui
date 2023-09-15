@@ -1,27 +1,27 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import type { DrawerProps } from './drawer.types';
 import {
-  getComponentClass,
-  numToPx,
-  useAppendTo,
-  useScrollLock,
-  useVisible,
-  Z_INDEX,
-} from '@pkg/shared';
-import { getClassNames, isString } from '@tool-pack/basic';
-import { createPortal } from 'react-dom';
-import { Footer, Header, Layout, Main } from '~/layouts';
-import {
-  Button,
-  Icon,
-  Resizer,
-  Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
+  Transition,
+  Resizer,
+  Button,
+  Icon,
 } from '@pkg/components';
+import {
+  getComponentClass,
+  useScrollLock,
+  useAppendTo,
+  useVisible,
+  numToPx,
+  Z_INDEX,
+} from '@pkg/shared';
+import React, { useCallback, useMemo, useRef } from 'react';
+import { getClassNames, isString } from '@tool-pack/basic';
+import { Footer, Header, Layout, Main } from '~/layouts';
+import type { DrawerProps } from './drawer.types';
 import { Close as CloseIcon } from '@pkg/icons';
 import { RequiredPart } from '@tool-pack/types';
 import { useEsc } from '~/dialog/dialog.hooks';
+import { createPortal } from 'react-dom';
 
 const rootClass = getComponentClass('drawer');
 type PL = Required<DrawerProps>['placement'];
@@ -33,37 +33,37 @@ const resizePlaceMap: Record<PL, PL> = {
 };
 
 const defaultProps = {
-  zIndex: Z_INDEX,
-  placement: 'right',
-  closeOnClickMask: true,
+  appendTo: () => globalThis.document?.body,
   destroyOnClose: 'mixed',
+  closeOnClickMask: true,
+  placement: 'right',
+  zIndex: Z_INDEX,
   showClose: true,
   size: '35%',
-  appendTo: () => globalThis.document?.body,
   esc: false,
 } satisfies Partial<DrawerProps>;
 
 export const Drawer: React.FC<DrawerProps> = (props) => {
   const {
-    header,
-    footer,
-    children,
     visible: outerVisible,
-    onClose,
-    onLeave,
-    title,
-    zIndex,
     closeOnClickMask,
+    destroyOnClose,
+    bodyAttrs = {},
+    resizeable,
+    attrs = {},
     showClose,
     closeIcon,
-    destroyOnClose,
     placement,
-    size,
+    children,
     appendTo,
-    resizeable,
+    onClose,
+    onLeave,
+    header,
+    footer,
+    zIndex,
+    title,
+    size,
     esc,
-    attrs = {},
-    bodyAttrs = {},
   } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
 
   const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
@@ -96,11 +96,12 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
 
     const CloseBtn = (
       <Button
-        type="info"
+        className={`${rootClass}__close`}
+        onClick={() => close()}
         plain="text"
         size="small"
-        className={`${rootClass}__close`}
-        onClick={() => close()}>
+        type="info"
+      >
         {isEl(closeIcon) ? (
           closeIcon
         ) : (
@@ -123,7 +124,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     const res: React.CSSProperties = { ...bodyAttrs.style };
     const value = numToPx(size, defaultProps.size);
 
-    if (['left', 'right'].includes(placement)) res.width = value;
+    if (['right', 'left'].includes(placement)) res.width = value;
     else res.height = value;
 
     return res;
@@ -132,10 +133,11 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
   const Body = (
     <Layout
       {...bodyAttrs}
-      ref={bodyRef}
-      style={bodyStyle}
       className={getClassNames(rootClass, bodyAttrs.className)}
-      vertical>
+      style={bodyStyle}
+      ref={bodyRef}
+      vertical
+    >
       {resizeable && (
         <Resizer
           placement={resizePlaceMap[placement]}
@@ -157,7 +159,6 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
   const Root = (
     <div
       {...attrs}
-      key={rootClass}
       className={getClassNames(
         `${rootClass}__root`,
         attrs.className,
@@ -166,7 +167,9 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
           [`${rootClass}--fixed`]: appendToTarget === document.body,
         },
       )}
-      style={{ ...attrs.style, zIndex }}>
+      style={{ ...attrs.style, zIndex }}
+      key={rootClass}
+    >
       {Mask}
       {Body}
     </div>
@@ -191,9 +194,10 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
   const Trans = (
     <Transition
       show={destroyOnClose === true ? undefined : visible}
-      name={rootClass}
+      appear={destroyOnClose === 'mixed' ? null : false}
       on={onTransitionChange}
-      appear={destroyOnClose === 'mixed' ? null : false}>
+      name={rootClass}
+    >
       {destroyOnClose === true ? visible && Root : Root}
     </Transition>
   );

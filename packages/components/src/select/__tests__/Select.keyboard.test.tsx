@@ -1,32 +1,32 @@
-import { Select, SelectOption } from '~/select';
-import { act, fireEvent, render } from '@testing-library/react';
-import { $, $$, getBalloon } from './utils';
+import { fireEvent, render, act } from '@testing-library/react';
+import { SelectOption, Select } from '~/select';
+import { getBalloon, $$, $ } from './utils';
 
 describe('Select.keyboard', () => {
   const options = [
     {
-      value: 1,
       label: 'foo',
+      value: 1,
     },
     {
-      value: 2,
       label: 'bar',
+      value: 2,
     },
     {
-      value: 3,
       label: 'foo bar',
+      value: 3,
     },
   ] satisfies SelectOption[];
 
   const cls = {
-    picked: 't-select-option--picked',
     selected: 't-select-option--selected',
     invisible: 't-transition--invisible',
+    picked: 't-select-option--picked',
   };
 
   it('should close Select when esc keydown', () => {
     jest.useFakeTimers();
-    const { container } = render(<Select visible options={options} />);
+    const { container } = render(<Select options={options} visible />);
     expect(container.firstChild).toHaveClass('t-select--active');
     expect(getBalloon()).not.toHaveClass(cls.invisible);
 
@@ -38,7 +38,7 @@ describe('Select.keyboard', () => {
   });
 
   it('should highlight the first option', () => {
-    render(<Select visible options={options} />);
+    render(<Select options={options} visible />);
 
     const $options = $$('.t-select-option');
     expect($options.length).toBe(3);
@@ -50,7 +50,7 @@ describe('Select.keyboard', () => {
 
   it('should highlight the first selected option', () => {
     const value = options[1]!.value;
-    render(<Select visible value={value} options={options} />);
+    render(<Select options={options} value={value} visible />);
 
     const $options = $$('.t-select-option');
     expect($options.length).toBe(3);
@@ -85,7 +85,7 @@ describe('Select.keyboard', () => {
 
   it("should allow controlling the selected option using the keyboard's up and down arrow keys and selecting by pressing the Enter key", () => {
     jest.useFakeTimers();
-    const { container } = render(<Select visible options={options} />);
+    const { container } = render(<Select options={options} visible />);
 
     const $options = $$('.t-select-option');
 

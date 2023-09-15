@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
-import { useEffect, useRef, useState } from 'react';
+import { renderHook, act } from '@testing-library/react';
+import { useEffect, useState, useRef } from 'react';
 import { useVisible } from '@pkg/shared';
 
 describe('useVisible', () => {
@@ -99,11 +99,11 @@ describe('useVisible', () => {
     let renderTimes = 0;
     const { result } = renderHook(() => {
       renderTimes++;
-      const [state, setState] = useState<boolean | undefined>(false);
+      const [state, setState] = useState<undefined | boolean>(false);
       const numRef = useRef(1);
       const [visible, close] = useVisible(
         state,
-        (): boolean | void | Promise<void> => {
+        (): Promise<void> | boolean | void => {
           const num = numRef.current++;
           switch (num) {
             case 1:
@@ -170,11 +170,11 @@ describe('useVisible', () => {
     let renderTimes = 0;
     const { result } = renderHook(() => {
       renderTimes++;
-      const [state, setState] = useState<boolean | undefined>(false);
+      const [state, setState] = useState<undefined | boolean>(false);
       const numRef = useRef(1);
       const [visible, close, setVisible] = useVisible(
         state,
-        (): boolean | void | Promise<void> => {
+        (): Promise<void> | boolean | void => {
           const num = numRef.current++;
           switch (num) {
             case 1:
@@ -322,7 +322,7 @@ describe('useVisible', () => {
 
       const hook = renderHook(() => {
         renderTimes++;
-        const [state, setState] = useState<boolean | undefined>(false);
+        const [state, setState] = useState<undefined | boolean>(false);
         const [visible, close] = useVisible(state);
         useEffect(() => {
           setState(visible);

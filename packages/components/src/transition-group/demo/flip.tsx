@@ -2,13 +2,13 @@
  * title: 多维表格排序过渡
  */
 
-import React, { useCallback, useRef, useState } from 'react';
 import {
   TransitionGroup,
+  Transition,
   Button,
   Space,
-  Transition,
 } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useRef } from 'react';
 import styles from './flip.module.scss';
 
 const App: React.FC = () => {
@@ -30,12 +30,12 @@ const App: React.FC = () => {
   return (
     <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
-        <Button type="primary" plain onClick={shuffle}>
+        <Button onClick={shuffle} type="primary" plain>
           洗牌
         </Button>
       </Space>
       <br />
-      <TransitionGroup name="group" tag="section" className="group-container">
+      <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
             <Transition key={item}>

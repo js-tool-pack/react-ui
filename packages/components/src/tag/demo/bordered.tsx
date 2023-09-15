@@ -2,8 +2,8 @@
  * title: 边框
  */
 
+import { TagProps, Switch, Space, Tag } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Space, Switch, Tag, TagProps } from '@tool-pack/react-ui';
 const types = [
   'primary',
   'success',
@@ -15,9 +15,9 @@ const App: React.FC = () => {
   const [bordered, setBordered] = useState(false);
   return (
     <Space>
-      <Switch checked={bordered} onChange={setBordered} />
+      <Switch onChange={setBordered} checked={bordered} />
       {types.map((type) => (
-        <Tag key={type} bordered={bordered} type={type}>
+        <Tag bordered={bordered} type={type} key={type}>
           {type.toUpperCase()}
         </Tag>
       ))}

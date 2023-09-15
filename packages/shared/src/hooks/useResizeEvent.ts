@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 export function useResizeEvent(
   enable: boolean,
   callback: () => void,
-  options?: boolean | AddEventListenerOptions,
+  options?: AddEventListenerOptions | boolean,
 ) {
   useEffect(() => {
     if (!enable) return;

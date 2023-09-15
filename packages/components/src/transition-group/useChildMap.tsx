@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { transitionCBAdapter, type TransitionProps } from '@pkg/components';
-import { useIsInitDep } from '@pkg/shared';
+import { type TransitionProps, transitionCBAdapter } from '@pkg/components';
 import type { ChildMap } from './transition-group.types';
+import React, { useEffect, useState } from 'react';
+import { useIsInitDep } from '@pkg/shared';
 export function useChildMap(children: React.ReactNode, name: string) {
   const isInit = useIsInitDep(children);
 
@@ -9,9 +9,9 @@ export function useChildMap(children: React.ReactNode, name: string) {
     return createMap(children, (child) => {
       const onAfterLeave = () => onLeaved(child.key || '');
       return cloneTransition(child, {
+        on: transitionCBAdapter({ onAfterLeave }),
         name: name,
         show: true,
-        on: transitionCBAdapter({ onAfterLeave }),
       });
     });
   });
@@ -54,7 +54,7 @@ const nextChildMap = (
       if (child.props.show === false) return child;
       // 因为 remove 了的 child 是不存在于 next 的，所以这个 child 是旧的，是 clone 过的
       // tips: 加了 on 就不会等待多个 remove 完才 move，而是 remove 一个 move 一个
-      return cloneTransition(child, { show: false, appear: false });
+      return cloneTransition(child, { appear: false, show: false });
     }
 
     const on = transitionCBAdapter({
@@ -64,9 +64,9 @@ const nextChildMap = (
     if (isAdd) {
       // 旧的不存在，所以 child 是新创建的，是未 clone 过的
       return cloneTransition(child, {
+        appear: true,
         name: name,
         show: true,
-        appear: true,
         on,
       });
     }
@@ -74,9 +74,9 @@ const nextChildMap = (
     if (inBoth) {
       // 两者皆有取最新，所以 child 是新创建的，是未 clone 过的
       return cloneTransition(child, {
+        appear: false,
         show: true,
         name: name,
-        appear: false,
         on,
       });
     }

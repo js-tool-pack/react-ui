@@ -2,17 +2,17 @@
  * title: 尺寸
  */
 
+import { SelectOptionsItem, Select } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Select, SelectOptionsItem } from '@tool-pack/react-ui';
 
 const options: SelectOptionsItem[] = [
   {
-    value: 1,
     label: 'foo',
+    value: 1,
   },
   {
-    value: 2,
     label: 'bar',
+    value: 2,
   },
 ];
 const App: React.FC = () => {
@@ -20,27 +20,27 @@ const App: React.FC = () => {
   return (
     <>
       <Select
-        size="small"
-        value={value}
+        placeholder="select"
         onChange={setValue}
         options={options}
-        placeholder="select"
+        value={value}
+        size="small"
       />
       <br />
       <Select
+        placeholder="select"
+        onChange={setValue}
+        options={options}
         size="medium"
         value={value}
-        onChange={setValue}
-        options={options}
-        placeholder="select"
       />
       <br />
       <Select
-        size="large"
-        value={value}
+        placeholder="select"
         onChange={setValue}
         options={options}
-        placeholder="select"
+        value={value}
+        size="large"
       />
     </>
   );

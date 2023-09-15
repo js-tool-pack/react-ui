@@ -4,8 +4,8 @@
  *   可以使用 placement 设置文案所在位置，支持left、center、right三个选项。
  */
 
-import React from 'react';
 import { Divider, Space } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   return (

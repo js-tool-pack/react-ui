@@ -1,14 +1,14 @@
-import React from 'react';
 import type { PropsBase } from '@pkg/shared';
+import React from 'react';
 
 export interface SpaceProps extends PropsBase {
-  className?: string;
-  style?: React.CSSProperties;
-  gap?: number | string;
-  vertical?: boolean;
   tag?: keyof HTMLElementTagNameMap;
+  style?: React.CSSProperties;
   separator?: React.ReactNode;
+  gap?: number | string;
+  className?: string;
+  vertical?: boolean;
+  fillRatio?: number;
   inline?: boolean;
   fill?: boolean;
-  fillRatio?: number;
 }

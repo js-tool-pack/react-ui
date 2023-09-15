@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import './index.css';
+import ReactDOM from 'react-dom/client';
 import '@pkg/components/index.scss';
 import { router } from './router';
+import React from 'react';
+import './index.css';
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(

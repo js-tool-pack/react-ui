@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { DialogProps } from './dialog.types';
 import { useClientSize } from '@pkg/shared';
 
 export function useTransitionOrigin(props: DialogProps, show?: boolean) {
-  const { centered, bodyAttrs = {} } = props;
+  const { bodyAttrs = {}, centered } = props;
 
   const [point, setPoint] = useState([0, 0] as [number, number]);
   const clientSize = useClientSize();

@@ -1,8 +1,8 @@
-import React from 'react';
-import type { Size } from '@pkg/shared';
-import type { OptionProps } from '~/option';
 import type { PopoverProps } from '~/popover';
+import type { OptionProps } from '~/option';
 import { DividerProps } from '~/divider';
+import type { Size } from '@pkg/shared';
+import React from 'react';
 
 export interface DropdownOptionProps extends OptionProps {
   expandable?: boolean;
@@ -12,18 +12,18 @@ export interface DropdownDivider extends DividerProps {
   key: React.Key;
 }
 export interface DropdownOption
-  extends Omit<DropdownOptionProps, 'size' | 'children'> {
-  type?: 'group' | 'option';
-  key: React.Key;
-  label: React.ReactNode;
+  extends Omit<DropdownOptionProps, 'children' | 'size'> {
   children?: DropdownOptionsItem[];
+  type?: 'option' | 'group';
+  label: React.ReactNode;
+  key: React.Key;
 }
-export type DropdownOptionsItem = DropdownOption | DropdownDivider;
+export type DropdownOptionsItem = DropdownDivider | DropdownOption;
 export interface DropdownProps extends Omit<PopoverProps, 'content' | 'name'> {
-  size?: Size;
   onSelect?: (option: DropdownOption, parents: DropdownOption[]) => void;
   options: DropdownOptionsItem[];
   header?: React.ReactNode;
   footer?: React.ReactNode;
   hideOnClick?: boolean;
+  size?: Size;
 }

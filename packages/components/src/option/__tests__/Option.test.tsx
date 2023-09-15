@@ -1,7 +1,7 @@
-import { testAttrs } from '~/testAttrs';
-import { Option } from '~/option';
 import { render } from '@testing-library/react';
 import { CircleClose } from '@pkg/icons';
+import { testAttrs } from '~/testAttrs';
+import { Option } from '~/option';
 
 describe('Option', () => {
   testAttrs(Option);

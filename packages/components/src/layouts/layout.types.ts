@@ -1,5 +1,5 @@
-import React from 'react';
 import { PropsBase } from '@pkg/shared';
+import React from 'react';
 
 export interface BaseLayoutsProps
   extends PropsBase,

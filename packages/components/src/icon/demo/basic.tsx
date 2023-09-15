@@ -3,13 +3,13 @@
  * description: icon的基础用法。
  */
 
+import { Icons, Space, Icon } from '@tool-pack/react-ui';
 import React from 'react';
-import { Icon, Icons, Space } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
-    <Space className="demo-icon-basic" style={{ fontSize: '16px' }}>
-      <Icon size={26} attrs={{ style: { color: 'blue' } }}>
+    <Space style={{ fontSize: '16px' }} className="demo-icon-basic">
+      <Icon attrs={{ style: { color: 'blue' } }} size={26}>
         <Icons.Close />
       </Icon>
       <Icon color="red">

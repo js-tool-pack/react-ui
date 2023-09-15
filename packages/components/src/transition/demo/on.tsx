@@ -4,14 +4,14 @@
  *  监听 Transition 动画事件，点击切换按钮并打开控制台可以看到 log 信息。
  */
 
-import React, { useReducer } from 'react';
 import {
-  Button,
-  Transition,
-  TransitionCB,
-  TRANSITION_STATUS,
   TRANSITION_LIFE_CIRCLE,
+  TRANSITION_STATUS,
+  TransitionCB,
+  Transition,
+  Button,
 } from '@tool-pack/react-ui';
+import React, { useReducer } from 'react';
 import './fade.scss';
 
 const App: React.FC = () => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
   };
   return (
     <div style={{ textAlign: 'center' }}>
-      <Button type="primary" shape="round" onClick={setVisible}>
+      <Button onClick={setVisible} type="primary" shape="round">
         切 换
       </Button>
       <br />

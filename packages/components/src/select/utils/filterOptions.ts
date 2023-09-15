@@ -1,4 +1,4 @@
-import type { SelectOption, SelectOptionsItem } from '../select.types';
+import type { SelectOptionsItem, SelectOption } from '../select.types';
 import { isString } from '@tool-pack/basic';
 import { isDivider } from './isDivider';
 import { isGroup } from './isGroup';

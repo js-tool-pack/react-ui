@@ -1,7 +1,7 @@
-import React from 'react';
 import type { TooltipProps } from './tooltip.types';
-import { Popover } from '../popover';
 import { RequiredPart } from '@tool-pack/types';
+import { Popover } from '../popover';
+import React from 'react';
 
 export const Tooltip: React.FC<TooltipProps> = (props) => {
   const { children, title, ...rest } = props as RequiredPart<
@@ -16,11 +16,11 @@ export const Tooltip: React.FC<TooltipProps> = (props) => {
 };
 
 const defaultProps = {
+  appendTo: () => document.body,
   placement: 'top',
   trigger: 'hover',
-  offset: 10,
   name: 'tooltip',
-  appendTo: () => document.body,
+  offset: 10,
 } satisfies Partial<TooltipProps>;
 Tooltip.defaultProps = defaultProps;
 Tooltip.displayName = 'Tooltip';

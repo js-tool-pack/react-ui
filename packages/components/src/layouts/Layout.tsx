@@ -1,29 +1,29 @@
-import React from 'react';
-import { getComponentClass } from '@pkg/shared';
-import { getClassNames } from '@tool-pack/basic';
 import type { BaseLayoutsProps, LayoutProps } from './layout.types';
-import { useElement } from './useElement';
+import { getClassNames } from '@tool-pack/basic';
+import { getComponentClass } from '@pkg/shared';
 import { RequiredPart } from '@tool-pack/types';
+import { useElement } from './useElement';
+import React from 'react';
 
 const rootClass = getComponentClass('layout');
 export const Layout = React.forwardRef<HTMLElement, LayoutProps>(
   (props, ref) => {
     const {
-      tag,
-      vertical,
+      attrs = {},
       className,
+      vertical,
       children,
       style,
-      attrs = {},
+      tag,
     } = props as RequiredPart<LayoutProps, 'tag'>;
     return React.createElement(tag, {
       ...attrs,
-      ref,
-      style: { ...attrs.style, ...style },
       className: getClassNames(rootClass, className, attrs.className, {
         [`${rootClass}--v`]: vertical,
       }),
+      style: { ...attrs.style, ...style },
       children,
+      ref,
     });
   },
 );

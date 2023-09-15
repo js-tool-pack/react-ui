@@ -2,32 +2,32 @@
  * title: 按钮组
  */
 
-import React from 'react';
 import {
+  ButtonContext,
+  ButtonGroup,
   Button,
   Icons,
-  ButtonGroup,
-  ButtonContext,
   Space,
   Icon,
 } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   const btns = [
-    <Button key={1} size="small" type="danger" icon={<Icons.CircleClose />}>
+    <Button icon={<Icons.CircleClose />} type="danger" size="small" key={1}>
       Delete
     </Button>,
-    <Button key={2} type="success" icon={<Icons.CircleSuccess />}>
+    <Button icon={<Icons.CircleSuccess />} type="success" key={2}>
       Commit
     </Button>,
-    <Button key={3} type="info" size="large" icon={<Icons.CircleInfo />}>
+    <Button icon={<Icons.CircleInfo />} size="large" type="info" key={3}>
       Upload
     </Button>,
     <Button
-      key={4}
+      icon={<Icons.CircleWarning />}
       type="primary"
       size="large"
-      icon={<Icons.CircleWarning />}
+      key={4}
     />,
   ];
   return (
@@ -42,21 +42,22 @@ const App: React.FC = () => {
       <ButtonGroup size="large">{btns}</ButtonGroup>
       <ButtonContext.Provider
         value={{
+          onClick: () => alert('click'),
           size: 'small',
           plain: true,
-          onClick: () => alert('click'),
-        }}>
+        }}
+      >
         <ButtonGroup size="large">{btns}</ButtonGroup>
       </ButtonContext.Provider>
 
       <ButtonGroup>
-        <ButtonContext.Provider value={{ size: 'large', type: 'primary' }}>
-          <Button shape="round" icon={<Icons.CircleClose />}>
+        <ButtonContext.Provider value={{ type: 'primary', size: 'large' }}>
+          <Button icon={<Icons.CircleClose />} shape="round">
             Delete
           </Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
           <Button>Upload</Button>
-          <Button shape="round" icon={<Icons.CircleWarning />} />
+          <Button icon={<Icons.CircleWarning />} shape="round" />
         </ButtonContext.Provider>
       </ButtonGroup>
 
@@ -65,7 +66,7 @@ const App: React.FC = () => {
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
           <Button>Upload</Button>
-          <Button plain="dashed" shape="round" icon={<Icons.CircleWarning />} />
+          <Button icon={<Icons.CircleWarning />} plain="dashed" shape="round" />
         </ButtonContext.Provider>
       </ButtonGroup>
 
@@ -112,7 +113,7 @@ const App: React.FC = () => {
       <ButtonGroup>
         <ButtonContext.Provider value={{ type: 'primary', shape: 'none' }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
-          <Button disabled icon={<Icons.CircleSuccess />}>
+          <Button icon={<Icons.CircleSuccess />} disabled>
             Commit
           </Button>
           <Button icon={<Icons.CircleInfo />}>Upload</Button>
@@ -123,12 +124,13 @@ const App: React.FC = () => {
         <ButtonContext.Provider
           value={{
             type: 'primary',
-            disabled: true,
             rightIcon: true,
+            disabled: true,
             shape: 'round',
-          }}>
+          }}
+        >
           <Button icon={<Icons.CircleClose />}>Delete</Button>
-          <Button disabled icon={<Icons.CircleSuccess />}>
+          <Button icon={<Icons.CircleSuccess />} disabled>
             Commit
           </Button>
           <Button icon={<Icons.CircleInfo />}>Upload</Button>

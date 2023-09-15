@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import { Divider } from '..';
 import { testAttrs } from '~/testAttrs';
+import { Divider } from '..';
 
 describe('Divider', () => {
   testAttrs(Divider);

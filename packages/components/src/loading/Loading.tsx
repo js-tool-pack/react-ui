@@ -1,16 +1,16 @@
-import { LoadingProps } from './loading.types';
-import React, { useCallback, useMemo, useRef } from 'react';
-import { createPortal } from 'react-dom';
 import {
-  Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
+  Transition,
 } from '~/transition';
-import { getClasses, useScrollLock, useVisible, Z_INDEX } from '@pkg/shared';
+import { useScrollLock, getClasses, useVisible, Z_INDEX } from '@pkg/shared';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { Loading as LoadingIcon } from '@pkg/icons';
-import { Icon } from '~/icon';
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
+import { LoadingProps } from './loading.types';
+import { createPortal } from 'react-dom';
+import { Icon } from '~/icon';
 
 const cls = getClasses(
   'loading',
@@ -20,10 +20,10 @@ const cls = getClasses(
 
 const defaultProps = {
   background: 'var(--t-mask-bg-color)',
+  text: 'loading...',
+  zIndex: Z_INDEX,
   // color: 'var(--t-text-color)',
   mode: 'insert',
-  zIndex: Z_INDEX,
-  text: 'loading...',
 } satisfies Partial<LoadingProps>;
 
 /**
@@ -31,19 +31,19 @@ const defaultProps = {
  */
 export const Loading: React.FC<LoadingProps> = (props) => {
   const {
-    attrs = {},
-    zIndex,
-    color,
-    background,
-    closeOnClick,
-    mode,
-    onClose,
-    onLeave,
-    icon,
-    children,
-    text,
     visible: outerVisible,
     wrapperAttrs = {},
+    closeOnClick,
+    attrs = {},
+    background,
+    children,
+    onClose,
+    onLeave,
+    zIndex,
+    color,
+    mode,
+    icon,
+    text,
   } = props as RequiredPart<LoadingProps, keyof typeof defaultProps>;
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -65,14 +65,15 @@ export const Loading: React.FC<LoadingProps> = (props) => {
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       {...attrs}
-      onClick={closeLoading}
-      className={getClassNames(cls.root, attrs.className, attrs.className)}
       style={{
         ...attrs.style,
         background: background,
         zIndex: zIndex,
         color: color,
-      }}>
+      }}
+      className={getClassNames(cls.root, attrs.className, attrs.className)}
+      onClick={closeLoading}
+    >
       <div className={cls.__.box}>
         {icon !== null && (
           <div className={cls.__.icon}>
@@ -87,13 +88,14 @@ export const Loading: React.FC<LoadingProps> = (props) => {
   const TransitionLoading = useMemo(
     () => (
       <Transition
-        name={cls.root}
-        appear={true}
         on={(_el, status, lifeCircle) =>
           lifeCircle === TRANSITION_LIFE_CIRCLE.after &&
           status === TRANSITION_STATUS.hide &&
           onLeave?.()
-        }>
+        }
+        name={cls.root}
+        appear={true}
+      >
         {visible && LoadingBody}
       </Transition>
     ),
@@ -110,8 +112,8 @@ export const Loading: React.FC<LoadingProps> = (props) => {
       children,
       {
         ...children.props,
-        ref: wrapperRef,
         className: getClassNames(children.props.className, cls.__.ref),
+        ref: wrapperRef,
       },
       children.props.children,
       TransitionLoading,
@@ -121,8 +123,9 @@ export const Loading: React.FC<LoadingProps> = (props) => {
   return (
     <div
       {...wrapperAttrs}
+      className={getClassNames(cls.__.wrapper, wrapperAttrs.className)}
       ref={wrapperRef}
-      className={getClassNames(cls.__.wrapper, wrapperAttrs.className)}>
+    >
       {children}
       {TransitionLoading}
     </div>

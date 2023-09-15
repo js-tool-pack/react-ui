@@ -4,14 +4,14 @@
  *   目前支持 'ease' | 'linear' | 'ease-in' | 'ease-out' | 'ease-in-out'，默认为 'ease'。
  */
 
-import React, { useState } from 'react';
 import {
-  Button,
-  NumberTransition,
   NumberTransitionProps,
-  Space,
+  NumberTransition,
   TIMING_FNS,
+  Button,
+  Space,
 } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
 
 const App: React.FC = () => {
   const [active, setActive] = useState(false);
@@ -25,23 +25,24 @@ const App: React.FC = () => {
   };
 
   const props: NumberTransitionProps = {
-    active,
-    duration: 10000,
-    to: 25,
-    resetSignal: signal,
     onFinished: () => {
       setDisabled(true);
       setActive(false);
     },
+    resetSignal: signal,
+    duration: 10000,
+    active,
+    to: 25,
   };
 
   return (
     <Space vertical>
       <Space>
         <Button
-          type="primary"
+          onClick={() => setActive((v) => !v)}
           disabled={disabled}
-          onClick={() => setActive((v) => !v)}>
+          type="primary"
+        >
           {active ? '暂停' : '启动'}
         </Button>
         <Button onClick={reset}>重置</Button>

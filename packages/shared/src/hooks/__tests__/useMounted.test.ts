@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useForceUpdate, useMounted } from '@pkg/shared';
 
 describe('useMounted', () => {

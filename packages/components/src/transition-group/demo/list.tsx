@@ -2,13 +2,13 @@
  * title: 列表过渡
  */
 
-import React, { useCallback, useRef, useState } from 'react';
 import {
   TransitionGroup,
   Transition,
   Button,
   Space,
 } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useRef } from 'react';
 import styles from './list.module.scss';
 
 const App: React.FC = () => {
@@ -39,15 +39,15 @@ const App: React.FC = () => {
   return (
     <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
-        <Button type="primary" onClick={addChild}>
+        <Button onClick={addChild} type="primary">
           添加
         </Button>
-        <Button type="warning" plain onClick={removeRandomChild}>
+        <Button onClick={removeRandomChild} type="warning" plain>
           移除
         </Button>
       </Space>
       <br />
-      <TransitionGroup name="group" tag="section" className="group-container">
+      <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
             <Transition key={item}>

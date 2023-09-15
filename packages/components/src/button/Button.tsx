@@ -1,21 +1,21 @@
-import React, { useContext } from 'react';
-import type { ButtonProps } from './button.types';
 import {
-  CLASS_SIZE_LG,
-  CLASS_SIZE_M,
-  CLASS_SIZE_SM,
   getComponentClass,
+  CLASS_SIZE_LG,
+  CLASS_SIZE_SM,
+  CLASS_SIZE_M,
 } from '@pkg/shared';
-import { getClassNames } from '@tool-pack/basic';
-import { RequiredPart } from '@tool-pack/types';
-import { useBtnIcon, useBtnWave } from './button.hooks';
 import { ButtonContext } from '~/button/button.context';
+import { useBtnIcon, useBtnWave } from './button.hooks';
+import type { RequiredPart } from '@tool-pack/types';
+import type { ButtonProps } from './button.types';
+import { getClassNames } from '@tool-pack/basic';
+import React, { useContext } from 'react';
 
 const rootClass = getComponentClass('button');
 const defaultProps = {
-  size: 'medium',
-  type: 'default',
   shape: 'default',
+  type: 'default',
+  size: 'medium',
 } satisfies Partial<ButtonProps>;
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
@@ -26,18 +26,18 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       style: { ...context.style, ...props.attrs?.style, ...props.style },
     } as Exclude<ButtonProps['attrs'], undefined>;
     const {
-      className,
-      htmlType = attrs.type,
-      onClick,
-      plain,
-      size,
-      type,
       children = attrs.children,
       disabled = attrs.disabled,
-      shape,
-      loading,
-      icon,
+      htmlType = attrs.type,
+      className,
       rightIcon,
+      onClick,
+      loading,
+      plain,
+      shape,
+      size,
+      type,
+      icon,
     } = { ...defaultProps, ...context, ...props } as RequiredPart<
       ButtonProps,
       keyof typeof defaultProps
@@ -60,30 +60,31 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         {...attrs}
-        disabled={disabled}
-        ref={ref}
-        type={htmlType}
-        onClick={clickHandler}
         className={getClassNames(
           rootClass,
           className,
           attrs.className,
           `${rootClass}--type-${type}`,
           {
-            [CLASS_SIZE_SM]: size === 'small',
-            [CLASS_SIZE_M]: size === 'medium',
-            [CLASS_SIZE_LG]: size === 'large',
             [`${rootClass}--shape-${shape}`]: shape !== 'default',
-            [`${rootClass}--plain`]: plain === true,
-            [`${rootClass}--plain-text`]: plain === 'text',
             [`${rootClass}--plain-dashed`]: plain === 'dashed',
-            [`${rootClass}--loading`]: loading,
-            [`${rootClass}--icon-only`]: iconOnly,
             // 默认也要显示，否则 loading 出入场动画会不流畅
             [`${rootClass}--icon-l`]: !iconOnly && !rightIcon,
             [`${rootClass}--icon-r`]: !iconOnly && rightIcon,
+            [`${rootClass}--plain-text`]: plain === 'text',
+            [`${rootClass}--plain`]: plain === true,
+            [`${rootClass}--icon-only`]: iconOnly,
+            [`${rootClass}--loading`]: loading,
+            [CLASS_SIZE_SM]: size === 'small',
+            [CLASS_SIZE_M]: size === 'medium',
+            [CLASS_SIZE_LG]: size === 'large',
           },
-        )}>
+        )}
+        onClick={clickHandler}
+        disabled={disabled}
+        type={htmlType}
+        ref={ref}
+      >
         {!rightIcon && btnIcon}
         {children && <span>{children}</span>}
         {rightIcon && btnIcon}

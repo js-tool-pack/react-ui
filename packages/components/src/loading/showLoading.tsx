@@ -1,8 +1,8 @@
-import { Loading } from './Loading';
-import type { LoadingProps } from './loading.types';
 import { createRoot, type Root } from 'react-dom/client';
+import type { LoadingProps } from './loading.types';
+import { Loading } from './Loading';
 
-let root: Root | undefined;
+let root: undefined | Root;
 
 /**
  * 调用函数开启loading，可在任意地方调用
@@ -10,15 +10,15 @@ let root: Root | undefined;
  * @param props Loading组件的props
  */
 export function showLoading(
-  props: Partial<Omit<LoadingProps, 'visible' | 'closeOnClick'>> = {},
+  props: Partial<Omit<LoadingProps, 'closeOnClick' | 'visible'>> = {},
 ): void {
   if (root) root.unmount();
 
   const r = createRoot(document.createElement('div'));
   r.render(
     <Loading
-      visible={true}
       closeOnClick={true}
+      visible={true}
       {...props}
       onLeave={() => {
         r.unmount();

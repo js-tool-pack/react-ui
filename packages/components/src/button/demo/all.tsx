@@ -3,8 +3,8 @@
  * description: 全览演示。
  */
 
+import { Layout as OriginLayout, Button } from '@tool-pack/react-ui';
 import React, { useCallback, useReducer } from 'react';
-import { Button, Layout as OriginLayout } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [times, _addTimes] = useReducer((s) => s + 1, 0);
@@ -26,7 +26,7 @@ const App: React.FC = () => {
       <Layout>
         size:
         {sizes.map((size) => (
-          <Button className="test" onClick={addTimes} size={size} key={size}>
+          <Button onClick={addTimes} className="test" size={size} key={size}>
             {size}
           </Button>
         ))}
@@ -45,14 +45,16 @@ const App: React.FC = () => {
           <Layout
             style={{ marginBottom: '5px', textAlign: 'center' }}
             key={String(plain)}
-            vertical>
+            vertical
+          >
             ({String(plain)}):
             {types.map((type) => (
               <Button
-                onClick={addTimes}
-                type={type}
                 key={type + '_' + plain}
-                plain={plain}>
+                onClick={addTimes}
+                plain={plain}
+                type={type}
+              >
                 {type}
               </Button>
             ))}
@@ -65,11 +67,12 @@ const App: React.FC = () => {
           <Layout style={{ marginBottom: '5px' }} key={String(plain)} vertical>
             {types.map((type) => (
               <Button
-                onClick={addTimes}
-                type={type}
                 key={String(plain) + '_' + type}
+                onClick={addTimes}
                 plain={plain}
-                disabled>
+                type={type}
+                disabled
+              >
                 {type}
               </Button>
             ))}
@@ -84,8 +87,9 @@ const App: React.FC = () => {
               key={size + '_' + shape}
               onClick={addTimes}
               type="primary"
+              shape={shape}
               size={size}
-              shape={shape}>
+            >
               {shape}
             </Button>
           )),
@@ -100,11 +104,12 @@ const Layout: React.FC<Parameters<typeof OriginLayout>[0]> = React.memo(
     <OriginLayout
       {...props}
       style={{
-        gap: '8px',
-        flexWrap: 'wrap',
         overflow: 'visible',
+        flexWrap: 'wrap',
+        gap: '8px',
         ...props.style,
-      }}>
+      }}
+    >
       {props.children}
     </OriginLayout>
   ),

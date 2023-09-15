@@ -1,4 +1,4 @@
-import { filter, fromEvent, type Observable } from 'rxjs';
+import { type Observable, fromEvent, filter } from 'rxjs';
 import { isChildHTMLElement } from '@tool-pack/dom';
 import { castArray } from '@tool-pack/basic';
 

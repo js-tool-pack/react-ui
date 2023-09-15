@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
-import { Collapse } from '..';
-import { Left } from '@pkg/icons';
 import { testAttrs } from '~/testAttrs';
+import { Left } from '@pkg/icons';
+import { Collapse } from '..';
 
 describe('Collapse', () => {
   testAttrs(Collapse);
@@ -78,7 +78,7 @@ describe('Collapse', () => {
   test('icon', () => {
     expect(
       render(
-        <Collapse title={'第十四章'} icon={() => <Left />}>
+        <Collapse icon={() => <Left />} title={'第十四章'}>
           视之不见名曰夷，听之不闻名曰希，搏之不得名曰微。
         </Collapse>,
       ).container.firstChild,
@@ -88,7 +88,7 @@ describe('Collapse', () => {
   test('icon-placement', () => {
     expect(
       render(
-        <Collapse title={'第十四章'} icon={() => <Left />} iconPlacement="end">
+        <Collapse icon={() => <Left />} iconPlacement="end" title={'第十四章'}>
           视之不见名曰夷，听之不闻名曰希，搏之不得名曰微。
         </Collapse>,
       ).container.firstChild,

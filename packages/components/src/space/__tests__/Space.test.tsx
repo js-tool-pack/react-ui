@@ -1,6 +1,6 @@
+import { render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
 import { Space } from '..';
-import { render } from '@testing-library/react';
 
 describe('Space', () => {
   testAttrs(Space);
@@ -36,7 +36,7 @@ describe('Space', () => {
   });
 
   test('fill', () => {
-    const { container } = render(<Space fill fillRatio={20} />);
+    const { container } = render(<Space fillRatio={20} fill />);
     expect(container.firstChild).toHaveClass('t-space--fill');
     expect(container.firstChild).toHaveStyle({ '--t-space-fill-ratio': '20%' });
   });

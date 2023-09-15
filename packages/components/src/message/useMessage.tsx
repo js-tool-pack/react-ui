@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { MessagePushOptions, MessageQueueRef } from './message.types';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import type { PartialPart } from '@tool-pack/types';
 import { MessageQueue } from './MessageQueue';
 import { createRoot } from 'react-dom/client';
 import { nextTick } from '@tool-pack/basic';
-import type { PartialPart } from '@tool-pack/types';
 
 type Res = readonly [
   {
@@ -16,7 +16,7 @@ type Res = readonly [
     MessagePushOptions['type'],
     (
       content: MessagePushOptions['content'],
-      options?: Omit<MessagePushOptions, 'type' | 'content'>,
+      options?: Omit<MessagePushOptions, 'content' | 'type'>,
     ) => void
   >,
   React.ReactElement,
@@ -26,7 +26,7 @@ type Res = readonly [
  * @param commonOptions 可以填入公共的duration、icon、showClose参数
  */
 export function useMessageHolder(
-  commonOptions: Omit<MessagePushOptions, 'type' | 'content'> & {
+  commonOptions: Omit<MessagePushOptions, 'content' | 'type'> & {
     containerAttrs?: MessagePushOptions['attrs'];
   } = {},
 ): Res {
@@ -41,7 +41,7 @@ export function useMessageHolder(
     (
       type: MessagePushOptions['type'],
       content: MessagePushOptions['content'],
-      options?: Omit<MessagePushOptions, 'type' | 'content'>,
+      options?: Omit<MessagePushOptions, 'content' | 'type'>,
     ) => {
       ref.current?.push({
         ...restOptions,
@@ -55,12 +55,12 @@ export function useMessageHolder(
 
   return [
     {
-      clear: useCallback(() => ref.current?.clear(), []),
       open: useCallback((c, o = {}) => push(o.type || 'info', c, o), []),
       success: useCallback((...args) => push('success', ...args), []),
-      info: useCallback((...args) => push('info', ...args), []),
       warning: useCallback((...args) => push('warning', ...args), []),
       error: useCallback((...args) => push('error', ...args), []),
+      info: useCallback((...args) => push('info', ...args), []),
+      clear: useCallback(() => ref.current?.clear(), []),
     },
     holder,
   ];

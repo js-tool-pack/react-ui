@@ -1,7 +1,7 @@
 import { BaseLayoutsProps } from './layout.types';
+import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
 import React from 'react';
-import { getClassNames } from '@tool-pack/basic';
 
 export function useElement(
   props: BaseLayoutsProps,
@@ -9,21 +9,21 @@ export function useElement(
   rootClass: string,
 ): React.ReactElement {
   const {
-    children,
-    className,
-    tag,
-    style,
     attrs = {},
+    className,
+    children,
+    style,
+    tag,
   } = props as RequiredPart<BaseLayoutsProps, 'tag'>;
   return React.createElement(
     tag,
     {
       ...attrs,
-      ref,
-      style: { ...attrs.style, ...style },
       className: getClassNames(rootClass, attrs.className, {
         [className as string]: className,
       }),
+      style: { ...attrs.style, ...style },
+      ref,
     },
     children,
   );

@@ -2,39 +2,39 @@
  * title: 分组
  */
 
+import { SelectOptionsItem, Select } from '@tool-pack/react-ui';
 import React from 'react';
-import { Select, SelectOptionsItem } from '@tool-pack/react-ui';
 
 const options: SelectOptionsItem[] = [
   {
-    type: 'group',
-    key: '[0, 20)',
-    label: '[0, 20)',
     children: [
       ...Array.from({ length: 10 }).map((_, i) => ({
-        value: i,
         label: String(i),
+        value: i,
       })),
       {
-        type: 'group',
-        key: '[10, 20)',
-        label: '[10, 20)',
         children: Array.from({ length: 10 }).map((_, i) => ({
-          value: i + 10,
           label: String(i + 10),
+          value: i + 10,
         })),
+        label: '[10, 20)',
+        key: '[10, 20)',
+        type: 'group',
       },
     ],
+    label: '[0, 20)',
+    key: '[0, 20)',
+    type: 'group',
   },
   { type: 'divider', key: 'd1' },
   {
-    type: 'group',
-    key: '[20, 30)',
-    label: '[20, 30)',
     children: Array.from({ length: 10 }).map((_, i) => ({
-      value: i + 20,
       label: String(i + 20),
+      value: i + 20,
     })),
+    label: '[20, 30)',
+    key: '[20, 30)',
+    type: 'group',
   },
 ];
 const App: React.FC = () => {

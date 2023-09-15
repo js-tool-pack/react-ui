@@ -1,6 +1,6 @@
+import { render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
 import { WordBalloon } from '..';
-import { render } from '@testing-library/react';
 
 describe('WordBalloon', () => {
   testAttrs(WordBalloon);

@@ -1,14 +1,14 @@
-import React from 'react';
-import { getClasses } from '@pkg/shared';
-import { SelectOption, SelectProps } from '~/select';
-import { Tag } from '~/tag';
 import { getClassNames, isFunction } from '@tool-pack/basic';
+import { SelectOption, SelectProps } from '~/select';
 import { ConvertOptional } from '@tool-pack/types';
+import { getClasses } from '@pkg/shared';
 import { Popover } from '~/popover';
+import { Tag } from '~/tag';
+import React from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<SelectProps, 'size' | 'maxTagCount' | 'disabled'>
+    Pick<SelectProps, 'maxTagCount' | 'disabled' | 'size'>
   > {
   onSelectedChange: (selected: SelectOption[]) => void;
   selected: SelectOption[];
@@ -18,7 +18,7 @@ interface Props
 const cls = getClasses('select-tags', ['pop-tags', 'tag', 'count'], []);
 
 export const SelectionTags: React.FC<Props> = (props) => {
-  const { size, active, maxTagCount, disabled, selected, onSelectedChange } =
+  const { onSelectedChange, maxTagCount, disabled, selected, active, size } =
     props;
 
   const onClose = (_e: React.MouseEvent, opt: SelectOption) => {
@@ -37,15 +37,17 @@ export const SelectionTags: React.FC<Props> = (props) => {
     <>
       {visibleTags.map(getTag)}
       <Popover
-        disabled={active}
         content={
           <div className={cls.__['pop-tags']}>{invisibleTags.map(getTag)}</div>
-        }>
+        }
+        disabled={active}
+      >
         <Tag
           attrs={{ className: getClassNames(cls.__.tag, cls.__.count) }}
+          bordered={false}
           size={size}
           type="info"
-          bordered={false}>
+        >
           + {invisibleTags.length}
         </Tag>
       </Popover>
@@ -59,10 +61,11 @@ export const SelectionTags: React.FC<Props> = (props) => {
         attrs={{ className: cls.__.tag }}
         closeBtnAttrs={{ tabIndex: -1 }}
         closeable={!disabled}
-        bordered={false}
         key={option.value}
+        bordered={false}
         size={size}
-        type="info">
+        type="info"
+      >
         {isFunction(option.label) ? option.label(true, option) : option.label}
       </Tag>
     );

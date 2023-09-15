@@ -1,25 +1,25 @@
-import React, { useEffect, useRef } from 'react';
-import type { MessageProps } from './message.types';
-import type { RequiredPart } from '@tool-pack/types';
-import { getComponentClass, useForwardRef, useTimeDown } from '@pkg/shared';
-import { getClassNames } from '@tool-pack/basic';
-import { Icon } from '~/icon';
 import {
-  CircleCloseFill,
-  CircleInfoFill,
   CircleSuccessFill,
   CircleWarningFill,
+  CircleCloseFill,
+  CircleInfoFill,
   Close,
 } from '@pkg/icons';
+import { getComponentClass, useForwardRef, useTimeDown } from '@pkg/shared';
+import type { RequiredPart } from '@tool-pack/types';
+import type { MessageProps } from './message.types';
+import React, { useEffect, useRef } from 'react';
+import { getClassNames } from '@tool-pack/basic';
 import { Button } from '~/button';
+import { Icon } from '~/icon';
 
 const rootClass = getComponentClass('message');
 
 const icons: Record<MessageProps['type'], React.FC> = {
   success: CircleSuccessFill,
-  info: CircleInfoFill,
   warning: CircleWarningFill,
   error: CircleCloseFill,
+  info: CircleInfoFill,
 };
 
 const defaultProps = {
@@ -31,14 +31,14 @@ export const Message: React.FC<MessageProps> = React.forwardRef<
   MessageProps
 >((props, ref) => {
   const {
+    attrs = {},
+    hoverKeep,
+    showClose,
     children,
+    duration,
+    onLeave,
     type,
     icon,
-    duration,
-    hoverKeep,
-    onLeave,
-    showClose,
-    attrs = {},
   } = props as RequiredPart<MessageProps, keyof typeof defaultProps>;
 
   const [time, stop] = useTimeDown(duration);
@@ -67,14 +67,15 @@ export const Message: React.FC<MessageProps> = React.forwardRef<
   return (
     <div
       {...attrs}
-      ref={rootRef}
-      onMouseEnter={hoverKeep ? onMouseEnter : undefined}
-      onMouseLeave={hoverKeep ? onMouseLeave : undefined}
       className={getClassNames(
         rootClass,
         attrs.className,
         `${rootClass}--${type}`,
-      )}>
+      )}
+      onMouseEnter={hoverKeep ? onMouseEnter : undefined}
+      onMouseLeave={hoverKeep ? onMouseLeave : undefined}
+      ref={rootRef}
+    >
       <div className={rootClass + '__icon-wrapper'}>
         {
           // 有自定义icon显示自定义icon，未传则显示默认icon，为null则不显示icon
@@ -83,7 +84,7 @@ export const Message: React.FC<MessageProps> = React.forwardRef<
       </div>
       {children}
       {showClose && (
-        <Button size="small" plain="text" onClick={onLeave}>
+        <Button onClick={onLeave} size="small" plain="text">
           <Icon size="0.8em">
             <Close />
           </Icon>

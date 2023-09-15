@@ -4,8 +4,8 @@
  *  需要有一个name作为元素的className前缀，然后添加相应的css样式。
  */
 
+import { Transition, Button } from '@tool-pack/react-ui';
 import React, { useReducer } from 'react';
-import { Button, Transition } from '@tool-pack/react-ui';
 import './fade.scss';
 
 const App: React.FC = () => {
@@ -13,7 +13,7 @@ const App: React.FC = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <Button type="primary" shape="round" onClick={setVisible}>
+      <Button onClick={setVisible} type="primary" shape="round">
         切 换
       </Button>
       <br />

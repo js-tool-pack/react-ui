@@ -1,19 +1,19 @@
+import { pascalCase, kebabCase } from '@tool-pack/basic';
 import { prompt } from 'enquirer';
-import { kebabCase, pascalCase } from '@tool-pack/basic';
 import * as Path from 'path';
-import Fs from 'fs';
 import Fse from 'fs-extra';
 import chalk from 'chalk';
+import Fs from 'fs';
 
 type InitRes = [filename: string, content: string];
 
 const rootPath = Path.resolve(__dirname, '../');
 
 const config = {
-  name: '',
+  componentsPath: Path.resolve(rootPath, 'packages/components/src'),
   componentName: '',
   alias: '',
-  componentsPath: Path.resolve(rootPath, 'packages/components/src'),
+  name: '',
 };
 async function run() {
   const separator = '-'.repeat(10);
@@ -38,9 +38,6 @@ run();
 
 async function getConfig() {
   const { name } = await prompt<{ name: string }>({
-    type: 'input',
-    name: 'name',
-    message: '输入新组件名(英文和连字符"-")',
     validate(value: string) {
       if (!value) return '组件名不能为空';
       const illegalWord = value.replace(/[a-zA-Z-]/g, '');
@@ -49,24 +46,27 @@ async function getConfig() {
       }
       return true;
     },
+    message: '输入新组件名(英文和连字符"-")',
+    type: 'input',
+    name: 'name',
   });
 
   config.name = kebabCase(name);
   config.componentName = pascalCase(config.name);
 
   const { alias } = await prompt<{ alias: string }>({
-    type: 'input',
-    name: 'alias',
     message: '输入组件别名(中文)',
     required: true,
+    type: 'input',
+    name: 'alias',
   });
 
   config.alias = alias;
 
   const { confirm } = await prompt<{ confirm: boolean }>({
+    message: `确认添加组件(${config.name} ${alias})?`,
     type: 'confirm',
     name: 'confirm',
-    message: `确认添加组件(${config.name} ${alias})?`,
   });
 
   if (!confirm) throw new Error('放弃添加组件');
@@ -248,26 +248,26 @@ function appendPlayground() {
 
 function getFilename(
   type:
-    | 'doc'
-    | 'scss'
-    | 'index'
     | 'component'
-    | 'types'
-    | 'demo'
     | 'namespace'
-    | 'test',
+    | 'index'
+    | 'types'
+    | 'scss'
+    | 'demo'
+    | 'test'
+    | 'doc',
 ) {
   const name = config.name;
   return (
     {
-      doc: 'index.zh-CN.md',
-      scss: 'index.scss',
-      namespace: 'namespace.scss',
+      test: `__tests__/${config.componentName}.test.tsx`,
       component: `${config.componentName}.tsx`,
-      index: 'index.ts',
+      namespace: 'namespace.scss',
       types: `${name}.types.ts`,
       demo: 'demo/basic.tsx',
-      test: `__tests__/${config.componentName}.test.tsx`,
+      doc: 'index.zh-CN.md',
+      scss: 'index.scss',
+      index: 'index.ts',
     } as Record<typeof type, string>
   )[type];
 }

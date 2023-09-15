@@ -2,9 +2,9 @@ import { useForceUpdate } from '@pkg/shared';
 import { useEffect } from 'react';
 
 export function useAppendTo(
-  appendTo: void | null | (() => HTMLElement | null),
-  defAppendTo?: null | (() => HTMLElement),
-): [null | HTMLElement, () => void] {
+  appendTo: (() => HTMLElement | null) | void | null,
+  defAppendTo?: (() => HTMLElement) | null,
+): [HTMLElement | null, () => void] {
   const forceUpdate = useForceUpdate();
 
   const target = (appendTo && appendTo()) || null;

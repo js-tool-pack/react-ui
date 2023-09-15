@@ -3,8 +3,8 @@
  * description: 可以关掉。
  */
 
+import { AlertProps, Alert } from '@tool-pack/react-ui';
 import React from 'react';
-import { Alert, AlertProps } from '@tool-pack/react-ui';
 
 const Types: Required<AlertProps>['type'][] = [
   'primary',
@@ -18,11 +18,12 @@ const App: React.FC = () => {
     <>
       {Types.map((t) => (
         <Alert
-          key={t}
+          attrs={{ style: { marginBottom: '10px' } }}
+          title={`${t} tips`}
           closable
           type={t}
-          title={`${t} tips`}
-          attrs={{ style: { marginBottom: '10px' } }}>
+          key={t}
+        >
           foo bar
         </Alert>
       ))}

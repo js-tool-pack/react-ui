@@ -1,20 +1,20 @@
-import React, { useCallback } from 'react';
-import { createPortal } from 'react-dom';
-import { getClassNames } from '@tool-pack/basic';
 import {
   getComponentClass,
   useScrollLock,
   useVisible,
   Z_INDEX,
 } from '@pkg/shared';
-import { Close as CloseIcon } from '@pkg/icons';
-import { Icon } from '~/icon';
-import { Button } from '~/button';
+import { useTransitionOrigin, useEsc } from './dialog.hooks';
 import { Footer, Header, Layout, Main } from '~/layouts';
-import { Transition } from '~/transition';
-import { DialogProps } from './dialog.types';
-import { useEsc, useTransitionOrigin } from './dialog.hooks';
+import { getClassNames } from '@tool-pack/basic';
+import { Close as CloseIcon } from '@pkg/icons';
 import { RequiredPart } from '@tool-pack/types';
+import { DialogProps } from './dialog.types';
+import React, { useCallback } from 'react';
+import { Transition } from '~/transition';
+import { createPortal } from 'react-dom';
+import { Button } from '~/button';
+import { Icon } from '~/icon';
 
 const rootClass = getComponentClass('dialog');
 const defaultProps = {
@@ -25,17 +25,17 @@ const defaultProps = {
 export const Dialog: React.FC<DialogProps> = React.memo((props) => {
   const {
     visible: outerVisible,
+    closeOnClickMask,
+    bodyAttrs = {},
+    attrs = {},
+    children,
+    centered,
+    onClose,
     header,
     footer,
-    children,
-    onClose,
-    closeOnClickMask,
     center,
-    centered,
     zIndex,
     esc,
-    attrs = {},
-    bodyAttrs = {},
   } = props as RequiredPart<DialogProps, keyof typeof defaultProps>;
 
   const [visible, close] = useVisible(outerVisible);
@@ -61,7 +61,8 @@ export const Dialog: React.FC<DialogProps> = React.memo((props) => {
     <div
       className={getClassNames(`${rootClass}__wrapper`, {
         [`${rootClass}__centered`]: centered,
-      })}>
+      })}
+    >
       <Layout
         key="dialog-box"
         {...bodyAttrs}
@@ -72,15 +73,17 @@ export const Dialog: React.FC<DialogProps> = React.memo((props) => {
           ...bodyAttrs.style,
           transformOrigin,
         }}
-        vertical>
+        vertical
+      >
         {header !== null && (
           <Header className={`${rootClass}__header`}>
             <span className={`${rootClass}__title`}>{header}</span>
             <Button
               className={`${rootClass}__btn-close`}
+              onClick={handleClose}
               plain="text"
               size="small"
-              onClick={handleClose}>
+            >
               <Icon>
                 <CloseIcon />
               </Icon>
@@ -100,9 +103,10 @@ export const Dialog: React.FC<DialogProps> = React.memo((props) => {
       {visible && (
         <div
           {...attrs}
-          key={rootClass}
           className={getClassNames(`${rootClass}__root`, attrs.className)}
-          style={{ ...attrs.style, zIndex }}>
+          style={{ ...attrs.style, zIndex }}
+          key={rootClass}
+        >
           {Mask}
           {Box}
         </div>

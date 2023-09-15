@@ -2,8 +2,8 @@
  * title: 加载中
  */
 
-import React, { useEffect, useState } from 'react';
 import { Button, Icons, Space } from '@tool-pack/react-ui';
+import React, { useEffect, useState } from 'react';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -19,24 +19,25 @@ const App: React.FC = () => {
   return (
     <Space vertical>
       <Button
-        size="small"
-        type="danger"
-        loading={loading}
+        onClick={() => setLoading(true)}
         icon={<Icons.CircleWarning />}
-        onClick={() => setLoading(true)}>
+        loading={loading}
+        type="danger"
+        size="small"
+      >
         Delete
       </Button>
 
-      <Button type="success" loading={loading} onClick={() => setLoading(true)}>
+      <Button onClick={() => setLoading(true)} loading={loading} type="success">
         Commit
       </Button>
 
       <Button
+        onClick={() => setLoading(true)}
+        icon={<Icons.CircleWarning />}
+        loading={loading}
         type="primary"
         size="large"
-        loading={loading}
-        icon={<Icons.CircleWarning />}
-        onClick={() => setLoading(true)}
       />
     </Space>
   );

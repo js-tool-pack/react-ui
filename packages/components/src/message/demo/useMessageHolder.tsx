@@ -3,8 +3,8 @@
  * description: useMessageHolder与useMessage用法一样，区别是useMessageHolder要挂载holder。
  */
 
+import { useMessageHolder, Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, Space, useMessageHolder } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [Message, holder] = useMessageHolder();
@@ -12,7 +12,7 @@ const App: React.FC = () => {
     <>
       {holder}
       <Space className="demo-message">
-        <Button type="primary" onClick={() => Message.open('hello world')}>
+        <Button onClick={() => Message.open('hello world')} type="primary">
           show message
         </Button>
       </Space>

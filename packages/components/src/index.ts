@@ -10,9 +10,9 @@ export * from './message';
 export * from './divider';
 export * from './drawer';
 export {
-  PLACEMENTS,
-  PLACEMENTS_8,
   PLACEMENTS_12,
+  PLACEMENTS_8,
+  PLACEMENTS,
   TIMING_FNS,
 } from '@pkg/shared';
 export * from './resizer';

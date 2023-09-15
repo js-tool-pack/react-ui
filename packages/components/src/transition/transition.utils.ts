@@ -1,17 +1,18 @@
-import React from 'react';
-import type { CB } from './transition.types';
-import { LIFE_CIRCLE, STATUS } from './transition.enums';
+/* eslint-disable perfectionist/sort-object-types */
 import {
-  tap,
-  map,
-  race,
-  take,
+  Subscription,
+  fromEvent,
+  filter,
   merge,
   timer,
-  filter,
-  fromEvent,
-  Subscription,
+  race,
+  take,
+  tap,
+  map,
 } from 'rxjs';
+import { LIFE_CIRCLE, STATUS } from './transition.enums';
+import type { CB } from './transition.types';
+import React from 'react';
 
 export function getClasses(name: string, show: boolean) {
   const el = show ? 'enter' : 'leave';
@@ -24,9 +25,9 @@ export function getClasses(name: string, show: boolean) {
   };
 }
 export function addTransition({
+  classes,
   el,
   on,
-  classes,
 }: {
   el: HTMLElement;
   on: (lifeCircle: LIFE_CIRCLE) => void;
@@ -96,7 +97,7 @@ export function addTransition({
     on(LIFE_CIRCLE.go);
   };
 
-  return { start, clearListener };
+  return { clearListener, start };
 }
 
 export function isSameEl(prev: unknown, next: unknown): boolean {
@@ -152,32 +153,32 @@ export function transitionCBAdapter(
     >;
 
     const maches: Record<STATUS, () => void> = {
-      [STATUS.show]() {
-        const map: LIFE_MAP = {
-          [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
-          [LIFE_CIRCLE.ready]: cbs.onEnterReady,
-          [LIFE_CIRCLE.go]: cbs.onEnterGo,
-          [LIFE_CIRCLE.start]: cbs.onEnterStart,
-          [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
-          [LIFE_CIRCLE.expired]: cbs.onEnterExpired,
-          [LIFE_CIRCLE.after]: cbs.onAfterEnter,
-        };
-        map[lifeCircle]?.(el);
-      },
       [STATUS.hide]() {
         const map: LIFE_MAP = {
-          [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
-          [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
-          [LIFE_CIRCLE.go]: cbs.onLeaveGo,
-          [LIFE_CIRCLE.start]: cbs.onLeaveStart,
-          [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,
           [LIFE_CIRCLE.expired]: cbs.onLeaveExpired,
+          [LIFE_CIRCLE.before]: cbs.onBeforeLeave,
+          [LIFE_CIRCLE.cancel]: cbs.onLeaveCancel,
+          [LIFE_CIRCLE.ready]: cbs.onLeaveReady,
+          [LIFE_CIRCLE.start]: cbs.onLeaveStart,
           [LIFE_CIRCLE.after]: cbs.onAfterLeave,
+          [LIFE_CIRCLE.go]: cbs.onLeaveGo,
         };
         map[lifeCircle]?.(el);
       },
-      [STATUS.idle]: () => cbs.onIdle?.(el),
+      [STATUS.show]() {
+        const map: LIFE_MAP = {
+          [LIFE_CIRCLE.expired]: cbs.onEnterExpired,
+          [LIFE_CIRCLE.before]: cbs.onBeforeEnter,
+          [LIFE_CIRCLE.cancel]: cbs.onEnterCancel,
+          [LIFE_CIRCLE.ready]: cbs.onEnterReady,
+          [LIFE_CIRCLE.start]: cbs.onEnterStart,
+          [LIFE_CIRCLE.after]: cbs.onAfterEnter,
+          [LIFE_CIRCLE.go]: cbs.onEnterGo,
+        };
+        map[lifeCircle]?.(el);
+      },
       [STATUS.invisible]: () => cbs.onInvisible?.(el),
+      [STATUS.idle]: () => cbs.onIdle?.(el),
       // none实际上是不可能出现的，因为 status none 不会触发回调
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       [STATUS.none]: () => {},

@@ -10,7 +10,7 @@ exports[`CollapseGroup all 1`] = `
   >
     <div
       class="t-space t-collapse__header"
-      style="gap: 12px; --t-space-fill-ratio: 100%;"
+      style="--t-space-fill-ratio: 100%; gap: 12px;"
     >
       <i
         class="t-icon t-collapse__icon"
@@ -39,7 +39,7 @@ exports[`CollapseGroup all 1`] = `
   >
     <div
       class="t-space t-collapse__header"
-      style="gap: 12px; --t-space-fill-ratio: 100%;"
+      style="--t-space-fill-ratio: 100%; gap: 12px;"
     >
       <i
         class="t-icon t-collapse__icon"
@@ -68,7 +68,7 @@ exports[`CollapseGroup all 1`] = `
   >
     <div
       class="t-space t-collapse__header"
-      style="gap: 12px; --t-space-fill-ratio: 100%;"
+      style="--t-space-fill-ratio: 100%; gap: 12px;"
     >
       <i
         class="t-icon t-collapse__icon t-collapse__icon--active"
@@ -105,7 +105,7 @@ exports[`CollapseGroup all 1`] = `
           >
             <div
               class="t-space t-collapse__header"
-              style="gap: 12px; --t-space-fill-ratio: 100%;"
+              style="--t-space-fill-ratio: 100%; gap: 12px;"
             >
               <div
                 class="t-collapse__title"
@@ -132,12 +132,12 @@ exports[`CollapseGroup all 1`] = `
             </div>
           </section>
           <section
-            class="t-collapse t--size-m t-collapse--active t-collapse--disabled"
+            class="t-collapse t--size-m t-collapse--disabled t-collapse--active"
             role="tab"
           >
             <div
               class="t-space t-collapse__header"
-              style="gap: 12px; --t-space-fill-ratio: 100%;"
+              style="--t-space-fill-ratio: 100%; gap: 12px;"
             >
               <i
                 class="t-icon t-collapse__icon t-collapse__icon--active"
@@ -174,7 +174,7 @@ exports[`CollapseGroup all 1`] = `
           >
             <div
               class="t-space t-collapse__header"
-              style="gap: 12px; --t-space-fill-ratio: 100%;"
+              style="--t-space-fill-ratio: 100%; gap: 12px;"
             >
               <i
                 class="t-icon t-collapse__icon t-collapse__icon--active"

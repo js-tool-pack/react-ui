@@ -2,26 +2,26 @@
  * title: 头尾插槽
  */
 
+import { SelectOptionsItem, Select } from '@tool-pack/react-ui';
 import React from 'react';
-import { Select, SelectOptionsItem } from '@tool-pack/react-ui';
 
 const options: SelectOptionsItem[] = Array.from({ length: 20 }).map((_, i) => ({
-  value: i,
   label: String(i),
+  value: i,
 }));
 const App: React.FC = () => {
   return (
     <>
       <Select
         header={<div style={{ padding: '10px' }}>header 插槽</div>}
-        options={options}
         placeholder="header"
+        options={options}
       />
       <br />
       <Select
         footer={<div style={{ padding: '10px' }}>footer 插槽</div>}
-        options={options}
         placeholder="footer"
+        options={options}
       />
     </>
   );

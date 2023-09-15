@@ -1,35 +1,35 @@
-import React, { useRef } from 'react';
-import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
 import type {
   DropdownOptionsItem,
   DropdownDivider,
   DropdownOption,
   DropdownProps,
 } from './dropdown.types';
-import { Popover } from '~/popover';
+import { useStateWithTrailClear, getComponentClass } from '@pkg/shared';
 import { DropdownInnerOption } from './DropdownInnerOption';
-import { getComponentClass, useStateWithTrailClear } from '@pkg/shared';
+import type { RequiredPart } from '@tool-pack/types';
+import { getClassNames } from '@tool-pack/basic';
+import React, { useRef } from 'react';
+import { Popover } from '~/popover';
 import { Divider } from '~/divider';
 
 const defaultProps = {
   placement: 'bottom-start',
-  size: 'medium',
-  showArrow: false,
   hideOnClick: true,
+  showArrow: false,
+  size: 'medium',
 } satisfies Partial<DropdownProps>;
 
 export const Dropdown: React.FC<DropdownProps> = (props) => {
   const {
-    children,
-    header,
-    footer,
-    size,
+    hideOnClick,
     showArrow,
+    children,
     onSelect,
     options,
     visible,
-    hideOnClick,
+    header,
+    footer,
+    size,
     ...rest
   } = props as RequiredPart<DropdownProps, keyof typeof defaultProps>;
   const boxRef = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   const Box = (
     <>
       {header && <div className={`${rootClass}__header`}>{header}</div>}
-      <div ref={boxRef} className={`${rootClass}__body`}>
+      <div className={`${rootClass}__body`} ref={boxRef}>
         <ul className={`${rootClass}__options`}>{handleOptions(options)}</ul>
       </div>
       {footer && <div className={`${rootClass}__footer`}>{footer}</div>}
@@ -52,10 +52,11 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   return (
     <Popover
       {...rest}
-      name={name}
       showArrow={showArrow}
       visible={show}
-      content={Box}>
+      content={Box}
+      name={name}
+    >
       {children}
     </Popover>
   );
@@ -66,7 +67,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   ): React.ReactElement[] {
     return options.map((opt) => {
       if (isDivider(opt)) {
-        const { key, type: _type, tag = 'li', ...rest } = opt;
+        const { type: _type, tag = 'li', key, ...rest } = opt;
         rest.attrs ||= {};
         rest.attrs.className = getClassNames(
           rest.attrs.className,
@@ -75,11 +76,11 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
         return <Divider {...rest} tag={tag} key={key} />;
       }
       const {
-        type,
-        label,
-        key,
-        children,
         attrs: optAttrs = {},
+        children,
+        label,
+        type,
+        key,
         ...optRest
       } = opt;
 
@@ -88,13 +89,14 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
           <li className={`${rootClass}__group`} key={key}>
             <DropdownInnerOption
               {...optRest}
-              tag="div"
               attrs={{
-                role: 'heading',
                 className: `${rootClass}__group-title`,
+                role: 'heading',
               }}
               size={size}
-              readonly>
+              tag="div"
+              readonly
+            >
               {label}
             </DropdownInnerOption>
             <ul className={`${rootClass}__group-body`}>
@@ -118,10 +120,11 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       const option = (
         <DropdownInnerOption
           {...optRest}
-          key={key}
-          size={size}
           expandable={children && !!children.length}
-          attrs={{ ...optAttrs, onClick }}>
+          attrs={{ ...optAttrs, onClick }}
+          size={size}
+          key={key}
+        >
           {label}
         </DropdownInnerOption>
       );
@@ -133,19 +136,20 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
       };
       return (
         <Dropdown
-          placement={'right-start'}
-          key={key}
-          size={size}
-          trigger="hover"
-          appendTo={null}
-          showArrow={showArrow}
-          hideOnClick={hideOnClick}
-          offset={0}
           onSelect={(option, parents) => emit(option, [opt, ...parents])}
           viewport={() => document.body}
+          placement={'right-start'}
+          hideOnClick={hideOnClick}
+          showArrow={showArrow}
+          destroyOnHide={false}
           options={children}
+          trigger="hover"
+          appendTo={null}
           attrs={_attrs}
-          destroyOnHide={false}>
+          size={size}
+          offset={0}
+          key={key}
+        >
           {option}
         </Dropdown>
       );

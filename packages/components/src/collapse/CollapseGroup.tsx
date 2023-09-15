@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
 import { getComponentClass, useForceUpdate } from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
 import type { CollapseGroupProps } from './collapse.types';
+import type { RequiredPart } from '@tool-pack/types';
+import React, { useEffect, useRef } from 'react';
+import { getClassNames } from '@tool-pack/basic';
 import { Collapse } from './Collapse';
 
 const rootName = getComponentClass('collapse-group');
@@ -13,11 +13,11 @@ export const CollapseGroup: React.FC<CollapseGroupProps> = React.forwardRef<
 >((props, ref) => {
   const {
     collapseProps,
-    onChange,
+    attrs = {},
     accordion,
+    onChange,
     items,
     tag,
-    attrs = {},
   } = props as RequiredPart<CollapseGroupProps, keyof typeof defaultProps>;
 
   const list = useRef(items);
@@ -42,8 +42,8 @@ export const CollapseGroup: React.FC<CollapseGroupProps> = React.forwardRef<
     tag,
     {
       ...attrs,
-      ref,
       className: getClassNames(rootName, attrs.className),
+      ref,
     },
     list.current.map(({ onChange, ...rest }, i) => {
       const opts = { ...collapseProps, ...rest };

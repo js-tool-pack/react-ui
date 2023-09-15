@@ -2,8 +2,8 @@
  * title: 加载中
  */
 
+import { Switch, Space } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Space, Switch } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -13,10 +13,6 @@ const App: React.FC = () => {
     <Space>
       <Switch loading />
       <Switch
-        size="large"
-        checked={checked}
-        onChange={setChecked}
-        loading={loading}
         attrs={{
           onClickCapture(e) {
             if (loading) return;
@@ -28,6 +24,10 @@ const App: React.FC = () => {
             }, 3500);
           },
         }}
+        onChange={setChecked}
+        checked={checked}
+        loading={loading}
+        size="large"
       />
     </Space>
   );

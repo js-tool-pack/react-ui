@@ -2,8 +2,8 @@
  * title: 排序过渡
  */
 
-import React, { useCallback, useRef, useState } from 'react';
-import { TransitionGroup, Button, Transition } from '@tool-pack/react-ui';
+import { TransitionGroup, Transition, Button } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useRef } from 'react';
 import styles from './shuffle.module.scss';
 
 const App: React.FC = () => {
@@ -23,11 +23,11 @@ const App: React.FC = () => {
 
   return (
     <div className={styles['root']}>
-      <Button type="primary" plain onClick={shuffle}>
+      <Button onClick={shuffle} type="primary" plain>
         洗牌
       </Button>
       <br />
-      <TransitionGroup name="group" tag="section" className="group-container">
+      <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
             <Transition key={item}>

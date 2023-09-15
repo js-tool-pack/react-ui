@@ -2,8 +2,8 @@
  * title: 基本用法
  */
 
-import React from 'react';
 import { Tooltip, Divider } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   return (

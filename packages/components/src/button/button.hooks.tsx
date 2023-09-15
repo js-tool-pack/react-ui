@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { getClassNames } from '@tool-pack/basic';
-import { CollapseTransition } from '../collapse-transition';
-import { Icon } from '../icon';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
+import { CollapseTransition } from '@pkg/components';
 import { Loading as LoadingIcon } from '@pkg/icons';
 import type { ButtonProps } from './button.types';
+import { getClassNames } from '@tool-pack/basic';
+import { Icon } from '~/icon';
 
 export function useBtnWave(
   rootClass: string,
-): readonly [boolean | React.ReactElement, () => void] {
+): readonly [React.ReactElement | boolean, () => void] {
   const [active, setActive] = useState(false);
   const waveRef = useRef<HTMLElement>(null);
   const activationTime = useRef(0);
@@ -43,10 +43,11 @@ export function useBtnWave(
 
   const wave = active && (
     <span
-      ref={waveRef}
       className={getClassNames(`${rootClass}__wave`, {
         [`${rootClass}__wave--active`]: active,
-      })}></span>
+      })}
+      ref={waveRef}
+    ></span>
   );
 
   return [wave, activateWave];

@@ -1,19 +1,19 @@
-import React, { useEffect, useRef } from 'react';
-import { getClasses, useForceUpdate, useNextEffect } from '@pkg/shared';
-import { getClassNames } from '@tool-pack/basic';
 import {
-  SelectDivider,
-  SelectOption,
   SelectOptionGroup,
   SelectOptionsItem,
+  SelectDivider,
+  SelectOption,
   SelectProps,
 } from '../select.types';
-import { Divider } from '~/divider';
-import { optionCls, MenuOption } from './Menu.option';
-import { filter, fromEvent } from 'rxjs';
-import { flattenOptions, intoView, isDivider, isGroup } from '~/select/utils';
+import { flattenOptions, isDivider, intoView, isGroup } from '~/select/utils';
+import { useForceUpdate, useNextEffect, getClasses } from '@pkg/shared';
 import { MenuEmpty } from '~/select/components/Menu.empty';
+import { MenuOption, optionCls } from './Menu.option';
 import { ConvertOptional } from '@tool-pack/types';
+import React, { useEffect, useRef } from 'react';
+import { getClassNames } from '@tool-pack/basic';
+import { fromEvent, filter } from 'rxjs';
+import { Divider } from '~/divider';
 
 interface Props
   extends ConvertOptional<
@@ -123,7 +123,7 @@ export const Menu: React.FC<Props> = (props) => {
   return (
     <>
       {header && <div className={cls.__.header}>{header}</div>}
-      <div ref={boxRef} className={cls.__.body}>
+      <div className={cls.__.body} ref={boxRef}>
         {options.length > 0 ? (
           <ul className={cls.__.options}>{handleOptions(options)}</ul>
         ) : (
@@ -155,7 +155,7 @@ export const Menu: React.FC<Props> = (props) => {
     });
 
     function getDivider(opt: SelectDivider): React.ReactElement {
-      const { key, type: _type, tag = 'li', ...rest } = opt;
+      const { type: _type, tag = 'li', key, ...rest } = opt;
       rest.attrs ||= {};
       rest.attrs.className = getClassNames(
         rest.attrs.className,
@@ -167,21 +167,23 @@ export const Menu: React.FC<Props> = (props) => {
       opt: SelectOptionGroup,
       parents: Exclude<SelectOptionsItem, SelectDivider>[],
     ): React.ReactElement {
-      const { label, key, children, attrs: optAttrs = {}, ...optRest } = opt;
+      const { attrs: optAttrs = {}, children, label, key, ...optRest } = opt;
 
       return (
         <li
           {...optAttrs}
           className={getClassNames(cls.__.group, optAttrs.className)}
-          key={key}>
+          key={key}
+        >
           <MenuOption
             {...optRest}
-            tag="div"
             attrs={{
-              role: 'heading',
               className: cls.__['group-title'],
+              role: 'heading',
             }}
-            readonly>
+            tag="div"
+            readonly
+          >
             {label}
           </MenuOption>
           <ul className={cls.__['group-body']}>
@@ -190,22 +192,24 @@ export const Menu: React.FC<Props> = (props) => {
         </li>
       );
     }
+
     function getOption(opt: SelectOption): React.ReactElement {
-      const { label, value, tag, attrs: optAttrs = {}, ...optRest } = opt;
+      const { attrs: optAttrs = {}, label, value, tag, ...optRest } = opt;
       const index = selected.findIndex((item) => item.value === opt.value);
       const checked = index > -1;
       return (
         <MenuOption
           {...optRest}
-          tag={tag || 'li'}
-          key={value}
-          selected={checked}
-          picked={opt === activeOptionRef.current}
           attrs={{
             ...optAttrs,
-            onClick,
             onMouseEnter,
-          }}>
+            onClick,
+          }}
+          picked={opt === activeOptionRef.current}
+          selected={checked}
+          tag={tag || 'li'}
+          key={value}
+        >
           {typeof label === 'function' ? label(false, opt) : label}
         </MenuOption>
       );

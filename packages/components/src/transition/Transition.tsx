@@ -1,14 +1,12 @@
-import React, { memo, useRef } from 'react';
-// import { useTransition } from './useTransition';
-// import { useDispatcher } from './useDispatcher';
+import { useDispatcher, useTransition } from './transition.hooks';
 import type { TransitionProps } from './transition.types';
 import type { RequiredPart } from '@tool-pack/types';
-import { useDispatcher, useTransition } from './transition.hooks';
+import React, { useRef, memo } from 'react';
 
 let id = 1;
 const defaultProps = {
-  name: 'trans',
   mode: 'default',
+  name: 'trans',
   appear: false,
 } satisfies Partial<TransitionProps>;
 
@@ -16,7 +14,7 @@ const Transition: React.FC<TransitionProps> = (props): React.ReactElement => {
   const cid = useRef<number>();
   if (!cid.current) cid.current = id++;
 
-  const { children, name, mode, appear, on, show, ...rest } =
+  const { children, appear, name, mode, show, on, ...rest } =
     props as RequiredPart<TransitionProps, keyof typeof defaultProps>;
 
   const [prev, next, prevStatus, nextStatus, handler] = useDispatcher(

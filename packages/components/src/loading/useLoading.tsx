@@ -1,7 +1,7 @@
-import { Loading } from './Loading';
 import type { LoadingProps } from './loading.types';
-import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useEffect, useState } from 'react';
+import { Loading } from './Loading';
 
 /**
  * 调用hook开启loading，无需挂靠render
@@ -9,9 +9,9 @@ import { createRoot } from 'react-dom/client';
  * @param props Loading组件的props
  */
 export function useLoading(props: Partial<LoadingProps> = {}): {
-  visible: boolean;
   setVisible: (value: boolean) => void;
   toggle: () => void;
+  visible: boolean;
 } {
   const { visible = true, ...rest } = props;
   // 可以通过外面传入的visible控制显隐
@@ -41,8 +41,8 @@ export function useLoading(props: Partial<LoadingProps> = {}): {
   }, [visible]);
 
   return {
+    toggle: () => setVisible(!_visible),
     visible: _visible,
     setVisible,
-    toggle: () => setVisible(!_visible),
   };
 }

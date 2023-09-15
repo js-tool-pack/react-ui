@@ -1,27 +1,27 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import type { CollapseTransitionProps } from './collapse-transition.types';
-import { getComponentClass } from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
 import {
-  Transition,
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
   TransitionCB,
+  Transition,
 } from '../transition';
+import type { CollapseTransitionProps } from './collapse-transition.types';
+import React, { useCallback, useMemo, useRef } from 'react';
+import type { RequiredPart } from '@tool-pack/types';
+import { getClassNames } from '@tool-pack/basic';
+import { getComponentClass } from '@pkg/shared';
 
 const rootName = getComponentClass('collapse-transition');
 
 export const CollapseTransition: React.FC<CollapseTransitionProps> = (
   props,
 ) => {
-  const { width, on, children, ...rest } = props as RequiredPart<
+  const { children, width, on, ...rest } = props as RequiredPart<
     CollapseTransitionProps,
     keyof typeof defaultProps
   >;
   const memorizedSize = useRef('');
 
-  const sizeType: 'maxWidth' | 'maxHeight' = useMemo(
+  const sizeType: 'maxHeight' | 'maxWidth' = useMemo(
     () => (width ? 'maxWidth' : 'maxHeight'),
     [width],
   );
@@ -105,15 +105,15 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
 
   const Body = React.isValidElement(children)
     ? React.cloneElement(children as React.ReactElement, {
-        key: rootName,
         className: getClassNames(
           rootName,
           (children as React.ReactElement).props.className,
           {
-            [`${rootName}--w`]: width,
             [`${rootName}--h`]: !width,
+            [`${rootName}--w`]: width,
           },
         ),
+        key: rootName,
       })
     : children;
 

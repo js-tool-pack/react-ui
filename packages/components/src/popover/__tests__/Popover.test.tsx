@@ -1,8 +1,8 @@
-import { Popover } from '..';
-import { act, fireEvent, render } from '@testing-library/react';
-import { Button } from '~/button';
+import { fireEvent, render, act } from '@testing-library/react';
 import { nextTick } from '@tool-pack/basic';
-import { useRef, useState } from 'react';
+import { useState, useRef } from 'react';
+import { Button } from '~/button';
+import { Popover } from '..';
 
 describe('Popover', () => {
   jest.useFakeTimers();
@@ -10,9 +10,10 @@ describe('Popover', () => {
     const onClick = jest.fn();
     const { container } = render(
       <Popover
+        attrs={{ style: { background: '#fff' }, className: 'foo', onClick }}
+        appendTo={null}
         visible
-        attrs={{ className: 'foo', style: { background: '#fff' }, onClick }}
-        appendTo={null}>
+      >
         <Button>foo bar</Button>
       </Popover>,
     );
@@ -29,7 +30,7 @@ describe('Popover', () => {
   describe('appendTo', () => {
     test('null', () => {
       const { container } = render(
-        <Popover visible content={<div>foo bar</div>} appendTo={null}>
+        <Popover content={<div>foo bar</div>} appendTo={null} visible>
           <Button>foo bar</Button>
         </Popover>,
       );
@@ -38,7 +39,7 @@ describe('Popover', () => {
 
     test('undefined(default)', () => {
       const { container } = render(
-        <Popover visible content={<div>foo bar</div>} appendTo={undefined}>
+        <Popover content={<div>foo bar</div>} appendTo={undefined} visible>
           <Button>foo bar</Button>
         </Popover>,
       );
@@ -51,9 +52,10 @@ describe('Popover', () => {
         <div>
           <div className="wrapper"></div>
           <Popover
-            visible
+            appendTo={() => document.querySelector('.wrapper')!}
             content={<div>foo bar</div>}
-            appendTo={() => document.querySelector('.wrapper')!}>
+            visible
+          >
             <Button>foo bar</Button>
           </Popover>
         </div>,
@@ -66,7 +68,7 @@ describe('Popover', () => {
     test('focus', () => {
       const { container } = render(
         <Popover trigger="focus" content="focus">
-          <input type="text" placeholder="focus 触发" />
+          <input placeholder="focus 触发" type="text" />
         </Popover>,
       );
 
@@ -90,7 +92,7 @@ describe('Popover', () => {
 
     test('click disabled', () => {
       const { container } = render(
-        <Popover disabled trigger="click" content="click">
+        <Popover trigger="click" content="click" disabled>
           <Button>click触发</Button>
         </Popover>,
       );
@@ -131,7 +133,7 @@ describe('Popover', () => {
     test('arr focus', () => {
       const { container } = render(
         <Popover trigger={['focus', 'click']} content="focus">
-          <input type="text" placeholder="focus 触发" />
+          <input placeholder="focus 触发" type="text" />
         </Popover>,
       );
       fireEvent.focus(container.querySelector('input')!);
@@ -152,7 +154,7 @@ describe('Popover', () => {
 
   test('placement', () => {
     render(
-      <Popover visible placement="right-end" content="bar">
+      <Popover placement="right-end" content="bar" visible>
         <Button>foo</Button>
       </Popover>,
     );
@@ -177,7 +179,7 @@ describe('Popover', () => {
     test('delay 500', () => {
       jest.useFakeTimers();
       const { container } = render(
-        <Popover delay={500} trigger="hover" content="hover">
+        <Popover trigger="hover" content="hover" delay={500}>
           <Button>hover触发</Button>
         </Popover>,
       );
@@ -293,9 +295,10 @@ describe('Popover', () => {
         const [visible, setVisible] = useState(false);
         return (
           <Popover
-            visible={visible}
             onVisibleChange={onVisibleChange}
-            content="1">
+            visible={visible}
+            content="1"
+          >
             <Button onClick={() => setVisible((v) => !v)}>click</Button>
           </Popover>
         );
@@ -320,7 +323,8 @@ describe('Popover', () => {
                 onClickCapture: (e) => {
                   e.stopPropagation();
                 },
-              }}>
+              }}
+            >
               close
             </Button>
           </div>
@@ -348,16 +352,18 @@ describe('Popover', () => {
       const visibleRef = useRef(false);
       return (
         <Popover
-          trigger="click"
           onVisibleChange={(visible) => (visibleRef.current = visible)}
-          content="1">
+          trigger="click"
+          content="1"
+        >
           <div
             onClick={(e) => {
               if (visibleRef.current) {
                 e.stopPropagation();
                 e.preventDefault();
               }
-            }}>
+            }}
+          >
             <button>click</button>
           </div>
         </Popover>

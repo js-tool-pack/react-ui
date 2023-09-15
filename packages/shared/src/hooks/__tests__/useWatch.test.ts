@@ -1,7 +1,7 @@
-import { act, renderHook } from '@testing-library/react';
-import { useState } from 'react';
-import { useWatch } from '@pkg/shared';
+import { renderHook, act } from '@testing-library/react';
 import { sleep } from '@tool-pack/basic';
+import { useWatch } from '@pkg/shared';
+import { useState } from 'react';
 
 describe('useWatch', () => {
   test('common', async () => {

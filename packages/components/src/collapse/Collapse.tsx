@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
 import { getComponentClass, getSizeClassName } from '@pkg/shared';
+import React, { useCallback, useEffect, useState } from 'react';
+import { CollapseTransition } from '~/collapse-transition';
+import type { CollapseProps } from './collapse.types';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import type { CollapseProps } from './collapse.types';
-import { CollapseTransition } from '~/collapse-transition';
-import { Icon } from '~/icon';
-import { Right } from '@pkg/icons';
 import { Space } from '@pkg/components';
+import { Right } from '@pkg/icons';
+import { Icon } from '~/icon';
 
 const rootName = getComponentClass('collapse');
 
@@ -15,18 +15,18 @@ export const Collapse: React.FC<CollapseProps> = React.forwardRef<
   CollapseProps
 >((props, ref) => {
   const {
+    iconPlacement,
+    destroyOnHide,
     attrs = {},
-    icon,
-    size,
-    extra,
-    title,
-    header,
     children,
     disabled,
     expanded,
     onChange,
-    iconPlacement,
-    destroyOnHide,
+    header,
+    extra,
+    title,
+    icon,
+    size,
   } = props as RequiredPart<CollapseProps, keyof typeof defaultProps>;
 
   const [visible, setVisible] = useState(expanded || false);
@@ -36,8 +36,8 @@ export const Collapse: React.FC<CollapseProps> = React.forwardRef<
   }, [expanded]);
 
   const Content = (
-    <div key={rootName} className={`${rootName}__content`}>
-      <div key={rootName} className={`${rootName}__content-inner`}>
+    <div className={`${rootName}__content`} key={rootName}>
+      <div className={`${rootName}__content-inner`} key={rootName}>
         {children}
       </div>
     </div>
@@ -49,7 +49,8 @@ export const Collapse: React.FC<CollapseProps> = React.forwardRef<
       <Icon
         className={getClassNames(`${rootName}__icon`, {
           [`${rootName}__icon--active`]: visible,
-        })}>
+        })}
+      >
         <Right />
       </Icon>
     ));
@@ -75,28 +76,31 @@ export const Collapse: React.FC<CollapseProps> = React.forwardRef<
   return (
     <section
       {...attrs}
-      ref={ref}
-      role={attrs.role || 'tab'}
       className={getClassNames(
         rootName,
         attrs.className,
         getSizeClassName(size),
         {
-          [`${rootName}--active`]: visible,
           [`${rootName}--disabled`]: disabled,
+          [`${rootName}--active`]: visible,
         },
-      )}>
+      )}
+      role={attrs.role || 'tab'}
+      ref={ref}
+    >
       <Space
-        tag="div"
+        attrs={{ onClick: handleHeaderClick }}
         className={`${rootName}__header`}
+        tag="div"
         gap={12}
-        attrs={{ onClick: handleHeaderClick }}>
+      >
         {HeaderContent}
       </Space>
       <CollapseTransition
         show={destroyOnHide === true ? undefined : visible}
         appear={destroyOnHide === 'mixed' ? null : false}
-        name={rootName}>
+        name={rootName}
+      >
         {destroyOnHide === true ? expanded && Content : Content}
       </CollapseTransition>
     </section>
@@ -105,8 +109,8 @@ export const Collapse: React.FC<CollapseProps> = React.forwardRef<
 
 const defaultProps = {
   destroyOnHide: 'mixed',
-  size: 'medium',
   iconPlacement: 'start',
+  size: 'medium',
 } satisfies Partial<CollapseProps>;
 Collapse.defaultProps = defaultProps;
 Collapse.displayName = 'Collapse';

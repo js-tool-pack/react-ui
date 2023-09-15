@@ -1,4 +1,4 @@
-import { resolve, basename } from 'path';
+import { basename, resolve } from 'path';
 import chalk from 'chalk';
 import * as Fs from 'fs';
 const childProcess = require('child_process');
@@ -76,7 +76,7 @@ export function useFile<
   P extends boolean = false,
   C = P extends true ? Record<string, any> : string,
 >(path: string, parseJson = false as P): [C, (content: C) => void] {
-  let _content: string | Record<string, any> | null =
+  let _content: Record<string, any> | string | null =
     Fs.readFileSync(path).toString();
   if (parseJson) _content = JSON.parse(_content);
 

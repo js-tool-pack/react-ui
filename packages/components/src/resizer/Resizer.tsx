@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
-import type { ResizerProps } from './resizer.types';
 import { getComponentClass, getElRealSize, useForwardRef } from '@pkg/shared';
-import { onDragEvent } from '@tool-pack/dom';
-import { getClassNames } from '@tool-pack/basic';
 import type { RequiredPart } from '@tool-pack/types';
+import type { ResizerProps } from './resizer.types';
+import { getClassNames } from '@tool-pack/basic';
+import { onDragEvent } from '@tool-pack/dom';
+import React, { useEffect } from 'react';
 
 const rootName = getComponentClass('resizer');
 
 const defaultProps = {
+  max: Number.MAX_SAFE_INTEGER,
   placement: 'bottom',
   min: 0,
-  max: Number.MAX_SAFE_INTEGER,
 } satisfies Partial<ResizerProps>;
 
 export const Resizer: React.FC<ResizerProps> = React.forwardRef<
@@ -18,10 +18,10 @@ export const Resizer: React.FC<ResizerProps> = React.forwardRef<
   ResizerProps
 >((props, _ref) => {
   const {
+    attrs = {},
     placement,
     min,
     max,
-    attrs = {},
   } = props as RequiredPart<ResizerProps, keyof typeof defaultProps>;
   const ref = useForwardRef(_ref);
   useEffect(() => {
@@ -43,20 +43,20 @@ export const Resizer: React.FC<ResizerProps> = React.forwardRef<
           typeof placement,
           Parameters<typeof onMove>[0]
         > = {
-          top(_e, curr, _lastXY, down) {
-            const height = Math.min(max, Math.max(min, h - (curr.y - down.y)));
-            parent.style.height = height + 'px';
-          },
           bottom(_e, curr, _lastXY, down) {
             const height = Math.min(max, Math.max(min, h + (curr.y - down.y)));
             parent.style.height = height + 'px';
           },
-          left(_e, curr, _lastXY, down) {
-            const width = Math.min(max, Math.max(min, w - (curr.x - down.x)));
-            parent.style.width = width + 'px';
+          top(_e, curr, _lastXY, down) {
+            const height = Math.min(max, Math.max(min, h - (curr.y - down.y)));
+            parent.style.height = height + 'px';
           },
           right(_e, curr, _lastXY, down) {
             const width = Math.min(max, Math.max(min, w + (curr.x - down.x)));
+            parent.style.width = width + 'px';
+          },
+          left(_e, curr, _lastXY, down) {
+            const width = Math.min(max, Math.max(min, w - (curr.x - down.x)));
             parent.style.width = width + 'px';
           },
         };
@@ -68,12 +68,13 @@ export const Resizer: React.FC<ResizerProps> = React.forwardRef<
   return (
     <div
       {...attrs}
-      ref={ref}
       className={getClassNames(
         rootName,
         attrs.className,
         `${rootName}--${placement}`,
-      )}></div>
+      )}
+      ref={ref}
+    ></div>
   );
 });
 

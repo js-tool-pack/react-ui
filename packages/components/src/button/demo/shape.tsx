@@ -3,21 +3,22 @@
  * description: 按钮有`none` `default` `round` `circle` 4种形状。
  */
 
-import React from 'react';
 import { Button, Layout } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => (
   <Layout
     style={{
-      gap: '8px',
-      flexWrap: 'wrap',
-      overflow: 'visible',
       alignItems: 'center',
-    }}>
+      overflow: 'visible',
+      flexWrap: 'wrap',
+      gap: '8px',
+    }}
+  >
     <Button shape="none">none</Button>
     <Button>default</Button>
     <Button shape="round">round</Button>
-    <Button size="large" shape="circle" style={{ fontSize: '12px' }}>
+    <Button style={{ fontSize: '12px' }} shape="circle" size="large">
       circle
     </Button>
   </Layout>

@@ -3,8 +3,8 @@
  * description: 常规 3 尺寸。
  */
 
+import { Switch, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Switch } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (

@@ -3,8 +3,8 @@
  * description: 添加 width 属性，把 Collapse 改为宽度折叠。
  */
 
+import { CollapseTransition, Divider, Button } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Button, CollapseTransition, Divider } from '@tool-pack/react-ui';
 const App: React.FC = () => {
   const [visible, setVisible] = useState(true);
   return (

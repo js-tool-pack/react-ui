@@ -2,15 +2,15 @@
  * title: 大小
  */
 
+import { TagProps, Space, Tag } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Tag, TagProps } from '@tool-pack/react-ui';
 const sizes = ['small', 'medium', 'large'] satisfies TagProps['size'][];
 const App: React.FC = () => {
   return (
     <Space>
       <Tag closeable>DEFAULT</Tag>
       {sizes.map((size) => (
-        <Tag key={size} closeable size={size}>
+        <Tag size={size} key={size} closeable>
           {size.toUpperCase()}
         </Tag>
       ))}

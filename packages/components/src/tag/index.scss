@@ -96,7 +96,9 @@ $r: Name.$tag;
     opacity: 0.5;
   }
 
-  $types: 'info' 'info', 'success' 'success', 'warning' 'warning',
+  $types: 'info' 'info',
+    'success' 'success',
+    'warning' 'warning',
     'error' 'danger';
   @each $status, $type in $types {
     @include status-color($status, $type);

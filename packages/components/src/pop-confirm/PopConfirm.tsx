@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
-import type { PopConfirmProps } from './pop-confirm.types';
 import { getComponentClass, useVisible } from '@pkg/shared';
+import type { PopConfirmProps } from './pop-confirm.types';
 import type { RequiredPart } from '@tool-pack/types';
-import { Popover } from '~/popover';
 import { Layout, Footer, Main } from '~/layouts';
+import { CircleInfoFill } from '@pkg/icons';
+import React, { useEffect } from 'react';
+import { Popover } from '~/popover';
 import { Button } from '~/button';
 import { Space } from '~/space';
 import { Icon } from '~/icon';
-import { CircleInfoFill } from '@pkg/icons';
 
 const rootName = getComponentClass('pop-confirm');
 
@@ -17,14 +17,14 @@ const defaultProps = {
 
 export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   const {
-    icon,
-    children,
-    content,
-    cancelProps,
-    confirmProps,
-    onCancel,
     visible: outerVisible,
+    confirmProps,
+    cancelProps,
     onConfirm,
+    children,
+    onCancel,
+    content,
+    icon,
     ...rest
   } = props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
 
@@ -48,7 +48,7 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
 
   const Content = (
     <Layout className={`${rootName}__layout`} vertical>
-      <Main tag="section" className={`${rootName}__main`}>
+      <Main className={`${rootName}__main`} tag="section">
         <Space className={`${rootName}__space`} tag="div">
           {icon !== null &&
             (icon || (
@@ -59,32 +59,34 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
           <div className={`${rootName}__content`}>{content}</div>
         </Space>
       </Main>
-      <Footer tag="section" className={`${rootName}__footer`}>
+      <Footer className={`${rootName}__footer`} tag="section">
         <Space>
           {cancelProps !== null && (
             <Button
               {..._cancel}
-              type={_cancel.type || 'info'}
-              size={_cancel.size || 'small'}
-              plain={_cancel.plain || true}
               attrs={{
                 ..._cancel.attrs,
                 className: `${rootName}__cancel`,
                 onClick: _onCancel,
-              }}>
+              }}
+              size={_cancel.size || 'small'}
+              type={_cancel.type || 'info'}
+              plain={_cancel.plain || true}
+            >
               {_cancel.children ?? '取消'}
             </Button>
           )}
           {confirmProps !== null && (
             <Button
               {..._confirm}
-              type={_confirm.type || 'primary'}
-              size={_confirm.size || 'small'}
               attrs={{
                 ..._confirm.attrs,
                 className: `${rootName}__confirm`,
                 onClick: _onConfirm,
-              }}>
+              }}
+              type={_confirm.type || 'primary'}
+              size={_confirm.size || 'small'}
+            >
               {_confirm.children ?? '确认'}
             </Button>
           )}

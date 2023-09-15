@@ -2,7 +2,7 @@
 
 exports[`Button base 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--icon-l"
+  class="t-button t-button--type-default t-button--icon-l t--size-m"
 >
   <span>
     foo bar
@@ -12,7 +12,7 @@ exports[`Button base 1`] = `
 
 exports[`Button disabled 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--icon-l"
+  class="t-button t-button--type-default t-button--icon-l t--size-m"
   disabled=""
 >
   <span>
@@ -23,7 +23,7 @@ exports[`Button disabled 1`] = `
 
 exports[`Button icon 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--icon-l"
+  class="t-button t-button--type-default t-button--icon-l t--size-m"
 >
   <i
     class="t-icon t-button__icon"
@@ -46,7 +46,7 @@ exports[`Button icon 1`] = `
 
 exports[`Button loading 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--loading t-button--icon-l"
+  class="t-button t-button--type-default t-button--icon-l t-button--loading t--size-m"
 >
   <i
     class="t-icon t-collapse-transition t-button__icon t-collapse-transition--w"
@@ -76,7 +76,7 @@ exports[`Button loading 1`] = `
 
 exports[`Button loading icon 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--loading t-button--icon-l"
+  class="t-button t-button--type-default t-button--icon-l t-button--loading t--size-m"
 >
   <i
     class="t-icon t-button__icon"
@@ -106,7 +106,7 @@ exports[`Button loading icon 1`] = `
 
 exports[`Button loading right-icon 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--loading t-button--icon-r"
+  class="t-button t-button--type-default t-button--icon-r t-button--loading t--size-m"
 >
   <span>
     foo bar
@@ -136,7 +136,7 @@ exports[`Button loading right-icon 1`] = `
 
 exports[`Button right-icon 1`] = `
 <button
-  class="t-button t-button--type-default t--size-m t-button--icon-r"
+  class="t-button t-button--type-default t-button--icon-r t--size-m"
 >
   <span>
     foo bar

@@ -1,5 +1,5 @@
-import { act, fireEvent, renderHook } from '@testing-library/react';
-import { useForceUpdate, useEventListenerOnMounted } from '@pkg/shared';
+import { useEventListenerOnMounted, useForceUpdate } from '@pkg/shared';
+import { renderHook, fireEvent, act } from '@testing-library/react';
 import { createHtmlElement } from '@tool-pack/dom';
 import { useState } from 'react';
 

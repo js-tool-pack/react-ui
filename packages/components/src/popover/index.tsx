@@ -1,7 +1,7 @@
-import React from 'react';
+import { Popover as OriginPopover } from './Popover';
 import type { PopoverProps } from './popover.types';
 import { Contextmenu } from './Contextmenu';
-import { Popover as OriginPopover } from './Popover';
+import React from 'react';
 
 export type { PopoverProps } from './popover.types';
 

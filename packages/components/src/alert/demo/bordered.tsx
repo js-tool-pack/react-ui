@@ -3,8 +3,8 @@
  * description: 可以添加或移除边框。
  */
 
+import { AlertProps, Switch, Alert, Space } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Alert, AlertProps, Space, Switch } from '@tool-pack/react-ui';
 
 const Types: Required<AlertProps>['type'][] = [
   'primary',
@@ -19,10 +19,10 @@ const App: React.FC = () => {
   return (
     <Space vertical fill>
       <div>
-        <Switch checked={bordered} onChange={setBordered} />
+        <Switch onChange={setBordered} checked={bordered} />
       </div>
       {Types.map((t) => (
-        <Alert key={t} bordered={bordered} type={t} title={`${t} tips`}>
+        <Alert bordered={bordered} title={`${t} tips`} type={t} key={t}>
           foo bar
         </Alert>
       ))}

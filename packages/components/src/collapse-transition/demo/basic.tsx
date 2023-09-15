@@ -3,9 +3,9 @@
  * description: CollapseTransition 基础用法。
  */
 
-import React, { useState } from 'react';
-import { Button, CollapseTransition, Divider } from '@tool-pack/react-ui';
+import { CollapseTransition, Divider, Button } from '@tool-pack/react-ui';
 import styles from './basic.module.scss';
+import React, { useState } from 'react';
 
 const App: React.FC = () => {
   const [show, setShow] = useState(true);

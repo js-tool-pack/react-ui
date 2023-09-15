@@ -1,4 +1,4 @@
-import type { Placement, Placement_12 } from '@pkg/shared';
+import type { Placement_12, Placement } from '@pkg/shared';
 import { calcDistanceWithParent } from '@tool-pack/dom';
 
 /**
@@ -24,10 +24,10 @@ export function calcPlacement(
   const getViewportSize = (): Size => {
     if (containerEl === document.body)
       return {
-        width: document.documentElement.clientWidth,
         height: document.documentElement.clientHeight,
+        width: document.documentElement.clientWidth,
       };
-    return { width: containerEl.clientWidth, height: containerEl.clientHeight };
+    return { height: containerEl.clientHeight, width: containerEl.clientWidth };
   };
 
   const sizes = { ref: getSize(triggerEl), rel: getSize(balloonEl) };
@@ -36,27 +36,27 @@ export function calcPlacement(
   const [scrollTop, scrollLeft] = getScrollPoint();
 
   const map: Record<Placement, () => Placement> = {
-    top() {
-      return scrollTop <= distanceT - sizes.rel.height - offset
-        ? 'top'
-        : 'bottom';
-    },
     bottom() {
       return scrollTop + viewportSize.height >=
         sizes.ref.height + distanceT + sizes.rel.height + offset
         ? 'bottom'
         : 'top';
     },
-    left() {
-      return scrollLeft <= distanceL - sizes.rel.width - offset
-        ? 'left'
-        : 'right';
-    },
     right() {
       return scrollLeft + viewportSize.width >=
         sizes.ref.width + distanceL + sizes.rel.width + offset
         ? 'right'
         : 'left';
+    },
+    left() {
+      return scrollLeft <= distanceL - sizes.rel.width - offset
+        ? 'left'
+        : 'right';
+    },
+    top() {
+      return scrollTop <= distanceT - sizes.rel.height - offset
+        ? 'top'
+        : 'bottom';
     },
   };
 
@@ -78,11 +78,11 @@ export function calcPlacement(
 }
 
 interface Size {
-  width: number;
   height: number;
+  width: number;
 }
 function getSize(el: HTMLElement): Size {
-  return { width: el.offsetWidth, height: el.offsetHeight };
+  return { height: el.offsetHeight, width: el.offsetWidth };
 }
 
 export function calcPosition(
@@ -96,34 +96,34 @@ export function calcPosition(
   const rel = getSize(balloonEl);
 
   const commonFn = {
-    vtcX: () => distanceL + (ref.width - rel.width) / 2,
-    hrzX: () => distanceL,
     hrzY: () => distanceT - (rel.height - ref.height) / 2,
-    hrzEndX: () => distanceL + ref.width - rel.width,
-    hrzStartY: () => distanceT,
+    vtcX: () => distanceL + (ref.width - rel.width) / 2,
     hrzEndY: () => distanceT + ref.height - rel.height,
-    topY: () => distanceT - rel.height - offset,
-    rightX: () => distanceL + ref.width + offset,
+    hrzEndX: () => distanceL + ref.width - rel.width,
     bottomY: () => distanceT + ref.height + offset,
+    rightX: () => distanceL + ref.width + offset,
+    topY: () => distanceT - rel.height - offset,
     leftX: () => distanceL - rel.width - offset,
+    hrzStartY: () => distanceT,
+    hrzX: () => distanceL,
   };
 
   const map: Record<Placement_12, () => { x: number; y: number }> = {
-    top: () => ({ x: commonFn.vtcX(), y: commonFn.topY() }),
-    'top-start': () => ({ x: commonFn.hrzX(), y: commonFn.topY() }),
-    'top-end': () => ({ x: commonFn.hrzEndX(), y: commonFn.topY() }),
-
-    bottom: () => ({ x: commonFn.vtcX(), y: commonFn.bottomY() }),
-    'bottom-start': () => ({ x: commonFn.hrzX(), y: commonFn.bottomY() }),
+    'right-start': () => ({ y: commonFn.hrzStartY(), x: commonFn.rightX() }),
     'bottom-end': () => ({ x: commonFn.hrzEndX(), y: commonFn.bottomY() }),
+    'left-start': () => ({ y: commonFn.hrzStartY(), x: commonFn.leftX() }),
 
-    left: () => ({ x: commonFn.leftX(), y: commonFn.hrzY() }),
-    'left-start': () => ({ x: commonFn.leftX(), y: commonFn.hrzStartY() }),
-    'left-end': () => ({ x: commonFn.leftX(), y: commonFn.hrzEndY() }),
+    'bottom-start': () => ({ y: commonFn.bottomY(), x: commonFn.hrzX() }),
+    'right-end': () => ({ y: commonFn.hrzEndY(), x: commonFn.rightX() }),
+    'left-end': () => ({ y: commonFn.hrzEndY(), x: commonFn.leftX() }),
+
+    'top-end': () => ({ x: commonFn.hrzEndX(), y: commonFn.topY() }),
+    'top-start': () => ({ x: commonFn.hrzX(), y: commonFn.topY() }),
+    bottom: () => ({ y: commonFn.bottomY(), x: commonFn.vtcX() }),
 
     right: () => ({ x: commonFn.rightX(), y: commonFn.hrzY() }),
-    'right-start': () => ({ x: commonFn.rightX(), y: commonFn.hrzStartY() }),
-    'right-end': () => ({ x: commonFn.rightX(), y: commonFn.hrzEndY() }),
+    left: () => ({ x: commonFn.leftX(), y: commonFn.hrzY() }),
+    top: () => ({ x: commonFn.vtcX(), y: commonFn.topY() }),
   };
 
   return map[placement]();

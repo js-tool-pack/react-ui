@@ -2,21 +2,21 @@
  * title: 手动控制 focus、blur
  */
 
-import React, { useRef } from 'react';
 import type {
   SelectControllerRef,
   SelectOptionsItem,
 } from '@tool-pack/react-ui';
-import { Button, Select, Space, useMessageHolder } from '@tool-pack/react-ui';
+import { useMessageHolder, Button, Select, Space } from '@tool-pack/react-ui';
+import React, { useRef } from 'react';
 
 const options: SelectOptionsItem[] = [
   {
-    value: 1,
     label: 'foo',
+    value: 1,
   },
   {
-    value: 2,
     label: 'bar',
+    value: 2,
   },
 ];
 const App: React.FC = () => {
@@ -32,7 +32,8 @@ const App: React.FC = () => {
           if (!controller) return;
           controller.focus();
           setTimeout(controller.blur, 2000);
-        }}>
+        }}
+      >
         聚焦并且 2 秒后失效
       </Button>
       <Select

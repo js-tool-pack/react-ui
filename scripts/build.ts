@@ -1,9 +1,9 @@
-import * as Path from 'path';
-import chalk from 'chalk';
-import { execa } from 'execa';
-import { getTargets, fuzzyMatchTarget, rootDir, isMonoRepo } from './utils';
-import Fse from 'fs-extra';
+import { fuzzyMatchTarget, getTargets, isMonoRepo, rootDir } from './utils';
 import minimist from 'minimist';
+import { execa } from 'execa';
+import * as Path from 'path';
+import Fse from 'fs-extra';
+import chalk from 'chalk';
 
 const rootPath = rootDir();
 
@@ -79,9 +79,9 @@ async function build(target: string) {
 
   if (pkgJson.buildOptions?.scss)
     await execa('npm', ['run', 'build:scss'], {
+      execPath: pkgDirPath,
       stdio: 'inherit',
       cwd: pkgDirPath,
-      execPath: pkgDirPath,
     });
 }
 
@@ -95,9 +95,9 @@ async function buildType(
   );
 
   await execa('npm', ['run', 'build:dts'], {
+    execPath: pkgDirPath,
     stdio: 'inherit',
     cwd: pkgDirPath,
-    execPath: pkgDirPath,
   });
 }
 

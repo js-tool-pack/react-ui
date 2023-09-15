@@ -1,8 +1,8 @@
-import react from '@vitejs/plugin-react';
 import { defineConfig, UserConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 import Path, { resolve } from 'path';
-import Fs from 'fs';
 import pkg from './package.json';
+import Fs from 'fs';
 
 const pkgs = Fs.readdirSync(Path.resolve(__dirname, '../../packages'));
 const components = Fs.readdirSync(
@@ -32,7 +32,40 @@ const entryPath = resolve(__dirname, './src/index.ts');
  */
 export default defineConfig((): UserConfig => {
   return {
-    cacheDir: `./.cache`,
+    build: {
+      rollupOptions: {
+        output: [
+          {
+            globals: {
+              'react-dom': 'ReactDom',
+              react: 'React',
+            },
+            entryFileNames: '[name].iife.js',
+            banner: getBanner('iife'),
+            name: 'ToolPackReactUI',
+            format: 'iife',
+          },
+          {
+            entryFileNames: '[name].es.js',
+            banner: getBanner('es'),
+            format: 'es',
+          },
+
+          {
+            entryFileNames: '[name].cjs.js',
+            banner: getBanner('cjs'),
+            format: 'cjs',
+          },
+        ],
+        external: ['react', 'react-dom'],
+      },
+      outDir: resolve(__dirname, './dist'),
+      lib: { entry: entryPath },
+      // minify: true,
+      cssCodeSplit: true,
+      target: 'modules',
+      emptyOutDir: true,
+    },
     resolve: {
       alias: {
         // '@pkg/*': Path.resolve(__dirname, '../../packages/*/src'),
@@ -64,39 +97,6 @@ export default defineConfig((): UserConfig => {
         jsxRuntime: 'classic',
       }),
     ],
-    build: {
-      target: 'modules',
-      // minify: true,
-      cssCodeSplit: true,
-      emptyOutDir: true,
-      outDir: resolve(__dirname, './dist'),
-      lib: { entry: entryPath },
-      rollupOptions: {
-        external: ['react', 'react-dom'],
-        output: [
-          {
-            name: 'ToolPackReactUI',
-            format: 'iife',
-            entryFileNames: '[name].iife.js',
-            globals: {
-              react: 'React',
-              'react-dom': 'ReactDom',
-            },
-            banner: getBanner('iife'),
-          },
-          {
-            format: 'es',
-            entryFileNames: '[name].es.js',
-            banner: getBanner('es'),
-          },
-
-          {
-            format: 'cjs',
-            entryFileNames: '[name].cjs.js',
-            banner: getBanner('cjs'),
-          },
-        ],
-      },
-    },
+    cacheDir: `./.cache`,
   };
 });

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Option } from '~/option';
-import { getClasses } from '@pkg/shared';
-import { getClassNames } from '@tool-pack/basic';
 import { SelectOptionProps } from '~/select/select.types';
-import { Icon } from '~/icon';
+import { getClassNames } from '@tool-pack/basic';
+import { getClasses } from '@pkg/shared';
 import { Selected } from '@pkg/icons';
+import { Option } from '~/option';
+import { Icon } from '~/icon';
+import React from 'react';
 
 export const optionCls = getClasses(
   'select-option',
@@ -15,18 +15,10 @@ export const MenuOption: React.FC<SelectOptionProps> = React.forwardRef<
   HTMLElement,
   SelectOptionProps
 >((props, ref) => {
-  const { children, selected, picked, extra, attrs = {}, ...rest } = props;
+  const { attrs = {}, children, selected, picked, extra, ...rest } = props;
   return (
     <Option
       {...rest}
-      ref={ref}
-      attrs={{
-        ...attrs,
-        className: getClassNames(optionCls.root, attrs.className, {
-          [optionCls['--'].selected]: selected,
-          [optionCls['--'].picked]: picked,
-        }),
-      }}
       extra={
         (extra || selected) && (
           <>
@@ -38,7 +30,16 @@ export const MenuOption: React.FC<SelectOptionProps> = React.forwardRef<
             )}
           </>
         )
-      }>
+      }
+      attrs={{
+        ...attrs,
+        className: getClassNames(optionCls.root, attrs.className, {
+          [optionCls['--'].selected]: selected,
+          [optionCls['--'].picked]: picked,
+        }),
+      }}
+      ref={ref}
+    >
       {children}
     </Option>
   );

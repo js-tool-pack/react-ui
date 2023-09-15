@@ -2,13 +2,13 @@
  * title: 排序过渡加列表过渡
  */
 
-import React, { useCallback, useRef, useState } from 'react';
 import {
   TransitionGroup,
+  Transition,
   Button,
   Space,
-  Transition,
 } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useRef } from 'react';
 import styles from './mixed.module.scss';
 
 const initLen = 5;
@@ -56,21 +56,21 @@ const App: React.FC = () => {
   return (
     <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
-        <Button type="primary" onClick={addChild}>
+        <Button onClick={addChild} type="primary">
           添加
         </Button>
-        <Button type="primary" plain onClick={shuffle}>
+        <Button onClick={shuffle} type="primary" plain>
           洗牌
         </Button>
-        <Button type="warning" plain onClick={removeRandomChild}>
+        <Button onClick={removeRandomChild} type="warning" plain>
           移除
         </Button>
-        <Button type="danger" plain onClick={reset}>
+        <Button onClick={reset} type="danger" plain>
           重置
         </Button>
       </Space>
       <br />
-      <TransitionGroup name="group" tag="section" className="group-container">
+      <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
             <Transition key={item}>

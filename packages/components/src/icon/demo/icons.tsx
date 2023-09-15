@@ -3,16 +3,16 @@
  * description: 展示组件库内所有的icon。
  */
 
-import React from 'react';
 import {
-  Icon,
+  useMessageHolder,
+  Tooltip,
+  Button,
   Icons,
   Space,
-  Button,
-  Tooltip,
-  useMessageHolder,
+  Icon,
 } from '@tool-pack/react-ui';
 import { Clipboard as ClipboardTool } from '@tool-pack/bom';
+import React from 'react';
 
 const App: React.FC = () => {
   const [message, holder] = useMessageHolder();
@@ -22,10 +22,11 @@ const App: React.FC = () => {
       message.success(
         <div>
           <Button
+            style={{ marginRight: '10px' }}
             type="warning"
             size="small"
             disabled
-            style={{ marginRight: '10px' }}>
+          >
             {content}
           </Button>
           复制成功 🎉
@@ -39,7 +40,7 @@ const App: React.FC = () => {
       <Space className="demo-icon-icons">
         {holder}
         {Object.keys(Icons).map((k) => (
-          <Tooltip key={k} title={k} destroyOnHide>
+          <Tooltip destroyOnHide title={k} key={k}>
             <Icon attrs={{ onClick: () => copy(k) }}>
               {React.createElement(Icons[k as keyof typeof Icons])}
             </Icon>

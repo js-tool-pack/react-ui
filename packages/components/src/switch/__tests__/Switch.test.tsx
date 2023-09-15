@@ -1,6 +1,6 @@
+import { fireEvent, render } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
 import { Switch } from '..';
-import { fireEvent, render } from '@testing-library/react';
 
 describe('Switch', () => {
   testAttrs(Switch);
@@ -17,7 +17,7 @@ describe('Switch', () => {
 
   test('content', () => {
     const { container } = render(
-      <Switch checkedChildren="true" uncheckedChildren="false" />,
+      <Switch uncheckedChildren="false" checkedChildren="true" />,
     );
     expect(container.firstChild).toMatchSnapshot();
   });
@@ -29,10 +29,10 @@ describe('Switch', () => {
 
   test('icon', () => {
     expect(
-      render(<Switch checkedIcon={1} uncheckedIcon={2} />).container.firstChild,
+      render(<Switch uncheckedIcon={2} checkedIcon={1} />).container.firstChild,
     ).toMatchSnapshot();
     expect(
-      render(<Switch checkedIcon={1} uncheckedIcon={2} checked />).container
+      render(<Switch uncheckedIcon={2} checkedIcon={1} checked />).container
         .firstChild,
     ).toMatchSnapshot();
   });

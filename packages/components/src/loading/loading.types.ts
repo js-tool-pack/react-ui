@@ -1,16 +1,16 @@
-import React from 'react';
 import type { PropsBase } from '@pkg/shared';
+import React from 'react';
 
 export interface LoadingProps extends Omit<PropsBase, 'ref'> {
-  visible: boolean;
+  wrapperAttrs?: React.HTMLAttributes<HTMLElement>;
+  mode?: 'insert' | 'wrap';
   closeOnClick?: boolean;
   text?: React.ReactNode;
   icon?: React.ReactNode;
-  background?: string;
-  color?: string;
-  zIndex?: number;
-  mode?: 'insert' | 'wrap';
   onLeave?: () => void;
   onClose?: () => void;
-  wrapperAttrs?: React.HTMLAttributes<HTMLElement>;
+  background?: string;
+  visible: boolean;
+  zIndex?: number;
+  color?: string;
 }

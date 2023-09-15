@@ -2,32 +2,32 @@
  * title: 尺寸
  */
 
-import React from 'react';
 import {
-  Button,
-  ButtonGroup,
-  Dropdown,
   type DropdownOptionsItem,
-  Icon,
+  ButtonGroup,
+  useMessage,
+  Dropdown,
+  Button,
   Icons,
   Space,
-  useMessage,
+  Icon,
 } from '@tool-pack/react-ui';
+import React from 'react';
 
 const options: DropdownOptionsItem[] = [
   {
-    key: '1',
     label: '黄金蛋炒饭',
+    key: '1',
   },
   {
-    key: '2',
-    label: '扬州炒饭',
     children: [
       {
         label: 'test',
         key: 'test',
       },
     ],
+    label: '扬州炒饭',
+    key: '2',
   },
 ];
 const App: React.FC = () => {
@@ -39,18 +39,19 @@ const App: React.FC = () => {
           small
         </Button>
         <Dropdown
+          onSelect={(option) => message.info(option.label)}
+          options={options}
           trigger="click"
           size={'small'}
-          options={options}
-          onSelect={(option) => message.info(option.label)}>
+        >
           <Button
-            type="primary"
-            size="small"
             icon={
               <Icon>
                 <Icons.Down />
               </Icon>
             }
+            type="primary"
+            size="small"
           />
         </Dropdown>
       </ButtonGroup>
@@ -59,18 +60,19 @@ const App: React.FC = () => {
           medium
         </Button>
         <Dropdown
+          onSelect={(option) => message.info(option.label)}
+          options={options}
           trigger="click"
           size="medium"
-          options={options}
-          onSelect={(option) => message.info(option.label)}>
+        >
           <Button
-            type="primary"
-            size="medium"
             icon={
               <Icon>
                 <Icons.Down />
               </Icon>
             }
+            type="primary"
+            size="medium"
           />
         </Dropdown>
       </ButtonGroup>
@@ -79,18 +81,19 @@ const App: React.FC = () => {
           large
         </Button>
         <Dropdown
-          trigger="click"
+          onSelect={(option) => message.info(option.label)}
           options={options}
+          trigger="click"
           size="large"
-          onSelect={(option) => message.info(option.label)}>
+        >
           <Button
-            type="primary"
-            size="large"
             icon={
               <Icon>
                 <Icons.Down />
               </Icon>
             }
+            type="primary"
+            size="large"
           />
         </Dropdown>
       </ButtonGroup>

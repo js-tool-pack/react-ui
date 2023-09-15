@@ -1,15 +1,15 @@
-import { NumberTransition } from '..';
-import { act, fireEvent, render } from '@testing-library/react';
-import { useState } from 'react';
+import { fireEvent, render, act } from '@testing-library/react';
 import { testAttrs } from '~/testAttrs';
+import { NumberTransition } from '..';
 import { Button } from '~/button';
+import { useState } from 'react';
 
 describe('NumberTransition', () => {
   testAttrs(NumberTransition);
 
   test('basic', () => {
     jest.useFakeTimers();
-    const { container } = render(<NumberTransition active duration={5} />);
+    const { container } = render(<NumberTransition duration={5} active />);
     expect(container.firstChild).toHaveTextContent('0');
     act(() => jest.advanceTimersByTime(20));
     expect(container.firstChild).toHaveTextContent('10');
@@ -24,16 +24,17 @@ describe('NumberTransition', () => {
       return (
         <div>
           <NumberTransition
-            active={active}
             onFinished={() => setActive(false)}
             resetSignal={signal}
+            active={active}
             duration={5}
           />
           <Button
             onClick={() => {
               setSignal({});
               setActive(true);
-            }}>
+            }}
+          >
             reset
           </Button>
         </div>

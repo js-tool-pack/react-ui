@@ -8,7 +8,7 @@ export function useEventListenerOnMounted<K extends keyof WindowEventMap>(
   target: Window,
   eventName: K,
   callback: (this: Window, ev: WindowEventMap[K]) => any,
-  options?: boolean | AddEventListenerOptions,
+  options?: AddEventListenerOptions | boolean,
   enabled?: boolean,
 ): void;
 /**
@@ -18,7 +18,7 @@ export function useEventListenerOnMounted<K extends keyof DocumentEventMap>(
   target: Document,
   eventName: K,
   callback: (this: Document, ev: DocumentEventMap[K]) => any,
-  options?: boolean | AddEventListenerOptions,
+  options?: AddEventListenerOptions | boolean,
   enabled?: boolean,
 ): void;
 /**
@@ -28,7 +28,7 @@ export function useEventListenerOnMounted<K extends keyof HTMLElementEventMap>(
   target: HTMLElement,
   eventName: K,
   callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-  options?: boolean | AddEventListenerOptions,
+  options?: AddEventListenerOptions | boolean,
   enabled?: boolean,
 ): void;
 /**
@@ -38,7 +38,7 @@ export function useEventListenerOnMounted<K extends keyof HTMLElementEventMap>(
   getTarget: () => HTMLElement,
   eventName: K,
   callback: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any,
-  options?: boolean | AddEventListenerOptions,
+  options?: AddEventListenerOptions | boolean,
   enabled?: boolean,
 ): void;
 /**
@@ -58,10 +58,10 @@ export function useEventListenerOnMounted<K extends keyof HTMLElementEventMap>(
  * useEventOnMounted(window, 'blur', () => setShow(false));
  */
 export function useEventListenerOnMounted(
-  target: Window | HTMLElement | Document | (() => HTMLElement),
+  target: (() => HTMLElement) | HTMLElement | Document | Window,
   eventName: string,
   callback: (this: unknown, ev: unknown) => unknown,
-  options?: boolean | AddEventListenerOptions,
+  options?: AddEventListenerOptions | boolean,
   enable = true,
 ): void {
   useEffect(() => {

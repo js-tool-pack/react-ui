@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
  * 类似电子打火机的点火装置，点着了气体之后接下来就与点火器无关且可以关掉了。
  */
 export function useStateWithTrailClear<T>(
-  visible: T | undefined,
+  visible: undefined | T,
 ): ReturnType<typeof React.useState<T>> {
   const [state, setState] = useState<typeof visible>();
 

@@ -2,8 +2,8 @@
  * title: 禁用
  */
 
+import { TagProps, Switch, Space, Tag } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Space, Switch, Tag, TagProps } from '@tool-pack/react-ui';
 const types = [
   'success',
   'info',
@@ -14,12 +14,12 @@ const App: React.FC = () => {
   const [disabled, setDisabled] = useState(true);
   return (
     <Space>
-      <Switch checked={disabled} onChange={setDisabled} />
+      <Switch onChange={setDisabled} checked={disabled} />
       <Tag disabled={disabled} checkable checked>
         DEFAULT
       </Tag>
       {types.map((type) => (
-        <Tag key={type} disabled={disabled} type={type}>
+        <Tag disabled={disabled} type={type} key={type}>
           {type.toUpperCase()}
         </Tag>
       ))}

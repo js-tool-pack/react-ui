@@ -1,6 +1,6 @@
-import React from 'react';
-import { SelectOption, SelectOptionsItem } from '~/select';
+import { SelectOptionsItem, SelectOption } from '~/select';
 import { flattenOptions } from '~/select/utils';
+import React from 'react';
 
 export function pickOptionsByValue(
   options: SelectOptionsItem[],

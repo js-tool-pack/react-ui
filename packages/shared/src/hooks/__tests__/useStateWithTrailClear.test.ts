@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useStateWithTrailClear } from '@pkg/shared';
 import { useState } from 'react';
 

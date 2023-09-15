@@ -4,13 +4,13 @@
  * description: 点击列表内的按钮移除元素。
  */
 
-import React, { useCallback, useRef, useState } from 'react';
 import {
   TransitionGroup,
+  Transition,
   Button,
   Space,
-  Transition,
 } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useRef } from 'react';
 import styles from './all.module.scss';
 
 const App: React.FC = () => {
@@ -47,18 +47,18 @@ const App: React.FC = () => {
   return (
     <div className={styles['root']}>
       <Space style={{ justifyContent: 'center' }}>
-        <Button type="primary" onClick={addChild}>
+        <Button onClick={addChild} type="primary">
           添加
         </Button>
-        <Button type="primary" plain onClick={shuffle}>
+        <Button onClick={shuffle} type="primary" plain>
           洗牌
         </Button>
-        <Button type="warning" plain onClick={removeRandomChild}>
+        <Button onClick={removeRandomChild} type="warning" plain>
           移除
         </Button>
       </Space>
       <br />
-      <TransitionGroup name="group" tag="section" className="group-container">
+      <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
             <Transition key={item}>

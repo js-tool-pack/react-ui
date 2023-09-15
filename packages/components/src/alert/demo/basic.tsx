@@ -3,8 +3,8 @@
  * description: Alert 基础用法。
  */
 
-import React from 'react';
 import { Alert } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   return (

@@ -1,16 +1,16 @@
-import { Select, SelectOption, SelectOptionsItem } from '~/select';
+import { getFilterInput, getBalloon, $$ } from '~/select/__tests__/utils';
+import { SelectOptionsItem, SelectOption, Select } from '~/select';
 import { fireEvent, render } from '@testing-library/react';
-import { $$, getBalloon, getFilterInput } from '~/select/__tests__/utils';
 
 describe('Select.filter', () => {
   const options: SelectOptionsItem[] = [
     {
-      value: 1,
       label: 'foo',
+      value: 1,
     },
     {
-      value: 2,
       label: 'bar',
+      value: 2,
     },
   ];
 
@@ -37,7 +37,7 @@ describe('Select.filter', () => {
 
   it('should use default rules when filter is omitted', () => {
     const { container } = render(
-      <Select filterable visible value={1} options={options} />,
+      <Select options={options} filterable value={1} visible />,
     );
     expect(container.firstChild).toMatchSnapshot();
 

@@ -1,5 +1,5 @@
-import React from 'react';
 import { SelectOption } from '~/select';
+import React from 'react';
 
 export function isValueChanged(
   value: React.Key[] | React.Key | undefined,

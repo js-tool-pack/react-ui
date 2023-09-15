@@ -3,8 +3,8 @@
  * description: 可以使用 tag 参数指定 space 组件的根html标签，tag 默认 section。
  */
 
+import { Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Button } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (

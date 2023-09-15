@@ -3,8 +3,8 @@
  * description: 对数字显示格式化。
  */
 
+import { NumberTransition, Button, Space } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Button, NumberTransition, Space } from '@tool-pack/react-ui';
 
 const format = new Intl.NumberFormat('zh-Hans-CN-u-nu-hanidec');
 
@@ -16,22 +16,23 @@ const App: React.FC = () => {
     <Space vertical>
       <Space>
         <Button
-          type="primary"
+          onClick={() => setActive((v) => !v)}
           disabled={disabled}
-          onClick={() => setActive((v) => !v)}>
+          type="primary"
+        >
           {active ? '暂停' : '启动'}
         </Button>
       </Space>
       <NumberTransition
-        active={active}
-        to={50}
-        format={(value) => {
-          return format.format(Number(value));
-        }}
         onFinished={() => {
           setDisabled(true);
           setActive(false);
         }}
+        format={(value) => {
+          return format.format(Number(value));
+        }}
+        active={active}
+        to={50}
       />
     </Space>
   );

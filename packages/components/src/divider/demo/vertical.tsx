@@ -3,8 +3,8 @@
  * description: 使用 vertical 设置为行内的垂直分割线，垂直分割线内的文字会丢弃。
  */
 
-import React from 'react';
 import { Divider, Space } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   return (

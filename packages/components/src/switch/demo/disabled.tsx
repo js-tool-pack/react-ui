@@ -2,8 +2,8 @@
  * title: 禁止点击
  */
 
+import { Switch, Space } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Space, Switch } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [disabled, setDisabled] = useState(false);
@@ -11,12 +11,12 @@ const App: React.FC = () => {
     <Space vertical>
       <Space>
         <span>disabled: </span>
-        <Switch checked={disabled} onChange={setDisabled} />
+        <Switch onChange={setDisabled} checked={disabled} />
       </Space>
       <Space>
-        <Switch size="small" disabled={disabled} />
-        <Switch checked disabled={disabled} />
-        <Switch size="large" disabled={disabled} />
+        <Switch disabled={disabled} size="small" />
+        <Switch disabled={disabled} checked />
+        <Switch disabled={disabled} size="large" />
       </Space>
     </Space>
   );

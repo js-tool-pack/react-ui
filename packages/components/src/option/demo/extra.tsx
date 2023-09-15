@@ -2,8 +2,8 @@
  * title: extra
  */
 
+import { Option, Icons, Icon } from '@tool-pack/react-ui';
 import React from 'react';
-import { Option, Icon, Icons } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
@@ -12,7 +12,8 @@ const App: React.FC = () => {
         <Icon>
           <Icons.Right />
         </Icon>
-      }>
+      }
+    >
       foo bar
     </Option>
   );

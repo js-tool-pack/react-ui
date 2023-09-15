@@ -3,27 +3,29 @@
  * description: 用来显示「成功、消息、警告、错误」类的操作反馈。
  */
 
+import { useMessage, Button, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, Space, useMessage } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const Message = useMessage();
   return (
     <Space className="demo-message">
       <Button
+        onClick={() => Message.open('hello', { type: 'success' })}
         type="success"
-        onClick={() => Message.open('hello', { type: 'success' })}>
+      >
         success
       </Button>
       <Button
+        onClick={() => Message.open('info', { type: 'info' })}
         type="info"
-        onClick={() => Message.open('info', { type: 'info' })}>
+      >
         info
       </Button>
-      <Button type="warning" onClick={() => Message.warning('warning')}>
+      <Button onClick={() => Message.warning('warning')} type="warning">
         warning
       </Button>
-      <Button type="danger" onClick={() => Message.error('error')}>
+      <Button onClick={() => Message.error('error')} type="danger">
         error
       </Button>
     </Space>

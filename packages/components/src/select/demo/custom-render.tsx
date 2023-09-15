@@ -2,15 +2,15 @@
  * title: 自定义渲染
  */
 
-import React from 'react';
 import {
-  Select,
   SelectOptionsItem,
+  SelectOption,
+  Select,
   Icons,
   Space,
   Icon,
-  SelectOption,
 } from '@tool-pack/react-ui';
+import React from 'react';
 
 const options: SelectOptionsItem[] = Object.keys(Icons).map((key, index) => {
   const Ico = Icons[key as keyof typeof Icons];
@@ -20,7 +20,6 @@ const options: SelectOptionsItem[] = Object.keys(Icons).map((key, index) => {
     </Icon>
   );
   return {
-    value: key,
     label: (selected, option) => {
       if (selected) {
         return (
@@ -34,7 +33,8 @@ const options: SelectOptionsItem[] = Object.keys(Icons).map((key, index) => {
       return (
         <Space gap={6}>
           <span
-            style={{ flex: '0 0 20px', textAlign: 'right', color: '#949494' }}>
+            style={{ textAlign: 'right', flex: '0 0 20px', color: '#949494' }}
+          >
             {index + 1}
           </span>
           {RenderedIcon}
@@ -42,6 +42,7 @@ const options: SelectOptionsItem[] = Object.keys(Icons).map((key, index) => {
       );
     },
     extra: <span style={{ color: '#c7c7c7' }}>{key} </span>,
+    value: key,
   };
 });
 
@@ -51,7 +52,7 @@ function filter(pattern: string, option: SelectOption): boolean {
 const App: React.FC = () => {
   return (
     <>
-      <Select options={options} placeholder="select" />
+      <Select placeholder="select" options={options} />
       <br />
       <Select
         placeholder="select with filterable"

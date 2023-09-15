@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import styles from './App.layout.module.scss';
+import { Header, Layout, Aside, Main } from '@pkg/components';
+import { useLocation, Outlet, Link } from 'react-router-dom';
 import { getClassNames } from '@tool-pack/basic';
+import styles from './App.layout.module.scss';
 import { baseRouter } from '../router';
-import { Aside, Header, Layout, Main } from '@pkg/components';
+import React from 'react';
 
 export function AppLayout(): JSX.Element {
   const location = useLocation();
@@ -15,7 +15,7 @@ export function AppLayout(): JSX.Element {
     <Layout className={styles['app']} vertical>
       <Header className={styles['header']}>
         playground({location.pathname.replace(/^\//, '')})
-        <select name="mode" id="mode-selector" onChange={onSelectChange}>
+        <select onChange={onSelectChange} id="mode-selector" name="mode">
           <option value="light">light</option>
           <option value="dark">dark</option>
         </select>
@@ -26,10 +26,11 @@ export function AppLayout(): JSX.Element {
           <ul>
             {baseRouter.map((item, index) => (
               <li
-                key={item.name}
                 className={getClassNames({
                   active: item.path === location.pathname,
-                })}>
+                })}
+                key={item.name}
+              >
                 <Link to={item.path}>
                   {index + 1}. {item.name}
                 </Link>

@@ -1,27 +1,27 @@
-import React from 'react';
 import type { ButtonGroupProps, ButtonProps } from './button.types';
-import { getComponentClass } from '@pkg/shared';
+import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import { RequiredPart } from '@tool-pack/types';
+import { getComponentClass } from '@pkg/shared';
+import React from 'react';
 
 const rootClass = getComponentClass('button-group');
-
 const defaultProps = {} satisfies Partial<ButtonGroupProps>;
 
 export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
   (props, ref) => {
     const {
+      attrs = {},
       children,
       size,
-      attrs = {},
     } = props as RequiredPart<ButtonGroupProps, keyof typeof defaultProps>;
 
     return (
       <div
         {...attrs}
+        className={getClassNames(rootClass, attrs.className)}
         role={attrs.role || 'group'}
         ref={ref}
-        className={getClassNames(rootClass, attrs.className)}>
+      >
         {cloneChildren(children, size)}
       </div>
     );

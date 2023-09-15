@@ -19,7 +19,7 @@ exports[`Drawer attrs 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           <i
@@ -80,7 +80,7 @@ exports[`Drawer basic 1`] = `
         </label>
       </div>
       <button
-        class="t-button t-button--type-primary t--size-m t-button--icon-l"
+        class="t-button t-button--type-primary t-button--icon-l t--size-m"
       >
         <span>
           打开
@@ -112,7 +112,7 @@ exports[`Drawer basic 2`] = `
         Basic Drawer
       </span>
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           <i
@@ -347,7 +347,7 @@ exports[`Drawer footer content 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           <i
@@ -397,7 +397,7 @@ exports[`Drawer footer null 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           <i
@@ -442,7 +442,7 @@ exports[`Drawer header closeIcon 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           foo
@@ -546,7 +546,7 @@ exports[`Drawer header title 1`] = `
         123
       </span>
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           <i
@@ -595,7 +595,7 @@ exports[`Drawer resizeable 1`] = `
         class="t-drawer__title"
       />
       <button
-        class="t-button t-drawer__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+        class="t-button t-drawer__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
       >
         <span>
           <i

@@ -2,16 +2,16 @@
  * title: 清空
  */
 
-import React from 'react';
 import {
-  Select,
   SelectOptionsItem,
   useMessageHolder,
+  Select,
 } from '@tool-pack/react-ui';
+import React from 'react';
 
 const options: SelectOptionsItem[] = Array.from({ length: 20 }).map((_, i) => ({
-  value: i,
   label: String(i),
+  value: i,
 }));
 const App: React.FC = () => {
   const [message, holder] = useMessageHolder();

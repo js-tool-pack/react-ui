@@ -22,7 +22,7 @@ exports[`Dialog attrs 1`] = `
           class="t-dialog__title"
         />
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
+          class="t-button t-dialog__btn-close t-button--type-default t-button--icon-l t-button--plain-text t--size-sm"
         >
           <span>
             <i
@@ -59,7 +59,7 @@ exports[`Dialog basic 1`] = `
       style="text-align: center;"
     >
       <button
-        class="t-button t-button--type-primary t--size-m t-button--icon-l"
+        class="t-button t-button--type-primary t-button--icon-l t--size-m"
       >
         <span>
           打开
@@ -95,7 +95,7 @@ exports[`Dialog basic 2`] = `
           title
         </span>
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
+          class="t-button t-dialog__btn-close t-button--type-default t-button--icon-l t-button--plain-text t--size-sm"
         >
           <span>
             <i
@@ -122,7 +122,7 @@ exports[`Dialog basic 2`] = `
         </div>
         <textarea
           placeholder="输入..."
-          style="margin-top: 10px; display: block; width: 100%; box-sizing: border-box;"
+          style="box-sizing: border-box; margin-top: 10px; display: block; width: 100%;"
         />
       </main>
       <footer
@@ -157,7 +157,7 @@ exports[`Dialog footer content 1`] = `
           class="t-dialog__title"
         />
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
+          class="t-button t-dialog__btn-close t-button--type-default t-button--icon-l t-button--plain-text t--size-sm"
         >
           <span>
             <i
@@ -211,7 +211,7 @@ exports[`Dialog footer null 1`] = `
           class="t-dialog__title"
         />
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
+          class="t-button t-dialog__btn-close t-button--type-default t-button--icon-l t-button--plain-text t--size-sm"
         >
           <span>
             <i
@@ -262,7 +262,7 @@ exports[`Dialog header content 1`] = `
           123
         </span>
         <button
-          class="t-button t-dialog__btn-close t-button--type-default t--size-sm t-button--plain-text t-button--icon-l"
+          class="t-button t-dialog__btn-close t-button--type-default t-button--icon-l t-button--plain-text t--size-sm"
         >
           <span>
             <i

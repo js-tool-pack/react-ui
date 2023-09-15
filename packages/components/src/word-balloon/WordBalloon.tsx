@@ -1,8 +1,8 @@
-import React from 'react';
 import type { WordBalloonProps } from './word-balloon.types';
+import { getClassNames } from '@tool-pack/basic';
 import { getComponentClass } from '@pkg/shared';
 import { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
+import React from 'react';
 
 const rootName = getComponentClass('word-balloon');
 
@@ -11,30 +11,31 @@ export const WordBalloon: React.FC<WordBalloonProps> = React.forwardRef<
   WordBalloonProps
 >((props, ref) => {
   const {
-    children,
-    placement,
-    showArrow,
-    background,
     contentStyle,
+    background,
     arrowStyle,
     attrs = {},
+    placement,
+    showArrow,
+    children,
   } = props as RequiredPart<WordBalloonProps, keyof typeof defaultProps>;
   return (
     <div
       {...attrs}
-      ref={ref}
+      className={getClassNames(
+        rootName,
+        attrs.className,
+        `${rootName}--${placement}`,
+        { [`${rootName}--no-arrow`]: !showArrow },
+      )}
       style={
         {
           ...attrs.style,
           '--t-word-balloon-bg': background || '',
         } as React.CSSProperties
       }
-      className={getClassNames(
-        rootName,
-        attrs.className,
-        `${rootName}--${placement}`,
-        { [`${rootName}--no-arrow`]: !showArrow },
-      )}>
+      ref={ref}
+    >
       <div className={`${rootName}__content`} style={contentStyle}>
         {children}
       </div>

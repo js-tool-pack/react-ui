@@ -1,34 +1,34 @@
-import React, { useMemo } from 'react';
-import type { PopoverProps } from './popover.types';
 import {
   getComponentClass,
-  useAppendTo,
-  useForwardRef,
   useResizeEvent,
+  useForwardRef,
+  useAppendTo,
 } from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
 import {
-  usePosition,
   useResizeObserver,
   useShowController,
+  usePosition,
 } from './popover.hooks';
-import { createPortal } from 'react-dom';
-import { WordBalloon } from '~/word-balloon';
 import {
-  Transition,
-  type TransitionCB,
   transitionCBAdapter,
+  type TransitionCB,
+  Transition,
 } from '~/transition';
+import type { RequiredPart } from '@tool-pack/types';
+import type { PopoverProps } from './popover.types';
+import { getClassNames } from '@tool-pack/basic';
+import { WordBalloon } from '~/word-balloon';
+import { createPortal } from 'react-dom';
+import React, { useMemo } from 'react';
 
 const defaultProps = {
+  appendTo: () => document.body,
   placement: 'top',
   trigger: 'hover',
-  offset: 10,
   name: 'popover',
-  appendTo: () => document.body,
-  delay: 0,
   leaveDelay: 200,
+  offset: 10,
+  delay: 0,
 } satisfies Partial<PopoverProps>;
 
 export type PopoverRequiredPartProps = RequiredPart<
@@ -41,24 +41,24 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   PopoverProps
 >((props, ref) => {
   const {
-    disabled,
-    visible,
-    trigger,
-    placement,
-    children,
-    content,
-    offset,
-    destroyOnHide,
-    name,
-    on,
-    appendTo,
-    viewport,
-    showArrow,
-    delay,
-    leaveDelay,
     onVisibleChange,
     widthByTrigger,
+    destroyOnHide,
+    leaveDelay,
     attrs = {},
+    placement,
+    showArrow,
+    disabled,
+    children,
+    appendTo,
+    viewport,
+    visible,
+    trigger,
+    content,
+    offset,
+    delay,
+    name,
+    on,
   } = props as PopoverRequiredPartProps;
   const rootName = getComponentClass(name);
 
@@ -91,13 +91,13 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     // 因为这样在上面的 props 解构中就可以直观的看出到底有哪些属性是没有用到的；传 props 是不直观的。
     // 如果看到没有按照这条规则弄的，那就是漏掉了，以该条规则为准。
     {
-      delay,
-      visible,
-      trigger,
+      onVisibleChange,
+      leaveDelay,
       children,
       disabled,
-      leaveDelay,
-      onVisibleChange,
+      visible,
+      trigger,
+      delay,
     },
   );
 
@@ -107,14 +107,15 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
 
   const Balloon = (
     <WordBalloon
-      key="ballon"
-      placement={placement}
-      showArrow={showArrow}
-      ref={balloonRef as React.Ref<HTMLDivElement>}
       attrs={{
         ...attrs,
         className: getClassNames(rootName, attrs.className),
-      }}>
+      }}
+      ref={balloonRef as React.Ref<HTMLDivElement>}
+      placement={placement}
+      showArrow={showArrow}
+      key="ballon"
+    >
       {content}
     </WordBalloon>
   );
@@ -125,9 +126,9 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
       refreshPosition();
     };
     const cb = transitionCBAdapter({
+      onAfterLeave: resetPlacement,
       onBeforeEnter: refreshRef,
       onIdle: refreshRef,
-      onAfterLeave: resetPlacement,
     });
     return (el, status, lifeCircle) => {
       cb(el, status, lifeCircle);
@@ -137,17 +138,18 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
 
   const Trans = (
     <Transition
-      name={rootName}
+      appear={destroyOnHide ? undefined : null}
       show={destroyOnHide ? undefined : show}
       on={onTransitionChange}
-      appear={destroyOnHide ? undefined : null}>
+      name={rootName}
+    >
       {destroyOnHide ? show && Balloon : Balloon}
     </Transition>
   );
 
   const _props = {
-    ref: childrenRef,
     key: children.key || rootName,
+    ref: childrenRef,
   };
 
   if (appendToTarget === null) {

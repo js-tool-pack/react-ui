@@ -285,7 +285,7 @@ exports[`Select maxTagCount 1`] = `
               foo
             </span>
             <button
-              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              class="t-button t-tag__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
               tabindex="-1"
             >
               <span>
@@ -364,7 +364,7 @@ exports[`Select maxTagCount 2`] = `
               foo
             </span>
             <button
-              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              class="t-button t-tag__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
               tabindex="-1"
             >
               <span>
@@ -434,7 +434,7 @@ exports[`Select maxTagCount 2`] = `
             bar
           </span>
           <button
-            class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+            class="t-button t-tag__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
             tabindex="-1"
           >
             <span>
@@ -496,7 +496,7 @@ exports[`Select multiple 1`] = `
               foo
             </span>
             <button
-              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              class="t-button t-tag__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
               tabindex="-1"
             >
               <span>
@@ -525,7 +525,7 @@ exports[`Select multiple 1`] = `
               bar
             </span>
             <button
-              class="t-button t-tag__close t-button--type-info t--size-sm t-button--plain-text t-button--icon-l"
+              class="t-button t-tag__close t-button--type-info t-button--icon-l t-button--plain-text t--size-sm"
               tabindex="-1"
             >
               <span>

@@ -8,15 +8,15 @@ export function getClasses<
   children: C,
   state: S,
 ): Readonly<{
-  root: string;
-  __: Record<C[number], string>;
   '--': Record<S[number], string>;
+  __: Record<C[number], string>;
+  root: string;
 }> {
   const root = getComponentClass(name);
   return {
-    root,
     __: handleClasses(root, '__', children),
     '--': handleClasses(root, '--', state),
+    root,
   };
 }
 

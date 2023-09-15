@@ -1,17 +1,17 @@
-import React from 'react';
 import type { PropsBase, Size } from '@pkg/shared';
+import React from 'react';
 
 export interface CollapseProps extends PropsBase {
-  disabled?: boolean;
-  expanded?: boolean;
+  icon?: ((active: boolean) => React.ReactNode) | null;
   header?: (active: boolean) => React.ReactNode;
+  onChange?: (active: boolean) => void;
+  destroyOnHide?: boolean | 'mixed';
+  iconPlacement?: 'start' | 'end';
   title?: React.ReactNode;
   extra?: React.ReactNode;
-  icon?: null | ((active: boolean) => React.ReactNode);
-  iconPlacement?: 'start' | 'end';
-  destroyOnHide?: boolean | 'mixed';
+  disabled?: boolean;
+  expanded?: boolean;
   size?: Size;
-  onChange?: (active: boolean) => void;
 }
 
 export type CollapseGroupItem = CollapseProps & {
@@ -20,10 +20,10 @@ export type CollapseGroupItem = CollapseProps & {
 };
 
 export interface CollapseGroupProps extends Omit<PropsBase, 'children'> {
-  tag?: keyof HTMLElementTagNameMap;
+  onChange?: (item: CollapseGroupItem, index: number, active: boolean) => void;
   attrs?: Omit<React.HTMLAttributes<HTMLElement>, 'children'>;
   collapseProps?: Partial<CollapseProps>;
-  accordion?: boolean;
+  tag?: keyof HTMLElementTagNameMap;
   items: CollapseGroupItem[];
-  onChange?: (item: CollapseGroupItem, index: number, active: boolean) => void;
+  accordion?: boolean;
 }

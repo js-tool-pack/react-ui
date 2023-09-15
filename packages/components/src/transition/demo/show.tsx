@@ -6,8 +6,8 @@
  *  上面的例子中通过 children 控制动画的组件，如果我们调整了它的宽高那么在切换动画后会宽高会被还原，而通过 show 控制动画的组件会保持原样。<br />
  */
 
+import { Transition, Button, Space } from '@tool-pack/react-ui';
 import React, { useReducer, useState } from 'react';
-import { Button, Transition, Space } from '@tool-pack/react-ui';
 import './fade.scss';
 
 const App: React.FC = () => {
@@ -16,26 +16,26 @@ const App: React.FC = () => {
 
   return (
     <Space vertical>
-      <Button type="primary" shape="round" onClick={setVisible}>
+      <Button onClick={setVisible} type="primary" shape="round">
         切 换
       </Button>
-      <Transition name="fade" show={visible}>
+      <Transition show={visible} name="fade">
         <textarea
-          key={1}
+          placeholder="通过show控制动画。调整两个输入框的宽高并切换动画看看它们的区别"
+          onChange={(e) => setValue(e.target.value)}
           value={value}
           rows={5}
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="通过show控制动画。调整两个输入框的宽高并切换动画看看它们的区别"
+          key={1}
         />
       </Transition>
       <Transition name="fade">
         {visible && (
           <textarea
-            key={1}
-            value={value}
-            rows={5}
             onChange={(e) => setValue(e.target.value)}
             placeholder="通过children控制动画"
+            value={value}
+            rows={5}
+            key={1}
           />
         )}
       </Transition>

@@ -1,11 +1,11 @@
-import React from 'react';
 import type { PropsBase, Size } from '@pkg/shared';
+import React from 'react';
 
 export interface OptionProps extends PropsBase {
   tag?: keyof HTMLElementTagNameMap;
-  size?: Size;
+  extra?: React.ReactNode;
+  icon?: React.ReactNode;
   disabled?: boolean;
   readonly?: boolean;
-  icon?: React.ReactNode;
-  extra?: React.ReactNode;
+  size?: Size;
 }

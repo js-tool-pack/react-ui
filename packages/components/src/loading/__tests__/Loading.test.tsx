@@ -1,7 +1,7 @@
-import BasicDemo from '../demo/basic';
-import GlobalDemo from '../demo/global';
+import { fireEvent, render } from '@testing-library/react';
 import HolderDemo from '../demo/useLoadingHolder';
-import { render, fireEvent } from '@testing-library/react';
+import GlobalDemo from '../demo/global';
+import BasicDemo from '../demo/basic';
 
 describe('Loading', () => {
   test('basic', async () => {

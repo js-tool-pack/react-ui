@@ -1,11 +1,11 @@
-import * as path from 'path';
-import * as fs from 'fs';
-import { prompt } from 'enquirer';
-import { execa, type Options } from 'execa';
-import * as semver from 'semver';
-import chalk from 'chalk';
-import { ReleaseType } from 'semver';
 import { isMonoRepo, rootDir } from './utils';
+import { type Options, execa } from 'execa';
+import { ReleaseType } from 'semver';
+import { prompt } from 'enquirer';
+import * as semver from 'semver';
+import * as path from 'path';
+import chalk from 'chalk';
+import * as fs from 'fs';
 
 const rootPkgJson = require('../package.json');
 const args = require('minimist')(process.argv.slice(2));
@@ -48,19 +48,49 @@ const exec = (
 const getPkgPath = (pkg: string) =>
   path.resolve(__dirname, `../packages/${pkg}`);
 const actions = {
-  lintCheck: () => exec(npmTool, ['check:all']),
-  jestCheck: async (config: Config) => {
-    await forEachPkgs(config, (_, json, pkgPath) => {
-      if (!json?.scripts?.test) return;
-      return exec(npmTool, ['test'], { execPath: pkgPath });
-    });
-  },
-  build: async (config: Config) => {
-    await forEachPkgs(config, (_, json, pkgPath) => {
-      if (!json?.scripts?.build) return;
-      console.log(chalk.cyan('build:', pkgPath));
-      return exec(npmTool, ['build'], { execPath: pkgPath });
-    });
+  async release(config: Config) {
+    async function publishPkg(pkgPath: string) {
+      const json = JSON.parse(
+        fs.readFileSync(path.resolve(pkgPath, 'package.json'), 'utf-8'),
+      );
+      if (json.private) return;
+
+      /*let releaseTag = null;
+      if (config.tag) {
+        releaseTag = config.tag;
+      } else if (config.targetVersion.includes('alpha')) {
+        releaseTag = 'alpha';
+      } else if (config.targetVersion.includes('beta')) {
+        releaseTag = 'beta';
+      } else if (config.targetVersion.includes('rc')) {
+        releaseTag = 'rc';
+      }*/
+
+      step(`Publishing ${json.name}...`);
+      try {
+        await exec('npm', ['publish', '--access=public'], {
+          stdio: 'pipe',
+          cwd: pkgPath,
+        });
+        console.log(
+          chalk.green(
+            `Successfully published ${json.name}@${config.targetVersion}`,
+          ),
+        );
+      } catch (e: any) {
+        if (e.stderr.match(/previously published/)) {
+          console.log(chalk.red(`Skipping already published: ${json.name}`));
+        } else {
+          throw e;
+        }
+      }
+    }
+    if (isMonoRepo)
+      for (const pkg of config.pkgs) {
+        if (config.skippedPackages.includes(pkg)) continue;
+        await publishPkg(getPkgPath(pkg));
+      }
+    else await publishPkg(rootDir());
   },
   updateVersions(pkgs: string[], version: string) {
     function updateDeps(
@@ -92,51 +122,6 @@ const actions = {
     }
     updatePackage(path.resolve(__dirname, `../package.json`), version);
   },
-  async release(config: Config) {
-    async function publishPkg(pkgPath: string) {
-      const json = JSON.parse(
-        fs.readFileSync(path.resolve(pkgPath, 'package.json'), 'utf-8'),
-      );
-      if (json.private) return;
-
-      /*let releaseTag = null;
-      if (config.tag) {
-        releaseTag = config.tag;
-      } else if (config.targetVersion.includes('alpha')) {
-        releaseTag = 'alpha';
-      } else if (config.targetVersion.includes('beta')) {
-        releaseTag = 'beta';
-      } else if (config.targetVersion.includes('rc')) {
-        releaseTag = 'rc';
-      }*/
-
-      step(`Publishing ${json.name}...`);
-      try {
-        await exec('npm', ['publish', '--access=public'], {
-          cwd: pkgPath,
-          stdio: 'pipe',
-        });
-        console.log(
-          chalk.green(
-            `Successfully published ${json.name}@${config.targetVersion}`,
-          ),
-        );
-      } catch (e: any) {
-        if (e.stderr.match(/previously published/)) {
-          console.log(chalk.red(`Skipping already published: ${json.name}`));
-        } else {
-          throw e;
-        }
-      }
-    }
-    if (isMonoRepo)
-      for (const pkg of config.pkgs) {
-        if (config.skippedPackages.includes(pkg)) continue;
-        await publishPkg(getPkgPath(pkg));
-      }
-    else await publishPkg(rootDir());
-  },
-  genChangeLog: () => exec(npmTool, ['changelog']),
   async gitCommit(targetVersion: string) {
     const { stdout } = await exec('git', ['diff'], { stdio: 'pipe' });
     if (stdout) {
@@ -147,34 +132,49 @@ const actions = {
       console.log('No changes to commit.');
     }
   },
+  build: async (config: Config) => {
+    await forEachPkgs(config, (_, json, pkgPath) => {
+      if (!json?.scripts?.build) return;
+      console.log(chalk.cyan('build:', pkgPath));
+      return exec(npmTool, ['build'], { execPath: pkgPath });
+    });
+  },
   async gitPush(targetVersion: string) {
     // push to GitHub
     await exec('git', ['tag', `v${targetVersion}`]);
     await exec('git', ['push', 'origin', `refs/tags/v${targetVersion}`]);
     await exec('git', ['push']);
   },
+  jestCheck: async (config: Config) => {
+    await forEachPkgs(config, (_, json, pkgPath) => {
+      if (!json?.scripts?.test) return;
+      return exec(npmTool, ['test'], { execPath: pkgPath });
+    });
+  },
+  genChangeLog: () => exec(npmTool, ['changelog']),
+  lintCheck: () => exec(npmTool, ['check:all']),
 };
 
 interface Config {
-  pkgs: string[];
-  targetVersion: string;
-  skipTest: boolean;
-  skipBuild: boolean;
-  currentVersion: string;
-  preId: string;
   skippedPackages: string[];
+  currentVersion: string;
+  targetVersion: string;
+  skipBuild: boolean;
+  skipTest: boolean;
+  pkgs: string[];
+  preId: string;
   tag: string;
 }
 const baseConfig: Config = {
   pkgs: isMonoRepo
     ? fs.readdirSync(path.resolve(__dirname, '../packages'))
     : [],
-  targetVersion: args._[0],
-  skipTest: args.skipTest,
-  skipBuild: args.skipBuild,
-  currentVersion: rootPkgJson.version,
   // semver.prerelease('1.2.3-alpha.3') -> [ 'alpha', 3 ]
   preId: args.preid || semver.prerelease(rootPkgJson.version)?.[0],
+  currentVersion: rootPkgJson.version,
+  skipBuild: args.skipBuild,
+  targetVersion: args._[0],
+  skipTest: args.skipTest,
   skippedPackages: [],
   tag: args.tag,
 };
@@ -194,27 +194,23 @@ async function getVersion(preId: string, currentVersion: string) {
   ];
   const { release } = await prompt<{ release: string }>([
     {
-      type: 'select',
-      name: 'release',
-      message: `选择发布版本(当前v${rootPkgJson.version})`,
       choices: versionIncrements
         .map<{ message: string; name: string; hint: string }>((i) => {
           const version = inc(i) as string;
           return {
-            message: i,
-            name: version,
             hint: 'v' + version,
+            name: version,
+            message: i,
           };
         })
         .concat([{ message: `custom`, name: 'custom', hint: '' }]),
+      message: `选择发布版本(当前v${rootPkgJson.version})`,
+      name: 'release',
+      type: 'select',
     },
   ]);
   if (release === 'custom') {
     ({ version: targetVersion } = await prompt<{ version: string }>({
-      type: 'input',
-      name: 'version',
-      message: `Input custom version, cur(v${rootPkgJson.version}):`,
-      initial: currentVersion,
       validate(value) {
         // 校验版本号
         if (!semver.valid(value)) return `invalid version: ${value}`;
@@ -223,15 +219,19 @@ async function getVersion(preId: string, currentVersion: string) {
 
         return true;
       },
+      message: `Input custom version, cur(v${rootPkgJson.version}):`,
+      initial: currentVersion,
+      name: 'version',
+      type: 'input',
     }));
   } else {
     targetVersion = release;
   }
 
   const { yes } = await prompt<{ yes: boolean }>({
+    message: `Releasing v${targetVersion}. Confirm?`,
     type: 'confirm',
     name: 'yes',
-    message: `Releasing v${targetVersion}. Confirm?`,
   });
 
   if (!yes) {

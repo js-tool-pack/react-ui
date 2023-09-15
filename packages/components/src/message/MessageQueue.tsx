@@ -1,21 +1,21 @@
-import React, { useCallback, useImperativeHandle, useRef } from 'react';
-import { createPortal } from 'react-dom';
-import { TransitionGroup } from '../transition-group';
-import { getComponentClass, useForceUpdate } from '@pkg/shared';
-import { getClassNames } from '@tool-pack/basic';
-import { Message } from './Message';
+import {
+  TRANSITION_LIFE_CIRCLE,
+  type TransitionCB,
+  TRANSITION_STATUS,
+  Transition,
+} from '../transition';
 import type {
   MessagePushOptions,
   MessageQueueProps,
   MessageQueueRef,
 } from './message.types';
-import {
-  Transition,
-  type TransitionCB,
-  TRANSITION_STATUS,
-  TRANSITION_LIFE_CIRCLE,
-} from '../transition';
+import React, { useImperativeHandle, useCallback, useRef } from 'react';
+import { getComponentClass, useForceUpdate } from '@pkg/shared';
+import { TransitionGroup } from '../transition-group';
+import { getClassNames } from '@tool-pack/basic';
+import { createPortal } from 'react-dom';
 import LeaveQueue from './LeaveQueue';
+import { Message } from './Message';
 
 const rootClass = getComponentClass('message-queue');
 export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
@@ -32,13 +32,13 @@ export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
     ref,
     () => {
       return {
-        push(props) {
-          MsgList.current.push({ ...props, key: id.current++ });
-          forceUpdate();
-        },
         clear() {
           if (!MsgList.current.length) return;
           queue.current.push(...MsgList.current);
+          forceUpdate();
+        },
+        push(props) {
+          MsgList.current.push({ ...props, key: id.current++ });
           forceUpdate();
         },
       };
@@ -67,11 +67,12 @@ export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
   return createPortal(
     <TransitionGroup
       {...attrs}
+      className={getClassNames(rootClass, attrs.className)}
       name={rootClass}
       tag="ul"
-      className={getClassNames(rootClass, attrs.className)}>
+    >
       {MsgList.current.map((it) => {
-        const { key, content, ...rest } = it;
+        const { content, key, ...rest } = it;
         return (
           <Transition key={key} on={on}>
             <li>

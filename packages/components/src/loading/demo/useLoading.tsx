@@ -3,18 +3,18 @@
  * description: 调用 useLoading 函数打开 loading；该方法在外部只能做开启用，开启以后无法通过传参控制 loading。
  */
 
+import { useLoading, Button } from '@tool-pack/react-ui';
 import React from 'react';
-import { Button, useLoading } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const { toggle } = useLoading({
-    visible: false,
-    closeOnClick: true,
     text: `全屏useLoading，点击任意处关闭....`,
+    closeOnClick: true,
+    visible: false,
   });
   return (
     <div style={{ textAlign: 'center' }}>
-      <Button type="primary" onClick={toggle}>
+      <Button onClick={toggle} type="primary">
         useLoading
       </Button>
     </div>

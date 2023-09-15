@@ -1,6 +1,6 @@
-import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
 import type { PropsBase } from '@pkg/shared';
-import { render, fireEvent } from '@testing-library/react';
+import React from 'react';
 
 export function testAttrs<
   T extends { attrs?: Partial<React.HTMLAttributes<HTMLElement>> },
@@ -13,10 +13,10 @@ export function testAttrs<
     const { container } = render(
       <FC
         attrs={{
-          className: 'foo',
-          onClick,
-          role: 'note',
           style: { width: '20px' },
+          className: 'foo',
+          role: 'note',
+          onClick,
         }}
       />,
     );

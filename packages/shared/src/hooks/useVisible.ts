@@ -1,19 +1,19 @@
-import { useCallback, useRef } from 'react';
 import { useForceUpdate } from './useForceUpdate';
+import { useCallback, useRef } from 'react';
 
 export function useVisible(
-  outerVisible: boolean | undefined,
-  onHide?: () => boolean | Promise<void> | void,
+  outerVisible: undefined | boolean,
+  onHide?: () => Promise<void> | boolean | void,
 ): [
-  visible: boolean | undefined,
-  hide: (onHide?: () => boolean | Promise<void> | void) => Promise<void> | void,
+  visible: undefined | boolean,
+  hide: (onHide?: () => Promise<void> | boolean | void) => Promise<void> | void,
   setVisible: (value?: boolean) => void,
 ] {
   const forceUpdate = useForceUpdate();
   const lastOuterVisibleRef = useRef(outerVisible);
-  const visibleRef = useRef<boolean | undefined>(outerVisible);
+  const visibleRef = useRef<undefined | boolean>(outerVisible);
 
-  const setVisible = useCallback((value: boolean | undefined) => {
+  const setVisible = useCallback((value: undefined | boolean) => {
     visibleRef.current = value;
     forceUpdate();
   }, []);

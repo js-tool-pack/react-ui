@@ -1,6 +1,6 @@
-import React, { useLayoutEffect, useRef } from 'react';
 import { applyTranslation } from './transition-group.utils';
 import type { ChildMap } from './transition-group.types';
+import React, { useLayoutEffect, useRef } from 'react';
 
 export function useFlips(
   wrapperRef: React.MutableRefObject<HTMLElement | null>,
@@ -64,7 +64,7 @@ function getChildRects(
 }
 
 function forEachEl(
-  els: HTMLElement[] | NodeListOf<HTMLElement> | HTMLCollection,
+  els: NodeListOf<HTMLElement> | HTMLCollection | HTMLElement[],
   childMap: ChildMap,
   cb: (el: HTMLElement, key: React.Key) => void,
 ) {

@@ -3,9 +3,9 @@
  * debug: true
  */
 
-import React, { useState } from 'react';
-import { Button, CollapseTransition, Divider } from '@tool-pack/react-ui';
+import { CollapseTransition, Divider, Button } from '@tool-pack/react-ui';
 import styles from './basic.module.scss';
+import React, { useState } from 'react';
 
 const App: React.FC = () => {
   const [show, setShow] = useState(true);
@@ -16,7 +16,7 @@ const App: React.FC = () => {
       </div>
       <CollapseTransition show={show}>
         {/* 加了 padding 内容会滚动 */}
-        <div style={{ padding: '20px', background: '#910852', color: 'white' }}>
+        <div style={{ background: '#910852', padding: '20px', color: 'white' }}>
           <p>
             道冲而用之或不盈，渊兮似万物之宗。挫其锐，解其纷，和其光，同其尘。湛兮似或存，吾不知谁之子，象帝之先。
           </p>

@@ -2,22 +2,24 @@
  * title: 基础用法
  */
 
+import { PLACEMENTS_12, WordBalloon, Space } from '@tool-pack/react-ui';
 import React from 'react';
-import { WordBalloon, Space, PLACEMENTS_12 } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   return (
     <Space gap={30} vertical>
       <WordBalloon
+        attrs={{ style: { alignSelf: 'flex-end', maxWidth: '50%' } }}
         placement="left-start"
         background={'#b8cfef'}
-        attrs={{ style: { alignSelf: 'flex-end', maxWidth: '50%' } }}>
+      >
         {'你是谁? 你是谁? 你是谁?\n'.repeat(5)}
       </WordBalloon>
       <WordBalloon
+        attrs={{ style: { alignSelf: 'flex-start', maxWidth: '50%' } }}
         placement="right-start"
         background={'#9eec9e'}
-        attrs={{ style: { alignSelf: 'flex-start', maxWidth: '50%' } }}>
+      >
         {'你好，我是ChatGPT，我是ChatGPT，我真的是ChatGPT。\n'.repeat(5)}
       </WordBalloon>
 
@@ -35,7 +37,7 @@ const App: React.FC = () => {
 
       <Space gap={30}>
         {PLACEMENTS_12.map((p) => (
-          <WordBalloon key={p} placement={p} background={'#b8cfef'}>
+          <WordBalloon background={'#b8cfef'} placement={p} key={p}>
             <div style={{ width: '80px' }}>{p}</div>
           </WordBalloon>
         ))}
@@ -43,7 +45,8 @@ const App: React.FC = () => {
 
       <WordBalloon
         background={'linear-gradient(225deg,#ffdee9,#b5fffc)'}
-        showArrow={false}>
+        showArrow={false}
+      >
         {'无箭头 '.repeat(5)}
       </WordBalloon>
     </Space>

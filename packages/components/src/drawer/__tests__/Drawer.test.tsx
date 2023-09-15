@@ -15,21 +15,21 @@ describe('Drawer', () => {
   test('attrs', () => {
     render(
       <Drawer
-        visible
-        attrs={{ className: 'foo' }}
         bodyAttrs={{ className: 'bar' }}
+        attrs={{ className: 'foo' }}
+        visible
       />,
     );
     expect(getRoot()).toMatchSnapshot();
   });
 
   test('resizeable', () => {
-    render(<Drawer visible resizeable />);
+    render(<Drawer resizeable visible />);
     expect(getRoot()).toMatchSnapshot();
   });
 
   test('size', () => {
-    render(<Drawer visible size="200px" />);
+    render(<Drawer size="200px" visible />);
     expect(getRoot()!.querySelector('.t-drawer')).toHaveStyle({
       width: '200px',
     });
@@ -41,30 +41,30 @@ describe('Drawer', () => {
       expect(getRoot()).toHaveClass('t-drawer--right');
     });
     test('right', () => {
-      render(<Drawer visible placement="right" />);
+      render(<Drawer placement="right" visible />);
       expect(getRoot()).toHaveClass('t-drawer--right');
     });
     test('right', () => {
-      render(<Drawer visible placement="left" />);
+      render(<Drawer placement="left" visible />);
       expect(getRoot()).toHaveClass('t-drawer--left');
     });
     test('top', () => {
-      render(<Drawer visible placement="top" />);
+      render(<Drawer placement="top" visible />);
       expect(getRoot()).toHaveClass('t-drawer--top');
     });
   });
 
   describe('destroyOnClose', function () {
     test('true', () => {
-      render(<Drawer visible={false} destroyOnClose={true} />);
+      render(<Drawer destroyOnClose={true} visible={false} />);
       expect(getRoot()).toBeNull();
     });
     test('false', () => {
-      render(<Drawer visible={false} destroyOnClose={false} />);
+      render(<Drawer destroyOnClose={false} visible={false} />);
       expect(getRoot()).not.toBeNull();
     });
     test('mixed', () => {
-      render(<Drawer visible={false} destroyOnClose="mixed" />);
+      render(<Drawer destroyOnClose="mixed" visible={false} />);
       expect(getRoot()).toBeNull();
     });
   });
@@ -73,7 +73,7 @@ describe('Drawer', () => {
     it('null', () => {
       const { container } = render(
         <div>
-          <Drawer visible appendTo={null} />
+          <Drawer appendTo={null} visible />
         </div>,
       );
       expect(container.firstChild!.firstChild).toHaveClass(
@@ -83,7 +83,7 @@ describe('Drawer', () => {
     it('fn null', () => {
       const { container } = render(
         <div>
-          <Drawer visible appendTo={() => null} />
+          <Drawer appendTo={() => null} visible />
         </div>,
       );
       expect(container.firstChild!.firstChild).toHaveClass(
@@ -94,8 +94,8 @@ describe('Drawer', () => {
       const { container } = render(
         <div>
           <Drawer
-            visible
             appendTo={() => document.querySelector('.append-target')}
+            visible
           />
           <div className="append-target"></div>
         </div>,
@@ -112,7 +112,7 @@ describe('Drawer', () => {
     const getMask = () => document.querySelector('.t-drawer__mask');
 
     test('off', () => {
-      render(<Drawer visible closeOnClickMask={false} />);
+      render(<Drawer closeOnClickMask={false} visible />);
       fireEvent.click(getMask()!);
       expect(getRoot()).not.toHaveClass('t-dialog-leave-active');
     });
@@ -120,7 +120,7 @@ describe('Drawer', () => {
     test('on onClose', () => {
       const onClose = jest.fn();
       expect(onClose).not.toBeCalled();
-      render(<Drawer visible closeOnClickMask onClose={onClose} />);
+      render(<Drawer onClose={onClose} closeOnClickMask visible />);
       fireEvent.click(getMask()!);
       expect(getRoot()).toHaveClass('t-drawer-leave-active');
       expect(onClose).toBeCalled();
@@ -131,7 +131,7 @@ describe('Drawer', () => {
     const escKeydown = () => fireEvent.keyDown(window, { key: 'Escape' });
 
     test('off', () => {
-      render(<Drawer visible esc={false} />);
+      render(<Drawer esc={false} visible />);
       escKeydown();
       expect(getRoot()).not.toHaveClass('t-drawer-leave-active');
     });
@@ -139,7 +139,7 @@ describe('Drawer', () => {
     test('on onClose', () => {
       const onClose = jest.fn();
       expect(onClose).not.toBeCalled();
-      render(<Drawer visible esc onClose={onClose} />);
+      render(<Drawer onClose={onClose} visible esc />);
       escKeydown();
       expect(getRoot()).toHaveClass('t-drawer-leave-active');
       expect(onClose).toBeCalled();
@@ -147,34 +147,34 @@ describe('Drawer', () => {
   });
 
   test('zIndex', () => {
-    render(<Drawer visible zIndex={12345} />);
+    render(<Drawer zIndex={12345} visible />);
     expect(getRoot()).toHaveStyle({ zIndex: 12345 });
   });
 
   describe('header', () => {
     test('title', () => {
-      render(<Drawer visible title="123" />);
+      render(<Drawer title="123" visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
     });
     test('closeIcon', () => {
-      render(<Drawer visible closeIcon={'foo'} />);
+      render(<Drawer closeIcon={'foo'} visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
     });
     test('showClose', () => {
-      render(<Drawer visible showClose={false} />);
+      render(<Drawer showClose={false} visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
     });
     test('content', () => {
-      render(<Drawer visible header="123" />);
+      render(<Drawer header="123" visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-drawer__header')).not.toBeNull();
     });
     test('null', () => {
-      render(<Drawer visible header={null} />);
+      render(<Drawer header={null} visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-drawer__header')).toBeNull();
@@ -183,13 +183,13 @@ describe('Drawer', () => {
 
   describe('footer', () => {
     test('content', () => {
-      render(<Drawer visible footer="123" />);
+      render(<Drawer footer="123" visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-drawer__footer')).not.toBeNull();
     });
     test('null', () => {
-      render(<Drawer visible footer={null} />);
+      render(<Drawer footer={null} visible />);
       const root = getRoot();
       expect(root).toMatchSnapshot();
       expect(root!.querySelector('.t-drawer__footer')).toBeNull();

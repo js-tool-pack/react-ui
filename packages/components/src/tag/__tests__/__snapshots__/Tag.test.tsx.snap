@@ -10,7 +10,7 @@ exports[`Tag closeable basic 1`] = `
     tag
   </span>
   <button
-    class="t-button t-tag__close t-button--type-primary t--size-sm t-button--plain-text t-button--icon-l"
+    class="t-button t-tag__close t-button--type-primary t-button--icon-l t-button--plain-text t--size-sm"
   >
     <span>
       <i

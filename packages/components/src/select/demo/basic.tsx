@@ -2,17 +2,17 @@
  * title: 基础用法
  */
 
+import { SelectOptionsItem, Select } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
-import { Select, SelectOptionsItem } from '@tool-pack/react-ui';
 
 const options: SelectOptionsItem[] = [
   {
-    value: 1,
     label: 'foo',
+    value: 1,
   },
   {
-    value: 2,
     label: 'bar',
+    value: 2,
   },
 ];
 const App: React.FC = () => {
@@ -20,16 +20,16 @@ const App: React.FC = () => {
   return (
     <>
       <Select
-        value={value}
         onChange={(selected, options) => {
           setValue(selected);
           console.log('selected ', value, selected, options);
         }}
-        options={options}
         placeholder="select"
+        options={options}
+        value={value}
       />
       <br />
-      <Select disabled value={value} options={options} placeholder="select" />
+      <Select placeholder="select" options={options} value={value} disabled />
     </>
   );
 };

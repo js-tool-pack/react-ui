@@ -7,7 +7,7 @@ exports[`Collapse basic 1`] = `
 >
   <div
     class="t-space t-collapse__header"
-    style="gap: 12px; --t-space-fill-ratio: 100%;"
+    style="--t-space-fill-ratio: 100%; gap: 12px;"
   >
     <i
       class="t-icon t-collapse__icon"
@@ -38,7 +38,7 @@ exports[`Collapse extra 1`] = `
 >
   <div
     class="t-space t-collapse__header"
-    style="gap: 12px; --t-space-fill-ratio: 100%;"
+    style="--t-space-fill-ratio: 100%; gap: 12px;"
   >
     <i
       class="t-icon t-collapse__icon"
@@ -70,7 +70,7 @@ exports[`Collapse icon 1`] = `
 >
   <div
     class="t-space t-collapse__header"
-    style="gap: 12px; --t-space-fill-ratio: 100%;"
+    style="--t-space-fill-ratio: 100%; gap: 12px;"
   >
     <svg
       viewBox="0 0 1024 1024"
@@ -96,7 +96,7 @@ exports[`Collapse icon-placement 1`] = `
 >
   <div
     class="t-space t-collapse__header"
-    style="gap: 12px; --t-space-fill-ratio: 100%;"
+    style="--t-space-fill-ratio: 100%; gap: 12px;"
   >
     <div
       class="t-collapse__title"

@@ -2,8 +2,8 @@
  * title: 关闭回调
  */
 
+import { useMessageHolder, Alert } from '@tool-pack/react-ui';
 import React from 'react';
-import { Alert, useMessageHolder } from '@tool-pack/react-ui';
 
 const App: React.FC = () => {
   const [message, holder] = useMessageHolder();
@@ -11,7 +11,6 @@ const App: React.FC = () => {
     <>
       {holder}
       <Alert
-        title="提示"
         onClose={(e) => {
           if (window.confirm('是否关闭提示?')) {
             message.success('已关闭');
@@ -19,7 +18,9 @@ const App: React.FC = () => {
             e.preventDefault();
           }
         }}
-        closable>
+        title="提示"
+        closable
+      >
         点击关闭按钮
       </Alert>
     </>

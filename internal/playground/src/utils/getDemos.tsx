@@ -1,5 +1,5 @@
 import { Divider, Space } from '@tool-pack/react-ui';
-import React, { Suspense, useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { debounce } from '@tool-pack/basic';
 
 const scrollToHash = debounce(() => {
@@ -37,7 +37,7 @@ export function getDemos(demos: Record<string, unknown>) {
           })}
         </ol>
       </section>
-      <Divider lineStyle="double" lineColor="rgb(22, 119, 255)" />
+      <Divider lineColor="rgb(22, 119, 255)" lineStyle="double" />
       <section>
         <h2>Demo</h2>
         <Space style={{ paddingBottom: '200px' }} vertical fill>

@@ -3,8 +3,8 @@
  * description: 演示。
  */
 
+import { Transition, Button } from '@tool-pack/react-ui';
 import React, { useReducer } from 'react';
-import { Button, Transition } from '@tool-pack/react-ui';
 import './fade.scss';
 
 const App: React.FC = () => {
@@ -12,7 +12,7 @@ const App: React.FC = () => {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <Button type="primary" shape="round" onClick={setVisible}>
+      <Button onClick={setVisible} type="primary" shape="round">
         切 换
       </Button>
       <br />
@@ -20,14 +20,14 @@ const App: React.FC = () => {
       <div className="transition-box">
         <Transition name="fade">
           {visible && (
-            <button className="fade" key={1} disabled>
+            <button className="fade" disabled key={1}>
               single
             </button>
           )}
         </Transition>
       </div>
       <div className="transition-box">
-        <Transition name="fade" mode="out-in">
+        <Transition mode="out-in" name="fade">
           {visible ? (
             <div className="fade" key={1}>
               out-in(out)
@@ -38,7 +38,7 @@ const App: React.FC = () => {
         </Transition>
       </div>
       <div className="transition-box">
-        <Transition name="fade" mode="in-out">
+        <Transition mode="in-out" name="fade">
           {visible ? (
             <div className="fade" key={1}>
               in-out(in)
@@ -49,7 +49,7 @@ const App: React.FC = () => {
         </Transition>
       </div>
       <div className="transition-box">
-        <Transition name="fade" mode="default">
+        <Transition mode="default" name="fade">
           {visible ? (
             <div className="fade" key={1}>
               default(out)

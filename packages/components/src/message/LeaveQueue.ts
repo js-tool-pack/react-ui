@@ -10,15 +10,15 @@ export default class LeaveQueue<T> {
     this.onRemove(item);
   }
 
-  shift() {
-    this.running = false;
-    if (!this.queue.length) return;
-    this.remove(this.queue.shift()!);
-  }
-
   push(...items: T[]) {
     if (!items.length) return;
     if (!this.running) this.remove(items.shift()!);
     this.queue.push(...items);
+  }
+
+  shift() {
+    this.running = false;
+    if (!this.queue.length) return;
+    this.remove(this.queue.shift()!);
   }
 }

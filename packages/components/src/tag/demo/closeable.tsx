@@ -2,8 +2,8 @@
  * title: 可关闭
  */
 
+import { TagProps, Space, Tag } from '@tool-pack/react-ui';
 import React from 'react';
-import { Space, Tag, TagProps } from '@tool-pack/react-ui';
 const types = [
   'primary',
   'success',
@@ -16,14 +16,15 @@ const App: React.FC = () => {
     <Space>
       {types.map((type) => (
         <Tag
-          closeable
-          key={type}
-          type={type}
           onClose={(e) => {
             if (!window.confirm(`是否关闭 '${type || 'default'}' 标签`)) {
               e.preventDefault();
             }
-          }}>
+          }}
+          type={type}
+          key={type}
+          closeable
+        >
           {type}
         </Tag>
       ))}

@@ -1,4 +1,4 @@
-import { useDispatcher, useTransition } from './transition.hooks';
+import { useDispatcher, useTransition } from '~/transition/hooks';
 import type { TransitionProps } from './transition.types';
 import type { RequiredPart } from '@tool-pack/types';
 import React, { useRef, memo } from 'react';

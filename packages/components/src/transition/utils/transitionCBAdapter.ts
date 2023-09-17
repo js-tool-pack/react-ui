@@ -1,5 +1,6 @@
 import { LIFE_CIRCLE, STATUS } from '../transition.enums';
 import type { CB } from '../transition.types';
+import { emptyFn } from '@tool-pack/basic';
 
 export const ENTER_KEYS = [
   'onBeforeEnter',
@@ -10,7 +11,7 @@ export const ENTER_KEYS = [
   'onEnterExpired',
   'onAfterEnter',
 ] as const;
-type ENTER_KEYS_UNION = (typeof ENTER_KEYS)[number];
+type EnterKeysUnion = (typeof ENTER_KEYS)[number];
 export const LEAVE_KEYS = [
   'onBeforeLeave',
   'onLeaveReady',
@@ -20,9 +21,9 @@ export const LEAVE_KEYS = [
   'onLeaveExpired',
   'onAfterLeave',
 ] as const;
-type LEAVE_KEYS_UNION = (typeof LEAVE_KEYS)[number];
+type LeaveKeysUnion = (typeof LEAVE_KEYS)[number];
 export const OTHER_KEYS = ['onInvisible', 'onIdle'] as const;
-type OTHER_KEYS_UNION = (typeof OTHER_KEYS)[number];
+type OtherKeysUnion = (typeof OTHER_KEYS)[number];
 
 export const ORDERS = [
   LIFE_CIRCLE.before,
@@ -37,14 +38,15 @@ export const ORDERS = [
 const ENTER_KEYMAP = getKeymap(ENTER_KEYS);
 const LEAVE_KEYMAP = getKeymap(LEAVE_KEYS);
 
-type Cb = (el: HTMLElement) => void;
-
 /**
  * 回调适配器
  */
 export function transitionCBAdapter(
   cbs: Partial<
-    Record<ENTER_KEYS_UNION | LEAVE_KEYS_UNION | OTHER_KEYS_UNION, Cb>
+    Record<
+      EnterKeysUnion | LeaveKeysUnion | OtherKeysUnion,
+      (el: HTMLElement) => void
+    >
   >,
   log = false,
 ): CB {
@@ -57,17 +59,12 @@ export function transitionCBAdapter(
       );
 
     const maches: Record<STATUS, () => void> = {
-      [STATUS.show]() {
-        cbs[ENTER_KEYMAP[lifeCircle]]?.(el);
-      },
-      [STATUS.hide]() {
-        cbs[LEAVE_KEYMAP[lifeCircle]]?.(el);
-      },
+      [STATUS.show]: () => cbs[ENTER_KEYMAP[lifeCircle]]?.(el),
+      [STATUS.hide]: () => cbs[LEAVE_KEYMAP[lifeCircle]]?.(el),
       [STATUS.invisible]: () => cbs.onInvisible?.(el),
       [STATUS.idle]: () => cbs.onIdle?.(el),
       // none实际上是不可能出现的，因为 status none 不会触发回调
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      [STATUS.none]: () => {},
+      [STATUS.none]: emptyFn,
     };
 
     maches[status]();

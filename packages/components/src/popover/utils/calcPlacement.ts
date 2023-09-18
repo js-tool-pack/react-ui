@@ -1,5 +1,6 @@
 import type { Placement_12, Placement } from '@pkg/shared';
 import { calcDistanceWithParent } from '@tool-pack/dom';
+import { type Size, getSize } from './_getSize';
 
 /**
  * 计算上下左右4个方位是否可以放得下窗体
@@ -75,56 +76,4 @@ export function calcPlacement(
   }
 
   return split.join('-') as Placement_12;
-}
-
-interface Size {
-  height: number;
-  width: number;
-}
-function getSize(el: HTMLElement): Size {
-  return { height: el.offsetHeight, width: el.offsetWidth };
-}
-
-export function calcPosition(
-  triggerEl: HTMLElement,
-  balloonEl: HTMLElement,
-  placement: Placement_12 = 'top',
-  offset = 10,
-  [distanceT, distanceL]: [number, number] = [0, 0],
-): { x: number; y: number } {
-  const ref = getSize(triggerEl);
-  const rel = getSize(balloonEl);
-
-  const commonFn = {
-    hrzY: () => distanceT - (rel.height - ref.height) / 2,
-    vtcX: () => distanceL + (ref.width - rel.width) / 2,
-    hrzEndY: () => distanceT + ref.height - rel.height,
-    hrzEndX: () => distanceL + ref.width - rel.width,
-    bottomY: () => distanceT + ref.height + offset,
-    rightX: () => distanceL + ref.width + offset,
-    topY: () => distanceT - rel.height - offset,
-    leftX: () => distanceL - rel.width - offset,
-    hrzStartY: () => distanceT,
-    hrzX: () => distanceL,
-  };
-
-  const map: Record<Placement_12, () => { x: number; y: number }> = {
-    'right-start': () => ({ y: commonFn.hrzStartY(), x: commonFn.rightX() }),
-    'bottom-end': () => ({ x: commonFn.hrzEndX(), y: commonFn.bottomY() }),
-    'left-start': () => ({ y: commonFn.hrzStartY(), x: commonFn.leftX() }),
-
-    'bottom-start': () => ({ y: commonFn.bottomY(), x: commonFn.hrzX() }),
-    'right-end': () => ({ y: commonFn.hrzEndY(), x: commonFn.rightX() }),
-    'left-end': () => ({ y: commonFn.hrzEndY(), x: commonFn.leftX() }),
-
-    'top-end': () => ({ x: commonFn.hrzEndX(), y: commonFn.topY() }),
-    'top-start': () => ({ x: commonFn.hrzX(), y: commonFn.topY() }),
-    bottom: () => ({ y: commonFn.bottomY(), x: commonFn.vtcX() }),
-
-    right: () => ({ x: commonFn.rightX(), y: commonFn.hrzY() }),
-    left: () => ({ x: commonFn.leftX(), y: commonFn.hrzY() }),
-    top: () => ({ x: commonFn.vtcX(), y: commonFn.topY() }),
-  };
-
-  return map[placement]();
 }

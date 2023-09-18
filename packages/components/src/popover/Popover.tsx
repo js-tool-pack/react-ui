@@ -5,15 +5,11 @@ import {
   useAppendTo,
 } from '@pkg/shared';
 import {
-  useResizeObserver,
-  useShowController,
-  usePosition,
-} from './popover.hooks';
-import {
   transitionCBAdapter,
   type TransitionCB,
   Transition,
 } from '~/transition';
+import { useResizeObserver, useShowController, usePosition } from './hooks';
 import type { RequiredPart } from '@tool-pack/types';
 import type { PopoverProps } from './popover.types';
 import { getClassNames } from '@tool-pack/basic';

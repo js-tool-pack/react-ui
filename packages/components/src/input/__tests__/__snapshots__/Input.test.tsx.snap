@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input basic 1`] = `
+<div>
+  <label
+    class="t-input"
+  >
+    <input
+      type="text"
+      value=""
+    />
+  </label>
+</div>
+`;
+
+exports[`Input basic 2`] = `
+<div>
+  <label
+    class="t-input"
+  >
+    <input
+      class="hello"
+      type="text"
+      value=""
+    />
+  </label>
+</div>
+`;

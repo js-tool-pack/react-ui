@@ -1,0 +1,7 @@
+@use '../namespace' as Name;
+
+$r: Name.$input;
+
+.#{$r} {
+  columns: var(--t-text-color);
+}

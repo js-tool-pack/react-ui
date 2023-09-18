@@ -29,3 +29,4 @@ export * from './alert';
 export * from './switch';
 export * from './tag';
 export * from './select';
+export * from './input';

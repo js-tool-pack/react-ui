@@ -1,5 +1,4 @@
 import { fireEvent, render, act } from '@testing-library/react';
-import { nextTick } from '@tool-pack/basic';
 import { useState, useRef } from 'react';
 import { Button } from '~/button';
 import { Popover } from '..';
@@ -114,10 +113,10 @@ describe('Popover', () => {
       expect(document.body).toMatchSnapshot();
     });
 
-    test('contextmenu', async () => {
+    test('contextmenu', () => {
       const { container } = render(
         <Popover trigger="contextmenu" content="contextmenu">
-          {/* 不能用 button，因为 contextmenu 事件不能透传给 Button 组件 */}
+          {/* 不能用 Button，因为 contextmenu 事件不能透传给 Button 组件 */}
           {/*<Button className="trigger">鼠标右击触发</Button>*/}
           <div className="trigger">鼠标右击触发</div>
         </Popover>,
@@ -125,9 +124,16 @@ describe('Popover', () => {
 
       expect(document.body).toMatchSnapshot();
       fireEvent.contextMenu(container.querySelector('.trigger')!);
-      await act(() => nextTick());
       act(() => jest.advanceTimersByTime(0));
       expect(document.body).toMatchSnapshot();
+
+      act(() => jest.advanceTimersByTime(500));
+
+      fireEvent.contextMenu(container.querySelector('.trigger')!);
+      act(() => jest.advanceTimersByTime(100));
+      expect(document.querySelector('.t-word-balloon')).not.toHaveClass(
+        't-popover-leave-active',
+      );
     });
 
     test('arr focus', () => {

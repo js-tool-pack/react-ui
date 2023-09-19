@@ -1,4 +1,4 @@
-import { PropsBase } from '@pkg/shared';
+import type { PropsBase, Size } from '@pkg/shared';
 
 interface BaseInputProps extends Omit<PropsBase<HTMLInputElement>, 'children'> {
   attrs?: Partial<React.InputHTMLAttributes<HTMLInputElement>>;
@@ -7,8 +7,25 @@ interface BaseInputProps extends Omit<PropsBase<HTMLInputElement>, 'children'> {
   name?: string;
 }
 
-export interface InputProps extends BaseInputProps {
+interface TextareaProps {
+  autoSize?:
+    | {
+        minRows?: number;
+        maxRows?: number;
+      }
+    | boolean;
+  rows?: number;
+}
+
+export interface InputProps extends BaseInputProps, TextareaProps {
   type?: React.InputHTMLAttributes<HTMLInputElement>['type'];
   onChange?: (value: string) => void;
+  prefix?: React.ReactNode;
+  suffix?: React.ReactNode;
   value?: string | number;
+  placeholder?: string;
+  clearable?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  size?: Size;
 }

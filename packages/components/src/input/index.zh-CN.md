@@ -14,6 +14,12 @@ Input 输入框。
 
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx"></code>
+<code src="./demo/clearable.tsx"></code>
+<code src="./demo/size.tsx"></code>
+<code src="./demo/slots.tsx"></code>
+<code src="./demo/loading.tsx"></code>
+<code src="./demo/textarea.tsx"></code>
+<code src="./demo/auto-size.tsx"></code>
 
 ## API
 

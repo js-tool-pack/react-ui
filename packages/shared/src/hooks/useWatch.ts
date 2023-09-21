@@ -1,3 +1,4 @@
+import { emptyFn } from '@tool-pack/basic';
 import { useRef } from 'react';
 
 export function useWatch<T>(
@@ -5,22 +6,18 @@ export function useWatch<T>(
   cb: (newVal: T, oldVal?: T) => void,
   { immediate }: { immediate?: boolean } = {},
 ): () => void {
-  const oldValRef = useRef(value);
-  const isInitRef = useRef(true);
-  const canceledRef = useRef(false);
+  const ref = useRef({ isMounted: true, canceled: false, oldVal: value });
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  if (canceledRef.current) return () => {};
+  const obj = ref.current;
+  if (obj.canceled) return emptyFn;
 
-  const oldVal = oldValRef.current;
-  oldValRef.current = value;
-  if (oldVal !== value) {
-    cb(value, oldVal);
-  }
+  const { isMounted, oldVal } = obj;
+  obj.oldVal = value;
+  if (oldVal !== value) cb(value, oldVal);
 
   // immediate
-  if (immediate && isInitRef.current) cb(value);
-  isInitRef.current = false;
+  if (immediate && isMounted) cb(value);
+  obj.isMounted = false;
 
-  return () => (canceledRef.current = true);
+  return () => (obj.canceled = true);
 }

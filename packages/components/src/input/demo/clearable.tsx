@@ -7,7 +7,14 @@ import React, { useState } from 'react';
 
 const App: React.FC = () => {
   const [value, setValue] = useState('');
-  return <Input onChange={setValue} value={value} clearable></Input>;
+  return (
+    <Input
+      placeholder="clearable"
+      onChange={setValue}
+      value={value}
+      clearable
+    />
+  );
 };
 
 export default App;

@@ -1,5 +1,5 @@
 /**
- * title: 自动调整尺寸
+ * title: 自适应文本域
  */
 
 import { Input } from '@tool-pack/react-ui';
@@ -29,13 +29,13 @@ const App: React.FC = () => {
       />
       <br />
       <Input
-        value=" 
+        value="
       稚嫩的唇在说离分，我的心里从此住了一个人
-      
+
       曾经模样小小的我们，那年你搬小小的板凳
-      
+
       为戏入迷我也一路跟，我在找那个故事里的人
-      
+
       你是不能缺少的部分，你在树下小小的打盹
       "
         placeholder="autoSize = { minRows: 5, maxRows: 10 }"

@@ -1,10 +1,10 @@
 import type { PropsBase, Size } from '@pkg/shared';
+import React from 'react';
 
 interface BaseInputProps extends Omit<PropsBase<HTMLInputElement>, 'children'> {
   attrs?: Partial<React.InputHTMLAttributes<HTMLInputElement>>;
   rootAttrs?: Partial<React.HTMLAttributes<HTMLLabelElement>>;
   rootRef?: React.ForwardedRef<HTMLLabelElement>;
-  name?: string;
 }
 
 interface TextareaProps {
@@ -18,14 +18,20 @@ interface TextareaProps {
 }
 
 export interface InputProps extends BaseInputProps, TextareaProps {
-  type?: React.InputHTMLAttributes<HTMLInputElement>['type'];
+  countView?: (value: string, wordCount: number) => React.ReactNode;
+  type?: 'textarea' | 'password' | 'text';
+  showPasswordOn?: 'mouseDown' | 'click';
   onChange?: (value: string) => void;
+  count?: (value: string) => number;
+  status?: 'warning' | 'error';
   prefix?: React.ReactNode;
   suffix?: React.ReactNode;
-  value?: string | number;
   placeholder?: string;
+  showCount?: boolean;
   clearable?: boolean;
+  maxLength?: number;
   disabled?: boolean;
   loading?: boolean;
+  value?: string;
   size?: Size;
 }

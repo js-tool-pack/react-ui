@@ -1,6 +1,7 @@
 import type { ConvertOptional } from '@tool-pack/types';
 import type { InputProps } from '../input.types';
 import { Textarea } from './Textarea';
+import { Input } from './Input';
 import React from 'react';
 
 interface Props
@@ -24,12 +25,12 @@ interface Props
 }
 
 export const InnerInput: React.FC<Props> = React.forwardRef<HTMLElement, Props>(
-  (
-    {
-      placeholder,
-      attrs = {},
+  (props, ref) => {
+    const { attrs = {} } = props;
+    const {
+      placeholder = attrs.placeholder,
+      disabled = attrs.disabled,
       autoSize,
-      disabled,
       onChange,
       onResize,
       onFocus,
@@ -37,9 +38,7 @@ export const InnerInput: React.FC<Props> = React.forwardRef<HTMLElement, Props>(
       value,
       type,
       rows,
-    },
-    ref,
-  ) => {
+    } = props;
     if (type === 'textarea')
       return (
         <Textarea
@@ -57,11 +56,11 @@ export const InnerInput: React.FC<Props> = React.forwardRef<HTMLElement, Props>(
         />
       );
     return (
-      <input
+      <Input
         {...attrs}
-        placeholder={placeholder || attrs.placeholder}
         ref={ref as React.RefObject<HTMLInputElement>}
         type={type || attrs.type || 'text'}
+        placeholder={placeholder}
         onChange={_onChange}
         disabled={disabled}
         onFocus={_onFocus}

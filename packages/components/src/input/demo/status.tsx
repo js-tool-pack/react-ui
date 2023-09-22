@@ -1,5 +1,5 @@
 /**
- * title: 文本域
+ * title: 状态
  */
 
 import { Input } from '@tool-pack/react-ui';
@@ -8,9 +8,9 @@ import React from 'react';
 const App: React.FC = () => {
   return (
     <>
-      <Input placeholder="textarea" type="textarea" clearable rows={5} />
+      <Input placeholder="select" status="warning" />
       <br />
-      <Input placeholder="textarea disabled" type="textarea" disabled />
+      <Input placeholder="select" status="error" />
     </>
   );
 };

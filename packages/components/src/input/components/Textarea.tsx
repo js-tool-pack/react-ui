@@ -25,7 +25,6 @@ export const Textarea: React.FC<Props> = React.forwardRef<
   const isInitRef = useRef(true);
 
   useEffect(() => {
-    console.log('111');
     if (!autoSize) return;
     if (isInitRef.current) {
       isInitRef.current = false;
@@ -42,7 +41,6 @@ export const Textarea: React.FC<Props> = React.forwardRef<
   function emitResize(): void {
     const el = inputRef.current;
     if (!el) return;
-    console.log('123');
 
     memoHeightDecor(el, () => onInputResize(calcSize(el)));
 

@@ -9,9 +9,9 @@ $r: Name.$input;
   --t-select-active-border-color: var(--t-color-primary-a-2);
   --t-select-active-box-shadow: 0 0 0 2px var(--t-color-primary-a-6);
 
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 2px;
   padding: 2px var(--t-radius);
   min-width: 120px;
   min-height: var(--t-size);
@@ -19,6 +19,7 @@ $r: Name.$input;
   border-radius: var(--t-radius);
   background-color: var(--t-select-bg-color);
   box-shadow: var(--t-select-box-shadow);
+  gap: 2px;
   transition-property: color, background-color, border-color, box-shadow;
   transition-duration: var(--t-transition-duration);
   box-sizing: border-box;
@@ -36,6 +37,7 @@ $r: Name.$input;
   > input {
     overflow: hidden;
     padding: 0;
+    height: 100%;
   }
   > textarea {
     overflow: auto;
@@ -43,7 +45,7 @@ $r: Name.$input;
     padding: var(--t-radius);
     height: 100%;
     resize: none;
-    line-height: 1.2;
+    line-height: 1.5;
   }
 
   // :
@@ -51,24 +53,22 @@ $r: Name.$input;
     &:not(.#{$r}--disabled) {
       border-color: var(--t-select-active-border-color);
     }
-
-    &.#{$r}--selected.#{$r}--clearable {
-      .#{$selection}__clear {
-        display: block;
-      }
-
-      .#{$selection}__icon {
-        opacity: 0;
-      }
-    }
   }
 
   // status
   &--textarea {
     overflow: auto;
     padding: 0;
-    &:not(.#{$r}--disabled) {
+    &:not(.#{$r}--disabled):not(.#{$r}--autosize) {
       resize: vertical;
+    }
+    .#{$r}__suffix {
+      padding-right: 4px;
+    }
+    .#{$r}__count {
+      position: absolute;
+      right: 8px;
+      bottom: 6px;
     }
   }
   &--active,
@@ -99,20 +99,33 @@ $r: Name.$input;
   }
 
   // children
+  &__prefix,
   &__suffix {
     display: flex;
     align-items: center;
-    margin-left: var(--t-radius);
     gap: 2px;
   }
   &__icon {
     font-size: 0.8em;
+    transition: color 0.5s;
+  }
+  &__count {
+    font-size: 0.8em;
+  }
+  &__clear,
+  &__switch {
+    cursor: pointer;
+    color: var(--t-color-info-a-4);
   }
   &__clear {
     // position: absolute;
-    cursor: pointer;
-    color: var(--t-color-info-a-4);
     opacity: 0;
+    &:hover {
+      color: var(--t-color-info);
+    }
+  }
+  &__switch {
+    font-size: 1em;
     &:hover {
       color: var(--t-color-info);
     }

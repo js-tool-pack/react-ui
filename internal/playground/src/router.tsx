@@ -131,6 +131,11 @@ export const baseRouter = [
     name: 'select 选择器',
     path: '/select',
   },
+  {
+    element: getDemos(import.meta.glob('~/input/demo/*.tsx')),
+    name: 'input 输入框',
+    path: '/input',
+  },
   /*insert target*/
 ];
 

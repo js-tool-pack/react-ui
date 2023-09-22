@@ -22,7 +22,7 @@ const env = process.env['NODE_ENV'] as ENV;
 
 export default defineConfig({
   ...map[env],
-  mfsu: true,
+  // mfsu: true, // windows 系统开启该选项会启动不了
   outputPath: 'docs-dist',
   themeConfig: {
     name: 'react-ui',
@@ -63,16 +63,22 @@ export default defineConfig({
   ],
   alias: {
     '@tool-pack/react-ui': Path.resolve(__dirname, 'packages/react-ui/src'),
-    ...pkgs.reduce((prev, cur) => {
-      prev['@pkg/' + cur] = Path.resolve(__dirname, `packages/${cur}/src`);
-      return prev;
-    }, {} as Record<string, string>),
-    ...components.reduce((prev, cur) => {
-      prev['~/' + cur] = Path.resolve(
-        __dirname,
-        `packages/components/src/${cur}`,
-      );
-      return prev;
-    }, {} as Record<string, string>),
+    ...pkgs.reduce(
+      (prev, cur) => {
+        prev['@pkg/' + cur] = Path.resolve(__dirname, `packages/${cur}/src`);
+        return prev;
+      },
+      {} as Record<string, string>,
+    ),
+    ...components.reduce(
+      (prev, cur) => {
+        prev['~/' + cur] = Path.resolve(
+          __dirname,
+          `packages/components/src/${cur}`,
+        );
+        return prev;
+      },
+      {} as Record<string, string>,
+    ),
   },
 });

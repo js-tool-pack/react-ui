@@ -13,3 +13,5 @@ export * from './right.icon';
 export * from './down.icon';
 export * from './left.icon';
 export * from './selected.icon';
+export * from './eye.icon';
+export * from './eye-invisible.icon';

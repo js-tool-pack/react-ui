@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "shared",
+			"path": "packages/shared"
+		},
+		{
+			"name": "icons",
+			"path": "packages/icons"
+		},
+		{
+			"name": "react-ui",
+			"path": "packages/react-ui"
+		},
+		{
+			"name": "components",
+			"path": "packages/components"
+		},
+		{
+			"name": "playground",
+			"path": "internal/playground"
+		}
+	],
+	"settings": {
+		"jest.disabledWorkspaceFolders": [
+			"icons",
+			"react-ui",
+			"playground"
+		]
+	}
+}

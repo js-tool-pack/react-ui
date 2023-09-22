@@ -12,7 +12,7 @@ $r: Name.$option;
   --t-option-padding: var(--t-radius);
   --t-option-color: var(--t-text-color);
   --t-option-active-color: white;
-  --t-option-diabled-color: var(--t-disabled-text-color);
+  --t-option-disabled-color: var(--t-disabled-text-color);
   --t-option-bg-color: var(--t-bg-color);
   --t-option-border-radius: var(--t-radius);
   --t-option-transition-duration: var(--t-transition-duration);
@@ -32,10 +32,10 @@ $r: Name.$option;
   transition-property: background-color, color;
   transition-duration: var(--t-option-transition-duration);
   &--readonly {
-    --t-option-color: var(--t-option-diabled-color);
+    --t-option-color: var(--t-option-disabled-color);
   }
   &[disabled] {
-    --t-option-color: var(--t-option-diabled-color);
+    --t-option-color: var(--t-option-disabled-color);
 
     cursor: not-allowed;
   }

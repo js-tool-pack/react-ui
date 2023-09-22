@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./",
+    "target": "ESNext",
     "baseUrl": "./",
     "types": ["vite/client"],
     "paths": {

@@ -14,7 +14,7 @@ importers:
       '@tool-pack/basic': ^0.1.2
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': ^0.0.13
-      '@tool-pack/types': ^0.0.9
+      '@tool-pack/types': ^0.2.0
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.4
       '@types/node': ^20.5.6
@@ -82,7 +82,7 @@ importers:
       '@tool-pack/basic': 0.1.2
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': 0.0.13
-      '@tool-pack/types': 0.0.9
+      '@tool-pack/types': 0.2.0
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.4
       '@types/node': 20.5.6
@@ -157,11 +157,11 @@ importers:
 
   packages/react-ui:
     specifiers:
-      '@tool-pack/types': ^0.0.6
+      '@tool-pack/types': ^0.2.0
       react: ^18.2.0
       react-dom: ^18.2.0
     dependencies:
-      '@tool-pack/types': 0.0.6
+      '@tool-pack/types': 0.2.0
     devDependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
@@ -4903,10 +4903,10 @@ packages:
 
   /@tool-pack/types/0.0.6:
     resolution: {integrity: sha512-V2puQW1R2ufXhhHtGy7v5Kt/ulwfpEc87NK8iADwySU058oebY7gv+SdgehgTmbf6H2odqilcH5DeY8Acmhaww==}
-
-  /@tool-pack/types/0.0.9:
-    resolution: {integrity: sha512-Lfog7tSksvgArWAYRaaB4PCOVpzzE/iQ5bqvCaOmIZtL06CzapscJKPcpWZKIa025VPfb4TKXpayT9aAFZYbDw==}
     dev: true
+
+  /@tool-pack/types/0.2.0:
+    resolution: {integrity: sha512-JZQyhUT6UpSC+j6hI6x6hSyF70SdRLPVBNU+NZQRDnsLhDtehK2Em9ATHMYwzPfpOE+RrKVfqHVleqEmbXM+8w==}
 
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}

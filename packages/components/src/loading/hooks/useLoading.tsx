@@ -1,7 +1,7 @@
-import type { LoadingProps } from './loading.types';
+import type { LoadingProps } from '../loading.types';
 import { createRoot } from 'react-dom/client';
 import { useEffect, useState } from 'react';
-import { Loading } from './Loading';
+import { Loading } from '../Loading';
 
 /**
  * 调用hook开启loading，无需挂靠render

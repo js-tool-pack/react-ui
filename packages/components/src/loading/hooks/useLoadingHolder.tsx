@@ -1,6 +1,6 @@
-import type { LoadingProps } from './loading.types';
+import type { LoadingProps } from '../loading.types';
 import React, { useState, useMemo } from 'react';
-import { Loading } from './Loading';
+import { Loading } from '../Loading';
 
 /**
  * 调用hook开启loading
@@ -9,7 +9,14 @@ import { Loading } from './Loading';
  *
  * @param props Loading组件的props
  */
-export function useLoadingHolder(props: Partial<LoadingProps> = {}) {
+export function useLoadingHolder(props: Partial<LoadingProps> = {}): [
+  loading: {
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    toggle: () => void;
+    visible: boolean;
+  },
+  holder: React.ReactNode,
+] {
   const { visible = true, ...rest } = props;
   // 可以通过外面传入的visible控制显隐
   const [_visible, setVisible] = useState(visible);
@@ -28,5 +35,5 @@ export function useLoadingHolder(props: Partial<LoadingProps> = {}) {
       setVisible,
     },
     contextHolder,
-  ] as const;
+  ];
 }

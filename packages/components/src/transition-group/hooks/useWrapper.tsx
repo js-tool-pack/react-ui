@@ -1,4 +1,4 @@
-import type { TransitionGroupProps, ChildMap } from './transition-group.types';
+import type { TransitionGroupProps, ChildMap } from '../transition-group.types';
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
 import { getComponentClass } from '@pkg/shared';

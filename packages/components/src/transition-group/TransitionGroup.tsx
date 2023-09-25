@@ -1,9 +1,7 @@
 import type { TransitionGroupProps } from './transition-group.types';
+import { useChildMap, useWrapper, useFlips } from './hooks';
 import { RequiredPart } from '@tool-pack/types';
-import { useChildMap } from './useChildMap';
 import { useForwardRef } from '@pkg/shared';
-import { useWrapper } from './useWrapper';
-import { useFlips } from './useFlips';
 import React from 'react';
 
 /**

@@ -1,5 +1,5 @@
-import { applyTranslation } from './transition-group.utils';
-import type { ChildMap } from './transition-group.types';
+import { applyTranslation } from '../transition-group.utils';
+import type { ChildMap } from '../transition-group.types';
 import React, { useLayoutEffect, useRef } from 'react';
 
 export function useFlips(

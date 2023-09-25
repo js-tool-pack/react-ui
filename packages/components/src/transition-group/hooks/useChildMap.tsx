@@ -1,5 +1,5 @@
 import { type TransitionProps, transitionCBAdapter } from '@pkg/components';
-import type { ChildMap } from './transition-group.types';
+import type { ChildMap } from '../transition-group.types';
 import React, { useEffect, useState } from 'react';
 import { useIsInitDep } from '@pkg/shared';
 export function useChildMap(children: React.ReactNode, name: string) {

@@ -1,9 +1,5 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
-import { CollapseTransition } from '@pkg/components';
-import { Loading as LoadingIcon } from '@pkg/icons';
-import type { ButtonProps } from './button.types';
+import React, { useEffect, useState, useRef } from 'react';
 import { getClassNames } from '@tool-pack/basic';
-import { Icon } from '~/icon';
 
 export function useBtnWave(
   rootClass: string,
@@ -51,23 +47,4 @@ export function useBtnWave(
   );
 
   return [wave, activateWave];
-}
-
-export function useBtnIcon(
-  rootClass: string,
-  icon: ButtonProps['icon'],
-  loading: ButtonProps['loading'],
-): React.ReactElement {
-  return useMemo(() => {
-    const className = `${rootClass}__icon`;
-    const Loading = (
-      <Icon className={className} key="loading-icon">
-        <LoadingIcon />
-      </Icon>
-    );
-
-    if (icon)
-      return loading ? Loading : <Icon className={className}>{icon}</Icon>;
-    return <CollapseTransition width>{loading && Loading}</CollapseTransition>;
-  }, [loading, icon]);
 }

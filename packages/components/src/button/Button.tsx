@@ -1,17 +1,24 @@
-import {
-  getComponentClass,
-  CLASS_SIZE_LG,
-  CLASS_SIZE_SM,
-  CLASS_SIZE_M,
-} from '@pkg/shared';
+import { getSizeClassName, getClasses } from '@pkg/shared';
 import { ButtonContext } from '~/button/button.context';
-import { useBtnIcon, useBtnWave } from './button.hooks';
 import type { RequiredPart } from '@tool-pack/types';
 import type { ButtonProps } from './button.types';
 import { getClassNames } from '@tool-pack/basic';
+import { useBtnWave, useBtnIcon } from './hooks';
 import React, { useContext } from 'react';
 
-const rootClass = getComponentClass('button');
+const cls = getClasses(
+  'button',
+  ['icon'],
+  [
+    'plain-dashed',
+    'plain-text',
+    'plain',
+    'icon-l',
+    'icon-r',
+    'icon-only',
+    'loading',
+  ],
+);
 const defaultProps = {
   shape: 'default',
   type: 'default',
@@ -43,8 +50,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       keyof typeof defaultProps
     >;
 
-    const [btnWave, activateWave] = useBtnWave(rootClass);
-    const btnIcon = useBtnIcon(rootClass, icon, loading);
+    const [btnWave, activateWave] = useBtnWave(cls.root);
+    const btnIcon = useBtnIcon(cls.root, icon, loading);
 
     const clickHandler: React.MouseEventHandler<HTMLButtonElement> = (
       e,
@@ -61,24 +68,22 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         {...attrs}
         className={getClassNames(
-          rootClass,
+          cls.root,
           className,
           attrs.className,
-          `${rootClass}--type-${type}`,
+          `${cls.root}--type-${type}`,
           {
-            [`${rootClass}--shape-${shape}`]: shape !== 'default',
-            [`${rootClass}--plain-dashed`]: plain === 'dashed',
+            [`${cls.root}--shape-${shape}`]: shape !== 'default',
+            [cls['--']['plain-dashed']]: plain === 'dashed',
             // 默认也要显示，否则 loading 出入场动画会不流畅
-            [`${rootClass}--icon-l`]: !iconOnly && !rightIcon,
-            [`${rootClass}--icon-r`]: !iconOnly && rightIcon,
-            [`${rootClass}--plain-text`]: plain === 'text',
-            [`${rootClass}--plain`]: plain === true,
-            [`${rootClass}--icon-only`]: iconOnly,
-            [`${rootClass}--loading`]: loading,
-            [CLASS_SIZE_SM]: size === 'small',
-            [CLASS_SIZE_M]: size === 'medium',
-            [CLASS_SIZE_LG]: size === 'large',
+            [cls['--']['icon-l']]: !iconOnly && !rightIcon,
+            [cls['--']['icon-r']]: !iconOnly && rightIcon,
+            [cls['--']['plain-text']]: plain === 'text',
+            [cls['--']['plain']]: plain === true,
+            [cls['--']['icon-only']]: iconOnly,
+            [cls['--']['loading']]: loading,
           },
+          getSizeClassName(size),
         )}
         onClick={clickHandler}
         disabled={disabled}

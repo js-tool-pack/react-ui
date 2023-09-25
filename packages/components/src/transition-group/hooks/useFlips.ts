@@ -1,6 +1,6 @@
-import { applyTranslation } from '../transition-group.utils';
 import type { ChildMap } from '../transition-group.types';
 import React, { useLayoutEffect, useRef } from 'react';
+import { applyTranslation } from '../utils';
 
 export function useFlips(
   wrapperRef: React.MutableRefObject<HTMLElement | null>,

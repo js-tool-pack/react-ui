@@ -25,6 +25,7 @@ import { transitionCBAdapter } from '~/transition';
 import { getClassNames } from '@tool-pack/basic';
 import { useEsc } from '~/dialog/dialog.hooks';
 import { Popover } from '~/popover';
+import PropTypes from 'prop-types';
 
 const cls = getClasses(
   'select',
@@ -293,6 +294,9 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
   }
 });
 
+_Select.propTypes = {
+  options: PropTypes.array.isRequired,
+};
 _Select.defaultProps = defaultProps;
 _Select.displayName = 'Select';
 

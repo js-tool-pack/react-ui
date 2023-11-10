@@ -136,6 +136,11 @@ export const baseRouter = [
     name: 'input 输入框',
     path: '/input',
   },
+  {
+    element: getDemos(import.meta.glob('~/image/demo/*.tsx')),
+    name: 'image 图像',
+    path: '/image',
+  },
   /*insert target*/
 ];
 

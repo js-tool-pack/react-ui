@@ -1,0 +1,7 @@
+@use '../namespace' as Name;
+
+$r: Name.$image;
+
+.#{$r} {
+  display: inline-block;
+}

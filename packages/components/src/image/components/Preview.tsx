@@ -1,28 +1,37 @@
+import type { ImagePreviewProps } from '~/image/image.types';
+import { useUniqueRoot, getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import type { ImageProps } from '~/image';
-import { getClasses } from '@pkg/shared';
+import { createPortal } from 'react-dom';
 import React from 'react';
 
-const cls = getClasses('image', [], []);
-const defaultProps = {} satisfies Partial<ImageProps>;
+const cls = getClasses('imagePreview', [], []);
+const defaultProps = {} satisfies Partial<ImagePreviewProps>;
 
-export const Preview: React.FC<ImageProps> = React.forwardRef<
+export const ImagePreview: React.FC<ImagePreviewProps> = React.forwardRef<
   HTMLDivElement,
-  ImageProps
+  ImagePreviewProps
 >((props, ref) => {
-  const { attrs = {} } = props as RequiredPart<
-    ImageProps,
+  const { attrs = {}, images } = props as RequiredPart<
+    ImagePreviewProps,
     keyof typeof defaultProps
   >;
-  return (
+
+  const root = useUniqueRoot(cls.root);
+
+  return createPortal(
     <div
       {...attrs}
       className={getClassNames(cls.root, attrs.className)}
       ref={ref}
-    ></div>
+    >
+      {images.map((i) => (
+        <img src={i} alt="" />
+      ))}
+    </div>,
+    root.current!,
   );
 });
 
-Preview.defaultProps = defaultProps;
-Preview.displayName = 'Image';
+ImagePreview.defaultProps = defaultProps;
+ImagePreview.displayName = 'Image';

@@ -30,3 +30,4 @@ export * from './switch';
 export * from './tag';
 export * from './select';
 export * from './input';
+export * from './image';

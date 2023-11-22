@@ -16,3 +16,4 @@ export * from './useMounted';
 export * from './useEventListenerOnMounted';
 export * from './useBeforeDestroy';
 export * from './useValueWithPrev';
+export * from './useUniqueRoot';

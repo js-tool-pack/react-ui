@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image basic 1`] = `
+<body>
+  <div>
+    <div
+      class="t-image t-image--preview"
+    >
+      <img
+        class="t-image__img"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Image preview disabled 1`] = `
+<body>
+  <div>
+    <div
+      class="t-image"
+    >
+      <img
+        class="t-image__img"
+      />
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Image preview enabled 1`] = `
+<body>
+  <div>
+    <div
+      class="t-image t-image--preview"
+    >
+      <img
+        class="t-image__img"
+      />
+    </div>
+  </div>
+</body>
+`;

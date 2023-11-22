@@ -3,7 +3,7 @@ import {
   SelectOptionsItem,
   SelectOption,
   Select,
-} from '..';
+} from '~/select';
 import { fireEvent, render, act } from '@testing-library/react';
 import { getBalloon, $$, $ } from './utils';
 import { emptyFn } from '@tool-pack/basic';

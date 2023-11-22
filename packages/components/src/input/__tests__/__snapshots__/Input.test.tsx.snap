@@ -134,7 +134,7 @@ exports[`Input loading 1`] = `
     class="t-input__suffix"
   >
     <i
-      class="t-icon t-input__loading"
+      class="t-icon t-input__icon t-input__loading"
       role="img"
     >
       <svg

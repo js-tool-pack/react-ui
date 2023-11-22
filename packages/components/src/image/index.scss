@@ -1,7 +1,68 @@
 @use '../namespace' as Name;
 
 $r: Name.$image;
+$p: Name.$image-preview;
+$t: #{Name.$image-preview}-toolbar;
 
 .#{$r} {
-  display: inline-block;
+  display: inline-flex;
+  &--preview {
+    .#{$r}__img {
+      cursor: pointer;
+    }
+  }
+}
+
+.#{$p} {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  background-color: var(--t-mask-bg-color-reverse);
+  &__img {
+    cursor: grab;
+    max-width: 100%;
+    max-height: 100%;
+    transition: all var(--t-transition-duration);
+  }
+  &__toolbar-wrapper {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+  }
+  &__progress {
+    margin-bottom: 20px;
+    color: white;
+  }
+}
+.#{$t} {
+  $h: 48px;
+  $p: 12px;
+
+  display: flex;
+  align-items: center;
+  padding: 0 $p;
+  border-radius: calc($h / 2);
+  line-height: $h;
+  background-color: rgb(0 0 0 / 35%);
+  box-sizing: content-box;
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $h;
+    height: $h;
+    cursor: pointer;
+    color: #d0d0d0;
+    &:hover {
+      color: white;
+    }
+  }
 }

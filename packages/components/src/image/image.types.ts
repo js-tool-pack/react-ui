@@ -9,10 +9,13 @@ export interface ImageProps
     Pick<Partial<HTMLImageElement>, 'height' | 'width' | 'src' | 'alt'> {
   fit?: ImgStyles['objectFit'];
   imgAttrs?: ImgAttrs;
+  fallback?: string;
+  preview?: boolean;
+  lazy?: boolean;
 }
 
 export interface ImagePreviewProps
   extends Omit<PropsBase<HTMLDivElement>, 'children'> {
-  images: string[];
-  index?: number;
+  images: (undefined | string)[];
+  onHide?: () => void;
 }

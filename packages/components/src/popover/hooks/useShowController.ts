@@ -37,15 +37,17 @@ function hoverTriggerHandler(
     fromEvent(balloonElRef.current!, 'mouseleave'),
   ).pipe(retry({ count: 5, delay: 2 }));
 
+  const balloonEnterEvent = defer(() =>
+    fromEvent(balloonElRef.current!, 'mouseenter'),
+  ).pipe(retry({ count: 5, delay: 2 }));
+
   const leaveEvent = merge(triggerLeaveEvent, balloonLeaveEvent)
     .pipe(
       switchMap(() =>
         of(null).pipe(
           delay(leaveDelay),
           takeUntil(triggerMoveEvent),
-          takeUntil(
-            defer(() => fromEvent(balloonElRef.current!, 'mouseenter')),
-          ),
+          takeUntil(balloonEnterEvent),
         ),
       ),
       takeUntil(triggerEnterEvent),

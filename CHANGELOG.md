@@ -1,3 +1,10 @@
+## [0.0.3](https://github.com/js-tool-pack/react-ui/compare/v0.0.2...v0.0.3) (2023-11-23)
+
+### Bug Fixes
+
+- **components/popover:** [#61](https://github.com/js-tool-pack/react-ui/issues/61) ([e81c693](https://github.com/js-tool-pack/react-ui/commit/e81c693e87389ed90a09611927a1ea8892225c95))
+- **components/popover:** 修复鼠标离开时可能rxjs 报错的问题 ([92c18ab](https://github.com/js-tool-pack/react-ui/commit/92c18abc1c460f5637f5079b272281ccb6ee601a))
+
 ## [0.0.2](https://github.com/js-tool-pack/react-ui/compare/v0.0.2-beta.3...v0.0.2) (2023-11-22)
 
 ### Bug Fixes

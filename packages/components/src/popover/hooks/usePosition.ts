@@ -78,6 +78,7 @@ export function usePosition(
     () => {
       _placement.current = placement;
     },
+    _placement.current,
   ] as const;
 }
 

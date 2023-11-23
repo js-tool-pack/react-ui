@@ -68,7 +68,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     () => void,
   ];
 
-  const [refreshPosition, resetPlacement] = usePosition(
+  const [refreshPosition, resetPlacement, _placement] = usePosition(
     childrenRef,
     balloonRef,
     {
@@ -108,7 +108,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
         className: getClassNames(rootName, attrs.className),
       }}
       ref={balloonRef as React.Ref<HTMLDivElement>}
-      placement={placement}
+      placement={_placement}
       showArrow={showArrow}
       key="ballon"
     >

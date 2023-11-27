@@ -20,6 +20,7 @@ export const Resizer: React.FC<ResizerProps> = React.forwardRef<
   const {
     attrs = {},
     placement,
+    onResized,
     min,
     max,
   } = props as RequiredPart<ResizerProps, keyof typeof defaultProps>;
@@ -31,7 +32,7 @@ export const Resizer: React.FC<ResizerProps> = React.forwardRef<
     if (!parent) return;
 
     return onDragEvent(
-      ({ onDown, onMove }) => {
+      ({ onDown, onMove, onUp }) => {
         let h = 0;
         let w = 0;
 
@@ -57,10 +58,16 @@ export const Resizer: React.FC<ResizerProps> = React.forwardRef<
           },
         };
         onMove(handlerMap[placement]);
+
+        onUp((_e, currentXY, downXY) => {
+          if (currentXY.x !== downXY.x || currentXY.y !== downXY.y) {
+            onResized?.();
+          }
+        });
       },
       { el },
     );
-  }, [placement, min, max]);
+  }, [placement, onResized, min, max]);
   return (
     <div
       {...attrs}

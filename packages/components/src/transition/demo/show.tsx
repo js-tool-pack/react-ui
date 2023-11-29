@@ -8,6 +8,7 @@
 
 import { Transition, Button, Space } from '@tool-pack/react-ui';
 import React, { useReducer, useState } from 'react';
+import './base.scss';
 import './fade.scss';
 
 const App: React.FC = () => {

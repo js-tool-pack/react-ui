@@ -5,6 +5,7 @@
 
 import { Transition, Button } from '@tool-pack/react-ui';
 import React, { useReducer } from 'react';
+import './base.scss';
 import './fade.scss';
 
 const App: React.FC = () => {

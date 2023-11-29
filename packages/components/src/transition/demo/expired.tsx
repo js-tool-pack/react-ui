@@ -7,6 +7,7 @@
 
 import { transitionCBAdapter, Transition, Button } from '@tool-pack/react-ui';
 import React, { useReducer } from 'react';
+import './base.scss';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useReducer((prevState) => !prevState, true);

@@ -1,3 +1,14 @@
+## [0.0.4](https://github.com/js-tool-pack/react-ui/compare/v0.0.3...v0.0.4) (2023-11-29)
+
+### Features
+
+- **components/resizer:** 添加组件参数 onResized ([7978736](https://github.com/js-tool-pack/react-ui/commit/7978736a552a8360d160ede596c2cb4c73ed3e62))
+- **components/transition:** 添加对 animation 的支持 ([e9f04df](https://github.com/js-tool-pack/react-ui/commit/e9f04df86c0f04b0d669d934e68af8695f7e02d8))
+
+### Performance Improvements
+
+- **components/resizer:** 简化 resizer 代码 ([3725c75](https://github.com/js-tool-pack/react-ui/commit/3725c756fdacbf1eaa21dae41289d16c69c0f40e))
+
 ## [0.0.3](https://github.com/js-tool-pack/react-ui/compare/v0.0.2...v0.0.3) (2023-11-23)
 
 ### Bug Fixes

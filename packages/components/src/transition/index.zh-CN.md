@@ -51,6 +51,7 @@ Transition 会在一个元素或组件进入和离开 DOM 时应用动画，类�
 <code src="./demo/show.tsx"></code>
 <code src="./demo/expired.tsx"></code>
 <code src="./demo/show-appear.tsx"></code>
+<code src="./demo/animation.tsx"></code>
 
 ## API
 

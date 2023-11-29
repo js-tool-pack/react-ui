@@ -1,0 +1,10 @@
+.transition-box {
+  position: relative;
+  margin: auto;
+  width: 200px;
+  height: 60px;
+  > div {
+    position: absolute;
+    width: 200px;
+  }
+}

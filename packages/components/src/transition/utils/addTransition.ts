@@ -39,9 +39,18 @@ export function addTransition({
   function addListener() {
     sub?.unsubscribe();
 
-    const startEvent = fromEvent<TransitionEvent>(el, 'transitionstart');
-    const endEvent = fromEvent<TransitionEvent>(el, 'transitionend');
-    const cancelEvent = fromEvent<TransitionEvent>(el, 'transitioncancel');
+    const startEvent = merge(
+      fromEvent<TransitionEvent>(el, 'transitionstart'),
+      fromEvent(el, 'animationstart'),
+    );
+    const endEvent = merge(
+      fromEvent<TransitionEvent>(el, 'transitionend'),
+      fromEvent(el, 'animationend'),
+    );
+    const cancelEvent = merge(
+      fromEvent<TransitionEvent>(el, 'transitioncancel'),
+      fromEvent(el, 'animationcancel'),
+    );
 
     enum RaceType {
       Transition,
@@ -69,7 +78,7 @@ export function addTransition({
     ).subscribe();
 
     function filterTarget() {
-      return filter<TransitionEvent>((value) => value.target === el);
+      return filter<Event>((value) => value.target === el);
     }
     function onStart() {
       on(LIFE_CIRCLE.start);

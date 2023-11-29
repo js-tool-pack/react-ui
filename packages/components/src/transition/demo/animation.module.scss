@@ -1,0 +1,31 @@
+$r: 'ani';
+.root {
+  :global {
+    // 因为 css module 编译成 css 后 @keyframes 名字会改成哈希值，
+    // 加上 :local 可以保持同步
+    .#{$r}-enter-active:local {
+      animation: ani-scale 2s both;
+    }
+    .#{$r}-leave-active:local {
+      animation: ani-scale 2s both reverse;
+    }
+    button:not(.t-button) {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+@keyframes ani-scale {
+  0% {
+    width: 30%;
+    height: 10%;
+  }
+  50% {
+    width: 50%;
+    height: 75%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+  }
+}

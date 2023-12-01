@@ -1,3 +1,9 @@
+## [0.0.5](https://github.com/js-tool-pack/react-ui/compare/v0.0.4...v0.0.5) (2023-12-01)
+
+### Bug Fixes
+
+- **components/popover:** 修复 destroyOnHide 为 true 时 hover 离开窗体有可能不会关闭的问题 ([109cafc](https://github.com/js-tool-pack/react-ui/commit/109cafcbc82fb513f9a0f2662cc599963b6e816d)), closes [#63](https://github.com/js-tool-pack/react-ui/issues/63)
+
 ## [0.0.4](https://github.com/js-tool-pack/react-ui/compare/v0.0.3...v0.0.4) (2023-11-29)
 
 ### Features

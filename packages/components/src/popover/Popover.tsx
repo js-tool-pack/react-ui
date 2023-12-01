@@ -90,7 +90,6 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     {
       onVisibleChange,
       leaveDelay,
-      children,
       disabled,
       visible,
       trigger,

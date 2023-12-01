@@ -79,7 +79,8 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
       offset,
     },
   );
-  const show = useShowController(
+
+  const [show, enterBalloonSubject, leaveBalloonSubject] = useShowController(
     childrenRef,
     balloonRef,
     refreshPosition,
@@ -105,6 +106,14 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     <WordBalloon
       attrs={{
         ...attrs,
+        onMouseEnter(e) {
+          attrs.onMouseEnter?.(e);
+          enterBalloonSubject.current.next();
+        },
+        onMouseLeave(e) {
+          attrs.onMouseLeave?.(e);
+          leaveBalloonSubject.current.next();
+        },
         className: getClassNames(rootName, attrs.className),
       }}
       ref={balloonRef as React.Ref<HTMLDivElement>}

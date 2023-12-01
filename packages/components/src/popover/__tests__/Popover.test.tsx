@@ -4,6 +4,10 @@ import { Button } from '~/button';
 import { Popover } from '..';
 
 describe('Popover', () => {
+  function getBalloon() {
+    return document.querySelector('.t-word-balloon') as HTMLElement;
+  }
+
   jest.useFakeTimers();
   test('attrs', () => {
     const onClick = jest.fn();
@@ -398,9 +402,79 @@ describe('Popover', () => {
     act(() => jest.advanceTimersByTime(0));
     act(() => jest.advanceTimersByTime(300));
     expect(getBalloon()).toMatchSnapshot();
+  });
 
-    function getBalloon() {
-      return document.querySelector('.t-word-balloon') as HTMLElement;
-    }
+  describe('hovers', () => {
+    const getBtn = () => document.querySelector('button')!;
+    const Actions = {
+      enterBalloon: () => fireEvent.mouseEnter(getBalloon()),
+      leaveBalloon: () => fireEvent.mouseLeave(getBalloon()),
+      enterTrigger: () => fireEvent.mouseEnter(getBtn()),
+      leaveTrigger: () => fireEvent.mouseLeave(getBtn()),
+    };
+
+    it('destroyOnHide 快速 hover', () => {
+      jest.useFakeTimers();
+      const App = () => {
+        const visibleRef = useRef(false);
+        return (
+          <Popover
+            onVisibleChange={(visible) => (visibleRef.current = visible)}
+            destroyOnHide
+            content="1"
+          >
+            <button>hover</button>
+          </Popover>
+        );
+      };
+      render(<App />);
+
+      expect(getBalloon()).toBeNull();
+      Actions.enterTrigger();
+      expect(getBalloon()).not.toBeNull();
+
+      Actions.leaveTrigger();
+      expect(getBalloon()).not.toBeNull();
+      Actions.enterBalloon();
+      expect(getBalloon()).not.toBeNull();
+      Actions.leaveBalloon();
+      Actions.enterTrigger();
+      Actions.leaveTrigger();
+      Actions.enterBalloon();
+      Actions.leaveBalloon();
+
+      act(() => jest.advanceTimersByTime(500));
+      expect(getBalloon()).toBeNull();
+    });
+    it('balloon 快速 hover', () => {
+      jest.useFakeTimers();
+      render(
+        <Popover content="1">
+          <button>hover</button>
+        </Popover>,
+      );
+
+      expect(getBalloon()).toBeNull();
+      Actions.enterTrigger();
+      expect(getBalloon()).not.toBeNull();
+
+      act(() => jest.advanceTimersByTime(500));
+
+      Actions.leaveTrigger();
+      expect(getBalloon()).not.toHaveClass('t-popover-leave-active');
+      Actions.enterBalloon();
+      Actions.leaveBalloon();
+      expect(getBalloon()).not.toHaveClass('t-popover-leave-active');
+      Actions.enterBalloon();
+      Actions.leaveBalloon();
+
+      // 第一次是退出延时
+      act(() => jest.advanceTimersByTime(200));
+      expect(getBalloon()).not.toHaveClass('t-transition--invisible');
+      // 第二次是动画延时
+      // 需要两次才会有 t-transition--invisible
+      act(() => jest.advanceTimersByTime(500));
+      expect(getBalloon()).toHaveClass('t-transition--invisible');
+    });
   });
 });

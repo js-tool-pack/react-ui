@@ -5,49 +5,43 @@ import {
   switchMap,
   takeUntil,
   takeWhile,
-  defer,
+  Subject,
   delay,
   merge,
-  retry,
   take,
   tap,
   of,
 } from 'rxjs';
+import { useBeforeDestroy, fromOuterEvent, useNextEffect } from '@pkg/shared';
 import { PopoverRequiredPartProps } from '~/popover/Popover';
-import { fromOuterEvent, useNextEffect } from '@pkg/shared';
 import React, { useEffect, useState, useRef } from 'react';
 import { castArray, emptyFn } from '@tool-pack/basic';
 import { collectScroller } from '@tool-pack/dom';
 
 function hoverTriggerHandler(
   triggerEl: HTMLElement,
-  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   open: () => void,
   close: () => void,
   enterDelay: number,
   leaveDelay: number,
   show: boolean,
+  enterBalloonSubject: React.MutableRefObject<Subject<void>>,
+  leaveBalloonSubject: React.MutableRefObject<Subject<void>>,
 ) {
   const triggerEnterEvent = fromEvent(triggerEl, 'mouseenter');
   const triggerMoveEvent = fromEvent(triggerEl, 'mousemove');
   const triggerLeaveEvent = fromEvent(triggerEl, 'mouseleave');
 
-  // setShow(true) 之后是异步显示窗体的，此时无法获取窗体dom，所以需要延时一下
-  const balloonLeaveEvent = defer(() =>
-    fromEvent(balloonElRef.current!, 'mouseleave'),
-  ).pipe(retry({ count: 5, delay: 2 }));
-
-  const balloonEnterEvent = defer(() =>
-    fromEvent(balloonElRef.current!, 'mouseenter'),
-  ).pipe(retry({ count: 5, delay: 2 }));
-
-  const leaveEvent = merge(triggerLeaveEvent, balloonLeaveEvent)
+  const leaveEvent = merge(
+    triggerLeaveEvent,
+    leaveBalloonSubject.current.asObservable(),
+  )
     .pipe(
       switchMap(() =>
         of(null).pipe(
           delay(leaveDelay),
           takeUntil(triggerMoveEvent),
-          takeUntil(balloonEnterEvent),
+          takeUntil(enterBalloonSubject.current.asObservable()),
         ),
       ),
       takeUntil(triggerEnterEvent),
@@ -94,6 +88,12 @@ export function useShowController(
 ) {
   const [show, _setShow] = useState(false);
   const nextEffect = useNextEffect();
+  const leaveBalloonSubject = useRef(new Subject<void>());
+  const enterBalloonSubject = useRef(new Subject<void>());
+  useBeforeDestroy(() => {
+    leaveBalloonSubject.current.unsubscribe();
+    enterBalloonSubject.current.unsubscribe();
+  });
 
   // 事件触发启动
   useEffect(() => {
@@ -108,12 +108,13 @@ export function useShowController(
         case 'hover':
           return hoverTriggerHandler(
             el,
-            balloonElRef,
             open,
             close,
             enterDelay,
             leaveDelay,
             show,
+            enterBalloonSubject,
+            leaveBalloonSubject,
           );
         case 'click':
           const triggerClick$ = fromEvent(el, 'click').pipe(
@@ -182,7 +183,7 @@ export function useShowController(
     _setShow(visible);
   }, [visible, disabled]);
 
-  return show;
+  return [show, enterBalloonSubject, leaveBalloonSubject] as const;
 
   function setShow(value: ((prevValue: boolean) => boolean) | boolean): void {
     const onChange: Exclude<typeof onVisibleChange, undefined> = onVisibleChange

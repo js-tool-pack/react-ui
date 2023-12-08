@@ -1,0 +1,183 @@
+@use '../namespace' as Name;
+
+$r: Name.$slider;
+$marks: #{Name.$slider}-marks;
+$dots: #{Name.$slider}-dots;
+
+.#{$r} {
+  $s: 4px;
+  $p: 10px;
+  $hh: 16px;
+  $m1: calc(($hh / 2) * -1);
+  $m2: calc((($hh - $s) / 2) * -1);
+
+  --t-slider-color: var(--t-color-info-l-6);
+  --t-slider-active-color: var(--t-color-primary-a-2);
+  --t-slider-disabled-color: var(--t-color-primary-a-5);
+  --t-slider-mark-margin: 10px;
+  &__rail {
+    position: relative;
+    border-radius: calc($s / 2);
+    background-color: var(--t-slider-color);
+  }
+  &__bar {
+    position: relative;
+    border-radius: calc($s / 2);
+  }
+  &__handler {
+    position: absolute;
+    width: $hh;
+    height: $hh;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow:
+      0 1px 4px 0 var(--t-color-info-a-4),
+      inset 0 0 1px 0 var(--t-color-info-a-7);
+    user-select: none;
+  }
+
+  // status
+  // 禁用
+  &--disabled {
+    .#{$r}__bar {
+      background-color: var(--t-slider-disabled-color);
+    }
+    .#{$r}__handler,
+    .#{$r}__rail {
+      cursor: not-allowed;
+    }
+  }
+  &:not(.#{$r}--disabled) {
+    .#{$r}__bar {
+      background-color: var(--t-slider-active-color);
+    }
+    .#{$r}__handler,
+    .#{$r}__rail {
+      cursor: pointer;
+    }
+  }
+
+  // 竖排
+  &--vertical {
+    display: inline-block;
+    padding: 0 $p;
+    height: 100%;
+    .#{$r}__rail {
+      width: $s;
+      height: 100%;
+    }
+    .#{$r}__bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: $s;
+    }
+    .#{$r}__handler {
+      margin: 0 0 $m1 $m2;
+    }
+  }
+  &:not(.#{$r}--vertical) {
+    padding: $p 0;
+    .#{$r}__bar {
+      height: $s;
+    }
+    .#{$r}__handler {
+      bottom: 0;
+      margin: 0 0 $m2 $m1;
+    }
+    &.#{$r}--with-marks {
+      margin: 1em 0 calc(var(--t-slider-mark-margin) * 2 + 1em);
+    }
+  }
+
+  // 反向
+  &--reverse {
+    // 竖排
+    &.#{$r}--vertical {
+      .#{$r}__bar {
+        top: 0;
+        bottom: initial;
+      }
+      .#{$r}__start-handler {
+        margin: $m1 0 0 $m2;
+      }
+      .#{$r}__end-handler {
+        margin: $m1 0 0 $m2;
+      }
+    }
+
+    // 非竖排
+    &:not(.#{$r}--vertical) {
+      .#{$r}__rail {
+        height: $s;
+      }
+      .#{$r}__bar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+      }
+      .#{$r}__handler {
+        margin: 0 $m1 $m2 0;
+      }
+    }
+  }
+  &:not(.#{$r}--reverse) {
+    &.#{$r}--vertical {
+      .#{$r}__handler {
+        left: 0;
+      }
+    }
+  }
+}
+
+.#{$marks},
+.#{$dots} {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  > li {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+
+    // width: fit-content;
+    list-style: none;
+  }
+}
+.#{$marks} {
+  inset: 0;
+  &__dot {
+    position: absolute;
+  }
+  &__label {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    white-space: nowrap;
+  }
+}
+.#{$dots} {
+  $s: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  &__dot {
+    width: $s;
+    height: $s;
+    border-radius: 50%;
+    background-color: white;
+    box-sizing: border-box;
+    &:not(.#{$dots}--active) {
+      border: 2px solid var(--t-slider-color);
+    }
+    &.#{$dots}--active {
+      border: 2px solid var(--t-slider-active-color);
+    }
+  }
+}

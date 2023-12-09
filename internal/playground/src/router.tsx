@@ -141,6 +141,11 @@ export const baseRouter = [
     name: 'image 图像',
     path: '/image',
   },
+  {
+    element: getDemos(import.meta.glob('~/slider/demo/*.tsx')),
+    name: 'slider 滑块',
+    path: '/slider',
+  },
   /*insert target*/
 ];
 

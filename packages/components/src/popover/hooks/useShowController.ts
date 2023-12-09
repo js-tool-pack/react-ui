@@ -71,7 +71,6 @@ export function useShowController(
     delay: enterDelay,
     onVisibleChange,
     leaveDelay,
-    children,
     disabled,
     visible,
     trigger,
@@ -79,7 +78,6 @@ export function useShowController(
     PopoverRequiredPartProps,
     | 'onVisibleChange'
     | 'leaveDelay'
-    | 'children'
     | 'disabled'
     | 'trigger'
     | 'visible'
@@ -151,7 +149,7 @@ export function useShowController(
       cancellers.forEach((i) => i());
       cancellers.length = 0;
     };
-  }, [children, trigger, disabled, visible]);
+  }, [trigger, disabled, visible]);
 
   const cancelListRef = useRef<Array<() => void>>([]);
 

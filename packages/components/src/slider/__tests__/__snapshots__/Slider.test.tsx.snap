@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider basic 1`] = `
+<div>
+  <div
+    class="t-slider"
+  >
+    <div
+      class="t-slider__rail"
+    >
+      <div
+        class="t-slider__bar"
+        style="left: 0%; width: 0%;"
+      />
+      <div
+        class="t-slider__handler t-slider__end-handler"
+        style="left: 0%;"
+      />
+    </div>
+  </div>
+</div>
+`;

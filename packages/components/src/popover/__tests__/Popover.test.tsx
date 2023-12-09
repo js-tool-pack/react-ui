@@ -1,4 +1,5 @@
 import { fireEvent, render, act } from '@testing-library/react';
+import { useNextEffect } from '@pkg/shared';
 import { useState, useRef } from 'react';
 import { Button } from '~/button';
 import { Popover } from '..';
@@ -475,6 +476,55 @@ describe('Popover', () => {
       // 需要两次才会有 t-transition--invisible
       act(() => jest.advanceTimersByTime(500));
       expect(getBalloon()).toHaveClass('t-transition--invisible');
+    });
+    it('当 content 变化时，鼠标离开不会失效', () => {
+      jest.useFakeTimers();
+      const App = () => {
+        const [content, setContent] = useState(1);
+        const ref = useRef<HTMLButtonElement>(null);
+
+        const nextEffect = useNextEffect();
+        return (
+          <>
+            <Popover>
+              <button ref={ref}>{content}</button>
+            </Popover>
+            <div
+              onClick={() => {
+                const btn = ref.current;
+                if (!btn) return;
+
+                nextEffect(() => {
+                  setContent((v) => v++);
+                  setContent((v) => v++);
+                  setContent((v) => v++);
+                });
+
+                const event = new Event('mouseleave');
+                btn.dispatchEvent(event);
+              }}
+              id="click"
+            >
+              点击
+            </div>
+          </>
+        );
+      };
+      render(<App />);
+
+      expect(getBalloon()).toBeNull();
+
+      Actions.enterTrigger();
+      expect(getBalloon()).not.toBeNull();
+      act(() => jest.advanceTimersByTime(500));
+
+      fireEvent.click(document.querySelector('#click')!);
+      fireEvent.click(document.querySelector('#click')!);
+
+      act(() => jest.advanceTimersByTime(500));
+      expect(getBalloon()).not.toHaveClass('t-transition--invisible');
+      act(() => jest.advanceTimersByTime(500));
+      // expect(getBalloon()).toHaveClass('t-transition--invisible');
     });
   });
 });

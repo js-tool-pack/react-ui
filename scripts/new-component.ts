@@ -77,11 +77,11 @@ function initComponent(): InitRes {
   const filename = getFilename('component');
   const props = `${componentName}Props`;
   const content = `
-import React from 'react';
-import type { ${props} } from './${getFilename('types').replace(/\.ts$/, '')}';
-import { getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
+import type { ${props} } from './${getFilename('types').replace(/\.ts$/, '')}';
 import { getClassNames } from '@tool-pack/basic';
+import { getClasses } from '@pkg/shared';
+import React from 'react';
 
 const cls = getClasses('${config.name}', [], []);
 const defaultProps = {} satisfies Partial<${props}>;
@@ -97,8 +97,9 @@ export const ${componentName}: React.FC<${props}> = React.forwardRef<
   return (
     <div
       {...attrs}
+      className={getClassNames(cls.root, attrs.className)}
       ref={ref}
-      className={getClassNames(cls.root, attrs.className)}>
+    >
       {children}
     </div>
   );
@@ -143,8 +144,8 @@ function initDemo(): InitRes {
  * description: ${config.componentName} 基础用法。
  */
 
-import React from 'react';
 import { ${config.componentName} } from '@tool-pack/react-ui';
+import React from 'react';
 
 const App: React.FC = () => {
   return <${config.componentName}></${config.componentName}>;
@@ -168,8 +169,8 @@ function initTest(): InitRes {
   const filename = getFilename('test');
   const content = `
 import { render, fireEvent } from '@testing-library/react';
-import { ${config.componentName} } from '..';
 import { testAttrs } from '~/testAttrs';
+import { ${config.componentName} } from '..';
 
 describe('${config.componentName}', () => {
   testAttrs(${config.componentName});
@@ -234,9 +235,9 @@ function appendPlayground() {
 
   const insertTarget = '/*insert target*/';
   const insertContent = `{
+    element: getDemos(import.meta.glob('~/${config.name}/demo/*.tsx')),
     name: '${config.name} ${config.alias}',
     path: '/${config.name}',
-    element: getDemos(import.meta.glob('~/${config.name}/demo/*.tsx')),
   },
   ${insertTarget}`;
 

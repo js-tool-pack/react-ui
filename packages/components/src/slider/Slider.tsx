@@ -24,7 +24,6 @@ const cls = getClasses(
   ['disabled', 'vertical', 'reverse', 'range', 'with-marks'],
 );
 const defaultProps = {
-  formatter: (v) => v,
   reverse: false,
   tooltip: true,
   max: 100,
@@ -38,10 +37,10 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
   SliderStaticProps
 >((props, ref) => {
   const {
+    formatter = (v) => v,
     value: outerValue,
+    tooltipProps = {},
     attrs = {},
-    placement,
-    formatter,
     disabled,
     vertical,
     onChange,
@@ -121,7 +120,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
       ({ onMove }) => {
         onMove((_e, currentXY) => {
           setValue([
-            getCurrentValue([currentXY.x, currentXY.y]),
+            getValueFromMousePos([currentXY.x, currentXY.y]),
             valueRef.current[1],
           ]);
         });
@@ -138,7 +137,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
         onMove((_e, currentXY) => {
           setValue([
             valueRef.current[0],
-            getCurrentValue([currentXY.x, currentXY.y]),
+            getValueFromMousePos([currentXY.x, currentXY.y]),
           ]);
         });
       },
@@ -178,7 +177,12 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
         />
         {isRange && (
           <Tooltip
-            placement={vertical && !placement ? 'right' : placement}
+            {...tooltipProps}
+            placement={
+              vertical && !tooltipProps.placement
+                ? 'right'
+                : tooltipProps.placement
+            }
             title={formatter(valueRef.current[0])}
             disabled={tooltipDisabled}
             visible={tooltipVisible}
@@ -191,7 +195,12 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
           </Tooltip>
         )}
         <Tooltip
-          placement={vertical && !placement ? 'right' : placement}
+          {...tooltipProps}
+          placement={
+            vertical && !tooltipProps.placement
+              ? 'right'
+              : tooltipProps.placement
+          }
           title={formatter(valueRef.current[1])}
           disabled={tooltipDisabled}
           visible={tooltipVisible}
@@ -224,19 +233,22 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
   }
   function handleRailClick(e: React.MouseEvent<HTMLDivElement>): void {
     if (disabled) return;
-    const [value, pureValue] = getCurrentValue([e.clientX, e.clientY], true);
+    const [value, pureValue] = getValueFromMousePos(
+      [e.clientX, e.clientY],
+      true,
+    );
     setValueByClick(value, pureValue);
   }
   function handleMarkClick(value: number): void {
     if (disabled) return;
     setValueByClick(value);
   }
-  function getCurrentValue(
-    point: Point,
+  function getValueFromMousePos(
+    pos: Point,
     withPure: true,
   ): [result: number, pure: number];
-  function getCurrentValue(point: Point): number;
-  function getCurrentValue(
+  function getValueFromMousePos(pos: Point): number;
+  function getValueFromMousePos(
     pos: Point,
     withPure?: boolean,
   ): [result: number, pure: number] | number {

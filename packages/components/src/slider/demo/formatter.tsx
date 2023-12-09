@@ -8,7 +8,7 @@ import React from 'react';
 const App: React.FC = () => {
   return (
     <>
-      <Slider formatter={(value) => value + '%'} value={50} />
+      <Slider formatter={(value) => value + '%'} tooltip="always" value={50} />
     </>
   );
 };

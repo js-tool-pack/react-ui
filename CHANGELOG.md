@@ -1,3 +1,13 @@
+## [0.0.6](https://github.com/js-tool-pack/react-ui/compare/v0.0.5...v0.0.6) (2023-12-09)
+
+### Bug Fixes
+
+- **components/popover:** 修复 Popover 组件在 Slider 组件上拖动时鼠标离开了触发元素仍然不能关闭的问题 ([0d9dd06](https://github.com/js-tool-pack/react-ui/commit/0d9dd06a3cedfb2347472edd380251dd314bc721))
+
+### Features
+
+- **components:** 新增 Slider 组件 ([0f22aaf](https://github.com/js-tool-pack/react-ui/commit/0f22aaf649b92a2e306b20fb6119d5370b764d8f))
+
 ## [0.0.5](https://github.com/js-tool-pack/react-ui/compare/v0.0.4...v0.0.5) (2023-12-01)
 
 ### Bug Fixes

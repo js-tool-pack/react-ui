@@ -1,5 +1,5 @@
-import type { SliderStaticProps, Values } from '../slider.types';
 import { getClassNames, inRange } from '@tool-pack/basic';
+import type { SliderStaticProps } from '../slider.types';
 import type { ConvertOptional } from '@tool-pack/types';
 import { getClasses } from '@pkg/shared';
 import React from 'react';
@@ -9,7 +9,8 @@ interface Props
     Pick<SliderStaticProps, 'vertical' | 'reverse' | 'marks'>
   > {
   setValue: (value: number) => void;
-  values: Values;
+  minOfValue: number;
+  maxOfValue: number;
   total: number;
 }
 
@@ -20,11 +21,15 @@ const cls = getClasses(
 );
 
 export const Marks: React.FC<Props> = (props) => {
-  const { setValue, vertical, reverse, values, marks, total } = props;
-
-  const [start, end] = values;
-  const min = Math.min(start, end);
-  const max = Math.max(start, end);
+  const {
+    minOfValue: min,
+    maxOfValue: max,
+    setValue,
+    vertical,
+    reverse,
+    marks,
+    total,
+  } = props;
 
   return (
     marks && (

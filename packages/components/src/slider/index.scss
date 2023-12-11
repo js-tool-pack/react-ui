@@ -3,11 +3,12 @@
 $r: Name.$slider;
 $marks: #{Name.$slider}-marks;
 $dots: #{Name.$slider}-dots;
+$hdls: #{Name.$slider}-handlers;
+$hh: 16px;
 
 .#{$r} {
   $s: 4px;
   $p: 10px;
-  $hh: 16px;
   $m1: calc(($hh / 2) * -1);
   $m2: calc((($hh - $s) / 2) * -1);
 
@@ -23,17 +24,6 @@ $dots: #{Name.$slider}-dots;
   &__bar {
     position: relative;
     border-radius: calc($s / 2);
-  }
-  &__handler {
-    position: absolute;
-    width: $hh;
-    height: $hh;
-    border-radius: 50%;
-    background-color: white;
-    box-shadow:
-      0 1px 4px 0 var(--t-color-info-a-4),
-      inset 0 0 1px 0 var(--t-color-info-a-7);
-    user-select: none;
   }
 
   // status
@@ -72,7 +62,7 @@ $dots: #{Name.$slider}-dots;
       left: 0;
       width: $s;
     }
-    .#{$r}__handler {
+    .#{$hdls}__handler {
       margin: 0 0 $m1 $m2;
     }
   }
@@ -81,7 +71,7 @@ $dots: #{Name.$slider}-dots;
     .#{$r}__bar {
       height: $s;
     }
-    .#{$r}__handler {
+    .#{$hdls}__handler {
       bottom: 0;
       margin: 0 0 $m2 $m1;
     }
@@ -98,10 +88,7 @@ $dots: #{Name.$slider}-dots;
         top: 0;
         bottom: initial;
       }
-      .#{$r}__start-handler {
-        margin: $m1 0 0 $m2;
-      }
-      .#{$r}__end-handler {
+      .#{$hdls}__handler {
         margin: $m1 0 0 $m2;
       }
     }
@@ -117,14 +104,14 @@ $dots: #{Name.$slider}-dots;
         right: 0;
         height: 100%;
       }
-      .#{$r}__handler {
+      .#{$hdls}__handler {
         margin: 0 $m1 $m2 0;
       }
     }
   }
   &:not(.#{$r}--reverse) {
     &.#{$r}--vertical {
-      .#{$r}__handler {
+      .#{$hdls}__handler {
         left: 0;
       }
     }
@@ -179,5 +166,18 @@ $dots: #{Name.$slider}-dots;
     &.#{$dots}--active {
       border: 2px solid var(--t-slider-active-color);
     }
+  }
+}
+.#{$hdls} {
+  &__handler {
+    position: absolute;
+    width: $hh;
+    height: $hh;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow:
+      0 1px 4px 0 var(--t-color-info-a-4),
+      inset 0 0 1px 0 var(--t-color-info-a-7);
+    user-select: none;
   }
 }

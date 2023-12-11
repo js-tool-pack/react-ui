@@ -56,6 +56,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
 
   const isRange = Array.isArray(outerValue);
   const valueRef = useRef<Values>([0, 0]);
+  const valueMinAndMaxRef = useRef<Values>([0, 0]);
   const railRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
   const handlerStartRef = useRef<HTMLDivElement>(null);
@@ -68,15 +69,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
 
   // 同步外部 value
   useEffect(() => {
-    const [start, end] = valueRef.current;
-    if (
-      (isRange &&
-        (outerValue === valueRef.current ||
-          (outerValue[0] === start && outerValue[1] === end))) ||
-      (!isRange && outerValue === end)
-    ) {
-      return;
-    }
+    if (!isValueChanged()) return;
     setValue(
       isRange
         ? [
@@ -84,16 +77,25 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
             getLimitValue(Math.max(...outerValue)),
           ]
         : [min, getLimitValue(outerValue)],
+      false,
     );
+
+    function isValueChanged(): boolean {
+      const innerValue = valueRef.current;
+      if (outerValue === innerValue) return false;
+      if (!isRange) return outerValue !== innerValue.at(-1);
+      return outerValue.some((item, i) => item !== innerValue[i]);
+    }
   }, [min, isRange, outerValue]);
 
   type Styles = Record<'start' | 'bar' | 'end', React.CSSProperties>;
   const styles: Styles = useMemo(() => {
     const styles: Styles = { start: {}, bar: {}, end: {} };
-    const barSize = ((end - start) / total) * 100 + '%';
+    const [minOfValue, maxOfValue] = valueMinAndMaxRef.current;
+    const barSize = ((maxOfValue - minOfValue) / total) * 100 + '%';
 
-    const barPos = (start / total) * 100 + '%';
-    const endPos = (end / total) * 100 + '%';
+    const barPos = (minOfValue / total) * 100 + '%';
+    const endPos = (maxOfValue / total) * 100 + '%';
     if (vertical) {
       const direct = reverse ? 'top' : 'bottom';
       styles.bar[direct] = barPos;
@@ -215,9 +217,16 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
     </div>
   );
 
-  function setValue(values: Values): void {
+  function updateMinAndMaxOfValue(): void {
+    const sorted = valueRef.current.toSorted((a, b) => a - b);
+    const minOfValue = sorted[0] as number;
+    const maxOfValue = sorted.at(-1) as number;
+    valueMinAndMaxRef.current = [minOfValue, maxOfValue];
+  }
+  function setValue(values: Values, emit = true): void {
     valueRef.current = values;
-    onChange?.(isRange ? values : values[1]);
+    updateMinAndMaxOfValue();
+    emit && onChange?.(isRange ? values : values[1]);
     forceUpdate();
   }
   function setValueByClick(value: number, compareValue = value): void {

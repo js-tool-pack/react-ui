@@ -1,5 +1,6 @@
 /**
  * title: 范围
+ * description: 当 value 为 [number, number] 时开启范围选择
  */
 
 import { Slider } from '@tool-pack/react-ui';

@@ -1,5 +1,5 @@
-import type { SliderStaticProps, Values } from '../slider.types';
 import { getClassNames, inRange } from '@tool-pack/basic';
+import type { SliderStaticProps } from '../slider.types';
 import type { ConvertOptional } from '@tool-pack/types';
 import { getClasses } from '@pkg/shared';
 import React from 'react';
@@ -8,18 +8,22 @@ interface Props
   extends ConvertOptional<
     Pick<SliderStaticProps, 'vertical' | 'reverse' | 'marks'>
   > {
-  values: Values;
+  minOfValue: number;
+  maxOfValue: number;
   total: number;
 }
 
 const cls = getClasses('slider-dots', ['dot'], ['active']);
 
 export const Dots: React.FC<Props> = (props) => {
-  const { vertical, reverse, values, marks, total } = props;
-
-  const [start, end] = values;
-  const min = Math.min(start, end);
-  const max = Math.max(start, end);
+  const {
+    minOfValue: min,
+    maxOfValue: max,
+    vertical,
+    reverse,
+    marks,
+    total,
+  } = props;
 
   return (
     marks && (

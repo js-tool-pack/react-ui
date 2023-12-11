@@ -98,10 +98,7 @@ $dots: #{Name.$slider}-dots;
         top: 0;
         bottom: initial;
       }
-      .#{$r}__start-handler {
-        margin: $m1 0 0 $m2;
-      }
-      .#{$r}__end-handler {
+      .#{$r}__handler {
         margin: $m1 0 0 $m2;
       }
     }

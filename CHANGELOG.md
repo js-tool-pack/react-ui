@@ -1,3 +1,13 @@
+## [0.0.7](https://github.com/js-tool-pack/react-ui/compare/v0.0.6...v0.0.7) (2023-12-11)
+
+### Bug Fixes
+
+- **components/slider:** range 时前面的数超过后面的数后不会显示进度条 ([11f7ff7](https://github.com/js-tool-pack/react-ui/commit/11f7ff7167ee2a417595b2f51bf756acad934d33))
+
+### Features
+
+- **components/slider:** 当 value 为数组时，应该数组多少位就有多少个拖动把手 ([492749c](https://github.com/js-tool-pack/react-ui/commit/492749cba748daab21f5672faf406427eb981b3a))
+
 ## [0.0.6](https://github.com/js-tool-pack/react-ui/compare/v0.0.5...v0.0.6) (2023-12-09)
 
 ### Bug Fixes

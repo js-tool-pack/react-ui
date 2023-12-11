@@ -1,16 +1,14 @@
 import { getClassNames, getSafeNum, strip } from '@tool-pack/basic';
-import { useForceUpdate, getClasses, Placement } from '@pkg/shared';
 import type { RequiredPart, Point } from '@tool-pack/types';
 import React, { useEffect, useMemo, useRef } from 'react';
+import { useForceUpdate, getClasses } from '@pkg/shared';
 import type { SliderStaticProps } from './slider.types';
-import { onDragEvent } from '@tool-pack/dom';
-import { Marks, Dots } from './components';
+import { Handlers, Marks, Dots } from './components';
 import { SliderFC } from './slider.types';
-import { Tooltip } from '~/tooltip';
 
 const cls = getClasses(
   'slider',
-  ['rail', 'bar', 'handler', 'handlers'],
+  ['rail', 'bar'],
   ['disabled', 'vertical', 'reverse', 'range', 'with-marks'],
 );
 const defaultProps = {
@@ -48,11 +46,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
   const valuesRef = useRef<number[]>([]);
   const sortedValuesRef = useRef<number[]>([]);
   const railRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
-  const handlersRef = useRef<HTMLDivElement>(null);
 
-  const tooltipVisible = tooltip === 'always' ? true : undefined;
-  const tooltipDisabled = tooltip === 'always' ? false : !tooltip;
   const total = max - min;
 
   // 同步外部 value
@@ -68,65 +62,26 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
     }
   }, [min, max, outerValue]);
 
-  type Styles = { handles: React.CSSProperties[]; bar: React.CSSProperties };
-  const styles: Styles = useMemo(() => {
-    const styles: Styles = { handles: [], bar: {} };
+  const [minOfValue, maxOfValue] = useMemo(() => {
+    return getMinAndMaxFromValues();
+  }, [sortedValuesRef.current]);
+
+  const barStyle: React.CSSProperties = useMemo(() => {
+    const styles: React.CSSProperties = {};
     const [minOfValue, maxOfValue] = getMinAndMaxFromValues();
     const barSize = ((maxOfValue - minOfValue) / total) * 100 + '%';
     const barPos = (minOfValue / total) * 100 + '%';
 
-    const cssPropKeys: { size: 'height' | 'width'; placement: Placement } = {
-      placement: 'top',
-      size: 'width',
-    };
     if (vertical) {
-      cssPropKeys.placement = reverse ? 'top' : 'bottom';
-      cssPropKeys.size = 'height';
+      styles[reverse ? 'top' : 'bottom'] = barPos;
+      styles.height = barSize;
     } else {
-      cssPropKeys.placement = reverse ? 'right' : 'left';
-      cssPropKeys.size = 'width';
+      styles[reverse ? 'right' : 'left'] = barPos;
+      styles.width = barSize;
     }
-
-    styles.bar[cssPropKeys.placement] = barPos;
-    styles.bar[cssPropKeys.size] = barSize;
-
-    const values = valuesRef.current;
-    values.forEach((value) => {
-      styles.handles.push({
-        [cssPropKeys.placement]: (value / total) * 100 + '%',
-      });
-    });
 
     return styles;
   }, [valuesRef.current, total, vertical, reverse]);
-
-  // 拖动事件
-  useEffect(() => {
-    const handlersEl = handlersRef.current;
-    if (!handlersEl || disabled) return;
-    const cancels = Array.from(handlersEl.children).map((child, index) => {
-      return onDragEvent(
-        ({ onMove }) => {
-          onMove((_e, currentXY) => {
-            const values = valuesRef.current;
-            const prev = values.slice(0, index);
-            const next = values.slice(index + 1);
-            setValue([
-              ...prev,
-              getValueFromMousePos([currentXY.x, currentXY.y]),
-              ...next,
-            ]);
-          });
-        },
-        { el: child as HTMLElement },
-      );
-    });
-    return () => cancels.forEach((cancel) => cancel());
-  }, [valuesRef.current.length, max, min, disabled, step, vertical]);
-
-  const [minOfValue, maxOfValue] = useMemo(() => {
-    return getMinAndMaxFromValues();
-  }, [sortedValuesRef.current]);
 
   return (
     <div
@@ -151,7 +106,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
           marks={marks}
           total={total}
         />
-        <div className={cls.__.bar} style={styles.bar} ref={barRef}></div>
+        <div className={cls.__.bar} style={barStyle}></div>
         <Dots
           minOfValue={minOfValue}
           maxOfValue={maxOfValue}
@@ -160,27 +115,21 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
           marks={marks}
           total={total}
         />
-        <div className={cls.__.handlers} ref={handlersRef}>
-          {valuesRef.current.map((item, index) => (
-            <Tooltip
-              {...tooltipProps}
-              placement={
-                vertical && !tooltipProps.placement
-                  ? 'right'
-                  : tooltipProps.placement
-              }
-              disabled={tooltipDisabled}
-              visible={tooltipVisible}
-              title={formatter(item)}
-              key={index}
-            >
-              <div
-                style={styles.handles[index]}
-                className={cls.__.handler}
-              ></div>
-            </Tooltip>
-          ))}
-        </div>
+        <Handlers
+          getValueFromMousePos={getValueFromMousePos}
+          tooltipProps={tooltipProps}
+          valuesRef={valuesRef}
+          formatter={formatter}
+          setValues={setValue}
+          disabled={disabled}
+          vertical={vertical}
+          reverse={reverse}
+          tooltip={tooltip}
+          total={total}
+          step={step}
+          min={min}
+          max={max}
+        />
       </div>
     </div>
   );

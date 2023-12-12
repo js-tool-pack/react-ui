@@ -1,3 +1,14 @@
+## [0.0.8](https://github.com/js-tool-pack/react-ui/compare/v0.0.7...v0.0.8) (2023-12-12)
+
+### Bug Fixes
+
+- **components/popover:** 在 react 严格模式下 trigger 为 hover 时 RxJs 会报错 ([0c54463](https://github.com/js-tool-pack/react-ui/commit/0c544634a27ef93ef9686bd8f32652fd4925afe8))
+
+### Features
+
+- **components/slider:** 新增 keepRangeSorted 维持 range 排序状态 ([6e1f134](https://github.com/js-tool-pack/react-ui/commit/6e1f134b5e84d3ad88a9d8269970745d7cf26351))
+- **components/slider:** 新增 键盘控制增减的功能 ([18b8ccc](https://github.com/js-tool-pack/react-ui/commit/18b8ccc423c5380cfd5b556016c1ac43936c707c))
+
 ## [0.0.7](https://github.com/js-tool-pack/react-ui/compare/v0.0.6...v0.0.7) (2023-12-11)
 
 ### Bug Fixes

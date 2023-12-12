@@ -1,9 +1,15 @@
-import { getClassNames, getSafeNum, strip } from '@tool-pack/basic';
+import {
+  getClassNames,
+  forEachRight,
+  getSafeNum,
+  forEach,
+  strip,
+} from '@tool-pack/basic';
+import { HandlersControlRef, Handlers, Marks, Dots } from './components';
 import type { RequiredPart, Point } from '@tool-pack/types';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useForceUpdate, getClasses } from '@pkg/shared';
 import type { SliderStaticProps } from './slider.types';
-import { Handlers, Marks, Dots } from './components';
 import { SliderFC } from './slider.types';
 
 const cls = getClasses(
@@ -12,6 +18,7 @@ const cls = getClasses(
   ['disabled', 'vertical', 'reverse', 'range', 'with-marks'],
 );
 const defaultProps = {
+  keyboard: true,
   reverse: false,
   tooltip: true,
   max: 100,
@@ -31,6 +38,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
     keepRangeSorted,
     attrs = {},
     disabled,
+    keyboard,
     vertical,
     onChange,
     reverse,
@@ -42,12 +50,12 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
   } = props as RequiredPart<SliderStaticProps, keyof typeof defaultProps>;
 
   const forceUpdate = useForceUpdate();
-
-  const isRange = Array.isArray(outerValue);
   const valuesRef = useRef<number[]>([]);
   const sortedValuesRef = useRef<number[]>([]);
   const railRef = useRef<HTMLDivElement>(null);
+  const handlersControlRef = useRef<HandlersControlRef>(null);
 
+  const isRange = Array.isArray(outerValue);
   const total = max - min;
 
   // 同步外部 value
@@ -118,13 +126,16 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
         />
         <Handlers
           getValueFromMousePos={getValueFromMousePos}
+          onHandlerKeyDown={onHandlerKeyDown}
+          setValueOfIndex={setValueOfIndex}
           keepRangeSorted={keepRangeSorted}
+          controlRef={handlersControlRef}
           tooltipProps={tooltipProps}
           valuesRef={valuesRef}
           formatter={formatter}
-          setValues={setValue}
           disabled={disabled}
           vertical={vertical}
+          keyboard={keyboard}
           reverse={reverse}
           tooltip={tooltip}
           total={total}
@@ -136,10 +147,63 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
     </div>
   );
 
+  function onHandlerKeyDown(stepScale: -1 | 1, index: number): void {
+    if (!keyboard) return;
+    const values = valuesRef.current;
+    const curr = values[index] as number;
+    setValueOfIndex(getLimitValue(getStepValue()), index);
+
+    function getStepValue(): number {
+      if (step !== 'mark') return stepScale * step + curr;
+      return getByMark();
+
+      function getByMark(): number {
+        const [markValue, markValues] = findClosestFromObjectNumberKeys(
+          marks,
+          curr,
+        );
+
+        const index = markValues.indexOf(markValue);
+        if (index === -1) return curr;
+
+        const next = getSafeNum(index + stepScale, 0, markValues.length - 1);
+        return markValues[next] as number;
+      }
+    }
+  }
   function getMinAndMaxFromValues(): readonly [min: number, max: number] {
     const sortedValues = sortedValuesRef.current;
     if (!isRange) return [min, valuesRef.current.at(-1) ?? min];
     return [sortedValues[0] ?? min, sortedValues.at(-1) ?? min];
+  }
+  function setValueOfIndex(value: number, index: number): void {
+    const values = valuesRef.current;
+
+    const prevChunk = values.slice(0, index);
+    const nextChunk = values.slice(index + 1);
+
+    if (keepRangeSorted && values.length > 1) {
+      if (prevChunk.length > 0) keepPrevChunkSorted();
+      if (nextChunk.length > 0) keepNextChunkSorted();
+    }
+
+    setValue([...prevChunk, strip(value), ...nextChunk]);
+    setTimeout(() => handlersControlRef.current?.focus(index));
+
+    function keepPrevChunkSorted() {
+      forEachRight(prevChunk, (v, i): false | void => {
+        if (v > value) {
+          prevChunk[i] = value;
+        } else return false;
+      });
+    }
+    function keepNextChunkSorted() {
+      forEach(nextChunk, (v, i): false | void => {
+        if (v < value) {
+          nextChunk[i] = value;
+        } else return false;
+      });
+    }
   }
   function setValue(values: number[], emit = true): void {
     valuesRef.current = values;
@@ -154,14 +218,10 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
       // 需要先找到最接近的数字，然后改成目标数字
       const v = findClosestFromSortedArr(sortedValuesRef.current, compareValue);
       const index = innerValues.indexOf(v);
-      setValue([
-        ...innerValues.slice(0, index),
-        value,
-        ...innerValues.slice(index + 1),
-      ]);
+      setValueOfIndex(value, index);
       return;
     }
-    setValue([...innerValues.slice(0, -1), value]);
+    setValueOfIndex(value, 0);
   }
   function handleRailClick(e: React.MouseEvent<HTMLDivElement>): void {
     if (disabled) return;
@@ -205,20 +265,27 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
       return getByMark();
 
       function getByMark(): number {
-        if (!marks) return value;
-
-        const keys = Object.keys(marks);
-        const len = keys.length;
-        if (!len) return value;
-
-        const marksValues = keys.map(Number).sort((a, b) => a - b);
-        return findClosestFromSortedArr(marksValues, value);
+        return findClosestFromObjectNumberKeys(marks, value)[0];
       }
     }
     function getScale() {
       if (!vertical) return (x - rect.x) / rect.width;
       return (y - rect.y) / rect.height;
     }
+  }
+  function findClosestFromObjectNumberKeys(
+    obj: Record<number, unknown> | undefined,
+    defaults: number,
+  ): [closest: number, sortedKeys: number[]] {
+    if (!obj) return [defaults, []];
+
+    const keys = Object.keys(obj);
+    const len = keys.length;
+    if (!len) return [defaults, []];
+
+    const sortedKeys = keys.map(Number).sort((a, b) => a - b);
+    const closest = findClosestFromSortedArr(sortedKeys, defaults);
+    return [closest, sortedKeys];
   }
   function findClosestFromSortedArr(arr: number[], value: number): number {
     const len = arr.length;

@@ -179,5 +179,8 @@ $hh: 16px;
       0 1px 4px 0 var(--t-color-info-a-4),
       inset 0 0 1px 0 var(--t-color-info-a-7);
     user-select: none;
+    &:focus-visible {
+      outline: 0;
+    }
   }
 }

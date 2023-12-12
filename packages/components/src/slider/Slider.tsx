@@ -28,6 +28,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
     formatter = (v) => v,
     value: outerValue,
     tooltipProps = {},
+    keepRangeSorted,
     attrs = {},
     disabled,
     vertical,
@@ -117,6 +118,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
         />
         <Handlers
           getValueFromMousePos={getValueFromMousePos}
+          keepRangeSorted={keepRangeSorted}
           tooltipProps={tooltipProps}
           valuesRef={valuesRef}
           formatter={formatter}

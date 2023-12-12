@@ -1,10 +1,20 @@
-import React, { MutableRefObject, useEffect, useMemo, useRef } from 'react';
+import React, {
+  useImperativeHandle,
+  MutableRefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  Ref,
+} from 'react';
 import type { ConvertOptional, Point } from '@tool-pack/types';
 import type { SliderStaticProps } from '../slider.types';
-import { forEachRight, forEach } from '@tool-pack/basic';
 import { getClasses, Placement } from '@pkg/shared';
 import { onDragEvent } from '@tool-pack/dom';
 import { Tooltip } from '~/tooltip';
+
+export interface HandlersControlRef {
+  focus(index: number): void;
+}
 
 interface Props
   extends ConvertOptional<
@@ -14,6 +24,7 @@ interface Props
       | 'tooltipProps'
       | 'formatter'
       | 'disabled'
+      | 'keyboard'
       | 'vertical'
       | 'tooltip'
       | 'reverse'
@@ -22,9 +33,11 @@ interface Props
       | 'min'
     >
   > {
+  onHandlerKeyDown: (stepScale: -1 | 1, index: number) => void;
+  setValueOfIndex: (value: number, index: number) => void;
   getValueFromMousePos: (pos: Point) => number;
-  setValues: (values: number[]) => void;
   valuesRef: MutableRefObject<number[]>;
+  controlRef: Ref<HandlersControlRef>;
   total: number;
 }
 
@@ -35,11 +48,14 @@ export const Handlers: React.FC<Props> = (props) => {
     getValueFromMousePos,
     formatter = (v) => v,
     tooltipProps = {},
+    onHandlerKeyDown,
     keepRangeSorted,
-    setValues,
+    setValueOfIndex,
+    controlRef,
     valuesRef,
     vertical,
     disabled,
+    keyboard,
     reverse,
     tooltip,
     total,
@@ -53,6 +69,15 @@ export const Handlers: React.FC<Props> = (props) => {
   const tooltipVisible = tooltip === 'always' ? true : undefined;
   const tooltipDisabled = tooltip === 'always' ? false : !tooltip;
 
+  useImperativeHandle(controlRef, () => {
+    return {
+      focus(index: number) {
+        (
+          handlersRef.current?.children[index] as HTMLDivElement | undefined
+        )?.focus();
+      },
+    };
+  });
   // 拖动事件
   useEffect(() => {
     const handlersEl = handlersRef.current;
@@ -64,31 +89,8 @@ export const Handlers: React.FC<Props> = (props) => {
         return onDragEvent(
           ({ onMove }) => {
             onMove((_e, currentXY) => {
-              const values = valuesRef.current;
-              const prev = values.slice(0, index);
-              const next = values.slice(index + 1);
               const curr = getValueFromMousePos([currentXY.x, currentXY.y]);
-
-              if (keepRangeSorted && values.length > 1) {
-                if (prev.length > 0) keepPrevSorted();
-                if (next.length > 0) keepNextSorted();
-              }
-              setValues([...prev, curr, ...next]);
-
-              function keepPrevSorted() {
-                forEachRight(prev, (v, i): false | void => {
-                  if (v > curr) {
-                    prev[i] = curr;
-                  } else return false;
-                });
-              }
-              function keepNextSorted() {
-                forEach(next, (v, i): false | void => {
-                  if (v < curr) {
-                    next[i] = curr;
-                  } else return false;
-                });
-              }
+              setValueOfIndex(curr, index);
             });
           },
           { el: child },
@@ -146,7 +148,10 @@ export const Handlers: React.FC<Props> = (props) => {
           placement={_placement}
           key={index}
         >
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
           <div
+            onKeyDown={keyboard ? (e) => handleKeyDown(e, index) : undefined}
+            tabIndex={disabled ? undefined : 1}
             className={cls.__.handler}
             style={styles[index]}
             draggable={false}
@@ -155,4 +160,30 @@ export const Handlers: React.FC<Props> = (props) => {
       ))}
     </div>
   );
+
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLDivElement>,
+    index: number,
+  ) {
+    const key = e.key as (typeof ArrowKeys)[number];
+    if (!ArrowKeys.includes(key)) return;
+    e.preventDefault();
+
+    let direct = 1;
+    if (vertical) {
+      if (reverse && ['ArrowDown', 'ArrowUp'].includes(key)) direct = -1;
+    } else {
+      if (reverse && ['ArrowRight', 'ArrowLeft'].includes(key)) direct = -1;
+    }
+
+    onHandlerKeyDown((ArrowMap[key] * direct) as -1 | 1, index);
+  }
+};
+
+const ArrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
+const ArrowMap: Record<(typeof ArrowKeys)[number], -1 | 1> = {
+  ArrowDown: -1,
+  ArrowLeft: -1,
+  ArrowRight: 1,
+  ArrowUp: 1,
 };

@@ -19,6 +19,7 @@ Slider 滑块。
 <code src="./demo/tooltip.tsx"></code>
 <code src="./demo/formatter.tsx"></code>
 <code src="./demo/disabled.tsx"></code>
+<code src="./demo/keyboard.tsx"></code>
 <code src="./demo/vertical.tsx"></code>
 <code src="./demo/range.tsx"></code>
 <code src="./demo/marks.tsx"></code>
@@ -39,6 +40,7 @@ Slider 的属性说明如下：
 | step            | 步长。当 step 为 'mark' 并且 marks 不为空时，步长为 marks 的 key 值；当 step 为 number 时不能小于 0                             | number \| 'mark'                                             | 1      | --   |
 | reverse         | 反向                                                                                                                            | boolean                                                      | --     | --   |
 | disabled        | 禁用                                                                                                                            | boolean                                                      | --     | --   |
+| keyboard        | 可以使用键盘上的上下左右箭头控制滑块的增减                                                                                      | boolean                                                      | true   | --   |
 | vertical        | 垂直排列                                                                                                                        | boolean                                                      | --     | --   |
 | tooltip         | 设置 tooltip 的显隐                                                                                                             | boolean                                                      | true   | --   |
 | tooltipProps    | tooltip 参数，见 [Tooltip](./tooltip#api)                                                                                       | --                                                           | --     | --   |

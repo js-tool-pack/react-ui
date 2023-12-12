@@ -17,6 +17,7 @@ export interface SliderStaticProps
   value?: number[] | number;
   step?: number | 'mark';
   marks?: SliderMarks;
+  keyboard?: boolean;
   vertical?: boolean;
   disabled?: boolean;
   reverse?: boolean;

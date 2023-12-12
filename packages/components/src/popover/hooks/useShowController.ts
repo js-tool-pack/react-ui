@@ -12,8 +12,8 @@ import {
   tap,
   of,
 } from 'rxjs';
-import { useBeforeDestroy, fromOuterEvent, useNextEffect } from '@pkg/shared';
 import { PopoverRequiredPartProps } from '~/popover/Popover';
+import { fromOuterEvent, useNextEffect } from '@pkg/shared';
 import React, { useEffect, useState, useRef } from 'react';
 import { castArray, emptyFn } from '@tool-pack/basic';
 import { collectScroller } from '@tool-pack/dom';
@@ -88,10 +88,14 @@ export function useShowController(
   const nextEffect = useNextEffect();
   const leaveBalloonSubject = useRef(new Subject<void>());
   const enterBalloonSubject = useRef(new Subject<void>());
-  useBeforeDestroy(() => {
-    leaveBalloonSubject.current.unsubscribe();
-    enterBalloonSubject.current.unsubscribe();
-  });
+  useEffect(() => {
+    const enter = (enterBalloonSubject.current = new Subject<void>());
+    const leave = (leaveBalloonSubject.current = new Subject<void>());
+    return () => {
+      enter.unsubscribe();
+      leave.unsubscribe();
+    };
+  }, []);
 
   // 事件触发启动
   useEffect(() => {

@@ -13,6 +13,7 @@ export interface SliderStaticProps
   tooltipProps?: Partial<TooltipProps>;
   onChange?: (value: any) => void;
   tooltip?: 'always' | boolean;
+  keepRangeSorted?: boolean;
   value?: number[] | number;
   step?: number | 'mark';
   marks?: SliderMarks;

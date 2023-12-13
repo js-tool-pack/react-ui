@@ -132,11 +132,7 @@ $balloon-content: #{Name.$word-balloon}__content;
   }
 }
 .#{$empty} {
-  &__content {
-    text-align: center;
-    line-height: 60px;
-    color: var(--t-color-info);
-  }
+  padding: 0.5em 0;
 }
 .#{$filter} {
   display: inline-block;

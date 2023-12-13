@@ -13,9 +13,15 @@ exports[`Slider basic 1`] = `
         style="left: 0%; width: 0%;"
       />
       <div
-        class="t-slider__handler t-slider__end-handler"
-        style="left: 0%;"
-      />
+        class="t-slider-handlers"
+      >
+        <div
+          class="t-slider-handlers__handler"
+          draggable="false"
+          style="left: 0%;"
+          tabindex="1"
+        />
+      </div>
     </div>
   </div>
 </div>

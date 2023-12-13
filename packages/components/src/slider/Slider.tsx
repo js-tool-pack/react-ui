@@ -207,7 +207,7 @@ const _Slider: React.FC<SliderStaticProps> = React.forwardRef<
   }
   function setValue(values: number[], emit = true): void {
     valuesRef.current = values;
-    sortedValuesRef.current = valuesRef.current.toSorted((a, b) => a - b);
+    sortedValuesRef.current = valuesRef.current.slice().sort((a, b) => a - b);
     emit && onChange?.(isRange ? values : values[0]);
     forceUpdate();
   }

@@ -1,3 +1,15 @@
+## [0.0.10](https://github.com/js-tool-pack/react-ui/compare/v0.0.9...v0.0.10) (2023-12-13)
+
+### Bug Fixes
+
+- **components/dropdown:** 修复 Dropdown 在鼠标右击启动的情况下，点击选项关闭窗体后无法再次鼠标右击开启 ([3c53e8e](https://github.com/js-tool-pack/react-ui/commit/3c53e8ed238e497dcc8ec79690fa20314eac91fe))
+- **components/select:** 修复 Select 组件在开启 filter 并点击了 filter input 后再次打开弹窗失败 ([e9543ff](https://github.com/js-tool-pack/react-ui/commit/e9543ffd7126a1b41c1f36f1c61fda817cd3426a))
+- **components/slider:** 由于主流 nodejs 对 es2023 api 不太支持，去掉 es2023 api 的使用 ([22ed8ef](https://github.com/js-tool-pack/react-ui/commit/22ed8ef7f23727fdcc7d138f9fb12b3cbc20285b))
+
+### Features
+
+- **components/select:** 使用 empty 组件替代原来的简易 empty ([1419877](https://github.com/js-tool-pack/react-ui/commit/14198772a7089e9aa975e02a75f9833c0cd2807e))
+
 ## [0.0.9](https://github.com/js-tool-pack/react-ui/compare/v0.0.8...v0.0.9) (2023-12-13)
 
 ### Features

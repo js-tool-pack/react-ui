@@ -207,4 +207,42 @@ describe('Dropdown', () => {
     expect(onSelect).not.toBeCalled();
     expect(balloon).toMatchSnapshot();
   });
+  it('修复测试 在鼠标右击启动的情况下，点击选项关闭窗体后无法再次鼠标右击开启 #79', () => {
+    jest.useFakeTimers();
+    const options: DropdownOptionsItem[] = [
+      { label: '黄金蛋炒饭', key: '1' },
+      { label: '扬州炒饭', key: '2' },
+    ];
+    const { container } = render(
+      <Dropdown trigger="contextmenu" options={options}>
+        <div>foo bar</div>
+      </Dropdown>,
+    );
+
+    expect(getBalloon()).toBeNull();
+
+    // 第一步：开启
+    fireEvent.contextMenu(container.firstChild!);
+    act(() => jest.advanceTimersByTime(500));
+    act(() => jest.advanceTimersByTime(500));
+    expect(getBalloon()).not.toBeNull();
+    expect(getBalloon()).not.toHaveClass('t-transition--invisible');
+
+    // 第二步：点击选项
+    fireEvent.click(document.querySelector('.t-dropdown-option')!);
+    act(() => jest.advanceTimersByTime(500));
+    act(() => jest.advanceTimersByTime(500));
+    expect(getBalloon()).toHaveClass('t-transition--invisible');
+
+    // 第三步：再次开启
+    fireEvent.contextMenu(container.firstChild!);
+    act(() => jest.advanceTimersByTime(500));
+    act(() => jest.advanceTimersByTime(500));
+    // bug 所在
+    expect(getBalloon()).not.toHaveClass('t-transition--invisible');
+
+    function getBalloon(): HTMLDivElement | null {
+      return document.querySelector('.t-word-balloon');
+    }
+  });
 });

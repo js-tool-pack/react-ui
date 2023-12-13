@@ -6,6 +6,7 @@ import {
   takeUntil,
   takeWhile,
   Subject,
+  filter,
   delay,
   merge,
   take,
@@ -121,7 +122,7 @@ export function useShowController(
         case 'click':
           const triggerClick$ = fromEvent(el, 'click').pipe(
             delay(0),
-            takeWhile((e) => !e.defaultPrevented),
+            filter((e) => !e.defaultPrevented),
           );
           const outerEvent = fromOuterEvent(
             () => [el, balloonElRef.current],

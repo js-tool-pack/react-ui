@@ -1,6 +1,6 @@
 import { getFilterInput, getBalloon, $$ } from '~/select/__tests__/utils';
 import { SelectOptionsItem, SelectOption, Select } from '~/select';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, act } from '@testing-library/react';
 
 describe('Select.filter', () => {
   const options: SelectOptionsItem[] = [
@@ -173,5 +173,45 @@ describe('Select.filter', () => {
       ['3', { label: 'foo', value: 1 }],
       ['3', { label: 'bar', value: 2 }],
     ]);
+  });
+  it('修复测试 Select 组件在开启 filter 并点击了 filter input 后再次打开弹窗失败 #77', () => {
+    jest.useFakeTimers();
+    const { container } = render(
+      <Select options={options} filterable clearable />,
+    );
+
+    expect(getBalloon()).toBeNull();
+    // 第一步：点击select启动
+    fireEvent.click(container.firstChild!);
+    // 延时
+    act(() => jest.advanceTimersByTime(500));
+    // 进入
+    act(() => jest.advanceTimersByTime(500));
+    expect(getBalloon()).not.toBeNull();
+
+    // 第二步：点击 filter input
+    fireEvent.click(getFilterInput());
+
+    // 第三步：点击外部关闭弹窗
+    fireEvent.click(document.body);
+    // 延时
+    act(() => jest.advanceTimersByTime(500));
+    // 退出
+    act(() => jest.advanceTimersByTime(500));
+    // 隐藏了
+    expect(getBalloon()).toHaveClass('t-transition--invisible');
+
+    // 第四步：点击select启动
+    fireEvent.click(container.firstChild!);
+    // 延时
+    act(() => jest.advanceTimersByTime(500));
+    // 进入
+    act(() => jest.advanceTimersByTime(500));
+    // 打开了，也就是在这一步出的问题。#77 是在这一步打开不了
+    expect(getBalloon()).not.toHaveClass('t-transition--invisible');
+
+    function getBalloon(): HTMLDivElement | null {
+      return document.querySelector('.t-word-balloon');
+    }
   });
 });

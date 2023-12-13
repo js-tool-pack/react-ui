@@ -1,3 +1,10 @@
+## [0.0.9](https://github.com/js-tool-pack/react-ui/compare/v0.0.8...v0.0.9) (2023-12-13)
+
+### Features
+
+- **components:** 新增 Empty 空状态组件 ([62b307d](https://github.com/js-tool-pack/react-ui/commit/62b307d9b2371919bc899b0d325deacf3115e5f7))
+- **icons:** 新增 Empty icon ([415a56b](https://github.com/js-tool-pack/react-ui/commit/415a56b43bb1d0aa89708764f50d722e06a287d3))
+
 ## [0.0.8](https://github.com/js-tool-pack/react-ui/compare/v0.0.7...v0.0.8) (2023-12-12)
 
 ### Bug Fixes

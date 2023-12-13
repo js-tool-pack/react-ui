@@ -23,3 +23,4 @@ export * from './rotate-left.icon';
 export * from './rotate-right.icon';
 export * from './flip-h.icon';
 export * from './flip-v.icon';
+export * from './empty.icon';

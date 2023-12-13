@@ -1,0 +1,17 @@
+@use '../namespace' as Name;
+
+$r: Name.$empty;
+
+.#{$r} {
+  --t-empty-color: var(--t-color-info-l-2);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: var(--t-empty-color);
+  &__icon {
+    display: inline-flex;
+  }
+}

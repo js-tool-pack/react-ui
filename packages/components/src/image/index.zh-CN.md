@@ -5,7 +5,7 @@ atomId: Image
 demo:
   cols: 2
 group:
-  title: 通用
+  title: 数据展示
 ---
 
 Image 图像。

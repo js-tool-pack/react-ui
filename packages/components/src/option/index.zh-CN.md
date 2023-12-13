@@ -6,7 +6,7 @@ debug: true
 demo:
   cols: 2
 group:
-  title: 通用
+  title: 内部
 ---
 
 Option 说明。
@@ -24,8 +24,11 @@ Option 说明。
 
 Option 的属性说明如下：
 
-| 属性 | 说明 | 类型 | 默认值 | 版本 |
-| ---- | ---- | ---- | ------ | ---- |
-| --   | --   | --   | --     | --   |
+| 属性     | 说明     | 类型            | 默认值 | 版本 |
+| -------- | -------- | --------------- | ------ | ---- |
+| readonly | 只读     | boolean         | --     | --   |
+| disabled | 禁用     | boolean         | --     | --   |
+| icon     | 图标     | React.ReactNode | --     | --   |
+| extra    | 额外元素 | React.ReactNode | --     | --   |
 
 其他说明。

@@ -5,7 +5,8 @@ atomId: WordBalloon
 demo:
   cols: 2
 group:
-  title: 通用
+  order: 10
+  title: 内部
 ---
 
 WordBalloon 文字气泡/文字气球(像一个飘在天上的 🎈)，可用在各种弹出层信息展示，也可以用于类似移动端的聊天气泡。

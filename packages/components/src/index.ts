@@ -33,3 +33,4 @@ export * from './input';
 export * from './image';
 export * from './slider';
 export * from './empty';
+export * from './timeline';

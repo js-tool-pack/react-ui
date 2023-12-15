@@ -151,6 +151,11 @@ export const baseRouter = [
     name: 'empty 空状态',
     path: '/empty',
   },
+  {
+    element: getDemos(import.meta.glob('~/timeline/demo/*.tsx')),
+    name: 'timeline 时间线',
+    path: '/timeline',
+  },
   /*insert target*/
 ];
 

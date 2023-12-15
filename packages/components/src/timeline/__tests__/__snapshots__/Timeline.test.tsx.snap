@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timeline basic 1`] = `
+<div
+  class="t-timeline t-timeline--left"
+>
+  <div
+    class="t-timeline-item t-timeline-item--default"
+    style="--t-timeline-line-style: solid;"
+  >
+    <div
+      class="t-timeline-item__content-block"
+    >
+      <div
+        class="t-timeline-item__title"
+      >
+        title 1
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        content 1
+      </div>
+      <div
+        class="t-timeline-item__time"
+      >
+        2023-01-01
+      </div>
+    </div>
+    <div
+      class="t-timeline-item__line-block"
+    >
+      <div
+        class="t-timeline-item__circle"
+      />
+      <div
+        class="t-timeline-item__line"
+      />
+    </div>
+  </div>
+  <div
+    class="t-timeline-item t-timeline-item--error"
+    style="--t-timeline-line-style: dotted;"
+  >
+    <div
+      class="t-timeline-item__content-block"
+    >
+      <div
+        class="t-timeline-item__title"
+      >
+        title 2
+      </div>
+      <div
+        class="t-timeline-item__content"
+      >
+        content 2
+      </div>
+      <div
+        class="t-timeline-item__time"
+      >
+        2023-01-02
+      </div>
+    </div>
+    <div
+      class="t-timeline-item__line-block"
+    >
+      <div
+        class="t-timeline-item__circle"
+      />
+      <div
+        class="t-timeline-item__line"
+      />
+    </div>
+  </div>
+</div>
+`;

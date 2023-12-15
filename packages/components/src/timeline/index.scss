@@ -1,0 +1,116 @@
+@use '../namespace' as Name;
+
+$r: Name.$timeline;
+$i: #{Name.$timeline}-item;
+
+@mixin item-colors($status, $color: $status) {
+  &.#{$i}--#{$status} {
+    --t-timeline-item-color: var(--t-color-#{$color});
+  }
+}
+
+.#{$i} {
+  --t-timeline-line-style: solid;
+
+  position: relative;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  @include item-colors('default', 'primary');
+  @include item-colors('info');
+  @include item-colors('success');
+  @include item-colors('warning');
+  @include item-colors('error', 'danger');
+  &:last-child {
+    padding-bottom: 0;
+    .#{$i}__line {
+      display: none;
+    }
+  }
+
+  // content-block
+  &__content-block {
+    // display: flex;
+    // flex-direction: column;
+  }
+  &__title {
+    margin-bottom: 6px;
+    font-size: 1.2em;
+    font-weight: bold;
+    line-height: 1;
+  }
+  &__content {
+    white-space: pre-line;
+  }
+  &__time {
+    margin-top: 6px;
+    color: var(--t-color-info);
+  }
+
+  // line block
+  &__line-block {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__line {
+    flex: 1;
+    width: 0;
+    border-right: 2px var(--t-timeline-line-style) var(--t-color-info-l-5);
+  }
+  &__circle {
+    $w: 12px;
+
+    width: $w;
+    height: $w;
+    border: 2px solid var(--t-timeline-item-color);
+    border-radius: 50%;
+  }
+  &__icon {
+    display: flex;
+    color: var(--t-timeline-item-color);
+  }
+}
+
+.#{$r} {
+  $padding-size: 30px;
+  &--left {
+    .#{$i}__content-block {
+      padding-left: $padding-size;
+    }
+  }
+  &--right {
+    .#{$i}__content-block {
+      padding-right: $padding-size;
+      text-align: right;
+    }
+    .#{$i}__line-block {
+      right: 0;
+    }
+  }
+  &--alternate {
+    display: flex;
+    flex-direction: column;
+    .#{$i} {
+      width: 50%;
+      &:nth-child(odd) {
+        padding-right: $padding-size;
+        text-align: right;
+        .#{$i}__line-block {
+          right: 0;
+          transform: translateX(50%);
+        }
+      }
+      &:nth-child(even) {
+        align-self: flex-end;
+        padding-left: $padding-size;
+        .#{$i}__line-block {
+          left: 0;
+          transform: translateX(-50%);
+        }
+      }
+    }
+  }
+}

@@ -36,3 +36,12 @@ export const TIMING_FNS = [
   'ease-out',
   'ease-in-out',
 ] as const;
+
+export const TypeLevels = [
+  'default',
+  'success',
+  'info',
+  'warning',
+  'error',
+] as const;
+export type TYPE_LEVEL = (typeof TypeLevels)[number];

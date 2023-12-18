@@ -1,0 +1,66 @@
+@use '../namespace' as Name;
+
+$r: Name.$calendar;
+$c: #{Name.$calendar}-cell;
+$h: #{Name.$calendar}-header;
+$t: #{Name.$calendar}-table;
+
+.#{$r} {
+  --t-calendar-border: 1px solid var(--t-color-info-l-7);
+  --t-calendar-cell-height: 80px;
+}
+
+.#{$c} {
+  box-sizing: border-box;
+  padding: 8px;
+  height: var(--t-calendar-cell-height);
+  &--prev-month,
+  &--next-month {
+    color: var(--t-color-info-l-3);
+  }
+  &--today,
+  &--active {
+    color: var(--t-color-primary-l-2);
+  }
+  &--active {
+    background-color: var(--t-color-primary-l-7);
+  }
+  &:not(&--disabled, &--active) {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--t-color-primary-l-7);
+    }
+  }
+}
+
+.#{$h} {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: var(--t-calendar-border);
+  + .#{$t} {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+.#{$t} {
+  padding: 12px 0 35px;
+  width: 100%;
+  th {
+    padding: 10px 0;
+    color: var(--t-color-info);
+  }
+  td {
+    border-right: var(--t-calendar-border);
+    border-bottom: var(--t-calendar-border);
+    transition: background-color var(--t-transition-duration) ease;
+    vertical-align: top;
+  }
+  tr td:first-child {
+    border-left: var(--t-calendar-border);
+  }
+  tr:first-child td {
+    border-top: var(--t-calendar-border);
+  }
+}

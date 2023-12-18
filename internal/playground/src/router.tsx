@@ -156,6 +156,11 @@ export const baseRouter = [
     name: 'timeline 时间线',
     path: '/timeline',
   },
+  {
+    element: getDemos(import.meta.glob('~/calendar/demo/*.tsx')),
+    name: 'calendar 日历',
+    path: '/calendar',
+  },
   /*insert target*/
 ];
 

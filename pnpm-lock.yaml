@@ -11,7 +11,7 @@ importers:
       '@testing-library/jest-dom': ^6.1.2
       '@testing-library/react': ^14.0.0
       '@testing-library/user-event': ^14.4.3
-      '@tool-pack/basic': ^0.1.2
+      '@tool-pack/basic': ^0.2.0
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': ^0.2.1
       '@tool-pack/types': ^0.2.0
@@ -79,7 +79,7 @@ importers:
       '@testing-library/jest-dom': 6.1.2_@types+jest@29.5.4
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@tool-pack/basic': 0.1.2
+      '@tool-pack/basic': 0.2.0
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': 0.2.1
       '@tool-pack/types': 0.2.0
@@ -5097,8 +5097,14 @@ packages:
       '@tool-pack/types': 0.0.1
     dev: true
 
-  /@tool-pack/basic/0.1.2:
-    resolution: {integrity: sha512-1cC9XeZmfChaKFx+lZIfvo6LLaVQ1Way3LSqDAIKHNGhFXIor5Wukkm3OS54z+GZhbLefa1gCqujqnMQaGMRlg==}
+  /@tool-pack/basic/0.1.3:
+    resolution: {integrity: sha512-j0Ke8OJsgSn1zANgKLGXbtLDA91ZH+0mf3sGYX3ET3XyLbWBRKONcVmuFOYNNEpMKNGwX3jiAyn+YqtpetyF6w==}
+    dependencies:
+      '@tool-pack/types': 0.0.6
+    dev: true
+
+  /@tool-pack/basic/0.2.0:
+    resolution: {integrity: sha512-TGMNQRBeJ/IIWwoqEfbcVXY2rEVH8HchRE7betIGMFvLoJSGONdaedtwVMQM2pjGO83jVB0zLlrfeTpW/G9RvA==}
     dependencies:
       '@tool-pack/types': 0.0.6
     dev: true
@@ -5120,7 +5126,7 @@ packages:
   /@tool-pack/dom/0.2.1:
     resolution: {integrity: sha512-pdS00qoKUwp9F4AY+pZnXiTBYWe0YPO+LBlygz/aecA3XntBt6WPiAxge1XInPFk2Y6CSJxmvtRzQlSCtz0ZOA==}
     dependencies:
-      '@tool-pack/basic': 0.1.2
+      '@tool-pack/basic': 0.1.3
       '@tool-pack/types': 0.2.0
     dev: true
 

@@ -23,6 +23,9 @@ const options: SelectOption[] = [
 
 const App: React.FC = () => {
   const [date, setDate] = useState(new Date());
+  const formattedDate = `${date.getFullYear()}-${String(
+    date.getMonth() + 1,
+  ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   return (
     <>
       <div
@@ -32,10 +35,7 @@ const App: React.FC = () => {
           display: 'flex',
         }}
       >
-        <div>{`${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-          2,
-          '0',
-        )}-${String(date.getDate()).padStart(2, '0')}`}</div>
+        <div>{formattedDate}</div>
         <Select
           onChange={(v) => setDate(new Date(date.getFullYear(), v))}
           value={date.getMonth()}

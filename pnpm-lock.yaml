@@ -11,7 +11,7 @@ importers:
       '@testing-library/jest-dom': ^6.1.2
       '@testing-library/react': ^14.0.0
       '@testing-library/user-event': ^14.4.3
-      '@tool-pack/basic': ^0.2.0
+      '@tool-pack/basic': ^0.3.1
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': ^0.2.1
       '@tool-pack/types': ^0.2.0
@@ -79,7 +79,7 @@ importers:
       '@testing-library/jest-dom': 6.1.2_@types+jest@29.5.4
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@tool-pack/basic': 0.2.0
+      '@tool-pack/basic': 0.3.1
       '@tool-pack/bom': 0.0.1-beta.0
       '@tool-pack/dom': 0.2.1
       '@tool-pack/types': 0.2.0
@@ -5103,8 +5103,8 @@ packages:
       '@tool-pack/types': 0.0.6
     dev: true
 
-  /@tool-pack/basic/0.2.0:
-    resolution: {integrity: sha512-TGMNQRBeJ/IIWwoqEfbcVXY2rEVH8HchRE7betIGMFvLoJSGONdaedtwVMQM2pjGO83jVB0zLlrfeTpW/G9RvA==}
+  /@tool-pack/basic/0.3.1:
+    resolution: {integrity: sha512-9Ttbr2Y5SE//HRIQNTu0zrWZGyEYMGJuQ6/LmZmDqvlThDYys7W/B3T1deLxj20CnJZaSbOLGmDA52fp991XGw==}
     dependencies:
       '@tool-pack/types': 0.0.6
     dev: true

@@ -44,7 +44,7 @@ const App: React.FC = () => {
         />
       </div>
       <Divider />
-      <Calendar header={false} />
+      <Calendar header={false} value={date} />
     </>
   );
 };

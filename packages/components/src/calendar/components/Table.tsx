@@ -15,7 +15,7 @@ import React, { useMemo } from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<CalendarProps, 'weekStart' | 'dateCell' | 'value'>
+    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value'>
   > {
   setValue(value: Date): void;
 }
@@ -26,7 +26,7 @@ const defaultProps = {} satisfies Partial<Props>;
 export const CalendarTable: React.FC<Props> = (props) => {
   const {
     value = new Date(),
-    weekStart,
+    firstDay,
     setValue,
     dateCell,
   } = props as RequiredPart<Props, keyof typeof defaultProps>;
@@ -61,9 +61,11 @@ export const CalendarTable: React.FC<Props> = (props) => {
       const firstDateOfMonth = new Date(value);
       firstDateOfMonth.setDate(1);
 
-      let startOfWeek = getStartOfWeek(firstDateOfMonth, weekStart);
+      const startOfWeek = getStartOfWeek(firstDateOfMonth, { firstDay });
       if (startOfWeek.getDate() === 1) {
-        startOfWeek = dateAdd(startOfWeek, -1, 'week');
+        // 往前延伸一个星期
+        // startOfWeek = dateAdd(startOfWeek, -1, 'week');
+        return [];
       }
 
       const endOfPrevMonth = getEndOfMonth(value, -1);
@@ -74,7 +76,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
       });
     }
     function getNextMonthDates(): Date[] {
-      let endOfEndWeek = getEndOfWeek(endOfMonth, weekStart);
+      let endOfEndWeek = getEndOfWeek(endOfMonth, { firstDay });
       if (endOfEndWeek.getDate() === endOfMonth.getDate()) {
         endOfEndWeek = dateAdd(endOfEndWeek, 1, 'week');
       }
@@ -87,15 +89,18 @@ export const CalendarTable: React.FC<Props> = (props) => {
     function getFill(month: Date): (v: number) => Date {
       return (v) => new Date(month.getFullYear(), month.getMonth(), v);
     }
-  }, [value, weekStart]);
+  }, [value, firstDay]);
+
+  const weekDays: readonly string[] = useMemo(
+    () => [...weekDayNames.slice(firstDay), ...weekDayNames.slice(0, firstDay)],
+    [firstDay],
+  );
+
   return (
     <table className={cls.root} cellSpacing={0} cellPadding={0}>
       <thead>
         <tr>
-          {(weekStart === 'MonDay'
-            ? weekDayNames.slice(1)
-            : weekDayNames.slice(0, -1)
-          ).map((name) => (
+          {weekDays.map((name) => (
             <th key={name}>{name}</th>
           ))}
         </tr>
@@ -120,4 +125,4 @@ export const CalendarTable: React.FC<Props> = (props) => {
 };
 
 CalendarTable.defaultProps = defaultProps;
-const weekDayNames = ['日', '一', '二', '三', '四', '五', '六', '日'] as const;
+const weekDayNames = ['日', '一', '二', '三', '四', '五', '六'] as const;

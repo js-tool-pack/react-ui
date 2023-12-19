@@ -22,11 +22,11 @@ Calendar 日历。
 
 Calendar 的属性说明如下：
 
-| 属性      | 说明                       | 类型                                            | 默认值     | 版本 |
-| --------- | -------------------------- | ----------------------------------------------- | ---------- | ---- |
-| value     | 选中的日期                 | Date                                            | new Date() | --   |
-| onChange  | 当选中的日期变化触发的回调 | (value: Date) => void                           | --         | --   |
-| dateCell  | 自定义渲染格子内容         | (date: Date) => React.ReactNode                 | --         | --   |
-| header    | 头部显示或隐藏             | boolean                                         | true       | --   |
-| weekStart | 星期的第一天               | 'MonDay' \| 'SunDay'                            | 'MonDay'   | --   |
-| attrs     | html 标签属性              | Partial\<React.HTMLAttributes\<HTMLDivElement>> | --         | --   |
+| 属性     | 说明                       | 类型                                            | 默认值     | 版本 |
+| -------- | -------------------------- | ----------------------------------------------- | ---------- | ---- |
+| value    | 选中的日期                 | Date                                            | new Date() | --   |
+| onChange | 当选中的日期变化触发的回调 | (value: Date) => void                           | --         | --   |
+| dateCell | 自定义渲染格子内容         | (date: Date) => React.ReactNode                 | --         | --   |
+| header   | 头部显示或隐藏             | boolean                                         | true       | --   |
+| firstDay | 星期的第一天               | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6                 | 0          | --   |
+| attrs    | html 标签属性              | Partial\<React.HTMLAttributes\<HTMLDivElement>> | --         | --   |

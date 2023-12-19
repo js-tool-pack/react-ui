@@ -1,6 +1,6 @@
 {
   "name": "@tool-pack/react-ui-monorepo",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "private": true,
   "packageManager": "pnpm@7.1.0",
   "workspaces": [
@@ -59,7 +59,7 @@
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@tool-pack/basic": "^0.2.0",
+    "@tool-pack/basic": "^0.3.1",
     "@tool-pack/bom": "0.0.1-beta.0",
     "@tool-pack/dom": "^0.2.1",
     "@tool-pack/types": "^0.2.0",

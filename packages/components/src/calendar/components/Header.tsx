@@ -1,14 +1,12 @@
 import { getClassNames, getEndOfMonth, dateAdd } from '@tool-pack/basic';
 import { ButtonContext, ButtonGroup, Button } from '~/button';
 import type { RequiredPart } from '@tool-pack/types';
-import { ConvertOptional } from '@tool-pack/types';
-import { CalendarProps } from '~/calendar';
 import { getClasses } from '@pkg/shared';
 import { Right, Left } from '@pkg/icons';
 import { Icon } from '~/icon';
 import React from 'react';
 
-interface Props extends ConvertOptional<Pick<CalendarProps, 'weekStart'>> {
+interface Props {
   setValue: (value: Date) => void;
   value: Date;
 }

@@ -8,9 +8,9 @@ import React from 'react';
 
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
 const defaultProps = {
-  weekStart: 'MonDay',
   value: new Date(),
   header: true,
+  firstDay: 0,
 } satisfies Partial<CalendarProps>;
 
 export const Calendar: React.FC<CalendarProps> = React.forwardRef<
@@ -19,7 +19,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
 >((props, ref) => {
   const {
     attrs = {},
-    weekStart,
+    firstDay,
     onChange,
     dateCell,
     header,
@@ -35,15 +35,11 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
       ref={ref}
     >
       {header && (
-        <CalendarHeader
-          value={valueRef.current}
-          weekStart={weekStart}
-          setValue={setValue}
-        />
+        <CalendarHeader value={valueRef.current} setValue={setValue} />
       )}
       <CalendarTable
         value={valueRef.current}
-        weekStart={weekStart}
+        firstDay={firstDay}
         setValue={setValue}
         dateCell={dateCell}
       />

@@ -1,20 +1,19 @@
 import {
-  getSizeClassName,
   useForceUpdate,
   useForwardRef,
   getClasses,
   useWatch,
 } from '@pkg/shared';
+import { InputSwitch, InputSuffix, InputSkin } from './components';
 import type { RequiredPart } from '@tool-pack/types';
-import { InnerInput, Suffix } from './components';
 import { getClassNames } from '@tool-pack/basic';
 import type { InputProps } from './input.types';
 import React, { useState, useRef } from 'react';
 
 const cls = getClasses(
   'input',
-  ['clear', 'prefix', 'suffix', 'loading', 'icon', 'count', 'switch'],
-  ['focus', 'clearable', 'disabled', 'loading', 'textarea', 'autosize'],
+  ['prefix', 'count'],
+  ['clearable', 'loading', 'textarea', 'autosize'],
 );
 const defaultProps = {
   showPasswordOn: 'click',
@@ -70,27 +69,25 @@ export const Input: React.FC<InputProps> = React.forwardRef<
   );
 
   return (
-    <label
-      {...rootAttrs}
-      className={getClassNames(
-        cls.root,
-        rootAttrs.className,
-        getSizeClassName(size),
-        {
+    <InputSkin
+      attrs={{
+        ...rootAttrs,
+        className: getClassNames(cls.root, rootAttrs.className, {
           [cls['--'].textarea]: type === 'textarea',
           [cls['--'].textarea]: type === 'textarea',
-          [`${cls.root}--${status}`]: status,
           [cls['--'].clearable]: clearable,
-          [cls['--'].disabled]: disabled,
           [cls['--'].autosize]: autoSize,
           [cls['--'].loading]: loading,
-          [cls['--'].focus]: focus,
-        },
-      )}
+        }),
+      }}
+      disabled={disabled}
       ref={containerRef}
+      status={status}
+      active={focus}
+      size={size}
     >
       {prefix && <div className={cls.__.prefix}>{prefix}</div>}
-      <InnerInput
+      <InputSwitch
         placeholder={placeholder || attrs.placeholder}
         onResize={onInputResize}
         value={valueRef.current}
@@ -104,7 +101,7 @@ export const Input: React.FC<InputProps> = React.forwardRef<
         rows={rows}
         ref={ref}
       />
-      <Suffix
+      <InputSuffix
         showPasswordOn={showPasswordOn}
         setInnerType={setInnerType}
         value={valueRef.current}
@@ -117,7 +114,7 @@ export const Input: React.FC<InputProps> = React.forwardRef<
         countEl={Count}
         type={type}
       />
-    </label>
+    </InputSkin>
   );
 
   function getCountView() {

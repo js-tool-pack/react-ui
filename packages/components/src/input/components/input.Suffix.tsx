@@ -1,7 +1,7 @@
 import { CircleCloseFill, EyeInvisible, Loading, Eye } from '@pkg/icons';
 import type { ConvertOptional } from '@tool-pack/types';
+import type { InputProps } from '../input.types';
 import { getClassNames } from '@tool-pack/basic';
-import { InputProps } from '../input.types';
 import { getClasses } from '@pkg/shared';
 import { Icon } from '~/icon';
 import React from 'react';
@@ -27,11 +27,11 @@ interface Props
 
 const cls = getClasses(
   'input',
-  ['clear', 'suffix', 'loading', 'icon', 'count', 'switch'],
+  ['clear', 'suffix', 'loading', 'icon', 'switch'],
   [],
 );
 
-export const Suffix: React.FC<Props> = ({
+export const InputSuffix: React.FC<Props> = ({
   showPasswordOn,
   setInnerType,
   clearable,

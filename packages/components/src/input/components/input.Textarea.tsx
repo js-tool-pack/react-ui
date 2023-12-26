@@ -1,8 +1,8 @@
 import type { ConvertOptional } from '@tool-pack/types';
 import React, { useEffect, useRef } from 'react';
+import type { InputProps } from '../input.types';
 import { isBoolean } from '@tool-pack/basic';
 import { useForwardRef } from '@pkg/shared';
-import { InputProps } from '../input.types';
 
 interface Props
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -11,7 +11,7 @@ interface Props
   ref: React.Ref<HTMLTextAreaElement>;
 }
 
-export const Textarea: React.FC<Props> = React.forwardRef<
+export const InputTextarea: React.FC<Props> = React.forwardRef<
   HTMLTextAreaElement,
   Props
 >(({ onInputResize, autoSize, value, rows, ...rest }, ref) => {

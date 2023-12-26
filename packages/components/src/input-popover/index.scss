@@ -1,0 +1,18 @@
+@use '../namespace' as Name;
+
+$r: Name.$input-popover;
+$skin: Name.$input-skin;
+$tt: #{$r}-tab-trigger;
+
+.#{$r} {
+  &.#{$skin}:not(.#{$skin}--disabled) {
+    cursor: pointer;
+  }
+}
+.#{$tt} {
+  padding: 0;
+  width: 0;
+  border: 0;
+  opacity: 0;
+  outline: 0;
+}

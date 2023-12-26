@@ -6,7 +6,7 @@ describe('Calendar', () => {
   testAttrs(Calendar);
   it('basic', () => {
     expect(
-      render(<Calendar value={new Date(2023, 11, 18)} />),
+      render(<Calendar value={new Date(2023, 11, 18)} />).container.firstChild,
     ).toMatchSnapshot();
   });
 });

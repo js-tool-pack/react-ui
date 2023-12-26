@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select basic 1`] = `
-<div
-  class="t-select t--size-m"
+<label
+  class="t-input-skin t-select t-input-popover t--size-m"
 >
   <input
-    class="t-select-tab-trigger"
+    class="t-input-popover-tab-trigger"
     tabindex="0"
   />
   <div
@@ -38,15 +38,15 @@ exports[`Select basic 1`] = `
       </i>
     </div>
   </div>
-</div>
+</label>
 `;
 
 exports[`Select clearable|onClear 1`] = `
-<div
-  class="t-select t--size-m t-select--selected t-select--clearable"
+<label
+  class="t-input-skin t-select t-select--selected t-select--clearable t-input-popover t--size-m"
 >
   <input
-    class="t-select-tab-trigger"
+    class="t-input-popover-tab-trigger"
     tabindex="0"
   />
   <div
@@ -92,15 +92,15 @@ exports[`Select clearable|onClear 1`] = `
       </i>
     </div>
   </div>
-</div>
+</label>
 `;
 
 exports[`Select disabled 1`] = `
-<div
-  class="t-select t--size-m t-select--disabled"
+<label
+  class="t-input-skin t-select t-input-popover t--size-m t-input-skin--disabled"
 >
   <input
-    class="t-select-tab-trigger"
+    class="t-input-popover-tab-trigger"
     tabindex="-1"
   />
   <div
@@ -133,17 +133,17 @@ exports[`Select disabled 1`] = `
       </i>
     </div>
   </div>
-</div>
+</label>
 `;
 
 exports[`Select group 1`] = `
 <body>
   <div>
-    <div
-      class="t-select t--size-m t-select--active t-select--focus"
+    <label
+      class="t-input-skin t-select t-input-popover t--size-m t-input-skin--active"
     >
       <input
-        class="t-select-tab-trigger"
+        class="t-input-popover-tab-trigger"
         tabindex="-1"
       />
       <div
@@ -176,11 +176,11 @@ exports[`Select group 1`] = `
           </i>
         </div>
       </div>
-    </div>
+    </label>
   </div>
   <div
     class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
-    style="width: 0px; top: 2px; left: 0px;"
+    style="width: 0px; top: 10px; left: 0px;"
   >
     <div
       class="t-word-balloon__content"
@@ -263,11 +263,11 @@ exports[`Select loading 1`] = `null`;
 exports[`Select maxTagCount 1`] = `
 <body>
   <div>
-    <div
-      class="t-select t--size-m t-select--selected"
+    <label
+      class="t-input-skin t-select t-select--selected t-input-popover t--size-m"
     >
       <input
-        class="t-select-tab-trigger"
+        class="t-input-popover-tab-trigger"
         tabindex="0"
       />
       <div
@@ -334,7 +334,7 @@ exports[`Select maxTagCount 1`] = `
           </i>
         </div>
       </div>
-    </div>
+    </label>
   </div>
 </body>
 `;
@@ -342,11 +342,11 @@ exports[`Select maxTagCount 1`] = `
 exports[`Select maxTagCount 2`] = `
 <body>
   <div>
-    <div
-      class="t-select t--size-m t-select--selected"
+    <label
+      class="t-input-skin t-select t-select--selected t-input-popover t--size-m"
     >
       <input
-        class="t-select-tab-trigger"
+        class="t-input-popover-tab-trigger"
         tabindex="0"
       />
       <div
@@ -413,7 +413,7 @@ exports[`Select maxTagCount 2`] = `
           </i>
         </div>
       </div>
-    </div>
+    </label>
   </div>
   <div
     class="t-word-balloon t-popover t-word-balloon--top"
@@ -474,11 +474,11 @@ exports[`Select maxTagCount 2`] = `
 exports[`Select multiple 1`] = `
 <body>
   <div>
-    <div
-      class="t-select t--size-m t-select--selected t-select--active t-select--focus"
+    <label
+      class="t-input-skin t-select t-select--selected t-input-popover t--size-m t-input-skin--active"
     >
       <input
-        class="t-select-tab-trigger"
+        class="t-input-popover-tab-trigger"
         tabindex="-1"
       />
       <div
@@ -564,11 +564,11 @@ exports[`Select multiple 1`] = `
           </i>
         </div>
       </div>
-    </div>
+    </label>
   </div>
   <div
     class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
-    style="width: 0px; top: 2px; left: 0px;"
+    style="width: 0px; top: 10px; left: 0px;"
   >
     <div
       class="t-word-balloon__content"

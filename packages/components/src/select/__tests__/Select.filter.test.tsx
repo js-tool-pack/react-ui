@@ -71,24 +71,12 @@ describe('Select.filter', () => {
       target: { value: '1' },
     });
     expect(getBalloon()).toMatchSnapshot();
-    expect(filter.mock.calls.length).toBe(18);
+    expect(filter.mock.calls.length).toBe(6);
     expect(filter.mock.calls).toEqual([
       ['', { label: 'foo', value: 1 }],
       ['', { label: 'bar', value: 2 }],
-      ['', { label: 'foo', value: 1 }],
-      ['', { label: 'bar', value: 2 }],
-      ['', { label: 'foo', value: 1 }],
-      ['', { label: 'bar', value: 2 }],
-      ['', { label: 'foo', value: 1 }],
-      ['', { label: 'bar', value: 2 }],
-      ['', { label: 'foo', value: 1 }],
-      ['', { label: 'bar', value: 2 }],
       ['2', { label: 'foo', value: 1 }],
       ['2', { label: 'bar', value: 2 }],
-      ['2', { label: 'foo', value: 1 }],
-      ['2', { label: 'bar', value: 2 }],
-      ['1', { label: 'foo', value: 1 }],
-      ['1', { label: 'bar', value: 2 }],
       ['1', { label: 'foo', value: 1 }],
       ['1', { label: 'bar', value: 2 }],
     ]);
@@ -110,8 +98,6 @@ describe('Select.filter', () => {
     expect(filter.mock.calls).toEqual([
       ['1', { label: 'foo', value: 1 }],
       ['1', { label: 'bar', value: 2 }],
-      ['1', { label: 'foo', value: 1 }],
-      ['1', { label: 'bar', value: 2 }],
     ]);
 
     filter.mockClear();
@@ -123,8 +109,6 @@ describe('Select.filter', () => {
 
     fireEvent.compositionEnd(getFilterInput(), { target: { value: '3' } });
     expect(filter.mock.calls).toEqual([
-      ['3', { label: 'foo', value: 1 }],
-      ['3', { label: 'bar', value: 2 }],
       ['3', { label: 'foo', value: 1 }],
       ['3', { label: 'bar', value: 2 }],
     ]);
@@ -149,8 +133,6 @@ describe('Select.filter', () => {
     expect(filter.mock.calls).toEqual([
       ['1', { label: 'foo', value: 1 }],
       ['1', { label: 'bar', value: 2 }],
-      ['1', { label: 'foo', value: 1 }],
-      ['1', { label: 'bar', value: 2 }],
     ]);
 
     filter.mockClear();
@@ -161,15 +143,11 @@ describe('Select.filter', () => {
     expect(filter.mock.calls).toEqual([
       ['2', { label: 'foo', value: 1 }],
       ['2', { label: 'bar', value: 2 }],
-      ['2', { label: 'foo', value: 1 }],
-      ['2', { label: 'bar', value: 2 }],
     ]);
 
     filter.mockClear();
     fireEvent.compositionEnd(getFilterInput(), { target: { value: '3' } });
     expect(filter.mock.calls).toEqual([
-      ['3', { label: 'foo', value: 1 }],
-      ['3', { label: 'bar', value: 2 }],
       ['3', { label: 'foo', value: 1 }],
       ['3', { label: 'bar', value: 2 }],
     ]);

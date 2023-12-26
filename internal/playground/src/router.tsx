@@ -161,6 +161,11 @@ export const baseRouter = [
     name: 'calendar 日历',
     path: '/calendar',
   },
+  {
+    element: getDemos(import.meta.glob('~/input-popover/demo/*.tsx')),
+    name: 'input-popover 输入弹窗',
+    path: '/input-popover',
+  },
   /*insert target*/
 ];
 

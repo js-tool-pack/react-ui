@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputPopover basic 1`] = `
+<body>
+  <div>
+    <label
+      class="t-input-skin t-input-popover t--size-m t-input-skin--active"
+    >
+      <input
+        class="t-input-popover-tab-trigger"
+        tabindex="-1"
+      />
+    </label>
+  </div>
+  <div
+    class="t-word-balloon t-popover t-word-balloon--bottom"
+    style="width: 0px; top: 10px; left: 0px;"
+  >
+    <div
+      class="t-word-balloon__content"
+    />
+    <div
+      class="t-word-balloon__arrow"
+    >
+      <svg
+        viewBox="-8 -5.5 16 5.515"
+      >
+        <path
+          d="M8-5.5A4 4 180 005.1716-4.3284L1.4142-.5711A2 2 180 01-1.4142-.5711L-5.1716-4.3284A4 4 180 00-8-5.5Z"
+        />
+      </svg>
+    </div>
+  </div>
+</body>
+`;

@@ -35,3 +35,4 @@ export * from './slider';
 export * from './empty';
 export * from './timeline';
 export * from './calendar';
+export * from './input-popover';

@@ -10,7 +10,7 @@ interface Props {
   opened: boolean;
 }
 
-const cls = getComponentClass('select-tab-trigger');
+const cls = getComponentClass('input-popover-tab-trigger');
 
 export const TabTrigger: React.FC<Props> = React.forwardRef<
   HTMLInputElement,

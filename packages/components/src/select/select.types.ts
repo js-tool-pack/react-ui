@@ -1,7 +1,7 @@
-import { DividerProps } from '~/divider';
-import { PopoverProps } from '~/popover';
-import { OptionProps } from '~/option';
-import { Size } from '@pkg/shared';
+import type { PropsBase, Size } from '@pkg/shared';
+import type { PopoverProps } from '~/popover';
+import type { DividerProps } from '~/divider';
+import type { OptionProps } from '~/option';
 import React from 'react';
 
 export interface SelectOptionProps extends OptionProps {
@@ -38,9 +38,18 @@ export interface SelectControllerRef {
 }
 
 export interface SelectStaticProps
-  extends Omit<PopoverProps, 'children' | 'content' | 'name'> {
+  extends PropsBase<HTMLLabelElement>,
+    Pick<
+      PopoverProps,
+      | 'onVisibleChange'
+      | 'widthByTrigger'
+      | 'showArrow'
+      | 'placement'
+      | 'visible'
+      | 'trigger'
+      | 'offset'
+    > {
   popoverAttrs?: Partial<React.HTMLAttributes<HTMLDivElement>>;
-
   filter?: (pattern: string, option: SelectOption) => boolean;
   onChange?: (value: any, options: SelectOption[]) => void;
   // 控制器

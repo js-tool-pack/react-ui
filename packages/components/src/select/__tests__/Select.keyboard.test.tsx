@@ -22,18 +22,19 @@ describe('Select.keyboard', () => {
     selected: 't-select-option--selected',
     invisible: 't-transition--invisible',
     picked: 't-select-option--picked',
+    active: 't-input-skin--active',
   };
 
   it('should close Select when esc keydown', () => {
     jest.useFakeTimers();
     const { container } = render(<Select options={options} visible />);
-    expect(container.firstChild).toHaveClass('t-select--active');
+    expect(container.firstChild).toHaveClass(cls.active);
     expect(getBalloon()).not.toHaveClass(cls.invisible);
 
     fireEvent.keyDown(window, { key: 'Escape' });
     act(() => jest.advanceTimersByTime(500));
 
-    expect(container.firstChild).not.toHaveClass('t-select--active');
+    expect(container.firstChild).toHaveClass(cls.active);
     expect(getBalloon()).toHaveClass(cls.invisible);
   });
 
@@ -64,7 +65,7 @@ describe('Select.keyboard', () => {
     jest.useFakeTimers();
     render(<Select options={options} />);
 
-    const tabTrigger = $('.t-select-tab-trigger')!;
+    const tabTrigger = $('.t-input-popover-tab-trigger')!;
     expect(getBalloon()).toBeNull();
 
     act(() => tabTrigger.focus());

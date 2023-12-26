@@ -301,7 +301,7 @@ describe('Select', () => {
       );
     }
     function getTrigger() {
-      return $('.t-select-tab-trigger');
+      return $('.t-input-popover-tab-trigger');
     }
   });
 
@@ -324,11 +324,11 @@ describe('Select', () => {
   test('status', () => {
     expect(
       render(<Select status="error" options={[]} />).container.firstChild,
-    ).toHaveClass(' t-select--error');
+    ).toHaveClass(' t-input-skin--error');
 
     expect(
       render(<Select status="warning" options={[]} />).container.firstChild,
-    ).toHaveClass(' t-select--warning');
+    ).toHaveClass(' t-input-skin--warning');
   });
 
   test('missing options', () => {

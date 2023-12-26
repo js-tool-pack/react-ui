@@ -3,7 +3,7 @@
 exports[`Select.remote all 1`] = `
 <div
   class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
-  style="width: 0px; top: 2px; left: 0px;"
+  style="width: 0px; top: 10px; left: 0px;"
 >
   <div
     class="t-word-balloon__content"
@@ -24,7 +24,7 @@ exports[`Select.remote all 1`] = `
 exports[`Select.remote all 2`] = `
 <div
   class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
-  style="width: 0px; top: 2px; left: 0px;"
+  style="width: 0px; top: 10px; left: 0px;"
 >
   <div
     class="t-word-balloon__content"
@@ -54,7 +54,7 @@ exports[`Select.remote all 2`] = `
 exports[`Select.remote all 3`] = `
 <div
   class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
-  style="width: 0px; top: 2px; left: 0px;"
+  style="width: 0px; top: 10px; left: 0px;"
 >
   <div
     class="t-word-balloon__content"
@@ -82,11 +82,11 @@ exports[`Select.remote all 3`] = `
 `;
 
 exports[`Select.remote should display the filter-input element when Select is in the open state 1`] = `
-<div
-  class="t-select t--size-m t-select--active t-select--focus"
+<label
+  class="t-input-skin t-select t-input-popover t--size-m t-input-skin--active"
 >
   <input
-    class="t-select-tab-trigger"
+    class="t-input-popover-tab-trigger"
     tabindex="-1"
   />
   <div
@@ -132,13 +132,13 @@ exports[`Select.remote should display the filter-input element when Select is in
       </i>
     </div>
   </div>
-</div>
+</label>
 `;
 
 exports[`Select.remote should display the filter-input element when Select is in the open state 2`] = `
 <div
   class="t-word-balloon t-select__dropdown t-word-balloon--bottom t-word-balloon--no-arrow t-select__dropdown-enter-active t-select__dropdown-enter-to"
-  style="width: 0px; top: 2px; left: 0px;"
+  style="width: 0px; top: 10px; left: 0px;"
 >
   <div
     class="t-word-balloon__content"

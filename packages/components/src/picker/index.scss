@@ -1,0 +1,49 @@
+@use '../namespace' as Name;
+
+$r: Name.$picker;
+$col: #{Name.$picker}-col;
+$panel: #{Name.$picker}-panel;
+$pop: Name.$popover;
+
+// .#{$r} {
+// }
+.#{$panel} {
+  display: flex;
+  align-items: center;
+}
+.#{$pop} {
+  .#{$panel} {
+    height: 50vh;
+  }
+}
+.#{$col} {
+  position: relative;
+  overflow-y: hidden;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  list-style: none;
+  flex: 1;
+  &::after {
+    display: block;
+    height: 100%;
+    content: '';
+  }
+  &:hover {
+    overflow-y: auto;
+  }
+
+  // __
+  &__option {
+    &:last-child {
+      position: absolute;
+      right: 0;
+      left: 0;
+    }
+  }
+
+  // --
+  &--picked {
+    --t-option-bg-color: var(--t-color-primary-a-7);
+  }
+}

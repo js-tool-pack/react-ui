@@ -15,6 +15,7 @@ export {
   PLACEMENTS,
   TIMING_FNS,
 } from '@pkg/shared';
+export type { OptionValueType } from '@pkg/shared';
 export * from './resizer';
 export * from './word-balloon';
 export * from './tooltip';
@@ -36,3 +37,4 @@ export * from './empty';
 export * from './timeline';
 export * from './calendar';
 export * from './input-popover';
+export * from './picker';

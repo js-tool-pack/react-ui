@@ -166,6 +166,11 @@ export const baseRouter = [
     name: 'input-popover 输入弹窗',
     path: '/input-popover',
   },
+  {
+    element: getDemos(import.meta.glob('~/picker/demo/*.tsx')),
+    name: 'picker 拾取器',
+    path: '/picker',
+  },
   /*insert target*/
 ];
 

@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Picker basic 1`] = `
+<div
+  class="t-picker-panel"
+>
+  <ul
+    class="t-picker-col"
+  >
+    <li
+      class="t-option t-picker-col__option t--size-m"
+      role="option"
+    >
+      <div
+        class="t-option__label"
+      >
+        A
+      </div>
+    </li>
+    <li
+      class="t-option t-picker-col__option t--size-m"
+      role="option"
+    >
+      <div
+        class="t-option__label"
+      >
+        B
+      </div>
+    </li>
+  </ul>
+  <ul
+    class="t-picker-col"
+  >
+    <li
+      class="t-option t-picker-col__option t--size-m"
+      role="option"
+    >
+      <div
+        class="t-option__label"
+      >
+        0
+      </div>
+    </li>
+    <li
+      class="t-option t-picker-col__option t--size-m"
+      role="option"
+    >
+      <div
+        class="t-option__label"
+      >
+        1
+      </div>
+    </li>
+  </ul>
+</div>
+`;

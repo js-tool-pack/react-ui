@@ -10,3 +10,5 @@ export interface PropsBase<T extends HTMLElement = HTMLElement> {
   ref?: React.ForwardedRef<T>;
   children?: React.ReactNode;
 }
+
+export type OptionValueType = string | number;

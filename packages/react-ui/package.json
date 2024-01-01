@@ -1,6 +1,6 @@
 {
   "name": "@tool-pack/react-ui",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "sideEffects": false,
   "scripts": {
     "rm:dist": "rimraf ./dist",

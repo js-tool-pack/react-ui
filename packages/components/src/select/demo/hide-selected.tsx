@@ -5,12 +5,12 @@
 import { SelectOptionsItem, Select } from '@tool-pack/react-ui';
 import React, { useState } from 'react';
 
-const options: SelectOptionsItem[] = Array.from({ length: 20 }).map((_, i) => ({
+const options = Array.from({ length: 20 }).map((_, i) => ({
   label: String(i),
   value: i,
-}));
+})) satisfies SelectOptionsItem[];
 const App: React.FC = () => {
-  const [value, setValue] = useState<React.Key[]>([]);
+  const [value, setValue] = useState<number[]>([]);
   return (
     <>
       <Select

@@ -63,7 +63,7 @@ const options2: SelectOptionsItem[] = Object.keys(Icons)
   });
 
 const App: React.FC = () => {
-  const [value, setValue] = useState<React.Key[]>([]);
+  const [value, setValue] = useState<string[]>([]);
   return (
     <>
       <Select placeholder="select" options={options1} filterable clearable />
@@ -77,7 +77,7 @@ const App: React.FC = () => {
       <br />
       <Select
         filter={(pattern, option) => {
-          const v = option.value as string;
+          const v = option.value;
           if (!v.toLowerCase().includes(pattern.toLowerCase())) return false;
           return !value.includes(v);
         }}

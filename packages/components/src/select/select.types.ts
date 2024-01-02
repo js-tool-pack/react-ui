@@ -1,4 +1,4 @@
-import type { PropsBase, Size } from '@pkg/shared';
+import type { OptionValueType, PropsBase, Size } from '@pkg/shared';
 import type { PopoverProps } from '~/popover';
 import type { DividerProps } from '~/divider';
 import type { OptionProps } from '~/option';
@@ -9,14 +9,16 @@ export interface SelectOptionProps extends OptionProps {
   picked?: boolean;
 }
 export interface SelectDivider extends DividerProps {
+  key: OptionValueType;
   type: 'divider';
-  key: React.Key;
 }
-export interface SelectOption extends Omit<OptionProps, 'children' | 'size'> {
+export interface SelectOption<
+  ValueType extends OptionValueType = OptionValueType,
+> extends Omit<OptionProps, 'children' | 'size'> {
   label:
-    | ((selected: boolean, option: SelectOption) => React.ReactNode)
+    | ((selected: boolean, option: SelectOption<ValueType>) => React.ReactNode)
     | React.ReactNode;
-  value: React.Key;
+  value: ValueType;
   type?: 'option';
   // [key: string]: unknown;
 }
@@ -24,7 +26,7 @@ export interface SelectOptionGroup
   extends Omit<OptionProps, 'children' | 'disabled' | 'readonly' | 'size'> {
   children?: SelectOptionsItem[];
   label: React.ReactNode;
-  key: React.Key;
+  key: OptionValueType;
   type: 'group';
 }
 export type SelectOptionsItem =
@@ -54,10 +56,10 @@ export interface SelectStaticProps
   onChange?: (value: any, options: SelectOption[]) => void;
   // 控制器
   controllerRef?: React.Ref<SelectControllerRef>;
+  // dynamic
+  value?: OptionValueType[] | OptionValueType;
   onSelect?: (option: SelectOption) => void;
   onSearch?: (pattern: string) => void;
-  // dynamic
-  value?: React.Key[] | React.Key;
   options: SelectOptionsItem[];
   status?: 'warning' | 'error';
   ignoreComposition?: boolean;
@@ -88,19 +90,20 @@ export interface SelectStaticProps
 }
 export interface SelectProps<
   Multiple extends boolean = false,
-  ValueType extends React.Key = React.Key,
-> extends SelectStaticProps {
+  ValueType extends OptionValueType = OptionValueType,
+> extends Omit<SelectStaticProps, 'filter'> {
   onChange?: (
     value: Multiple extends true ? ValueType[] : ValueType,
     options: SelectOption[],
   ) => void;
+  filter?: (pattern: string, option: SelectOption<ValueType>) => boolean;
   value?: Multiple extends true ? ValueType[] : ValueType;
   multiple?: Multiple;
 }
 
 export type SelectFC = <
   Multiple extends boolean = false,
-  ValueType extends React.Key = React.Key,
+  ValueType extends OptionValueType = OptionValueType,
 >(
   props: SelectProps<Multiple, ValueType>,
 ) => React.ReactElement;

@@ -5,9 +5,9 @@ import {
 } from '@pkg/icons';
 import type { ConvertOptional, RequiredPart } from '@tool-pack/types';
 import { SelectionFilter, SelectionTags } from '~/select/components';
+import type { SelectStaticProps, SelectOption } from '~/select';
 import { getClassNames, isFunction } from '@tool-pack/basic';
 import { getSizeClassName, getClasses } from '@pkg/shared';
-import type { SelectOption, SelectProps } from '~/select';
 import React, { useEffect, useState } from 'react';
 import { Icon } from '~/icon';
 
@@ -15,7 +15,7 @@ interface Props
   extends ConvertOptional<
     RequiredPart<
       Pick<
-        SelectProps,
+        SelectStaticProps,
         | 'ignoreComposition'
         | 'maxTagCount'
         | 'placeholder'

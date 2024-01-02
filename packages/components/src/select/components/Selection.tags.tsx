@@ -1,5 +1,5 @@
+import { SelectStaticProps, SelectOption } from '../select.types';
 import { getClassNames, isFunction } from '@tool-pack/basic';
-import { SelectOption, SelectProps } from '~/select';
 import { ConvertOptional } from '@tool-pack/types';
 import { getClasses } from '@pkg/shared';
 import { Popover } from '~/popover';
@@ -8,7 +8,7 @@ import React from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<SelectProps, 'maxTagCount' | 'disabled' | 'size'>
+    Pick<SelectStaticProps, 'maxTagCount' | 'disabled' | 'size'>
   > {
   onSelectedChange: (selected: SelectOption[]) => void;
   selected: SelectOption[];

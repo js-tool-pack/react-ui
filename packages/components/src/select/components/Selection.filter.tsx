@@ -1,10 +1,10 @@
 import { ConvertOptional } from '@tool-pack/types';
 import React, { useEffect, useRef } from 'react';
+import { SelectStaticProps } from '~/select';
 import { getClasses } from '@pkg/shared';
-import { SelectProps } from '~/select';
 
 interface Props
-  extends ConvertOptional<Pick<SelectProps, 'ignoreComposition'>> {
+  extends ConvertOptional<Pick<SelectStaticProps, 'ignoreComposition'>> {
   onInputValueChange: (value: string) => void;
   onPatternChange: (value: string) => void;
   onDelete: () => void;

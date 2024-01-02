@@ -2,7 +2,6 @@ import type {
   SelectOptionsItem,
   SelectStaticProps,
   SelectOption,
-  SelectProps,
   SelectFC,
 } from './select.types';
 import React, {
@@ -73,7 +72,7 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
     value,
     icon,
     size,
-  } = props as RequiredPart<SelectProps, keyof typeof defaultProps>;
+  } = props as RequiredPart<SelectStaticProps, keyof typeof defaultProps>;
 
   const rootRef = useForwardRef(ref);
   const tabTriggerRef = useRef<HTMLInputElement>(null);

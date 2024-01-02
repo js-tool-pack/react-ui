@@ -1,9 +1,9 @@
 import {
   SelectOptionGroup,
+  SelectStaticProps,
   SelectOptionsItem,
   SelectDivider,
   SelectOption,
-  SelectProps,
 } from '../select.types';
 import { flattenOptions, isDivider, intoView, isGroup } from '~/select/utils';
 import { useForceUpdate, useNextEffect, getClasses } from '@pkg/shared';
@@ -18,7 +18,7 @@ import { Divider } from '~/divider';
 interface Props
   extends ConvertOptional<
     Pick<
-      SelectProps,
+      SelectStaticProps,
       'onSelect' | 'multiple' | 'options' | 'footer' | 'header' | 'empty'
     >
   > {

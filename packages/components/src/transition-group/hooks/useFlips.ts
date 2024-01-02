@@ -2,11 +2,13 @@ import type { ChildMap } from '../transition-group.types';
 import React, { useLayoutEffect, useRef } from 'react';
 import { applyTranslation } from '../utils';
 
+type RectMap = Map<React.Key, DOMRect>;
+
 export function useFlips(
   wrapperRef: React.MutableRefObject<HTMLElement | null>,
   childMap: ChildMap,
   name: string,
-) {
+): void {
   const prevChildMapRef = useRef(childMap);
   const prevRects = getChildRects(wrapperRef.current, prevChildMapRef.current);
 
@@ -17,12 +19,12 @@ export function useFlips(
 
     const moveClass = `${name}-move-active`;
     const { children } = wrapperEl;
-    const nextRects: Record<React.Key, DOMRect> = {};
+    const nextRects = new Map<React.Key, DOMRect>();
     // 获取最新的样式
     forEachEl(children, childMap, (el, key) => {
       el.style.transition = 'none';
-      nextRects[key] = el.getBoundingClientRect();
-      if (!prevRects[key]) prevRects[key] = nextRects[key]!;
+      nextRects.set(key, el.getBoundingClientRect());
+      if (!prevRects.has(key)) prevRects.set(key, nextRects.get(key)!);
       el.style.transition = '';
     });
 
@@ -30,7 +32,8 @@ export function useFlips(
     // 计算之前样式与现在的样式的差，并设置样式
     forEachEl(children, childMap, (el, key) => {
       // if (hasTransition(el, name)) return;
-      if (!applyTranslation(el, prevRects[key]!, nextRects[key]!)) return;
+      if (!applyTranslation(el, prevRects.get(key)!, nextRects.get(key)!))
+        return;
       flips.push(() => {
         const { style: s } = el;
         el.classList.add(moveClass);
@@ -52,13 +55,11 @@ export function useFlips(
 function getChildRects(
   wrapperEl: HTMLElement | undefined | null,
   childMap: ChildMap,
-): Record<React.Key, DOMRect> | void {
+): RectMap | void {
   if (!wrapperEl) return;
-  const rects: Record<React.Key, DOMRect> = Object.create(null);
-  forEachEl(
-    wrapperEl.children,
-    childMap,
-    (el, key) => (rects[key] = el.getBoundingClientRect()),
+  const rects: RectMap = new Map();
+  forEachEl(wrapperEl.children, childMap, (el, key) =>
+    rects.set(key, el.getBoundingClientRect()),
   );
   return rects;
 }

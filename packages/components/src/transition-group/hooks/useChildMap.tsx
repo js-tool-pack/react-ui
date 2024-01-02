@@ -110,13 +110,12 @@ function mergeMaps(
   const getValue = (key: React.Key) => nextMap.get(key) ?? prevMap.get(key);
 
   let insertKeys: React.Key[] = [];
-  const insertKeysMap: Record<React.Key, typeof insertKeys> =
-    Object.create(null);
+  const insertKeysMap = new Map<React.Key, typeof insertKeys>();
 
   prevMap.forEach((_, key) => {
     if (nextMap.has(key)) {
       if (!insertKeys.length) return;
-      insertKeysMap[key] = insertKeys;
+      insertKeysMap.set(key, insertKeys);
       insertKeys = [];
       return;
     }
@@ -126,7 +125,7 @@ function mergeMaps(
   const result: ChildMap = new Map();
   const push = (k: React.Key) => result.set(k, callback(getValue(k), k));
   nextMap.forEach((_, key) => {
-    const keys = insertKeysMap[key];
+    const keys = insertKeysMap.get(key);
     if (keys) keys.forEach(push);
     push(key);
   });

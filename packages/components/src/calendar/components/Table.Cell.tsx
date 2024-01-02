@@ -6,7 +6,7 @@ import { getClasses } from '@pkg/shared';
 import React from 'react';
 
 interface Props extends ConvertOptional<Pick<CalendarProps, 'dateCell'>> {
-  setValue(value: Date): void;
+  onClick(value: Date): void;
   value: Date;
   date: Date;
 }
@@ -19,7 +19,7 @@ const cls = getClasses(
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarTableCell: React.FC<Props> = (props) => {
-  const { setValue, dateCell, value, date } = props as RequiredPart<
+  const { dateCell, onClick, value, date } = props as RequiredPart<
     Props,
     keyof typeof defaultProps
   >;
@@ -48,8 +48,9 @@ export const CalendarTableCell: React.FC<Props> = (props) => {
       {dateCell ? dateCell(date) : date.getDate()}
     </td>
   );
-  function handleClick() {
-    setValue(date);
+  function handleClick(): void {
+    // react 渲染太快了，事件还没冒泡完毕就渲染完成了，所以要延迟一下触发
+    setTimeout(() => onClick(date));
   }
 };
 

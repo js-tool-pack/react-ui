@@ -112,7 +112,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
               <CalendarTableCell
                 key={`${date.getMonth()} ${date.getDate()}`}
                 dateCell={dateCell}
-                setValue={setValue}
+                onClick={setValue}
                 value={value}
                 date={date}
               />

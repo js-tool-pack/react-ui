@@ -24,6 +24,13 @@ export const PickerCol: React.FC<Props> = ({
   const rootRef = useRef<HTMLUListElement>(null);
   const isFirstRef = useRef(true);
 
+  // 跟随
+  useEffect(() => {
+    if (isFirstRef.current) return;
+    if (railValue === undefined) return;
+    rootRef.current?.scrollTo({ top: getScrollTop(), behavior: 'smooth' });
+  }, [options, railValue]);
+
   // 初始化
   useEffect(() => {
     if (!isFirstRef.current) return;
@@ -32,15 +39,12 @@ export const PickerCol: React.FC<Props> = ({
     if (railValue === undefined) return;
     const cb = () => (rootRef.current!.scrollTop = getScrollTop());
     const timer = setTimeout(cb, 0);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      // 在 react 的严格模式调用 2 次时还原
+      isFirstRef.current = true;
+    };
   }, []);
-
-  // 跟随
-  useEffect(() => {
-    if (isFirstRef.current) return;
-    if (railValue === undefined) return;
-    rootRef.current?.scrollTo({ top: getScrollTop(), behavior: 'smooth' });
-  }, [options, railValue]);
 
   return (
     <ul className={cls.root} ref={rootRef}>

@@ -27,4 +27,20 @@ describe('useFollowingState', () => {
 
     expect(renderTimes).toBe(5);
   });
+  test('cb', () => {
+    const hook = renderHook(() => {
+      const [value, setValue] = useState<number>(1);
+      return [...useFollowingState(value, String), setValue] as const;
+    });
+
+    const [, setState, setValue] = hook.result.current;
+
+    expect(hook.result.current[0]).toBe('1');
+
+    act(() => setState('2'));
+    expect(hook.result.current[0]).toBe('2');
+
+    act(() => setValue(3));
+    expect(hook.result.current[0]).toBe('3');
+  });
 });

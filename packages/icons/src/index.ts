@@ -26,3 +26,4 @@ export * from './flip-v.icon';
 export * from './empty.icon';
 export * from './left-double.icon';
 export * from './right-double.icon';
+export * from './calendar.icon';

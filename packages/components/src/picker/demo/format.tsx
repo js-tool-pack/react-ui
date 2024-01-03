@@ -2,7 +2,7 @@
  * title: 格式化显示
  */
 
-import { OptionValueType, PickerOption, Picker } from '@tool-pack/react-ui';
+import { PickerOption, Picker } from '@tool-pack/react-ui';
 import React, { useEffect, useState } from 'react';
 
 const hours = createNumberOptions(24);
@@ -10,9 +10,7 @@ const minutes = createNumberOptions(60);
 const seconds = createNumberOptions(60);
 
 const App: React.FC = () => {
-  const [value, setValue] = useState<OptionValueType[]>(() =>
-    getTimeValue(new Date()),
-  );
+  const [value, setValue] = useState<string[]>(() => getTimeValue(new Date()));
 
   useEffect(() => {
     // 跟随滚动
@@ -37,7 +35,7 @@ function getTimeValue(date: Date) {
     String(v).padStart(2, '0'),
   );
 }
-function createNumberOptions(length: number): PickerOption[] {
+function createNumberOptions(length: number): PickerOption<string>[] {
   return Array.from({ length }).map((_, i) => {
     const value = String(i).padStart(2, '0');
     return {

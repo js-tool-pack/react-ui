@@ -3,20 +3,32 @@ import { InputPopoverProps } from '~/input-popover';
 import { OptionProps } from '~/option';
 import React from 'react';
 
-export interface PickerOption extends OptionProps {
+export interface PickerOption<T extends OptionValueType = OptionValueType>
+  extends OptionProps {
   label: React.ReactNode;
-  value: OptionValueType;
+  value: T;
 }
 
-export interface PickerPanelProps
+export interface PickerPanelProps<T extends OptionValueType = OptionValueType>
   extends Omit<PropsBase<HTMLDivElement>, 'children'> {
-  onChange?: (value: OptionValueType[]) => void;
-  options?: Array<PickerOption[]>;
-  value?: OptionValueType[];
+  options?: Array<PickerOption<T>[]>;
+  onChange?: (value: T[]) => void;
+  value?: T[];
 }
 
-export interface PickerProps extends PickerPanelProps {
+export type PickerPanelFC = <
+  ValueType extends OptionValueType = OptionValueType,
+>(
+  props: PickerPanelProps<ValueType>,
+) => React.ReactElement;
+
+export interface PickerProps<T extends OptionValueType = OptionValueType>
+  extends PickerPanelProps<T> {
   panelAttrs?: Partial<React.HTMLAttributes<HTMLDivElement>>;
-  format?: (value: OptionValueType[]) => React.ReactNode;
   inputPopoverProps?: Partial<InputPopoverProps>;
+  format?: (value: T[]) => React.ReactNode;
 }
+
+export type PickerFC = <ValueType extends OptionValueType = OptionValueType>(
+  props: PickerProps<ValueType>,
+) => React.ReactElement;

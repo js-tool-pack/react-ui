@@ -1,5 +1,5 @@
+import type { PickerProps, PickerFC } from './picker.types';
 import type { RequiredPart } from '@tool-pack/types';
-import type { PickerProps } from './picker.types';
 import { PickerPanel } from '~/picker/components';
 import { getClassNames } from '@tool-pack/basic';
 import { InputPopover } from '~/input-popover';
@@ -11,7 +11,7 @@ const defaultProps = {
   format: (v) => v.join(','),
 } satisfies Partial<PickerProps>;
 
-export const Picker: React.FC<PickerProps> = React.forwardRef<
+export const _Picker: React.FC<PickerProps> = React.forwardRef<
   HTMLDivElement,
   PickerProps
 >((props, ref) => {
@@ -51,5 +51,7 @@ export const Picker: React.FC<PickerProps> = React.forwardRef<
   );
 });
 
-Picker.defaultProps = defaultProps;
-Picker.displayName = 'Picker';
+_Picker.defaultProps = defaultProps;
+_Picker.displayName = 'Picker';
+
+export const Picker = _Picker as PickerFC;

@@ -1,12 +1,12 @@
 import { useFollowingState, OptionValueType, getClasses } from '@pkg/shared';
-import type { PickerPanelProps } from '../picker.types';
+import type { PickerPanelProps, PickerPanelFC } from '../picker.types';
 import { getClassNames } from '@tool-pack/basic';
 import React, { useEffect } from 'react';
 import { PickerCol } from './picker.Col';
 
 const cls = getClasses('picker-panel', [], []);
 
-export const PickerPanel: React.FC<PickerPanelProps> = React.forwardRef<
+export const _PickerPanel: React.FC<PickerPanelProps> = React.forwardRef<
   HTMLDivElement,
   PickerPanelProps
 >((props, ref) => {
@@ -45,3 +45,5 @@ export const PickerPanel: React.FC<PickerPanelProps> = React.forwardRef<
     });
   }
 });
+
+export const PickerPanel = _PickerPanel as PickerPanelFC;

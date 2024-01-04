@@ -167,7 +167,7 @@ export function useShowController(
       cancellers.forEach((i) => i());
       cancellers.length = 0;
     };
-  }, [trigger, disabled, visible]);
+  }, [trigger, disabled, visible, show]);
 
   const cancelListRef = useRef<Array<() => void>>([]);
 

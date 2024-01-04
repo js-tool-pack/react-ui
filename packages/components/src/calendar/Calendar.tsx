@@ -8,6 +8,7 @@ import React from 'react';
 
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
 const defaultProps = {
+  today: new Date(),
   value: new Date(),
   header: true,
   firstDay: 0,
@@ -23,6 +24,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
     onChange,
     dateCell,
     header,
+    today,
     value,
   } = props as RequiredPart<CalendarProps, keyof typeof defaultProps>;
 
@@ -42,6 +44,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
         firstDay={firstDay}
         setValue={setValue}
         dateCell={dateCell}
+        today={today}
       />
     </div>
   );

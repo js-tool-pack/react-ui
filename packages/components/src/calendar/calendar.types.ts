@@ -7,4 +7,5 @@ export interface CalendarProps
   onChange?: (value: Date) => void;
   header?: boolean;
   value?: Date;
+  today?: Date;
 }

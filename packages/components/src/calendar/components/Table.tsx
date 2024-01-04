@@ -18,6 +18,7 @@ interface Props
     Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value'>
   > {
   setValue(value: Date): void;
+  today: Date;
 }
 
 const cls = getClasses('calendar-table', [], []);
@@ -29,6 +30,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
     firstDay,
     setValue,
     dateCell,
+    today,
   } = props as RequiredPart<Props, keyof typeof defaultProps>;
   const dates: Date[][] = useMemo(() => {
     const endOfMonth = getEndOfMonth(value);
@@ -113,6 +115,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
                 key={`${date.getMonth()} ${date.getDate()}`}
                 dateCell={dateCell}
                 onClick={setValue}
+                today={today}
                 value={value}
                 date={date}
               />

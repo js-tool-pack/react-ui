@@ -7,6 +7,7 @@ $t: #{Name.$calendar}-table;
 
 .#{$r} {
   --t-calendar-border: 1px solid var(--t-color-info-l-7);
+  --t-calendar-table-padding: 12px 0 35px;
   --t-calendar-cell-height: 80px;
 }
 
@@ -45,7 +46,7 @@ $t: #{Name.$calendar}-table;
   }
 }
 .#{$t} {
-  padding: 12px 0 35px;
+  padding: var(--t-calendar-table-padding);
   width: 100%;
   th {
     padding: 10px 0;

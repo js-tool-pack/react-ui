@@ -7,6 +7,7 @@ import React from 'react';
 
 interface Props extends ConvertOptional<Pick<CalendarProps, 'dateCell'>> {
   onClick(value: Date): void;
+  today: Date;
   value: Date;
   date: Date;
 }
@@ -19,7 +20,7 @@ const cls = getClasses(
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarTableCell: React.FC<Props> = (props) => {
-  const { dateCell, onClick, value, date } = props as RequiredPart<
+  const { dateCell, onClick, today, value, date } = props as RequiredPart<
     Props,
     keyof typeof defaultProps
   >;
@@ -27,7 +28,6 @@ export const CalendarTableCell: React.FC<Props> = (props) => {
   const valueMonth = value.getMonth();
   const dateYear = date.getFullYear();
   const dateMonth = date.getMonth();
-  const today = new Date();
 
   const isPrevMonth =
     dateYear < valueYear || (dateYear === valueYear && dateMonth < valueMonth);

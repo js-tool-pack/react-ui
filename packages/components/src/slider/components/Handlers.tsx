@@ -69,15 +69,19 @@ export const Handlers: React.FC<Props> = (props) => {
   const tooltipVisible = tooltip === 'always' ? true : undefined;
   const tooltipDisabled = tooltip === 'always' ? false : !tooltip;
 
-  useImperativeHandle(controlRef, () => {
-    return {
-      focus(index: number) {
-        (
-          handlersRef.current?.children[index] as HTMLDivElement | undefined
-        )?.focus();
-      },
-    };
-  });
+  useImperativeHandle(
+    controlRef,
+    () => {
+      return {
+        focus(index: number) {
+          (
+            handlersRef.current?.children[index] as HTMLDivElement | undefined
+          )?.focus();
+        },
+      };
+    },
+    [],
+  );
   // 拖动事件
   useEffect(() => {
     const handlersEl = handlersRef.current;

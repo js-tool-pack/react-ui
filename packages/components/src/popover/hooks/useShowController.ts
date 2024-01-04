@@ -100,12 +100,16 @@ export function useShowController(
     };
   }, []);
 
-  useImperativeHandle(visibleControllerRef, () => {
-    return {
-      hide: close,
-      show: open,
-    };
-  });
+  useImperativeHandle(
+    visibleControllerRef,
+    () => {
+      return {
+        hide: close,
+        show: open,
+      };
+    },
+    [],
+  );
 
   // 事件触发启动
   useEffect(() => {

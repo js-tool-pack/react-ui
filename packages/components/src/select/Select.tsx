@@ -82,16 +82,20 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
   const [selected, setSelected] = useState<SelectOption[]>([]);
   const [pattern, setPattern] = useState('');
 
-  useImperativeHandle(controllerRef, () => {
-    return {
-      focus() {
-        tabTriggerRef.current?.focus();
-      },
-      blur() {
-        tabTriggerRef.current?.blur();
-      },
-    };
-  });
+  useImperativeHandle(
+    controllerRef,
+    () => {
+      return {
+        focus() {
+          tabTriggerRef.current?.focus();
+        },
+        blur() {
+          tabTriggerRef.current?.blur();
+        },
+      };
+    },
+    [],
+  );
 
   // 单选关闭窗体
   useEffect(() => {

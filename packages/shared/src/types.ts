@@ -12,3 +12,5 @@ export interface PropsBase<T extends HTMLElement = HTMLElement> {
 }
 
 export type OptionValueType = string | number;
+
+export type VisibleController = { show(): void; hide(): void };

@@ -13,9 +13,9 @@ import {
   tap,
   of,
 } from 'rxjs';
+import React, { useImperativeHandle, useEffect, useState, useRef } from 'react';
 import { PopoverRequiredPartProps } from '~/popover/Popover';
 import { fromOuterEvent, useNextEffect } from '@pkg/shared';
-import React, { useEffect, useState, useRef } from 'react';
 import { castArray, emptyFn } from '@tool-pack/basic';
 import { collectScroller } from '@tool-pack/dom';
 
@@ -69,6 +69,7 @@ export function useShowController(
   balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
   refreshPosition: () => void,
   {
+    visibleControllerRef,
     delay: enterDelay,
     onVisibleChange,
     leaveDelay,
@@ -77,6 +78,7 @@ export function useShowController(
     trigger,
   }: Pick<
     PopoverRequiredPartProps,
+    | 'visibleControllerRef'
     | 'onVisibleChange'
     | 'leaveDelay'
     | 'disabled'
@@ -97,6 +99,13 @@ export function useShowController(
       leave.unsubscribe();
     };
   }, []);
+
+  useImperativeHandle(visibleControllerRef, () => {
+    return {
+      hide: close,
+      show: open,
+    };
+  });
 
   // 事件触发启动
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { fireEvent, render, act } from '@testing-library/react';
-import { useNextEffect } from '@pkg/shared';
+import { VisibleController, useNextEffect } from '@pkg/shared';
 import { useState, useRef } from 'react';
 import { Button } from '~/button';
 import { Popover } from '..';
@@ -526,5 +526,49 @@ describe('Popover', () => {
       act(() => jest.advanceTimersByTime(500));
       // expect(getBalloon()).toHaveClass('t-transition--invisible');
     });
+  });
+  test('通过 visibleControllerRef 控制显隐', () => {
+    jest.useFakeTimers();
+    const App = () => {
+      const controllerRef = useRef<VisibleController>(null);
+      return (
+        <>
+          <Popover visibleControllerRef={controllerRef}>
+            <div>test</div>
+          </Popover>
+          <button onClick={() => controllerRef.current?.show()} id="show">
+            open
+          </button>
+          <button onClick={() => controllerRef.current?.hide()} id="hide">
+            close
+          </button>
+        </>
+      );
+    };
+    render(<App />);
+
+    expect(getBalloon()).toBeNull();
+    fireEvent.click(document.querySelector('#show')!);
+
+    expect(getBalloon()).not.toBeNull();
+
+    const cls = {
+      enterActive: 't-popover-enter-active',
+      leaveActive: 't-popover-leave-active',
+      invisible: 't-transition--invisible',
+    };
+    expect(getBalloon()).not.toHaveClass(cls.invisible);
+
+    expect(getBalloon()).toHaveClass(cls.enterActive);
+    act(() => jest.advanceTimersByTime(500));
+
+    expect(getBalloon()).not.toHaveClass(cls.enterActive);
+    expect(getBalloon()).not.toHaveClass(cls.leaveActive);
+
+    fireEvent.click(document.querySelector('#hide')!);
+    expect(getBalloon()).toHaveClass(cls.leaveActive);
+
+    act(() => jest.advanceTimersByTime(500));
+    expect(getBalloon()).toHaveClass(cls.invisible);
   });
 });

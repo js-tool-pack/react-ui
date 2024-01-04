@@ -64,10 +64,9 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   const childrenRef = useForwardRef(
     (children as React.RefAttributes<unknown>).ref,
   ) as React.MutableRefObject<HTMLElement | null>;
-  const [balloonRef, refreshBalloonRef] = useForwardRef(ref, true) as [
-    React.MutableRefObject<HTMLDivElement>,
-    () => void,
-  ];
+  const balloonRef = useForwardRef(
+    ref,
+  ) as React.MutableRefObject<HTMLDivElement>;
 
   const [refreshPosition, resetPlacement, _placement] = usePosition(
     childrenRef,
@@ -128,7 +127,6 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   const onTransitionChange = useMemo<TransitionCB>(() => {
     const refreshRef = (el: HTMLElement) => {
       balloonRef.current = el as HTMLDivElement;
-      refreshBalloonRef();
       refreshPosition();
     };
     const cb = transitionCBAdapter({

@@ -4,13 +4,19 @@ import { getClassNames } from '@tool-pack/basic';
 import React, { useEffect } from 'react';
 import { PickerCol } from './picker.Col';
 
-const cls = getClasses('picker-panel', [], []);
+const cls = getClasses('picker-panel', [], ['evenly-divided', 'auto-divided']);
 
 export const _PickerPanel: React.FC<PickerPanelProps> = React.forwardRef<
   HTMLDivElement,
   PickerPanelProps
 >((props, ref) => {
-  const { options = [], attrs = {}, onChange, value } = props;
+  const {
+    evenlyDivided = true,
+    options = [],
+    attrs = {},
+    onChange,
+    value,
+  } = props;
 
   const [values, setValues] = useFollowingState(value || []);
 
@@ -23,7 +29,10 @@ export const _PickerPanel: React.FC<PickerPanelProps> = React.forwardRef<
   return (
     <div
       {...attrs}
-      className={getClassNames(cls.root, attrs.className)}
+      className={getClassNames(cls.root, attrs.className, {
+        [cls['--']['evenly-divided']]: evenlyDivided,
+        [cls['--']['auto-divided']]: !evenlyDivided,
+      })}
       ref={ref}
     >
       {options.map((opts, index) => (

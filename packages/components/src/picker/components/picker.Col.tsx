@@ -14,21 +14,21 @@ interface Props {
   value?: OptionValueType;
 }
 
-const cls = getClasses('picker-col', ['option'], ['picked']);
+const cls = getClasses('picker-col', ['option', 'list', 'item'], ['picked']);
 
 export const PickerCol: React.FC<Props> = ({
   value: railValue,
   onPickOption,
   options,
 }) => {
-  const rootRef = useRef<HTMLUListElement>(null);
+  const ulRef = useRef<HTMLUListElement>(null);
   const isFirstRef = useRef(true);
 
   // 跟随
   useEffect(() => {
     if (isFirstRef.current) return;
     if (railValue === undefined) return;
-    rootRef.current?.scrollTo({ top: getScrollTop(), behavior: 'smooth' });
+    ulRef.current?.scrollTo({ top: getScrollTop(), behavior: 'smooth' });
   }, [options, railValue]);
 
   // 初始化
@@ -37,7 +37,7 @@ export const PickerCol: React.FC<Props> = ({
     isFirstRef.current = false;
 
     if (railValue === undefined) return;
-    const cb = () => (rootRef.current!.scrollTop = getScrollTop());
+    const cb = () => (ulRef.current!.scrollTop = getScrollTop());
     const timer = setTimeout(cb, 0);
     return () => {
       clearTimeout(timer);
@@ -47,36 +47,38 @@ export const PickerCol: React.FC<Props> = ({
   }, []);
 
   return (
-    <ul className={cls.root} ref={rootRef}>
-      {options.map((opt, index) => {
-        const { attrs = {}, label, value, ...rest } = opt;
-        return (
-          <Option
-            {...rest}
-            attrs={{
-              ...attrs,
-              onClick(e) {
-                attrs.onClick?.(e);
-                e.stopPropagation();
-                if (opt.disabled) return;
-                onPickOption(opt, index, options);
-              },
-              className: getClassNames(attrs.className, cls.__.option, {
-                [cls['--'].picked]: value === railValue,
-              }),
-            }}
-            key={value}
-            tag="li"
-          >
-            {label}
-          </Option>
-        );
-      })}
-    </ul>
+    <div className={cls.root}>
+      <ul className={cls.__.list} ref={ulRef}>
+        {options.map((opt, index) => {
+          const { attrs = {}, label, value, ...rest } = opt;
+          return (
+            <li className={cls.__.item} key={value}>
+              <Option
+                {...rest}
+                attrs={{
+                  ...attrs,
+                  onClick(e) {
+                    attrs.onClick?.(e);
+                    // e.stopPropagation();
+                    if (opt.disabled) return;
+                    onPickOption(opt, index, options);
+                  },
+                  className: getClassNames(attrs.className, cls.__.option, {
+                    [cls['--'].picked]: value === railValue,
+                  }),
+                }}
+              >
+                {label}
+              </Option>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 
   function getScrollTop(): number {
-    const root = rootRef.current;
+    const root = ulRef.current;
     if (!root || railValue === undefined) return 0;
 
     const index = options.findIndex((opt) => opt.value === railValue);

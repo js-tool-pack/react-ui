@@ -6,7 +6,7 @@ import { InputPopover } from '~/input-popover';
 import { getClasses } from '@pkg/shared';
 import React from 'react';
 
-const cls = getClasses('picker', ['label'], []);
+const cls = getClasses('picker', ['label', 'pop'], []);
 const defaultProps = {
   format: (v) => v.join(','),
 } satisfies Partial<PickerProps>;
@@ -17,6 +17,7 @@ export const _Picker: React.FC<PickerProps> = React.forwardRef<
 >((props, ref) => {
   const {
     inputPopoverProps = {},
+    evenlyDivided,
     options = [],
     panelAttrs,
     attrs = {},
@@ -37,12 +38,20 @@ export const _Picker: React.FC<PickerProps> = React.forwardRef<
           ...inputPopoverProps.popoverProps,
           content: (
             <PickerPanel
+              evenlyDivided={evenlyDivided}
               onChange={onChange}
               attrs={panelAttrs}
               options={options}
               value={value}
             />
           ),
+          attrs: {
+            ...inputPopoverProps.popoverProps?.attrs,
+            className: getClassNames(
+              cls.__.pop,
+              inputPopoverProps.popoverProps?.attrs?.className,
+            ),
+          },
         }}
       >
         <span className={cls.__.label}>{format(value || [])}</span>

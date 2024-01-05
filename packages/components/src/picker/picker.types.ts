@@ -13,6 +13,7 @@ export interface PickerPanelProps<T extends OptionValueType = OptionValueType>
   extends Omit<PropsBase<HTMLDivElement>, 'children'> {
   options?: Array<PickerOption<T>[]>;
   onChange?: (value: T[]) => void;
+  evenlyDivided?: boolean;
   value?: T[];
 }
 

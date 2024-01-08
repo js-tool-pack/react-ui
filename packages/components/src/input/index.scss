@@ -56,6 +56,10 @@ $skin: Name.$input-skin;
       border-color: var(--t-input-active-border-color);
     }
   }
+  input {
+    border: 0;
+    outline: 0;
+  }
 }
 .#{$r} {
   > input,

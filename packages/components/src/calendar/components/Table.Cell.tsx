@@ -29,25 +29,29 @@ export const CalendarTableCell: React.FC<Props> = (props) => {
   const dateYear = date.getFullYear();
   const dateMonth = date.getMonth();
 
-  const isPrevMonth =
-    dateYear < valueYear || (dateYear === valueYear && dateMonth < valueMonth);
-  const isNextMonth =
-    dateYear > valueYear || (dateYear === valueYear && dateMonth > valueMonth);
+  const status = {
+    isNextMonth:
+      dateYear > valueYear ||
+      (dateYear === valueYear && dateMonth > valueMonth),
+    isPreMonth:
+      dateYear < valueYear ||
+      (dateYear === valueYear && dateMonth < valueMonth),
+    isSelected: isSameTime('yyyy-MM-dd', value, date),
+    isToday: isSameTime('yyyy-MM-dd', today, date),
+  };
 
-  return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-    <td
-      className={getClassNames(cls.root, {
-        [cls['--']['active']]: isSameTime('yyyy-MM-dd', value, date),
-        [cls['--']['today']]: isSameTime('yyyy-MM-dd', today, date),
-        [cls['--']['prev-month']]: isPrevMonth,
-        [cls['--']['next-month']]: isNextMonth,
-      })}
-      onClick={handleClick}
-    >
-      {dateCell ? dateCell(date) : date.getDate()}
-    </td>
-  );
+  const attrs: Partial<React.HTMLAttributes<HTMLTableDataCellElement>> = {
+    className: getClassNames(cls.root, {
+      [cls['--']['next-month']]: status.isNextMonth,
+      [cls['--']['prev-month']]: status.isPreMonth,
+      [cls['--']['active']]: status.isSelected,
+      [cls['--']['today']]: status.isToday,
+    }),
+    onClick: handleClick,
+  };
+  const _dateCell = dateCell || (() => <td {...attrs}>{date.getDate()}</td>);
+  return _dateCell(date, attrs, status);
+
   function handleClick(): void {
     // react 渲染太快了，事件还没冒泡完毕就渲染完成了，所以要延迟一下触发
     setTimeout(() => onClick(date));

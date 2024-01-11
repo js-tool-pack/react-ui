@@ -16,6 +16,7 @@ export interface CalendarProps
   firstDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   onChange?: (value: Date) => void;
   header?: boolean;
+  month?: Date;
   value?: Date;
   today?: Date;
 }

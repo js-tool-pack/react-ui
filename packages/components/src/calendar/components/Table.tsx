@@ -15,7 +15,7 @@ import React, { useMemo } from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value'>
+    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value' | 'month'>
   > {
   setValue(value: Date): void;
   today: Date;
@@ -27,12 +27,14 @@ const defaultProps = {} satisfies Partial<Props>;
 export const CalendarTable: React.FC<Props> = (props) => {
   const {
     value = new Date(),
+    month = value,
     firstDay,
     setValue,
     dateCell,
     today,
   } = props as RequiredPart<Props, keyof typeof defaultProps>;
   const dates: Date[][] = useMemo(() => {
+    const value = month;
     const endOfMonth = getEndOfMonth(value);
 
     const list: Date[] = [
@@ -91,7 +93,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
     function getFill(month: Date): (v: number) => Date {
       return (v) => new Date(month.getFullYear(), month.getMonth(), v);
     }
-  }, [value, firstDay]);
+  }, [month, firstDay]);
 
   const weekDays: readonly string[] = useMemo(
     () => [...weekDayNames.slice(firstDay), ...weekDayNames.slice(0, firstDay)],
@@ -116,6 +118,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
                 dateCell={dateCell}
                 onClick={setValue}
                 today={today}
+                month={month}
                 value={value}
                 date={date}
               />

@@ -1,9 +1,14 @@
+import {
+  useFollowingState,
+  useStateRef,
+  getClasses,
+  useWatch,
+} from '@pkg/shared';
+import { getStartOfMonth, getClassNames } from '@tool-pack/basic';
 import { CalendarHeader } from '~/calendar/components/Header';
 import type { CalendarProps } from './calendar.types';
 import { CalendarTable } from '~/calendar/components';
-import { useStateRef, getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
 import React from 'react';
 
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
@@ -19,6 +24,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
   CalendarProps
 >((props, ref) => {
   const {
+    month: outerMonth,
     attrs = {},
     firstDay,
     onChange,
@@ -29,6 +35,11 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
   } = props as RequiredPart<CalendarProps, keyof typeof defaultProps>;
 
   const [valueRef, setValueRef] = useStateRef(value);
+  const [month, setMonth] = useFollowingState(
+    outerMonth,
+    (v) => v || getStartOfMonth(value),
+  );
+  useWatch(valueRef.current, (v) => setMonth(getStartOfMonth(v)));
 
   return (
     <div
@@ -37,13 +48,19 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
       ref={ref}
     >
       {header && (
-        <CalendarHeader value={valueRef.current} setValue={setValue} />
+        <CalendarHeader
+          onMonthChange={setMonth}
+          onChange={setValue}
+          today={today}
+          value={month}
+        />
       )}
       <CalendarTable
         value={valueRef.current}
         firstDay={firstDay}
         setValue={setValue}
         dateCell={dateCell}
+        month={month}
         today={today}
       />
     </div>

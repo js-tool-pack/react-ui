@@ -39,6 +39,7 @@ type DateCell = (
 | -------- | ------------------------------------------ | ----------------------------------------------- | ---------- | ---- |
 | value    | 选中的日期                                 | Date                                            | new Date() | --   |
 | today    | 今天的日期(可忽略，用于测试时固定为某一天) | Date                                            | new Date() | --   |
+| month    | 日历所展示的月份                           | Date                                            | new Date() | --   |
 | onChange | 当选中的日期变化触发的回调                 | (value: Date) => void                           | --         | --   |
 | dateCell | 自定义渲染格子内容                         | 见上面 DateCell                                 | --         | --   |
 | header   | 头部显示或隐藏                             | boolean                                         | true       | --   |

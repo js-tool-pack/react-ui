@@ -9,6 +9,7 @@ interface Props extends ConvertOptional<Pick<CalendarProps, 'dateCell'>> {
   onClick(value: Date): void;
   today: Date;
   value: Date;
+  month: Date;
   date: Date;
 }
 
@@ -20,22 +21,20 @@ const cls = getClasses(
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarTableCell: React.FC<Props> = (props) => {
-  const { dateCell, onClick, today, value, date } = props as RequiredPart<
-    Props,
-    keyof typeof defaultProps
-  >;
-  const valueYear = value.getFullYear();
-  const valueMonth = value.getMonth();
+  const { dateCell, onClick, today, month, value, date } =
+    props as RequiredPart<Props, keyof typeof defaultProps>;
   const dateYear = date.getFullYear();
   const dateMonth = date.getMonth();
+  const monthYear = month.getFullYear();
+  const monthMonth = month.getMonth();
 
   const status = {
     isNextMonth:
-      dateYear > valueYear ||
-      (dateYear === valueYear && dateMonth > valueMonth),
+      dateYear > monthYear ||
+      (dateYear === monthYear && dateMonth > monthMonth),
     isPreMonth:
-      dateYear < valueYear ||
-      (dateYear === valueYear && dateMonth < valueMonth),
+      dateYear < monthYear ||
+      (dateYear === monthYear && dateMonth < monthMonth),
     isSelected: isSameTime('yyyy-MM-dd', value, date),
     isToday: isSameTime('yyyy-MM-dd', today, date),
   };

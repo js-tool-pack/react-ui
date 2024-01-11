@@ -7,14 +7,16 @@ import { Icon } from '~/icon';
 import React from 'react';
 
 interface Props {
-  setValue: (value: Date) => void;
+  onMonthChange: (value: Date) => void;
+  onChange: (value: Date) => void;
+  today: Date;
   value: Date;
 }
 const cls = getClasses('calendar-header', ['month'], []);
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarHeader: React.FC<Props> = (props) => {
-  const { setValue, value } = props as RequiredPart<
+  const { onMonthChange, onChange, today, value } = props as RequiredPart<
     Props,
     keyof typeof defaultProps
   >;
@@ -42,15 +44,16 @@ export const CalendarHeader: React.FC<Props> = (props) => {
     </div>
   );
   function clickToday() {
-    setValue(new Date());
+    onChange(today);
+    onMonthChange(today);
   }
   function changeMonth(offset: -1 | 1): void {
     const endOfMonth = getEndOfMonth(value, offset);
     if (endOfMonth.getDate() < value.getDate()) {
-      setValue(endOfMonth);
+      onMonthChange(endOfMonth);
       return;
     }
-    setValue(dateAdd(value, offset, 'month'));
+    onMonthChange(dateAdd(value, offset, 'month'));
   }
 };
 

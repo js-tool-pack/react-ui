@@ -15,6 +15,13 @@ describe('Calendar', () => {
       ).container.firstChild,
     ).toMatchSnapshot();
   });
+
+  it('默认不选中今天', () => {
+    expect(
+      render(<Calendar today={new Date(2023, 11, 26)} />).container.firstChild,
+    ).toMatchSnapshot();
+  });
+
   it('dateCell', () => {
     expect(
       render(

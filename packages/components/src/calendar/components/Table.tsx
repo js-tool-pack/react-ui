@@ -15,9 +15,10 @@ import React, { useMemo } from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value' | 'month'>
+    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value'>
   > {
   setValue(value: Date): void;
+  month: Date;
   today: Date;
 }
 
@@ -25,14 +26,8 @@ const cls = getClasses('calendar-table', [], []);
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarTable: React.FC<Props> = (props) => {
-  const {
-    value = new Date(),
-    month = value,
-    firstDay,
-    setValue,
-    dateCell,
-    today,
-  } = props as RequiredPart<Props, keyof typeof defaultProps>;
+  const { firstDay, setValue, dateCell, value, month, today } =
+    props as RequiredPart<Props, keyof typeof defaultProps>;
   const dates: Date[][] = useMemo(() => {
     const value = month;
     const endOfMonth = getEndOfMonth(value);

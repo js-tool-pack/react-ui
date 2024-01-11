@@ -14,7 +14,6 @@ import React from 'react';
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
 const defaultProps = {
   today: new Date(),
-  value: new Date(),
   header: true,
   firstDay: 0,
 } satisfies Partial<CalendarProps>;
@@ -37,9 +36,9 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
   const [valueRef, setValueRef] = useStateRef(value);
   const [month, setMonth] = useFollowingState(
     outerMonth,
-    (v) => v || getStartOfMonth(value),
+    (v) => v || getStartOfMonth(value || today || new Date()),
   );
-  useWatch(valueRef.current, (v) => setMonth(getStartOfMonth(v)));
+  useWatch(valueRef.current, (v) => v && setMonth(getStartOfMonth(v)));
 
   return (
     <div

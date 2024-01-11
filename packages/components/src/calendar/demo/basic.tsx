@@ -4,10 +4,16 @@
  */
 
 import { Calendar } from '@tool-pack/react-ui';
-import React from 'react';
+import React, { useState } from 'react';
 
 const App: React.FC = () => {
-  return <Calendar />;
+  const [value, setValue] = useState<Date>(new Date());
+  return (
+    <>
+      <Calendar onChange={setValue} value={value} />
+      <div>已选日期：{value?.toString()}</div>
+    </>
+  );
 };
 
 export default App;

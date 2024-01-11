@@ -5,10 +5,10 @@ import { CalendarProps } from '~/calendar';
 import { getClasses } from '@pkg/shared';
 import React from 'react';
 
-interface Props extends ConvertOptional<Pick<CalendarProps, 'dateCell'>> {
+interface Props
+  extends ConvertOptional<Pick<CalendarProps, 'dateCell' | 'value'>> {
   onClick(value: Date): void;
   today: Date;
-  value: Date;
   month: Date;
   date: Date;
 }
@@ -35,7 +35,7 @@ export const CalendarTableCell: React.FC<Props> = (props) => {
     isPreMonth:
       dateYear < monthYear ||
       (dateYear === monthYear && dateMonth < monthMonth),
-    isSelected: isSameTime('yyyy-MM-dd', value, date),
+    isSelected: Boolean(value && isSameTime('yyyy-MM-dd', value, date)),
     isToday: isSameTime('yyyy-MM-dd', today, date),
   };
 

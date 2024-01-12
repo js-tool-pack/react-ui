@@ -48,8 +48,12 @@ export const _PickerPanel: React.FC<PickerPanelProps> = React.forwardRef<
 
   function setValue(value: OptionValueType, index: number): void {
     setValues((v) => {
-      const result = v.slice();
-      result.splice(index, 1, value);
+      const result: typeof v = [];
+      result[index] = value;
+      options.forEach((opt, i) => {
+        if (index === i) return;
+        result[i] = v[i] ?? opt[0]!.value;
+      });
       return result;
     });
   }

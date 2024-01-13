@@ -9,9 +9,10 @@ $t: #{Name.$calendar}-table;
   --t-calendar-table-padding: 12px 0 35px;
   --t-calendar-cell-height: 80px;
   --t-calendar-cell-bg: unset;
-  --t-calendar-cell-active-bg: var(--t-color-primary-l-7);
+  --t-calendar-cell-active-bg: var(--t-color-primary-l-3);
   --t-calendar-cell-color: unset;
-  --t-calendar-cell-active-color: var(--t-color-primary-l-2);
+  --t-calendar-cell-active-color: white;
+  --t-calendar-cell-today-color: var(--t-color-primary-l-2);
 }
 
 // .#{$r} {
@@ -31,11 +32,11 @@ $t: #{Name.$calendar}-table;
       --t-calendar-cell-active-bg: var(--t-color-info-l-7);
     }
   }
-  &--today,
-  &--active {
-    --t-calendar-cell-color: var(--t-calendar-cell-active-color);
+  &--today {
+    --t-calendar-cell-color: var(--t-calendar-cell-today-color);
   }
   &--active {
+    --t-calendar-cell-color: var(--t-calendar-cell-active-color);
     --t-calendar-cell-bg: var(--t-calendar-cell-active-bg);
   }
   &:not(&--disabled, &--active) {

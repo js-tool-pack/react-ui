@@ -38,7 +38,10 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
     outerMonth,
     (v) => v || getStartOfMonth(value || today || new Date()),
   );
-  useWatch(valueRef.current, (v) => v && setMonth(getStartOfMonth(v)));
+  useWatch(
+    valueRef.current,
+    (v) => v && !outerMonth && setMonth(getStartOfMonth(v)),
+  );
 
   return (
     <div

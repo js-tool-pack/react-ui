@@ -6,7 +6,6 @@ import {
   dateAdd,
   chunk,
 } from '@tool-pack/basic';
-import type { RequiredPart } from '@tool-pack/types';
 import { ConvertOptional } from '@tool-pack/types';
 import { CalendarProps } from '~/calendar';
 import { getClasses } from '@pkg/shared';
@@ -15,7 +14,7 @@ import React, { useMemo } from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value'>
+    Pick<CalendarProps, 'dateDisabled' | 'firstDay' | 'dateCell' | 'value'>
   > {
   setValue(value: Date): void;
   month: Date;
@@ -23,11 +22,10 @@ interface Props
 }
 
 const cls = getClasses('calendar-table', [], []);
-const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarTable: React.FC<Props> = (props) => {
-  const { firstDay, setValue, dateCell, value, month, today } =
-    props as RequiredPart<Props, keyof typeof defaultProps>;
+  const { dateDisabled, firstDay, setValue, dateCell, value, month, today } =
+    props;
   const dates: Date[][] = useMemo(() => {
     const value = month;
     const endOfMonth = getEndOfMonth(value);
@@ -110,6 +108,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
             {row.map((date) => (
               <CalendarTableCell
                 key={`${date.getMonth()} ${date.getDate()}`}
+                dateDisabled={dateDisabled}
                 dateCell={dateCell}
                 onClick={setValue}
                 today={today}
@@ -125,5 +124,4 @@ export const CalendarTable: React.FC<Props> = (props) => {
   );
 };
 
-CalendarTable.defaultProps = defaultProps;
 const weekDayNames = ['日', '一', '二', '三', '四', '五', '六'] as const;

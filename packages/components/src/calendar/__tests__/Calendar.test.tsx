@@ -1,5 +1,5 @@
 import { fireEvent, render, act } from '@testing-library/react';
-import { getClassNames } from '@tool-pack/basic';
+import { getClassNames, isSameTime } from '@tool-pack/basic';
 import { $$, $ } from '~/select/__tests__/utils';
 import { testAttrs } from '~/testAttrs';
 import { Calendar } from '..';
@@ -74,5 +74,32 @@ describe('Calendar', () => {
 
     expect($('.t-calendar-cell')).toHaveTextContent('26');
     expect($$('.t-calendar-cell')[41]).toHaveTextContent('6');
+  });
+
+  it('date disabled', () => {
+    jest.useFakeTimers();
+
+    const yesterday = new Date(2024, 0, 15);
+    const tomorrow = new Date(2024, 0, 17);
+    render(
+      <Calendar
+        dateDisabled={(date) =>
+          isSameTime('yyyy-MM-dd', date, yesterday) ||
+          isSameTime('yyyy-MM-dd', date, tomorrow)
+        }
+        today={new Date(2024, 0, 16)}
+      />,
+    );
+
+    expect($('.t-calendar-cell--today')).toHaveTextContent('16');
+    expect($('.t-calendar-cell--active')).toBeNull();
+    expect($$('.t-calendar-cell--disabled')[0]).toHaveTextContent('15');
+    expect($$('.t-calendar-cell--disabled')[1]).toHaveTextContent('17');
+
+    fireEvent.click($$('.t-calendar-cell--disabled')[0]!);
+    act(() => jest.advanceTimersByTime(1));
+
+    expect($$('.t-calendar-cell--disabled')[0]).toHaveTextContent('15');
+    expect($('.t-calendar-cell--active')).toBeNull();
   });
 });

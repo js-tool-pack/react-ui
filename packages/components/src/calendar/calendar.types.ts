@@ -10,9 +10,11 @@ export interface CalendarProps
       isNextMonth: boolean;
       isSelected: boolean;
       isPreMonth: boolean;
+      disabled: boolean;
       isToday: boolean;
     },
   ) => React.ReactNode;
+  dateDisabled?: (date: Date, value: undefined | Date) => boolean;
   firstDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   onChange?: (value: Date) => void;
   header?: boolean;

@@ -24,6 +24,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
 >((props, ref) => {
   const {
     month: outerMonth,
+    dateDisabled,
     attrs = {},
     firstDay,
     onChange,
@@ -58,6 +59,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
         />
       )}
       <CalendarTable
+        dateDisabled={dateDisabled}
         value={valueRef.current}
         firstDay={firstDay}
         setValue={setValue}

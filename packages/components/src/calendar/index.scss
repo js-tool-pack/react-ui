@@ -39,6 +39,11 @@ $t: #{Name.$calendar}-table;
     --t-calendar-cell-color: var(--t-calendar-cell-active-color);
     --t-calendar-cell-bg: var(--t-calendar-cell-active-bg);
   }
+  &--disabled {
+    --t-calendar-cell-color: var(--t-color-info-l-3);
+
+    cursor: not-allowed;
+  }
   &:not(&--disabled, &--active) {
     cursor: pointer;
     &:hover {

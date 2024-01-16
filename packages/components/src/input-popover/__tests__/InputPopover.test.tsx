@@ -54,4 +54,15 @@ describe('InputPopover', () => {
     expect(getBalloon()).not.toHaveClass(cls.leaveActive);
     expect(getBalloon()).not.toHaveClass(cls.invisible);
   });
+
+  it('disabled 必须影响 Popover', () => {
+    jest.useFakeTimers();
+    const { container } = render(<InputPopover disabled />);
+    expect(document.querySelector('.t-word-balloon')).toBeNull();
+
+    fireEvent.click(container.firstChild!);
+
+    act(() => jest.advanceTimersByTime(1));
+    expect(document.querySelector('.t-word-balloon')).toBeNull();
+  });
 });

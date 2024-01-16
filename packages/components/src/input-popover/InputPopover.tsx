@@ -104,6 +104,7 @@ export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
       on={(...args) => (popoverOn(...args), popoverProps.on?.(...args))}
       widthByTrigger={popoverProps.widthByTrigger ?? true}
       placement={popoverProps.placement || 'bottom'}
+      disabled={popoverProps.disabled ?? disabled}
       visibleControllerRef={visibleControllerRef}
       trigger={popoverProps.trigger ?? 'click'}
       visible={visible}

@@ -167,7 +167,9 @@ interface Config {
 }
 const baseConfig: Config = {
   pkgs: isMonoRepo
-    ? fs.readdirSync(path.resolve(__dirname, '../packages'))
+    ? fs
+        .readdirSync(path.resolve(__dirname, '../packages'))
+        .filter((s) => !/^\./.test(s))
     : [],
   // semver.prerelease('1.2.3-alpha.3') -> [ 'alpha', 3 ]
   preId: args.preid || semver.prerelease(rootPkgJson.version)?.[0],

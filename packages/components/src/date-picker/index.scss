@@ -1,0 +1,183 @@
+@use '../namespace' as Name;
+
+$r: Name.$date-picker;
+$r-panel: #{$r}-panel;
+$r-options-panel: #{$r}-options-panel;
+$r-time-picker: #{$r}-time-picker;
+$r-date-panel: #{$r}-date-panel;
+$r-date-time-panel: #{$r}-date-time-panel;
+$r-input-box: #{$r}-input-box;
+$r-year-month-picker: #{$r}-year-month-picker;
+$r-select: #{$r}-select;
+$calendar: Name.$calendar;
+$picker: Name.$picker;
+$skin: Name.$input-skin;
+$balloon: Name.$word-balloon;
+
+// variable
+:root {
+  --t-datepicker-border: 1px solid var(--t-color-info-l-6);
+  --t-datepicker-header-height: 40px;
+  --t-datepicker-in-range-color: var(--t-color-primary-a-7);
+}
+
+.#{$r-panel} {
+  font-size: 14px;
+  .#{$calendar} {
+    --t-calendar-cell-height: 1em;
+    --t-calendar-table-padding: 0;
+    --t-calendar-border: 0;
+    thead th {
+      border-bottom: var(--t-datepicker-border);
+    }
+    td {
+      $s: var(--t-size);
+
+      vertical-align: middle;
+      padding: 6px;
+      width: $s;
+      height: $s;
+      border-radius: 2px;
+      text-align: center;
+
+      &.#{$r-panel}--in-range:not(
+      .#{$calendar}-cell--active,
+      .#{$calendar}-cell--prev-month,
+      .#{$calendar}-cell--next-month
+    ) {
+        --t-calendar-cell-bg: var(--t-datepicker-in-range-color);
+      }
+      &.#{$r-panel}--active-hover {
+        --t-calendar-cell-bg: var(--t-calendar-cell-active-bg) !important;
+        --t-calendar-cell-color: var(--t-calendar-cell-active-color);
+      }
+      .#{$r}--range &.#{$calendar}-cell--active {
+        cursor: pointer;
+      }
+    }
+  }
+
+  // __
+  &__body {
+    display: flex;
+
+    .#{$r}--range & {
+      > div {
+        &:first-child {
+          // .#{$r-select}__next,
+          // .#{$r-select}__next-db {
+          //  visibility: hidden;
+          // }
+        }
+        &:last-child {
+          border-left: var(--t-datepicker-border);
+
+          // .#{$r-select}__prev,
+          // .#{$r-select}__prev-db {
+          //  visibility: hidden;
+          // }
+        }
+      }
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-top: var(--t-datepicker-border);
+  }
+}
+.#{$r-date-panel},
+.#{$r-options-panel} {
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: var(--t-datepicker-header-height);
+    border-bottom: var(--t-datepicker-border);
+  }
+}
+.#{$r-options-panel} {
+  padding: 2px;
+  width: 180px;
+  height: 252px;
+  .#{$r-date-panel} + & {
+    border-left: var(--t-datepicker-border);
+  }
+}
+.#{$r-date-panel} {
+  &__calendar {
+    padding: 0 10px;
+  }
+}
+.#{$r-date-time-panel} {
+  &__inputs {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    border-bottom: var(--t-calendar-border);
+  }
+}
+.#{$r-select} {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  &__label {
+    flex: 1;
+  }
+}
+.#{$r-input-box} {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  gap: 4px;
+  input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+  }
+}
+.#{$r-year-month-picker} {
+  .#{$skin} {
+    --t-input-box-shadow: 0;
+    --t-input-active-box-shadow: 0;
+    --t-input-border-color: tranparent;
+    --t-input-active-border-color: tranparent;
+
+    justify-content: center;
+    &:hover {
+      background-color: var(--t-color-info-a-7);
+    }
+  }
+  &__pop {
+    .#{$picker}-panel {
+      height: 280px;
+    }
+    .#{$picker}-col {
+      &:last-child {
+        .#{$picker}-col__option {
+          width: 30px;
+        }
+      }
+    }
+  }
+}
+
+.#{$r} {
+  // __
+  &__pop {
+    .#{$balloon}__content {
+      padding: 0;
+    }
+    &.#{$r}--range {
+      .#{$balloon}__content {
+        display: flex;
+      }
+    }
+  }
+}

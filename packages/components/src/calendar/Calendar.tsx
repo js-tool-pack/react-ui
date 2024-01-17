@@ -1,14 +1,19 @@
+import {
+  useFollowingState,
+  useStateRef,
+  getClasses,
+  useWatch,
+} from '@pkg/shared';
+import { getStartOfMonth, getClassNames } from '@tool-pack/basic';
 import { CalendarHeader } from '~/calendar/components/Header';
 import type { CalendarProps } from './calendar.types';
 import { CalendarTable } from '~/calendar/components';
-import { useStateRef, getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
-import { getClassNames } from '@tool-pack/basic';
 import React from 'react';
 
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
 const defaultProps = {
-  value: new Date(),
+  today: new Date(),
   header: true,
   firstDay: 0,
 } satisfies Partial<CalendarProps>;
@@ -18,15 +23,26 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
   CalendarProps
 >((props, ref) => {
   const {
+    month: outerMonth,
+    dateDisabled,
     attrs = {},
     firstDay,
     onChange,
     dateCell,
     header,
+    today,
     value,
   } = props as RequiredPart<CalendarProps, keyof typeof defaultProps>;
 
   const [valueRef, setValueRef] = useStateRef(value);
+  const [month, setMonth] = useFollowingState(
+    outerMonth,
+    (v) => v || getStartOfMonth(value || today || new Date()),
+  );
+  useWatch(
+    valueRef.current,
+    (v) => v && !outerMonth && setMonth(getStartOfMonth(v)),
+  );
 
   return (
     <div
@@ -35,13 +51,21 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
       ref={ref}
     >
       {header && (
-        <CalendarHeader value={valueRef.current} setValue={setValue} />
+        <CalendarHeader
+          onMonthChange={setMonth}
+          onChange={setValue}
+          today={today}
+          value={month}
+        />
       )}
       <CalendarTable
+        dateDisabled={dateDisabled}
         value={valueRef.current}
         firstDay={firstDay}
         setValue={setValue}
         dateCell={dateCell}
+        month={month}
+        today={today}
       />
     </div>
   );

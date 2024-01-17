@@ -1,6 +1,6 @@
 import {
   useEventListenerOnMounted,
-  useStateWithTrailClear,
+  VisibleController,
   useForwardRef,
   getClasses,
   useWatch,
@@ -43,7 +43,9 @@ export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
   const _tabTriggerRef = useForwardRef(tabTriggerRef);
   const [opened, setOpened] = useState(false);
   const [focused, setFocused] = useState<boolean>();
-  const [show, setShow] = useStateWithTrailClear(visible);
+  const visibleControllerRef = useForwardRef<VisibleController>(
+    popoverProps.visibleControllerRef,
+  );
 
   useWatch(visible, (v) => !v && (skipBlurRef.current = true));
 
@@ -102,8 +104,10 @@ export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
       on={(...args) => (popoverOn(...args), popoverProps.on?.(...args))}
       widthByTrigger={popoverProps.widthByTrigger ?? true}
       placement={popoverProps.placement || 'bottom'}
+      disabled={popoverProps.disabled ?? disabled}
+      visibleControllerRef={visibleControllerRef}
       trigger={popoverProps.trigger ?? 'click'}
-      visible={show}
+      visible={visible}
     >
       <InputSkin
         attrs={{
@@ -139,11 +143,11 @@ export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
   }
   function close(): void {
     setOpened(false);
-    setShow(false);
+    visibleControllerRef.current?.hide();
   }
   function open(): void {
     setOpened(true);
-    setShow(true);
+    visibleControllerRef.current?.show();
   }
   function closeWithFocus(): void {
     skipBlurRef.current = true;

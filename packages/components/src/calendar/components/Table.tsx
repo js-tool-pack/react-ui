@@ -6,7 +6,6 @@ import {
   dateAdd,
   chunk,
 } from '@tool-pack/basic';
-import type { RequiredPart } from '@tool-pack/types';
 import { ConvertOptional } from '@tool-pack/types';
 import { CalendarProps } from '~/calendar';
 import { getClasses } from '@pkg/shared';
@@ -15,22 +14,20 @@ import React, { useMemo } from 'react';
 
 interface Props
   extends ConvertOptional<
-    Pick<CalendarProps, 'firstDay' | 'dateCell' | 'value'>
+    Pick<CalendarProps, 'dateDisabled' | 'firstDay' | 'dateCell' | 'value'>
   > {
   setValue(value: Date): void;
+  month: Date;
+  today: Date;
 }
 
 const cls = getClasses('calendar-table', [], []);
-const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarTable: React.FC<Props> = (props) => {
-  const {
-    value = new Date(),
-    firstDay,
-    setValue,
-    dateCell,
-  } = props as RequiredPart<Props, keyof typeof defaultProps>;
+  const { dateDisabled, firstDay, setValue, dateCell, value, month, today } =
+    props;
   const dates: Date[][] = useMemo(() => {
+    const value = month;
     const endOfMonth = getEndOfMonth(value);
 
     const list: Date[] = [
@@ -89,7 +86,7 @@ export const CalendarTable: React.FC<Props> = (props) => {
     function getFill(month: Date): (v: number) => Date {
       return (v) => new Date(month.getFullYear(), month.getMonth(), v);
     }
-  }, [value, firstDay]);
+  }, [month, firstDay]);
 
   const weekDays: readonly string[] = useMemo(
     () => [...weekDayNames.slice(firstDay), ...weekDayNames.slice(0, firstDay)],
@@ -111,8 +108,11 @@ export const CalendarTable: React.FC<Props> = (props) => {
             {row.map((date) => (
               <CalendarTableCell
                 key={`${date.getMonth()} ${date.getDate()}`}
+                dateDisabled={dateDisabled}
                 dateCell={dateCell}
-                setValue={setValue}
+                onClick={setValue}
+                today={today}
+                month={month}
                 value={value}
                 date={date}
               />
@@ -124,5 +124,4 @@ export const CalendarTable: React.FC<Props> = (props) => {
   );
 };
 
-CalendarTable.defaultProps = defaultProps;
 const weekDayNames = ['日', '一', '二', '三', '四', '五', '六'] as const;

@@ -44,15 +44,17 @@ $r: Name.$word-balloon;
     @include shadow4(Map.get($rp, $p));
   }
 }
+:root {
+  --t-word-balloon-bg: var(--t-bg-color);
+  --t-word-balloon-content-padding: var(--t-radius) 14px;
+  --t-word-balloon-arrow-offset: calc(var(--t-radius) + 2px);
+}
 
 .#{$r} {
-  --t-word-balloon-bg: var(--t-bg-color);
-  --t-word-balloon-arrow-offset: calc(var(--t-radius) + 2px);
-
   position: relative;
   display: inline-block;
   &__content {
-    padding: var(--t-radius) 14px;
+    padding: var(--t-word-balloon-content-padding);
     min-width: 32px;
     min-height: 32px;
     border-radius: var(--t-radius);

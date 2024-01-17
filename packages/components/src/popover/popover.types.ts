@@ -1,5 +1,5 @@
 import type { WordBalloonProps, TransitionCB } from '@pkg/components';
-import { PropsBase } from '@pkg/shared';
+import type { VisibleController, PropsBase } from '@pkg/shared';
 import React from 'react';
 
 export type PopoverTrigger = 'contextmenu' | 'click' | 'focus' | 'hover';
@@ -7,6 +7,7 @@ export type PopoverTrigger = 'contextmenu' | 'click' | 'focus' | 'hover';
 export interface PopoverProps
   extends Omit<PropsBase<HTMLDivElement>, 'children'>,
     Pick<WordBalloonProps, 'placement' | 'showArrow'> {
+  visibleControllerRef?: React.Ref<VisibleController>;
   appendTo?: (() => HTMLElement | null) | null;
   onVisibleChange?: (visible: boolean) => void;
   trigger?: PopoverTrigger[] | PopoverTrigger;

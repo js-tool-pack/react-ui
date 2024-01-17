@@ -37,6 +37,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   PopoverProps
 >((props, ref) => {
   const {
+    visibleControllerRef,
     onVisibleChange,
     widthByTrigger,
     destroyOnHide,
@@ -63,10 +64,9 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   const childrenRef = useForwardRef(
     (children as React.RefAttributes<unknown>).ref,
   ) as React.MutableRefObject<HTMLElement | null>;
-  const [balloonRef, refreshBalloonRef] = useForwardRef(ref, true) as [
-    React.MutableRefObject<HTMLDivElement>,
-    () => void,
-  ];
+  const balloonRef = useForwardRef(
+    ref,
+  ) as React.MutableRefObject<HTMLDivElement>;
 
   const [refreshPosition, resetPlacement, _placement] = usePosition(
     childrenRef,
@@ -88,6 +88,7 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
     // 因为这样在上面的 props 解构中就可以直观的看出到底有哪些属性是没有用到的；传 props 是不直观的。
     // 如果看到没有按照这条规则弄的，那就是漏掉了，以该条规则为准。
     {
+      visibleControllerRef,
       onVisibleChange,
       leaveDelay,
       disabled,
@@ -126,7 +127,6 @@ export const Popover: React.FC<PopoverProps> = React.forwardRef<
   const onTransitionChange = useMemo<TransitionCB>(() => {
     const refreshRef = (el: HTMLElement) => {
       balloonRef.current = el as HTMLDivElement;
-      refreshBalloonRef();
       refreshPosition();
     };
     const cb = transitionCBAdapter({

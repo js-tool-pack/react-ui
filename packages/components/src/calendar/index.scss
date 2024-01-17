@@ -4,31 +4,50 @@ $r: Name.$calendar;
 $c: #{Name.$calendar}-cell;
 $h: #{Name.$calendar}-header;
 $t: #{Name.$calendar}-table;
-
-.#{$r} {
+:root {
   --t-calendar-border: 1px solid var(--t-color-info-l-7);
+  --t-calendar-table-padding: 12px 0 35px;
   --t-calendar-cell-height: 80px;
+  --t-calendar-cell-bg: unset;
+  --t-calendar-cell-active-bg: var(--t-color-primary-l-3);
+  --t-calendar-cell-color: unset;
+  --t-calendar-cell-active-color: white;
+  --t-calendar-cell-today-color: var(--t-color-primary-l-2);
 }
 
+// .#{$r} {
+// }
+
 .#{$c} {
-  box-sizing: border-box;
   padding: 8px;
   height: var(--t-calendar-cell-height);
+  color: var(--t-calendar-cell-color);
+  background-color: var(--t-calendar-cell-bg);
+  box-sizing: border-box;
   &--prev-month,
   &--next-month {
-    color: var(--t-color-info-l-3);
+    --t-calendar-cell-color: var(--t-color-info-l-3);
+    &.#{$c}--active {
+      --t-calendar-cell-active-color: var(--t-color-primary-l-5);
+      --t-calendar-cell-active-bg: var(--t-color-info-l-7);
+    }
   }
-  &--today,
-  &--active {
-    color: var(--t-color-primary-l-2);
+  &--today {
+    --t-calendar-cell-color: var(--t-calendar-cell-today-color);
   }
   &--active {
-    background-color: var(--t-color-primary-l-7);
+    --t-calendar-cell-color: var(--t-calendar-cell-active-color);
+    --t-calendar-cell-bg: var(--t-calendar-cell-active-bg);
+  }
+  &--disabled {
+    --t-calendar-cell-color: var(--t-color-info-l-3);
+
+    cursor: not-allowed;
   }
   &:not(&--disabled, &--active) {
     cursor: pointer;
     &:hover {
-      background-color: var(--t-color-primary-l-7);
+      --t-calendar-cell-bg: var(--t-color-primary-l-7);
     }
   }
 }
@@ -45,7 +64,7 @@ $t: #{Name.$calendar}-table;
   }
 }
 .#{$t} {
-  padding: 12px 0 35px;
+  padding: var(--t-calendar-table-padding);
   width: 100%;
   th {
     padding: 10px 0;

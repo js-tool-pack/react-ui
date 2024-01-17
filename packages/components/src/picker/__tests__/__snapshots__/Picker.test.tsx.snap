@@ -2,55 +2,79 @@
 
 exports[`Picker basic 1`] = `
 <div
-  class="t-picker-panel"
+  class="t-picker-panel t-picker-panel--evenly-divided"
 >
-  <ul
+  <div
     class="t-picker-col"
   >
-    <li
-      class="t-option t-picker-col__option t--size-m"
-      role="option"
+    <ul
+      class="t-picker-col__list"
     >
-      <div
-        class="t-option__label"
+      <li
+        class="t-picker-col__item"
       >
-        A
-      </div>
-    </li>
-    <li
-      class="t-option t-picker-col__option t--size-m"
-      role="option"
-    >
-      <div
-        class="t-option__label"
+        <div
+          class="t-option t-picker-col__option t--size-m"
+          role="option"
+        >
+          <div
+            class="t-option__label"
+          >
+            A
+          </div>
+        </div>
+      </li>
+      <li
+        class="t-picker-col__item"
       >
-        B
-      </div>
-    </li>
-  </ul>
-  <ul
+        <div
+          class="t-option t-picker-col__option t--size-m"
+          role="option"
+        >
+          <div
+            class="t-option__label"
+          >
+            B
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
     class="t-picker-col"
   >
-    <li
-      class="t-option t-picker-col__option t--size-m"
-      role="option"
+    <ul
+      class="t-picker-col__list"
     >
-      <div
-        class="t-option__label"
+      <li
+        class="t-picker-col__item"
       >
-        0
-      </div>
-    </li>
-    <li
-      class="t-option t-picker-col__option t--size-m"
-      role="option"
-    >
-      <div
-        class="t-option__label"
+        <div
+          class="t-option t-picker-col__option t--size-m"
+          role="option"
+        >
+          <div
+            class="t-option__label"
+          >
+            0
+          </div>
+        </div>
+      </li>
+      <li
+        class="t-picker-col__item"
       >
-        1
-      </div>
-    </li>
-  </ul>
+        <div
+          class="t-option t-picker-col__option t--size-m"
+          role="option"
+        >
+          <div
+            class="t-option__label"
+          >
+            1
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
 `;

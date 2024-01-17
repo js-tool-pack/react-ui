@@ -4,9 +4,15 @@ $r: Name.$picker;
 $col: #{Name.$picker}-col;
 $panel: #{Name.$picker}-panel;
 $pop: Name.$popover;
+:root {
+  --t-picker-pop-padding: 0;
+}
 
-// .#{$r} {
-// }
+.#{$r} {
+  &__pop {
+    --t-word-balloon-content-padding: var(--t-picker-pop-padding);
+  }
+}
 .#{$panel} {
   display: flex;
   align-items: center;
@@ -17,28 +23,46 @@ $pop: Name.$popover;
   }
 }
 .#{$col} {
-  position: relative;
-  overflow-y: hidden;
-  margin: 0;
-  padding: 0;
+  overflow: hidden;
+  padding: 4px;
   height: 100%;
-  list-style: none;
-  flex: 1;
-  &::after {
-    display: block;
-    height: 100%;
-    content: '';
-  }
-  &:hover {
-    overflow-y: auto;
+  box-sizing: border-box;
+  & + & {
+    border-left: 1px solid var(--t-color-info-a-7);
   }
 
   // __
-  &__option {
+  &__list {
+    position: relative;
+    overflow-y: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style: none;
+    &:hover {
+      overflow-y: auto;
+    }
+    &::after {
+      display: block;
+      height: 100%;
+      content: '';
+    }
+  }
+  &__item {
+    text-align: center;
     &:last-child {
       position: absolute;
       right: 0;
       left: 0;
+    }
+  }
+
+  .#{$panel}--evenly-divided & {
+    flex: 1;
+  }
+  .#{$panel}--auto-divided & {
+    .#{$col} {
+      display: inline-block;
     }
   }
 

@@ -1,3 +1,37 @@
+## [0.0.16](https://github.com/js-tool-pack/react-ui/compare/v0.0.15...v0.0.16) (2024-01-17)
+
+### Bug Fixes
+
+- **components/calendar:** 修复cell点击过快渲染的问题 ([a74ff26](https://github.com/js-tool-pack/react-ui/commit/a74ff263eca77a622bec5ac0f6cabe40027eb4d0))
+- **components/input-popover:** 修复 disabled 不会影响 Popover 的 disabled 的问题 ([62e8d82](https://github.com/js-tool-pack/react-ui/commit/62e8d8204bc73598aa39f07a7945aed0be1adf3e))
+- **components/input-popover:** 修复传入外部 visible 时，内部仍然可以控制的问题 ([d04861a](https://github.com/js-tool-pack/react-ui/commit/d04861a73e92b7c7b3f22794bce268155f36a4da))
+- **components/picker:** 修复在 react 严格模式下，组件第一次渲染时选项列会滚动的问题 ([c4b6aab](https://github.com/js-tool-pack/react-ui/commit/c4b6aabee8fda092e4dfe1610ba48a2a51fa119a))
+- **components/popover:** 修复通过 visibleControllerRef 控制显隐, 内置的关闭触发事件不会触发的问题 ([b66a98a](https://github.com/js-tool-pack/react-ui/commit/b66a98ac8d3d60a0c51b529b2e794c42bc57cb50))
+- **components:** 修复 Calendar 在有外部 month 时仍然会被内部 value 改变的问题 ([7dde9cb](https://github.com/js-tool-pack/react-ui/commit/7dde9cb2624d7c247c5d844038c4bfb9e1074055))
+- **components:** 修复 PickerPanel 在多列选项时无选中后选中单个选项值index不对的问题，选中一个后默认选中其他列的第一个选项 ([24abced](https://github.com/js-tool-pack/react-ui/commit/24abced781395ba07383ddd6be9527b6d14aacf8))
+
+### Features
+
+- **components/calendar:** dateCell 类型优化，使外部调整更自由 ([06788d4](https://github.com/js-tool-pack/react-ui/commit/06788d44f11690cd8f33e74dd6b29c642ce06c08))
+- **components/calendar:** 添加 dateDisabled 参数，可禁选某日 ([1651130](https://github.com/js-tool-pack/react-ui/commit/165113000fc9048be0a560145cba3524de75ed93))
+- **components/calendar:** 添加 month 参数控制展示的月份 ([a69054b](https://github.com/js-tool-pack/react-ui/commit/a69054b627f5df9b871c640882529feb1646dd18))
+- **components/calendar:** 添加 today 参数 ([1d31fa2](https://github.com/js-tool-pack/react-ui/commit/1d31fa296f14e3d65953deda72f3943fc51cc02d))
+- **components/calendar:** 默认不选中今天 ([5f39558](https://github.com/js-tool-pack/react-ui/commit/5f39558afcaa6ddb319bcbe7729f973dd2baf1bf))
+- **components/picker:** 优化 PickerCol 跟随选中 ([5a2246b](https://github.com/js-tool-pack/react-ui/commit/5a2246b44061fc2895bdd0914395134c7f9bcd69))
+- **components/picker:** 添加 evenlyDivided 参数用于调整列分布样式，以及调整样式 ([de427b4](https://github.com/js-tool-pack/react-ui/commit/de427b41e09d52f4535a7e73debf66f209b1d04e))
+- **components/popover:** 添加 visibleControllerRef 参数以便外部控制 ([55d131d](https://github.com/js-tool-pack/react-ui/commit/55d131d6ab5a097dfaa71569e0aef0ac0896e5fa))
+- **components:** 新增 DatePicker 组件 ([4c61e83](https://github.com/js-tool-pack/react-ui/commit/4c61e83ecc155e4f3621c45ef50c7d4f2797b695))
+- **icons:** 添加 Calendar icon ([01b7c69](https://github.com/js-tool-pack/react-ui/commit/01b7c69803241b01f09ebafb4285b92ef1bd0bfe))
+- **icons:** 添加 LeftDouble 和 RightDouble 两个 icon ([3d554e6](https://github.com/js-tool-pack/react-ui/commit/3d554e65bf1e943f9e82bca65ff0b493f2fd4d58))
+- **shared:** 为 useFollowingState 添加 stateHandler 可选参数，使 useFollowingState 可以对 state 进行处理 ([8bc644a](https://github.com/js-tool-pack/react-ui/commit/8bc644a3b5b9fbcbadd660e2426b3fe81ff29c6d))
+- **shared:** 添加 VisibleController type ([8622d71](https://github.com/js-tool-pack/react-ui/commit/8622d7114f87fd7fd2dbad6a001d36ac5da5967b))
+
+### Performance Improvements
+
+- **components/picker:** 优化 Picker 组件 Props 类型，使 props 类型提示更精准 ([396b8ad](https://github.com/js-tool-pack/react-ui/commit/396b8adbb3503a74715ff792787801ea8e8fe973))
+- **components:** 补全使用 useImperativeHandle 时缺省的依赖 ([36b6d8a](https://github.com/js-tool-pack/react-ui/commit/36b6d8af587b0d2e2100f3b93518c0237b8dc33a))
+- **shared/useForwardRef:** 使用 Object.defineProperty 自动刷新代替手动刷新 ref ([55afeea](https://github.com/js-tool-pack/react-ui/commit/55afeea1c87eb55ddbace7eda4a9c5bb5e8188ec))
+
 ## [0.0.15](https://github.com/js-tool-pack/react-ui/compare/v0.0.14...v0.0.15) (2024-01-01)
 
 ### Features

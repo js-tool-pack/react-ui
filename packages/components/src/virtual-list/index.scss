@@ -1,0 +1,11 @@
+@use '../namespace' as Name;
+
+$r: Name.$virtual-list;
+
+.#{$r} {
+  overflow: auto;
+  &__wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+}

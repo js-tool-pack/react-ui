@@ -39,3 +39,4 @@ export * from './calendar';
 export * from './input-popover';
 export * from './picker';
 export * from './date-picker';
+export * from './virtual-list';

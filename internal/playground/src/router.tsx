@@ -176,6 +176,11 @@ export const baseRouter = [
     name: 'date-picker 日期选择器',
     path: '/date-picker',
   },
+  {
+    element: getDemos(import.meta.glob('~/virtual-list/demo/*.tsx')),
+    name: 'virtual-list 虚拟列表',
+    path: '/virtual-list',
+  },
   /*insert target*/
 ];
 

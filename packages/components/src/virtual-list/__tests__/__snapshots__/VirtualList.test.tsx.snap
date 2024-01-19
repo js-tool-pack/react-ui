@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VirtualList basic 1`] = `
+<div
+  class="t-virtual-list"
+>
+  <div
+    class="t-virtual-list__wrapper"
+  >
+    <div
+      class="t-virtual-list__items"
+      style="transform: translateY(0px);"
+    >
+      <div>
+        123
+      </div>
+      <div>
+        123
+      </div>
+      <div>
+        123
+      </div>
+    </div>
+  </div>
+</div>
+`;

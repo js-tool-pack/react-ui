@@ -1,3 +1,9 @@
+## [0.0.17](https://github.com/js-tool-pack/react-ui/compare/v0.0.16...v0.0.17) (2024-01-19)
+
+### Features
+
+- **components/virtual-list:** 新增 VirtualList 虚拟列表组件 ([5995373](https://github.com/js-tool-pack/react-ui/commit/599537394ecf5d7c0b3d02c260a2fae3fadb550b))
+
 ## [0.0.16](https://github.com/js-tool-pack/react-ui/compare/v0.0.15...v0.0.16) (2024-01-17)
 
 ### Bug Fixes

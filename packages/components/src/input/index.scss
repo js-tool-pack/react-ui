@@ -2,14 +2,15 @@
 
 $r: Name.$input;
 $skin: Name.$input-skin;
-
-.#{$skin} {
+:root {
   --t-input-border-color: var(--t-color-info-a-3);
   --t-input-box-shadow: 0 0 0 0 var(--t-color-primary-a-6);
   --t-input-bg-color: initial;
   --t-input-active-border-color: var(--t-color-primary-a-2);
   --t-input-active-box-shadow: 0 0 0 2px var(--t-color-primary-a-6);
+}
 
+.#{$skin} {
   position: relative;
   display: flex;
   align-items: center;
@@ -58,6 +59,7 @@ $skin: Name.$input-skin;
   }
   input {
     border: 0;
+    background-color: transparent;
     outline: 0;
   }
 }

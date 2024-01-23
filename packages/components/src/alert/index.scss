@@ -37,6 +37,8 @@ $r: Name.$alert;
   }
   &__desc {
     font-size: 14px;
+    white-space: pre-line;
+    word-break: break-word;
   }
   &__title + &__desc {
     margin-top: 8px;

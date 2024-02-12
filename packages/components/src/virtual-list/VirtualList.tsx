@@ -39,8 +39,8 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
 
   const firstItemHeightRef = useRef(0);
   const itemMapRef = useRef<
-    Record<number, { isPreset: boolean; height: number; top: number }>
-  >({});
+    Array<{ isPreset: boolean; height: number; top: number }>
+  >([]);
   const containerItemsLenRef = useRef(0);
   const translateYRef = useRef(0);
   const autoFillLayoutRef = useRef(true);
@@ -97,8 +97,8 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
           const unRenderStart = len - end;
           const height = unRenderStart * firstItemHeightRef.current;
           const defObj = { height: 0, top: 0 };
-          forEachNum(len - unRenderStart + 1, (i) => {
-            const index = i + unRenderStart - 1;
+          forEachNum(unRenderStart, (i) => {
+            const index = end + i;
             const prev = itemMapRef.current[index - 1] || defObj;
             itemMapRef.current[index] = {
               height: firstItemHeightRef.current,
@@ -125,30 +125,39 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     if (!wrapperEL || !itemsEl) return;
 
     const childs = itemsEl.children;
-    const wrapperElHeight = wrapperEL.offsetHeight;
-    const len = itemsEl.children.length;
+    const itemMap = itemMapRef.current;
 
-    const itemHeightMap = itemMapRef.current;
-
-    for (let i = 0; i < len; i++) {
-      const el = childs[i] as HTMLElement | null;
-      if (!el) continue;
+    let isResized = false;
+    let lastIndex = 0;
+    forEach(childs as HTMLCollectionOf<HTMLElement>, (el) => {
       const attr = el.getAttribute('data-index');
       const index = Number(attr);
-      const obj = itemHeightMap[index];
-      if (obj?.isPreset === false) continue;
-      const h = firstItemHeightRef.current;
+      const obj = itemMap[index];
+      if (obj?.isPreset === false) return;
+      const h = obj?.height || firstItemHeightRef.current;
       const { offsetHeight, offsetTop } = el;
-      itemHeightMap[index] = {
+      itemMap[index] = {
         top: offsetTop + translateYRef.current,
         height: offsetHeight,
         isPreset: false,
       };
       if (h !== offsetHeight) {
-        const offset = offsetHeight - h;
-        const height = wrapperElHeight + offset;
-        wrapperEL.style.height = height + 'px';
+        isResized = true;
+        lastIndex = index;
       }
+    });
+
+    if (isResized) {
+      const lastItem = itemMap[lastIndex]!;
+      let totalHeight = lastItem.top + lastItem.height;
+      const len = itemMap.length;
+      for (let i = lastIndex + 1; i < len; i++) {
+        const v = itemMap[i]!;
+        // 跟新后续的 top
+        if (v.isPreset && i > 0) v.top = totalHeight;
+        totalHeight += v.height;
+      }
+      wrapperEL.style.height = totalHeight + 'px';
     }
   }, [offsets]);
 
@@ -180,58 +189,37 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     const children = itemsEl.children;
     if (!children || !children.length) return;
 
-    const { scrollTop } = target;
+    const { offsetHeight, scrollTop } = target;
 
-    const direct = scrollTop > scrollTopRef.current ? 'bottom' : 'top';
     scrollTopRef.current = scrollTop;
 
-    let [start, end] = offsets;
-    const firstChild = children[0] as HTMLElement;
-    const lastChild = children[children.length - 1] as HTMLElement;
-
-    if (scrollTop === 0) translateYRef.current = 0;
-
-    if (direct === 'top') {
-      if (start > 0 && isScrollOnTopOfFirstChild(firstChild)) {
-        start--;
+    const newOffsets = getOffsets(scrollTop, offsetHeight);
+    setSafeOffsets(...newOffsets);
+  }
+  function getOffsets(scrollTop: number, parentHeight: number): Offsets {
+    const map = itemMapRef.current;
+    const len = map.length;
+    const offsets: Offsets = [0, len];
+    forEach(map, (item, index): false | void => {
+      if (item.top >= scrollTop) {
+        offsets[0] = index - 1;
+        return false;
       }
-      if (isScrollOnTopOfLastChild(lastChild)) {
-        end--;
+    });
+    const bottom = scrollTop + parentHeight;
+    for (let i = offsets[0]; i < len; i++) {
+      const item = map[i];
+      if (!item) continue;
+      if (item.top >= bottom) {
+        offsets[1] = i;
+        break;
       }
-      setSafeOffsets(start, end);
-      return;
     }
 
-    /* ---- direct === 'bottom' ---- */
-
-    if (isScrollAtBottomOfFirstChild(firstChild)) {
-      start++;
-    }
-    if (isScrollAtBottomOfLastChild(lastChild)) {
-      end++;
-    }
-    setSafeOffsets(start, end);
-  }
-  function isScrollOnTopOfFirstChild(firstChild: HTMLElement): boolean {
-    return scrollTopRef.current < firstChild.offsetTop + translateYRef.current;
-  }
-  function isScrollAtBottomOfFirstChild(firstChild: HTMLElement): boolean {
-    return (
-      scrollTopRef.current >
-      firstChild.offsetHeight + firstChild.offsetTop + translateYRef.current
-    );
-  }
-  function isScrollAtBottomOfLastChild(lastChild: HTMLElement): boolean {
-    return (
-      scrollTopRef.current + (rootElRef.current?.offsetHeight || 0) >
-      lastChild.offsetHeight + lastChild.offsetTop + translateYRef.current
-    );
-  }
-  function isScrollOnTopOfLastChild(lastChild: HTMLElement): boolean {
-    return (
-      scrollTopRef.current + (rootElRef.current?.offsetHeight || 0) <
-      lastChild.offsetTop + translateYRef.current
-    );
+    const offsetIndex = 2;
+    offsets[0] -= offsetIndex;
+    offsets[1] += offsetIndex;
+    return offsets;
   }
   function setSafeOffsets(start: number, end: number): void {
     const maxIndex = childList.length;
@@ -240,12 +228,12 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
 
     const [_start, _end] = offsets;
 
-    if (end - start < containerItemsLenRef.current) return;
-    if (start === _start && end === _end) return;
+    // if (end - start < containerItemsLenRef.current) return;
+    // if (start === _start && end === _end) return;
 
-    if (start !== _start) {
-      translateYRef.current = itemMapRef.current[start]!.top;
-    }
+    // if (start !== _start) {
+    translateYRef.current = itemMapRef.current[start]!.top;
+    // }
 
     setOffsets([start, end]);
   }

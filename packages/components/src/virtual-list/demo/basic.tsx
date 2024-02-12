@@ -6,7 +6,7 @@
 import { VirtualList, Alert } from '@tool-pack/react-ui';
 import React from 'react';
 
-const length = 10;
+const length = 50;
 
 const App: React.FC = () => {
   return (

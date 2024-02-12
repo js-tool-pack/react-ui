@@ -16,6 +16,7 @@ VirtualList 虚拟列表。
 
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx"></code>
+<code src="./demo/dynamic-size.tsx"></code>
 
 ## API
 

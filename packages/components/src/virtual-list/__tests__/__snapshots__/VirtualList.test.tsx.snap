@@ -11,14 +11,29 @@ exports[`VirtualList basic 1`] = `
       class="t-virtual-list__items"
       style="transform: translateY(0px);"
     >
-      <div>
-        123
+      <div
+        class="t-virtual-list__item"
+        data-index="0"
+      >
+        <div>
+          123
+        </div>
       </div>
-      <div>
-        123
+      <div
+        class="t-virtual-list__item"
+        data-index="1"
+      >
+        <div>
+          123
+        </div>
       </div>
-      <div>
-        123
+      <div
+        class="t-virtual-list__item"
+        data-index="2"
+      >
+        <div>
+          123
+        </div>
       </div>
     </div>
   </div>

@@ -1,10 +1,23 @@
-import React, { useEffect, Children, useState, useMemo, useRef } from 'react';
+import React, {
+  HTMLAttributes,
+  createElement,
+  useEffect,
+  Children,
+  useState,
+  useMemo,
+  useRef,
+} from 'react';
+import {
+  getClassNames,
+  forEachNum,
+  getSafeNum,
+  forEach,
+} from '@tool-pack/basic';
 import type { VirtualListProps } from './virtual-list.types';
-import { getClassNames, getSafeNum } from '@tool-pack/basic';
 import { useForwardRef, getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 
-const cls = getClasses('virtual-list', ['items', 'wrapper'], []);
+const cls = getClasses('virtual-list', ['items', 'wrapper', 'item'], []);
 const defaultProps = {
   tag: 'div',
 } satisfies Partial<VirtualListProps>;
@@ -24,9 +37,12 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
   const wrapperElRef = useRef<HTMLDivElement>(null);
   const rootElRef = useForwardRef(ref);
 
+  const firstItemHeightRef = useRef(0);
+  const itemMapRef = useRef<
+    Record<number, { isPreset: boolean; height: number; top: number }>
+  >({});
   const containerItemsLenRef = useRef(0);
   const translateYRef = useRef(0);
-  const scrollHandlerLockerRef = useRef(false);
   const autoFillLayoutRef = useRef(true);
   const scrollTopRef = useRef(0);
   const [offsets, setOffsets] = useState<Offsets>([0, 0]);
@@ -34,7 +50,19 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
 
   const _children = useMemo(() => {
     const [start, end] = offsets;
-    return childList.slice(start, end);
+    return childList.slice(start, end).map((child, i) => {
+      const index = start + i;
+      // 在此处创建会重复，最好提供个额外组件给外部使用
+      return createElement(
+        'div',
+        {
+          className: cls.__.item,
+          'data-index': index, // 为元素添加一个 index 标记
+          key: index,
+        } as HTMLAttributes<HTMLElement>,
+        child,
+      );
+    });
   }, [childList, offsets]);
 
   useEffect(() => {
@@ -45,7 +73,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       autoFillLayoutRef.current = false;
       return;
     }
-    const wrapperEL = itemsElRef.current;
+    const wrapperEL = wrapperElRef.current;
     const itemsEl = itemsElRef.current;
     const rootEl = rootElRef.current;
     if (wrapperEL && itemsEl && rootEl) {
@@ -53,8 +81,33 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       if (offsetHeight > rootEl.offsetHeight) {
         const firstChild = itemsEl.children[0] as HTMLElement | null;
         if (firstChild) {
-          wrapperEL.style.height =
-            offsetHeight + (len - end) * firstChild.offsetHeight + 'px';
+          firstItemHeightRef.current = firstChild.offsetHeight;
+          forEach(
+            itemsEl.children as unknown as ArrayLike<HTMLElement>,
+            (v, i) => {
+              const { offsetHeight, offsetTop } = v;
+              itemMapRef.current[i] = {
+                height: offsetHeight,
+                isPreset: false,
+                top: offsetTop,
+              };
+            },
+          );
+
+          const unRenderStart = len - end;
+          const height = unRenderStart * firstItemHeightRef.current;
+          const defObj = { height: 0, top: 0 };
+          forEachNum(len - unRenderStart + 1, (i) => {
+            const index = i + unRenderStart - 1;
+            const prev = itemMapRef.current[index - 1] || defObj;
+            itemMapRef.current[index] = {
+              height: firstItemHeightRef.current,
+              top: prev.height + prev.top,
+              isPreset: true,
+            };
+          });
+
+          wrapperEL.style.height = height + offsetHeight + 'px';
         }
         autoFillLayoutRef.current = false;
         return;
@@ -65,7 +118,38 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
   });
 
   useEffect(() => {
-    scrollHandlerLockerRef.current = false;
+    if (autoFillLayoutRef.current) return;
+
+    const wrapperEL = wrapperElRef.current;
+    const itemsEl = itemsElRef.current;
+    if (!wrapperEL || !itemsEl) return;
+
+    const childs = itemsEl.children;
+    const wrapperElHeight = wrapperEL.offsetHeight;
+    const len = itemsEl.children.length;
+
+    const itemHeightMap = itemMapRef.current;
+
+    for (let i = 0; i < len; i++) {
+      const el = childs[i] as HTMLElement | null;
+      if (!el) continue;
+      const attr = el.getAttribute('data-index');
+      const index = Number(attr);
+      const obj = itemHeightMap[index];
+      if (obj?.isPreset === false) continue;
+      const h = firstItemHeightRef.current;
+      const { offsetHeight, offsetTop } = el;
+      itemHeightMap[index] = {
+        top: offsetTop + translateYRef.current,
+        height: offsetHeight,
+        isPreset: false,
+      };
+      if (h !== offsetHeight) {
+        const offset = offsetHeight - h;
+        const height = wrapperElHeight + offset;
+        wrapperEL.style.height = height + 'px';
+      }
+    }
   }, [offsets]);
 
   return React.createElement(
@@ -88,7 +172,6 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
   );
 
   function _onScroll(e: React.UIEvent<HTMLDivElement>) {
-    if (scrollHandlerLockerRef.current) return;
     const target = e.currentTarget;
     const itemsEl = itemsElRef.current;
 
@@ -105,7 +188,8 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     let [start, end] = offsets;
     const firstChild = children[0] as HTMLElement;
     const lastChild = children[children.length - 1] as HTMLElement;
-    console.log(direct, scrollTop);
+
+    if (scrollTop === 0) translateYRef.current = 0;
 
     if (direct === 'top') {
       if (start > 0 && isScrollOnTopOfFirstChild(firstChild)) {
@@ -114,7 +198,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       if (isScrollOnTopOfLastChild(lastChild)) {
         end--;
       }
-      setSafeOffsets(start, end, firstChild);
+      setSafeOffsets(start, end);
       return;
     }
 
@@ -126,7 +210,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     if (isScrollAtBottomOfLastChild(lastChild)) {
       end++;
     }
-    setSafeOffsets(start, end, firstChild);
+    setSafeOffsets(start, end);
   }
   function isScrollOnTopOfFirstChild(firstChild: HTMLElement): boolean {
     return scrollTopRef.current < firstChild.offsetTop + translateYRef.current;
@@ -149,11 +233,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       lastChild.offsetTop + translateYRef.current
     );
   }
-  function setSafeOffsets(
-    start: number,
-    end: number,
-    firstChild: HTMLElement,
-  ): void {
+  function setSafeOffsets(start: number, end: number): void {
     const maxIndex = childList.length;
     start = getSafeNum(start, 0, maxIndex);
     end = getSafeNum(end, 0, maxIndex);
@@ -164,11 +244,9 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     if (start === _start && end === _end) return;
 
     if (start !== _start) {
-      translateYRef.current +=
-        firstChild.offsetHeight * (start > _start ? 1 : -1);
+      translateYRef.current = itemMapRef.current[start]!.top;
     }
 
-    scrollHandlerLockerRef.current = true;
     setOffsets([start, end]);
   }
 });

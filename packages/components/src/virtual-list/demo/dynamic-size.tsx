@@ -2,15 +2,32 @@
  * title: 动态尺寸
  */
 
-import { VirtualList, Alert } from '@tool-pack/react-ui';
-import React from 'react';
+import { VirtualList, Select, Alert } from '@tool-pack/react-ui';
+import React, { useState } from 'react';
 
-const length = 100;
-
+const options = [
+  { label: 100, value: 100 },
+  { label: 500, value: 500 },
+  { label: 1000, value: 1000 },
+  { label: 5000, value: 5000 },
+  { label: 10000, value: 10000 },
+];
 const App: React.FC = () => {
+  const [num, setNum] = useState(100);
   return (
     <>
-      <h3>列表内含 {length} 个不定高度 Alert 组件</h3>
+      item 数量：
+      <Select
+        attrs={{
+          style: { display: 'inline-flex', minWidth: '100px' },
+        }}
+        onChange={setNum}
+        options={options}
+        size="small"
+        value={num}
+      />
+      <br />
+      <br />
       <VirtualList
         attrs={{
           style: {
@@ -19,9 +36,9 @@ const App: React.FC = () => {
           },
         }}
       >
-        {Array.from({ length }).map((_, i) => (
+        {Array.from({ length: num }).map((_, i) => (
           <Alert title={i} key={i}>
-            {String(i).repeat(~~(Math.random() * 500))}
+            {(i + ' ').repeat(~~(Math.random() * 500))}
           </Alert>
         ))}
       </VirtualList>

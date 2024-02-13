@@ -68,6 +68,10 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
   }, [childList, offsets]);
 
   useEffect(() => {
+    autoFillLayoutRef.current = true;
+  }, [childList.length]);
+
+  useEffect(() => {
     if (!autoFillLayoutRef.current) return;
     const [start, end] = offsets;
     const len = childList.length;

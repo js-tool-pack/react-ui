@@ -8,10 +8,12 @@ import React, {
   useRef,
 } from 'react';
 import {
+  binaryFindIndex,
   getClassNames,
   forEachNum,
   getSafeNum,
   forEach,
+  inRange,
 } from '@tool-pack/basic';
 import type { VirtualListProps } from './virtual-list.types';
 import { useForwardRef, getClasses } from '@pkg/shared';
@@ -129,15 +131,17 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
 
     let isResized = false;
     let lastIndex = 0;
+    const defItem = { height: 0, top: 0 };
     forEach(childs as HTMLCollectionOf<HTMLElement>, (el) => {
       const attr = el.getAttribute('data-index');
       const index = Number(attr);
       const obj = itemMap[index];
       if (obj?.isPreset === false) return;
+      const prev = itemMap[index - 1] || defItem;
       const h = obj?.height || firstItemHeightRef.current;
-      const { offsetHeight, offsetTop } = el;
+      const { offsetHeight } = el;
       itemMap[index] = {
-        top: offsetTop + translateYRef.current,
+        top: prev.top + prev.height,
         height: offsetHeight,
         isPreset: false,
       };
@@ -148,16 +152,15 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     });
 
     if (isResized) {
-      const lastItem = itemMap[lastIndex]!;
-      let totalHeight = lastItem.top + lastItem.height;
       const len = itemMap.length;
       for (let i = lastIndex + 1; i < len; i++) {
         const v = itemMap[i]!;
         // 跟新后续的 top
-        if (v.isPreset && i > 0) v.top = totalHeight;
-        totalHeight += v.height;
+        const prev = itemMap[i - 1] || defItem;
+        v.top = prev.top + prev.height;
       }
-      wrapperEL.style.height = totalHeight + 'px';
+      const endItem = itemMap.at(-1) || defItem;
+      wrapperEL.style.height = endItem.top + endItem.height + 'px';
     }
   }, [offsets]);
 
@@ -199,13 +202,11 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
   function getOffsets(scrollTop: number, parentHeight: number): Offsets {
     const map = itemMapRef.current;
     const len = map.length;
-    const offsets: Offsets = [0, len];
-    forEach(map, (item, index): false | void => {
-      if (item.top >= scrollTop) {
-        offsets[0] = index - 1;
-        return false;
-      }
+    const start = binaryFindIndex(map, ({ item }) => {
+      if (inRange(scrollTop, [item.top, item.top + item.height])) return 0;
+      return scrollTop - item.top;
     });
+    const offsets: Offsets = [start, len];
     const bottom = scrollTop + parentHeight;
     for (let i = offsets[0]; i < len; i++) {
       const item = map[i];
@@ -225,16 +226,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     const maxIndex = childList.length;
     start = getSafeNum(start, 0, maxIndex);
     end = getSafeNum(end, 0, maxIndex);
-
-    const [_start, _end] = offsets;
-
-    // if (end - start < containerItemsLenRef.current) return;
-    // if (start === _start && end === _end) return;
-
-    // if (start !== _start) {
     translateYRef.current = itemMapRef.current[start]!.top;
-    // }
-
     setOffsets([start, end]);
   }
 });

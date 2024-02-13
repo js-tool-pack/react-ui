@@ -1,3 +1,17 @@
+## [0.0.18](https://github.com/js-tool-pack/react-ui/compare/v0.0.17...v0.0.18) (2024-02-13)
+
+### Bug Fixes
+
+- **components/alert:** 修复内容不会换行的问题 ([8bf874b](https://github.com/js-tool-pack/react-ui/commit/8bf874bffa0193e019a95cb57dfcb799a123a7b1))
+- **components/input:** 修复输入框组件在 Safari 下会有默认背景色的问题 ([ad97bea](https://github.com/js-tool-pack/react-ui/commit/ad97beacab98d25c0a896569c7afb452d1661b60))
+- **components/virtual-list:** 修复children 数量变化时不会刷新预设高度的问题 ([074681c](https://github.com/js-tool-pack/react-ui/commit/074681c35bfab9fd36c3d1427f8c0f9c7dee5536))
+- **components/virtual-list:** 修复超过 1000 个条目时高度和定位不准的问题 ([e1d3ef9](https://github.com/js-tool-pack/react-ui/commit/e1d3ef9000543f23901a8d6bbc521cde34d3c0fa))
+- **components/virtual-list:** 列表滚动条移动过快时会空白 ([bb5456f](https://github.com/js-tool-pack/react-ui/commit/bb5456f8595033300f3475aa1e433b7bb6846d2f))
+
+### Features
+
+- **components/virtual-list:** 添加动态高度条目的支持 ([1bdc82f](https://github.com/js-tool-pack/react-ui/commit/1bdc82f08a666a3c2fc67b6f4b69b7c9b8f7594a))
+
 ## [0.0.17](https://github.com/js-tool-pack/react-ui/compare/v0.0.16...v0.0.17) (2024-01-19)
 
 ### Features

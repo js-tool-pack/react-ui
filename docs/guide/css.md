@@ -29,3 +29,8 @@ nav:
 - 单元测试时不能测试具体的样式（由于 jest、jsdom 等测试库的限制，只支持内联样式，css in js 可以避免），
   不过当 e2e 测试时就不存在这种问题了。
 - 相对没有 css in js 灵活。
+
+## css tree shaking
+
+<!-- prettier-ignore -->
+<code src="./css-tree-shaking.tsx"></code>

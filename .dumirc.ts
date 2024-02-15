@@ -62,6 +62,10 @@ export default defineConfig({
     // { id: 'zh-CN', name: '中文', suffix: '-cn' },
   ],
   alias: {
+    '@tool-pack/react-ui/dist/styles': Path.resolve(
+      __dirname,
+      'packages/react-ui/dist/styles',
+    ),
     '@tool-pack/react-ui': Path.resolve(__dirname, 'packages/react-ui/src'),
     ...pkgs.reduce(
       (prev, cur) => {

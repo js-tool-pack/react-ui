@@ -41,10 +41,21 @@
     "jsx": "react-jsx",
     "paths": {
       "@pkg/*": ["./packages/*/src"],
-      "@tool-pack/react-ui": ["./packages/react-ui"],
+      "@pkg/components/*": ["./packages/components/src/*"],
+      "@tool-pack/react-ui/*": ["./packages/react-ui/src/*"],
+      "@tool-pack/react-ui": ["./packages/react-ui/src"],
       "~/*": ["./packages/components/src/*"],
-      "@@/*": ["./.dumi/tmp/*"]
+      "@@/*": [".dumi/tmp/*"]
     }
   },
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    ".dumi",
+    "docs",
+    "internal",
+    "packages",
+    "scripts",
+    ".dumirc.ts",
+    ".fatherrc.ts"
+  ],
+  "exclude": ["node_modules", "dist", "tmp"]
 }

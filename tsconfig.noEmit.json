@@ -7,6 +7,8 @@
     "types": ["vite/client"],
     "paths": {
       "@pkg/*": ["./packages/*/src"],
+      "@pkg/components/*": ["./packages/components/src/*"],
+      "@tool-pack/react-ui/*": ["./packages/react-ui/src/*"],
       "@tool-pack/react-ui": ["./packages/react-ui/src"],
       "~/*": ["./packages/components/src/*"],
       "@@/*": [".dumi/tmp/*"]

@@ -35,6 +35,13 @@ type DateCell = (
     isToday: boolean;
   },
 ) => React.ReactNode;
+
+interface CalendarLocale {
+  monthBeforeYear: boolean;
+  weekDayNames: string[];
+  monthNames: string[];
+  today: string;
+}
 ```
 
 | 属性         | 说明                                       | 类型                                              | 默认值     | 版本 |
@@ -47,4 +54,5 @@ type DateCell = (
 | dateDisabled | 日期禁用                                   | (date: Date, value: undefined \| Date) => boolean | --         | --   |
 | header       | 头部显示或隐藏                             | boolean                                           | true       | --   |
 | firstDay     | 星期的第一天                               | 0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6                   | 0          | --   |
+| locale       | 语言文本配置                               | CalendarLocale                                    | --         | --   |
 | attrs        | html 标签属性                              | Partial\<React.HTMLAttributes\<HTMLDivElement>>   | --         | --   |

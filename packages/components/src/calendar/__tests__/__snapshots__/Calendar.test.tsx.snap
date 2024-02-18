@@ -10,9 +10,7 @@ exports[`Calendar basic 1`] = `
     <div
       class="t-calendar-header__month"
     >
-      2023
-       
-      十二月
+      December 2023
     </div>
     <div
       class="t-button-group"
@@ -41,7 +39,7 @@ exports[`Calendar basic 1`] = `
         class="t-button t-button--type-default t-button--icon-l t--size-sm"
       >
         <span>
-           今天 
+          today
         </span>
       </button>
       <button
@@ -73,25 +71,25 @@ exports[`Calendar basic 1`] = `
     <thead>
       <tr>
         <th>
-          日
+          Sun
         </th>
         <th>
-          一
+          Mon
         </th>
         <th>
-          二
+          Tue
         </th>
         <th>
-          三
+          Wed
         </th>
         <th>
-          四
+          Thu
         </th>
         <th>
-          五
+          Fri
         </th>
         <th>
-          六
+          Sat
         </th>
       </tr>
     </thead>
@@ -333,9 +331,7 @@ exports[`Calendar dateCell 1`] = `
     <div
       class="t-calendar-header__month"
     >
-      2023
-       
-      十二月
+      December 2023
     </div>
     <div
       class="t-button-group"
@@ -364,7 +360,7 @@ exports[`Calendar dateCell 1`] = `
         class="t-button t-button--type-default t-button--icon-l t--size-sm"
       >
         <span>
-           今天 
+          today
         </span>
       </button>
       <button
@@ -396,25 +392,25 @@ exports[`Calendar dateCell 1`] = `
     <thead>
       <tr>
         <th>
-          日
+          Sun
         </th>
         <th>
-          一
+          Mon
         </th>
         <th>
-          二
+          Tue
         </th>
         <th>
-          三
+          Wed
         </th>
         <th>
-          四
+          Thu
         </th>
         <th>
-          五
+          Fri
         </th>
         <th>
-          六
+          Sat
         </th>
       </tr>
     </thead>
@@ -656,9 +652,7 @@ exports[`Calendar 默认不选中今天 1`] = `
     <div
       class="t-calendar-header__month"
     >
-      2023
-       
-      十二月
+      December 2023
     </div>
     <div
       class="t-button-group"
@@ -687,7 +681,7 @@ exports[`Calendar 默认不选中今天 1`] = `
         class="t-button t-button--type-default t-button--icon-l t--size-sm"
       >
         <span>
-           今天 
+          today
         </span>
       </button>
       <button
@@ -719,25 +713,25 @@ exports[`Calendar 默认不选中今天 1`] = `
     <thead>
       <tr>
         <th>
-          日
+          Sun
         </th>
         <th>
-          一
+          Mon
         </th>
         <th>
-          二
+          Tue
         </th>
         <th>
-          三
+          Wed
         </th>
         <th>
-          四
+          Thu
         </th>
         <th>
-          五
+          Fri
         </th>
         <th>
-          六
+          Sat
         </th>
       </tr>
     </thead>

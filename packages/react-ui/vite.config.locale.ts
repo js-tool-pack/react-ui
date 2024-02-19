@@ -1,12 +1,28 @@
 import { defineConfig, UserConfig } from 'vite';
 import { getAlias } from '../../utils';
 import Path, { resolve } from 'path';
+import Fse from 'fs-extra';
 import Fs from 'fs';
 
+const distPath = Path.resolve(__dirname, 'dist');
+const distLocalePath = Path.resolve(distPath, 'locale');
 const localePath = Path.resolve(__dirname, 'src/locale');
-const locales = Fs.readdirSync(localePath)
-  .filter((s) => s !== '.DS_Store')
-  .map((l) => Path.resolve(localePath, l));
+const locales = Fs.readdirSync(localePath).filter((s) => s !== '.DS_Store');
+const localePaths = locales.map((l) => Path.resolve(localePath, l));
+
+Fse.removeSync(distLocalePath);
+
+const DTSContent = `
+import type { Locale } from '../';
+declare const locale: Locale;
+export default locale;
+  `.trim();
+locales.forEach((l) => {
+  const name = l.replace(Path.extname(l), '');
+  const path = Path.resolve(distLocalePath, name + '.d.ts');
+  Fse.createFileSync(path);
+  Fse.writeFileSync(path, DTSContent);
+});
 
 /**
  * Vite configuration
@@ -24,9 +40,9 @@ export default defineConfig((): UserConfig => {
         ],
       },
       outDir: resolve(__dirname, 'dist/locale'),
-      lib: { entry: locales },
+      lib: { entry: localePaths },
+      emptyOutDir: false,
       target: 'modules',
-      emptyOutDir: true,
       minify: true,
     },
     resolve: {

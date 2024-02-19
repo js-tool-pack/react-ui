@@ -6,6 +6,7 @@ demo:
   cols: 1
 group:
   title: 其他
+  order: 10
 ---
 
 为组件提供统一的全局化配置。

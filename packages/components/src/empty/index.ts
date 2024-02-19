@@ -1,2 +1,2 @@
-export type { EmptyProps } from './empty.types';
+export type { EmptyLocale, EmptyProps } from './empty.types';
 export * from './Empty';

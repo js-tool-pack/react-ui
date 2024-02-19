@@ -5,3 +5,7 @@ export interface EmptyProps extends PropsBase<HTMLDivElement> {
   description?: React.ReactNode;
   icon?: React.ReactNode;
 }
+
+export interface EmptyLocale {
+  description: React.ReactNode;
+}

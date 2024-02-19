@@ -13,7 +13,7 @@ const App: React.FC = () => {
           <Icons.CircleWarningFill />
         </Icon>
       }
-      description="暂无数据"
+      description="empty"
     >
       <Button>点击刷新</Button>
     </Empty>

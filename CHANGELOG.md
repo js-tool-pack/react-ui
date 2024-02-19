@@ -1,3 +1,14 @@
+## [0.0.20](https://github.com/js-tool-pack/react-ui/compare/v0.0.20-beta.2...v0.0.20) (2024-02-19)
+
+### Features
+
+- **components/config-provider:** useLocale ([df196c2](https://github.com/js-tool-pack/react-ui/commit/df196c242921ada2a706b2bced5d0478fa981815))
+- **components/date-picker:** 国际化 ([83e86ad](https://github.com/js-tool-pack/react-ui/commit/83e86addf7b68273ed7ebccfa87c4191759f7d48))
+- **components/empty:** locale ([26a64f0](https://github.com/js-tool-pack/react-ui/commit/26a64f02ff9c4ccf3faab2401dc9c647c6ec327e))
+- **components/input:** 国际化 ([0522cf9](https://github.com/js-tool-pack/react-ui/commit/0522cf9c701e661c144758e5c8d7d3bdc81e5cf0))
+- **components/pop-confirm:** 国际化 ([86ee060](https://github.com/js-tool-pack/react-ui/commit/86ee06030ed96b82e0a1abd28ab4568b6e052f9e))
+- **components/select:** 国际化 ([bc16b50](https://github.com/js-tool-pack/react-ui/commit/bc16b50d530e77f801147824fb1312899dc8d975))
+
 ## [0.0.20-beta.2](https://github.com/js-tool-pack/react-ui/compare/v0.0.20-beta.1...v0.0.20-beta.2) (2024-02-19)
 
 ## [0.0.20-beta.1](https://github.com/js-tool-pack/react-ui/compare/v0.0.20-beta.0...v0.0.20-beta.1) (2024-02-19)

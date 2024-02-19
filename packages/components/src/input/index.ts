@@ -1,2 +1,2 @@
-export type { InputProps } from './input.types';
+export type { InputLocale, InputProps } from './input.types';
 export * from './Input';

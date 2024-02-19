@@ -9,7 +9,7 @@ import React from 'react';
 const App: React.FC = () => {
   return (
     <>
-      <Input placeholder="input" />
+      <Input />
       <br />
       <Input placeholder="disabled" disabled />
     </>

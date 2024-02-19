@@ -5,10 +5,12 @@ import {
   useWatch,
 } from '@pkg/shared';
 import { InputSwitch, InputSuffix, InputSkin } from './components';
+import { useLocale } from '~/config-provider/useLocale';
 import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import type { InputProps } from './input.types';
 import React, { useState, useRef } from 'react';
+import EnUS from '~/input/locale/en-US';
 
 const cls = getClasses(
   'input',
@@ -26,10 +28,11 @@ export const Input: React.FC<InputProps> = React.forwardRef<
   HTMLInputElement,
   InputProps
 >((props, ref) => {
+  const locale = useLocale('input', EnUS);
   const {
+    placeholder = locale.placeholder,
     showPasswordOn,
     rootAttrs = {},
-    placeholder,
     attrs = {},
     clearable,
     showCount,

@@ -35,3 +35,7 @@ export interface InputProps extends BaseInputProps, TextareaProps {
   value?: string;
   size?: Size;
 }
+
+export interface InputLocale {
+  placeholder: string;
+}

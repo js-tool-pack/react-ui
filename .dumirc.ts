@@ -54,8 +54,8 @@ export default defineConfig({
   //     exclude: [/^@scope\/.+/],
   //   }
   locales: [
-    // { id: 'en-US', name: 'English', suffix: '' },
-    // { id: 'zh-CN', name: '中文', suffix: '-cn' },
+    { id: 'en-US', name: 'English', suffix: '' },
+    { id: 'zh-CN', name: '中文', suffix: '-cn' },
   ],
   alias: {
     '@tool-pack/react-ui/dist/styles': Path.resolve(

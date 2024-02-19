@@ -1,25 +1,32 @@
 import { resolve } from 'path';
 import { execa } from 'execa';
 import Chalk from 'chalk';
+import FE from 'fs-extra';
 import * as Fs from 'fs';
 
 const rootDir = resolve(__dirname, '../../components/src');
 const dist = resolve(__dirname, '../dist');
+const stylesDir = resolve(dist, 'styles');
 
 start().then(() =>
   console.log(Chalk.cyan('compile scss single file success!')),
 );
 
 async function start() {
+  FE.removeSync(stylesDir);
+  await compile();
+}
+
+async function compile() {
   for (const { component, path } of getComponents()) {
     await compileScss(
       resolve(path, 'index.scss'),
-      resolve(dist, 'styles', component + '.css'),
+      resolve(stylesDir, component + '.css'),
     );
   }
   await compileScss(
     resolve(rootDir, 'css.variable.scss'),
-    resolve(dist, 'styles', 'css.variable.css'),
+    resolve(stylesDir, 'css.variable.css'),
   );
 
   function compileScss(fromPath: string, toPath: string) {

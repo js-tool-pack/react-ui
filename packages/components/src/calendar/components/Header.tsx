@@ -1,12 +1,14 @@
 import { getClassNames, getEndOfMonth, dateAdd } from '@tool-pack/basic';
 import { ButtonContext, ButtonGroup, Button } from '~/button';
 import type { RequiredPart } from '@tool-pack/types';
+import type { CalendarLocale } from '~/calendar';
 import { getClasses } from '@pkg/shared';
 import { Right, Left } from '@pkg/icons';
+import React, { useMemo } from 'react';
 import { Icon } from '~/icon';
-import React from 'react';
 
 interface Props {
+  locale: Pick<CalendarLocale, 'monthBeforeYear' | 'monthNames' | 'today'>;
   onMonthChange: (value: Date) => void;
   onChange: (value: Date) => void;
   today: Date;
@@ -16,16 +18,21 @@ const cls = getClasses('calendar-header', ['month'], []);
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarHeader: React.FC<Props> = (props) => {
-  const { onMonthChange, onChange, today, value } = props as RequiredPart<
-    Props,
-    keyof typeof defaultProps
-  >;
+  const { onMonthChange, onChange, locale, today, value } =
+    props as RequiredPart<Props, keyof typeof defaultProps>;
+
+  const monthStr = useMemo(() => {
+    const ym = [
+      value.getFullYear(),
+      locale.monthNames[value.getMonth()] as string,
+    ];
+    if (locale.monthBeforeYear) ym.reverse();
+    return ym.join(' ');
+  }, [locale.monthNames, locale.monthBeforeYear, value]);
 
   return (
     <div className={getClassNames(cls.root, {})}>
-      <div className={cls.__.month}>
-        {value.getFullYear()} {monthNames[value.getMonth()]}
-      </div>
+      <div className={cls.__.month}>{monthStr}</div>
       <ButtonContext.Provider value={{ type: 'default', size: 'small' }}>
         <ButtonGroup>
           <Button onClick={() => changeMonth(-1)}>
@@ -33,7 +40,7 @@ export const CalendarHeader: React.FC<Props> = (props) => {
               <Left />
             </Icon>
           </Button>
-          <Button onClick={clickToday}> 今天 </Button>
+          <Button onClick={clickToday}>{locale.today}</Button>
           <Button onClick={() => changeMonth(1)}>
             <Icon>
               <Right />
@@ -58,17 +65,3 @@ export const CalendarHeader: React.FC<Props> = (props) => {
 };
 
 CalendarHeader.defaultProps = defaultProps;
-const monthNames = [
-  '一月',
-  '二月',
-  '三月',
-  '四月',
-  '五月',
-  '六月',
-  '七月',
-  '八月',
-  '九月',
-  '十月',
-  '十一月',
-  '十二月',
-] as const;

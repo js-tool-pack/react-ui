@@ -5,7 +5,7 @@ export function modifyStackBlitzData(
   memo: Project,
   props: { filename: string },
 ): Project {
-  memo.files[filename] = joinImportCss(memo.files[filename], props.filename);
+  memo.files[filename] = joinImportCss(memo.files[filename]!, props.filename);
   return memo;
 }
 
@@ -15,8 +15,8 @@ export function modifyCodeSandboxData(
   },
   props: { filename: string },
 ): typeof memo {
-  memo.files[filename].content = joinImportCss(
-    memo.files[filename].content,
+  memo.files[filename]!.content = joinImportCss(
+    memo.files[filename]!.content,
     props.filename,
   );
   return memo;

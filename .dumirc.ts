@@ -1,13 +1,9 @@
 import { defineConfig } from 'dumi';
-import * as Fs from 'fs';
 import * as Path from 'path';
 // @ts-ignore
 import pkg from './package.json';
+import { getAlias } from './utils';
 
-const pkgs = Fs.readdirSync(Path.resolve(__dirname, 'packages'));
-const components = Fs.readdirSync(
-  Path.resolve(__dirname, 'packages/components/src'),
-);
 const pkgName = pkg.name.replace('-monorepo', '');
 
 type ENV = 'development' | 'production';
@@ -66,23 +62,6 @@ export default defineConfig({
       __dirname,
       'packages/react-ui/dist/styles',
     ),
-    '@tool-pack/react-ui': Path.resolve(__dirname, 'packages/react-ui/src'),
-    ...pkgs.reduce(
-      (prev, cur) => {
-        prev['@pkg/' + cur] = Path.resolve(__dirname, `packages/${cur}/src`);
-        return prev;
-      },
-      {} as Record<string, string>,
-    ),
-    ...components.reduce(
-      (prev, cur) => {
-        prev['~/' + cur] = Path.resolve(
-          __dirname,
-          `packages/components/src/${cur}`,
-        );
-        return prev;
-      },
-      {} as Record<string, string>,
-    ),
+    ...getAlias(),
   },
 });

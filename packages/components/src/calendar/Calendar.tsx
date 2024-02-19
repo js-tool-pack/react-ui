@@ -4,12 +4,14 @@ import {
   getClasses,
   useWatch,
 } from '@pkg/shared';
+import type { CalendarLocale, CalendarProps } from './calendar.types';
 import { getStartOfMonth, getClassNames } from '@tool-pack/basic';
+import { ConfigContext } from '~/config-provider/config.context';
 import { CalendarHeader } from '~/calendar/components/Header';
-import type { CalendarProps } from './calendar.types';
 import { CalendarTable } from '~/calendar/components';
 import type { RequiredPart } from '@tool-pack/types';
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
+import calendarLocale from './locale/en-US';
 
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
 const defaultProps = {
@@ -22,8 +24,10 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
   HTMLDivElement,
   CalendarProps
 >((props, ref) => {
+  const contextLocale = useContext(ConfigContext).locale;
   const {
-    month: outerMonth,
+    locale: propsLocale,
+    month: propsMonth,
     dateDisabled,
     attrs = {},
     firstDay,
@@ -34,14 +38,20 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
     value,
   } = props as RequiredPart<CalendarProps, keyof typeof defaultProps>;
 
+  const locale = useMemo<CalendarLocale>(
+    () =>
+      Object.assign({}, calendarLocale, contextLocale.calendar, propsLocale),
+    [contextLocale.calendar, propsLocale],
+  );
+
   const [valueRef, setValueRef] = useStateRef(value);
   const [month, setMonth] = useFollowingState(
-    outerMonth,
+    propsMonth,
     (v) => v || getStartOfMonth(value || today || new Date()),
   );
   useWatch(
     valueRef.current,
-    (v) => v && !outerMonth && setMonth(getStartOfMonth(v)),
+    (v) => v && !propsMonth && setMonth(getStartOfMonth(v)),
   );
 
   return (
@@ -54,11 +64,13 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
         <CalendarHeader
           onMonthChange={setMonth}
           onChange={setValue}
+          locale={locale}
           today={today}
           value={month}
         />
       )}
       <CalendarTable
+        weekDayNames={locale.weekDayNames}
         dateDisabled={dateDisabled}
         value={valueRef.current}
         firstDay={firstDay}

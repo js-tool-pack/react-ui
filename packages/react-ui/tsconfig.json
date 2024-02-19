@@ -7,9 +7,7 @@
     "declarationDir": "./temp/types",
     "paths": {
       "@pkg/*": ["../../packages/*/src"],
-      "@pkg/components": ["../../packages/components/src"],
-      "@pkg/shared": ["../../packages/shared/src"],
-      "@pkg/icons": ["../../packages/icons/src"],
+      "@pkg/components/*": ["../../packages/components/src/*"],
       "~/*": ["../../packages/components/src/*"]
     }
   },

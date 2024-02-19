@@ -17,8 +17,29 @@ export interface CalendarProps
   dateDisabled?: (date: Date, value: undefined | Date) => boolean;
   firstDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
   onChange?: (value: Date) => void;
+  locale?: Partial<CalendarLocale>;
   header?: boolean;
   month?: Date;
   value?: Date;
   today?: Date;
+}
+
+export interface CalendarLocale {
+  monthNames: [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+  ];
+  weekDayNames: [string, string, string, string, string, string, string];
+  monthBeforeYear: boolean;
+  today: string;
 }

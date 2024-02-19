@@ -55,7 +55,8 @@
     "packages",
     "scripts",
     ".dumirc.ts",
-    ".fatherrc.ts"
+    ".fatherrc.ts",
+    "utils"
   ],
   "exclude": ["node_modules", "dist", "tmp"]
 }

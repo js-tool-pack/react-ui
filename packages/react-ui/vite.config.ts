@@ -1,13 +1,8 @@
 import { defineConfig, UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import Path, { resolve } from 'path';
+import { getAlias } from '../../utils';
 import pkg from './package.json';
-import Fs from 'fs';
-
-const pkgs = Fs.readdirSync(Path.resolve(__dirname, '../../packages'));
-const components = Fs.readdirSync(
-  Path.resolve(__dirname, '../../packages/components/src'),
-);
+import { resolve } from 'path';
 
 function getBanner(format: string) {
   const date = new Date();
@@ -66,37 +61,15 @@ export default defineConfig((): UserConfig => {
       target: 'modules',
       emptyOutDir: true,
     },
-    resolve: {
-      alias: {
-        // '@pkg/*': Path.resolve(__dirname, '../../packages/*/src'),
-        ...pkgs.reduce(
-          (prev, cur) => {
-            prev['@pkg/' + cur] = Path.resolve(
-              __dirname,
-              `../../packages/${cur}/src`,
-            );
-            return prev;
-          },
-          {} as Record<string, string>,
-        ),
-        ...components.reduce(
-          (prev, cur) => {
-            prev['~/' + cur] = Path.resolve(
-              __dirname,
-              `../../packages/components/src/${cur}`,
-            );
-            return prev;
-          },
-          {} as Record<string, string>,
-        ),
-      },
-    },
     plugins: [
       // https://github.com/vitejs/vite/tree/main/packages/plugin-react
       react({
         jsxRuntime: 'classic',
       }),
     ],
+    resolve: {
+      alias: getAlias(),
+    },
     cacheDir: `./.cache`,
   };
 });

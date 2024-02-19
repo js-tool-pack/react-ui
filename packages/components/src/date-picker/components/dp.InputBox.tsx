@@ -9,6 +9,7 @@ interface Props
   inputRef: Ref<HTMLInputElement>;
   isOpenedRef: RefObject<boolean>;
   children?: React.ReactNode;
+  placeholder: string;
 }
 
 const cls = getClasses('date-picker-input-box', [], []);
@@ -17,6 +18,7 @@ export const DatePickerInputBox: React.FC<Props> = (props) => {
   const {
     value: date,
     isOpenedRef,
+    placeholder,
     onChange,
     children,
     disabled,
@@ -35,8 +37,8 @@ export const DatePickerInputBox: React.FC<Props> = (props) => {
       <input
         onClickCapture={handleInputClick}
         onChange={handleInputChange}
+        placeholder={placeholder}
         disabled={disabled}
-        placeholder="选择时间"
         ref={inputRef}
         value={value}
         tabIndex={-1}

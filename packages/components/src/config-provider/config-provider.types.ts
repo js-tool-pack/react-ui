@@ -1,5 +1,6 @@
 import type {
   PopConfirmLocale,
+  DatePickerLocale,
   CalendarLocale,
   SelectLocale,
   InputLocale,
@@ -7,6 +8,7 @@ import type {
 } from '../';
 
 export interface Locale {
+  datePicker: Partial<DatePickerLocale>;
   popConfirm: Partial<PopConfirmLocale>;
   calendar: Partial<CalendarLocale>;
   select: Partial<SelectLocale>;

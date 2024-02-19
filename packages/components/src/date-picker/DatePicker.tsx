@@ -11,10 +11,12 @@ import type {
 } from './date-picker.types';
 import { DatePickerInputBox, DatePickerPanel } from './components';
 import { getClassNames, castArray } from '@tool-pack/basic';
+import { useLocale } from '~/config-provider/useLocale';
 import { Calendar as CalendarIcon } from '@pkg/icons';
 import type { RequiredPart } from '@tool-pack/types';
 import { transitionCBAdapter } from '~/transition';
 import { InputPopover } from '~/input-popover';
+import EnUS from '~/date-picker/locale/en-US';
 import React, { useRef } from 'react';
 import { Divider } from '~/divider';
 import { Icon } from '~/icon';
@@ -30,6 +32,7 @@ const _DatePicker: React.FC<DatePickerProps> = React.forwardRef<
   HTMLLabelElement,
   DatePickerProps
 >((props, ref) => {
+  const locale = useLocale('datePicker', EnUS);
   const {
     value: outerValue,
     dateDisabled,
@@ -64,6 +67,7 @@ const _DatePicker: React.FC<DatePickerProps> = React.forwardRef<
       popoverProps={{
         content: (
           <DatePickerPanel
+            confirmText={locale.confirmText}
             dateDisabled={dateDisabled}
             onConfirm={onConfirm}
             shortcuts={shortcuts}
@@ -115,9 +119,10 @@ const _DatePicker: React.FC<DatePickerProps> = React.forwardRef<
       };
     }
     const inputIcon = <Icon>{icon || <CalendarIcon />}</Icon>;
-    const FC = (index: 0 | 1) => (
+    const FC = (index: 0 | 1, placeholder: string) => (
       <DatePickerInputBox
         onChange={onChange(index)}
+        placeholder={placeholder}
         format={inputBoxFormular}
         isOpenedRef={isOpenedRef}
         value={value[index]}
@@ -128,12 +133,12 @@ const _DatePicker: React.FC<DatePickerProps> = React.forwardRef<
       </DatePickerInputBox>
     );
 
-    if (!range) return FC(0);
+    if (!range) return FC(0, locale.placeholder);
     return (
       <>
-        {FC(0)}
+        {FC(0, locale.rangePlaceholder[0])}
         <Divider vertical />
-        {FC(1)}
+        {FC(1, locale.rangePlaceholder[1])}
         {inputIcon}
       </>
     );

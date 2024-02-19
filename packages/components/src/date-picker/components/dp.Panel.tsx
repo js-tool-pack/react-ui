@@ -27,6 +27,7 @@ interface Props
     Required<Pick<DatePickerProps, 'range' | 'type'>> {
   onChange: (value: RangeValueType) => void;
   onConfirm?: () => void;
+  confirmText: string;
   values: Values;
 }
 
@@ -40,6 +41,7 @@ export const DatePickerPanel: React.FC<Props> = (props) => {
   const {
     shortcuts = [],
     dateDisabled,
+    confirmText,
     onConfirm,
     dateCell,
     onChange,
@@ -77,7 +79,7 @@ export const DatePickerPanel: React.FC<Props> = (props) => {
         </Space>
         <div>
           <Button onClick={onConfirm} type="primary" size="small">
-            确定
+            {confirmText}
           </Button>
         </div>
       </div>

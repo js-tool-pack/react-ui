@@ -1,3 +1,4 @@
+import datePicker from '@pkg/components/date-picker/locale/en-US';
 import popConfirm from '@pkg/components/pop-confirm/locale/en-US';
 import calendar from '@pkg/components/calendar/locale/en-US';
 import select from '@pkg/components/select/locale/en-US';
@@ -7,6 +8,7 @@ import type { Locale } from '@pkg/components';
 
 export default {
   popConfirm,
+  datePicker,
   calendar,
   select,
   empty,

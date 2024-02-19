@@ -1,6 +1,8 @@
 import { useFollowingState, getClasses } from '@pkg/shared';
+import { useLocale } from '~/config-provider/useLocale';
 import { PickerOption, Picker } from '~/picker';
 import { createArray } from '@tool-pack/basic';
+import EnUS from '~/calendar/locale/en-US';
 import React from 'react';
 
 interface Props {
@@ -13,6 +15,7 @@ const cls = getClasses('date-picker-year-month-picker', ['label', 'pop'], []);
 
 export const YearMonthPicker: React.FC<Props> = (props) => {
   const { value: date, panelRef, onChange } = props;
+  const locale = useLocale('calendar', EnUS);
 
   const [value, setValue] = useFollowingState(date, (v) =>
     v ? [v.getFullYear(), v.getMonth() + 1] : [],
@@ -29,7 +32,11 @@ export const YearMonthPicker: React.FC<Props> = (props) => {
             appendTo: null,
           },
         }}
-        format={(v) => `${v[0]}年${v[1]}月`}
+        format={(v) => {
+          const ym = [v[0], locale.monthNames[v[1]! - 1]!];
+          if (locale.monthBeforeYear) ym.reverse();
+          return ym.join(' ');
+        }}
         evenlyDivided={false}
         onChange={_onChange}
         options={Options}

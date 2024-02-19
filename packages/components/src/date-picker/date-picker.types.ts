@@ -39,3 +39,9 @@ export interface DatePickerTypeProps<Range extends boolean = false>
 export type DatePickerFC = <Range extends boolean = false>(
   props: DatePickerTypeProps<Range>,
 ) => React.ReactElement;
+
+export interface DatePickerLocale {
+  rangePlaceholder: [startTime: string, endTime: string];
+  confirmText: string;
+  placeholder: string;
+}

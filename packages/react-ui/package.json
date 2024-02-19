@@ -29,9 +29,7 @@
       },
       "require": "./dist/index.cjs.js"
     },
-    "./dist/*": "./dist/*",
-    "./locale/*": "./dist/locale/*",
-    "./styles/*": "./dist/styles/*"
+    "./dist/*": "./dist/*"
   },
   "buildOptions": {
     "name": "ToolPackReactUI",

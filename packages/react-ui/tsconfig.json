@@ -9,7 +9,10 @@
     "paths": {
       "@pkg/*": ["../../packages/*/src"],
       "@pkg/components/*": ["../../packages/components/src/*"],
-      "~/*": ["../../packages/components/src/*"]
+      "~/*": ["../../packages/components/src/*"],
+      "@pkg/components": ["../../packages/components/src"],
+      "@pkg/shared": ["../../packages/shared/src"],
+      "@pkg/icons": ["../../packages/icons/src"]
     }
   },
   "include": ["./src"],

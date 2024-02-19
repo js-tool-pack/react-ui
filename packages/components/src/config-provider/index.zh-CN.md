@@ -14,7 +14,7 @@ group:
 
 ```jsx | pure
 import { ConfigProvider } from '@tool-pack/react-ui';
-import zhCN from '@tool-pack/react-ui/locale/zh-CN';
+import zhCN from '@tool-pack/react-ui/dist/locale/zh-CN';
 
 function Demo() {
   return (

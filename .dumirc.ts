@@ -62,6 +62,10 @@ export default defineConfig({
       __dirname,
       'packages/react-ui/dist/styles',
     ),
+    '@tool-pack/react-ui/dist/local': Path.resolve(
+      __dirname,
+      'packages/react-ui/src/local',
+    ),
     ...getAlias(),
   },
 });

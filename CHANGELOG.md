@@ -1,3 +1,11 @@
+## [0.0.20-beta.0](https://github.com/js-tool-pack/react-ui/compare/v0.0.19...v0.0.20-beta.0) (2024-02-19)
+
+### Features
+
+- **components/calendar:** 添加 locale ([9e4f449](https://github.com/js-tool-pack/react-ui/commit/9e4f449494e40ec1495ba90ec806ccd9de3bae75))
+- **components:** 新增 ConfigProvider ([40fd136](https://github.com/js-tool-pack/react-ui/commit/40fd136234f25dde63b8bb88271ad090e14ba53c))
+- **react-ui:** 导出 locale ([46b73fe](https://github.com/js-tool-pack/react-ui/commit/46b73fedbc8b0dc2adf8edcbd8bd2d813bbb930f))
+
 ## [0.0.19](https://github.com/js-tool-pack/react-ui/compare/v0.0.19-beta.0...v0.0.19) (2024-02-15)
 
 ## [0.0.19-beta.0](https://github.com/js-tool-pack/react-ui/compare/v0.0.18...v0.0.19-beta.0) (2024-02-15)

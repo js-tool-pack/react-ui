@@ -11,8 +11,8 @@ const App: React.FC = () => {
     <Space>
       <PopConfirm
         cancelProps={{ children: 'No, Thanks' }}
-        confirmProps={{ children: 'confirm' }}
         attrs={{ style: { width: '220px' } }}
+        confirmProps={{ children: 'ok' }}
         content="确认要删除？"
       >
         <Button>自定义文案</Button>

@@ -37,14 +37,14 @@ exports[`PopConfirm icon 1`] = `
             class="t-button t-pop-confirm__cancel t-button--type-info t-button--icon-l t-button--plain t--size-sm"
           >
             <span>
-              取消
+              cancel
             </span>
           </button>
           <button
             class="t-button t-pop-confirm__confirm t-button--type-primary t-button--icon-l t--size-sm"
           >
             <span>
-              确认
+              confirm
             </span>
           </button>
         </section>

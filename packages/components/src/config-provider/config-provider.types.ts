@@ -1,6 +1,7 @@
-import type { CalendarLocale } from '~/calendar';
+import type { PopConfirmLocale, CalendarLocale } from '../';
 
 export interface Locale {
+  popConfirm: Partial<PopConfirmLocale>;
   calendar: Partial<CalendarLocale>;
 }
 

@@ -9,3 +9,8 @@ export interface PopConfirmProps extends Omit<PopoverProps, 'name'> {
   cancelProps?: ButtonProps | null;
   icon?: React.ReactNode;
 }
+
+export interface PopConfirmLocale {
+  confirmText: string;
+  cancelText: string;
+}

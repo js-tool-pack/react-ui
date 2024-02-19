@@ -4,6 +4,7 @@ export type {
   SelectOptionsItem,
   SelectDivider,
   SelectOption,
+  SelectLocale,
   SelectProps,
 } from './select.types';
 export * from './Select';

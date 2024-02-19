@@ -107,3 +107,7 @@ export type SelectFC = <
 >(
   props: SelectProps<Multiple, ValueType>,
 ) => React.ReactElement;
+
+export interface SelectLocale {
+  placeholder: string;
+}

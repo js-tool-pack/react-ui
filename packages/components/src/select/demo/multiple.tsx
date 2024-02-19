@@ -18,7 +18,6 @@ const App: React.FC = () => {
           setValue(value);
           console.log(values, options);
         }}
-        placeholder="select"
         options={options}
         value={value}
         multiple
@@ -29,7 +28,6 @@ const App: React.FC = () => {
           setValue(value);
           console.log(values, options);
         }}
-        placeholder="select"
         options={options}
         value={value}
         disabled

@@ -17,17 +17,18 @@ import {
   filterOptions,
 } from '~/select/utils';
 import { useStateWithTrailClear, useForwardRef, getClasses } from '@pkg/shared';
+import { useLocale } from '~/config-provider/useLocale';
 import { Selection, Menu } from '~/select/components';
 import type { RequiredPart } from '@tool-pack/types';
 import { transitionCBAdapter } from '~/transition';
 import { getClassNames } from '@tool-pack/basic';
 import { InputPopover } from '@pkg/components';
 import PropTypes from 'prop-types';
+import EnUS from './locale/en-US';
 
 const cls = getClasses('select', [], ['selected', 'clearable']);
 const defaultProps = {
   ignoreComposition: true,
-  placeholder: 'select',
   widthByTrigger: true,
   placement: 'bottom',
   showArrow: false,
@@ -41,13 +42,14 @@ const _Select: React.FC<SelectStaticProps> = React.forwardRef<
   HTMLLabelElement,
   SelectStaticProps
 >((props, ref) => {
+  const locale = useLocale('select', EnUS);
   const {
+    placeholder = locale.placeholder,
     ignoreComposition,
     onVisibleChange,
     controllerRef,
     popoverAttrs,
     maxTagCount,
-    placeholder,
     attrs = {},
     filterable,
     clearable,

@@ -1,3 +1,5 @@
+## [0.0.20-beta.2](https://github.com/js-tool-pack/react-ui/compare/v0.0.20-beta.1...v0.0.20-beta.2) (2024-02-19)
+
 ## [0.0.20-beta.1](https://github.com/js-tool-pack/react-ui/compare/v0.0.20-beta.0...v0.0.20-beta.1) (2024-02-19)
 
 ## [0.0.20-beta.0](https://github.com/js-tool-pack/react-ui/compare/v0.0.19...v0.0.20-beta.0) (2024-02-19)

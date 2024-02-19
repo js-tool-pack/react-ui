@@ -22,7 +22,7 @@
     "check:all": "npm run check:ts:lint && npm run check:css",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install && dumi setup",
-    "docs:dev": "dumi dev",
+    "docs:dev": "tsx scripts/dumi-dev-precheck.ts && dumi dev",
     "docs:build": "npm run build:css-single && dumi build",
     "docs:preview": "serve ./docs-dist -p 8080",
     "docs:deploy": "gh-pages -d docs-dist",

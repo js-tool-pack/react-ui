@@ -1,10 +1,10 @@
-import { ConfigContext } from '~/config-provider/config.context';
 import { getComponentClass, useVisible } from '@pkg/shared';
 import type { PopConfirmProps } from './pop-confirm.types';
+import { useLocale } from '~/config-provider/useLocale';
 import type { RequiredPart } from '@tool-pack/types';
-import React, { useContext, useEffect } from 'react';
 import { Layout, Footer, Main } from '~/layouts';
 import { CircleInfoFill } from '@pkg/icons';
+import React, { useEffect } from 'react';
 import { Popover } from '~/popover';
 import { Button } from '~/button';
 import enUS from './locale/en-US';
@@ -33,7 +33,7 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   const _confirm = confirmProps ?? {};
   const _cancel = cancelProps ?? {};
 
-  const locale = useContext(ConfigContext).locale.popConfirm || enUS;
+  const locale = useLocale('popConfirm', enUS);
   const [visible, hide, setVisible] = useVisible(outerVisible);
 
   useEffect(() => {

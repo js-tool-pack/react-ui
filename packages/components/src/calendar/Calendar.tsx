@@ -4,14 +4,14 @@ import {
   getClasses,
   useWatch,
 } from '@pkg/shared';
-import type { CalendarLocale, CalendarProps } from './calendar.types';
 import { getStartOfMonth, getClassNames } from '@tool-pack/basic';
-import { ConfigContext } from '~/config-provider/config.context';
 import { CalendarHeader } from '~/calendar/components/Header';
+import { useLocale } from '~/config-provider/useLocale';
+import type { CalendarProps } from './calendar.types';
 import { CalendarTable } from '~/calendar/components';
 import type { RequiredPart } from '@tool-pack/types';
-import React, { useContext, useMemo } from 'react';
-import calendarLocale from './locale/en-US';
+import EnUS from './locale/en-US';
+import React from 'react';
 
 const cls = getClasses('calendar', ['date-cell'], ['prev-month', 'next-month']);
 const defaultProps = {
@@ -24,7 +24,6 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
   HTMLDivElement,
   CalendarProps
 >((props, ref) => {
-  const contextLocale = useContext(ConfigContext).locale;
   const {
     locale: propsLocale,
     month: propsMonth,
@@ -38,11 +37,7 @@ export const Calendar: React.FC<CalendarProps> = React.forwardRef<
     value,
   } = props as RequiredPart<CalendarProps, keyof typeof defaultProps>;
 
-  const locale = useMemo<CalendarLocale>(
-    () =>
-      Object.assign({}, calendarLocale, contextLocale.calendar, propsLocale),
-    [contextLocale.calendar, propsLocale],
-  );
+  const locale = Object.assign(useLocale('calendar', EnUS), propsLocale);
 
   const [valueRef, setValueRef] = useStateRef(value);
   const [month, setMonth] = useFollowingState(

@@ -5,6 +5,7 @@ import type {
   SelectLocale,
   InputLocale,
   EmptyLocale,
+  /* {import insert target} */
 } from '../';
 
 export interface Locale {
@@ -14,6 +15,7 @@ export interface Locale {
   select: Partial<SelectLocale>;
   input: Partial<InputLocale>;
   empty: Partial<EmptyLocale>;
+  /* {export insert target} */
 }
 
 export type Context = { locale: Partial<Locale> };

@@ -181,7 +181,7 @@ export const baseRouter = [
     name: 'virtual-list 虚拟列表',
     path: '/virtual-list',
   },
-  /*insert target*/
+  /* {import insert target} */
 ];
 
 export const router = createBrowserRouter([

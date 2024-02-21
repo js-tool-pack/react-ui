@@ -1,4 +1,5 @@
-import { pascalCase, kebabCase } from '@tool-pack/basic';
+/* eslint-disable perfectionist/sort-objects */
+import { pascalCase, kebabCase, camelCase } from '@tool-pack/basic';
 import { prompt } from 'enquirer';
 import * as Path from 'path';
 import Fse from 'fs-extra';
@@ -8,11 +9,15 @@ import Fs from 'fs';
 type InitRes = [filename: string, content: string];
 
 const rootPath = Path.resolve(__dirname, '../');
+const importInsertTarget = '/* {import insert target} */';
+const exportInsertTarget = '/* {export insert target} */';
 
 const config = {
   componentsPath: Path.resolve(rootPath, 'packages/components/src'),
+  // pascalCase
   componentName: '',
   alias: '',
+  // kebabCase
   name: '',
 };
 async function run() {
@@ -28,6 +33,7 @@ async function run() {
     Utils.writeFile(...Actions.initDoc());
     Utils.writeFile(...Actions.initTest());
     Actions.appendIndex();
+    Actions.initLocale();
     console.log(chalk.cyan('添加组件成功'));
   } catch (e) {
     console.log(chalk.grey('添加组件失败，因为：', (e as Error).message));
@@ -35,6 +41,69 @@ async function run() {
 }
 
 const Actions = {
+  initLocale() {
+    addLocaleFiles();
+    appendToReactUILocale();
+    appendToConfigProvider();
+
+    function addLocaleFiles() {
+      const localeType = `${pascalCase(config.name)}Locale`;
+      const content = `
+import type { ${localeType} } from '../${config.name}.types';
+
+const locale: ${localeType} = {
+  attr: '...',
+};
+
+export default locale;
+      `.trim();
+      Utils.writeFile('locale/en-US.ts', content);
+      Utils.writeFile('locale/zh-CN.ts', content);
+    }
+    function appendToReactUILocale() {
+      const localeDirPath = Path.resolve(
+        __dirname,
+        '../packages/react-ui/src/locale',
+      );
+
+      insert('en-US');
+      insert('zh-CN');
+
+      function insert(type: string) {
+        const filePath = Path.resolve(localeDirPath, type + '.ts');
+        let content = Fs.readFileSync(filePath, 'utf-8');
+        const name = camelCase(config.componentName);
+        content = content.replace(
+          importInsertTarget,
+          `import ${name} from '@pkg/components/${config.name}/locale/${type}';\n${importInsertTarget}`,
+        );
+        content = content.replace(
+          exportInsertTarget,
+          `${name},\n  ${exportInsertTarget}`,
+        );
+        Fs.writeFileSync(filePath, content);
+      }
+    }
+    function appendToConfigProvider() {
+      const typesPath = Path.resolve(
+        config.componentsPath,
+        'config-provider/config-provider.types.ts',
+      );
+      let content = Fs.readFileSync(typesPath, 'utf-8');
+      const localeName = config.componentName + 'Locale';
+      content = content.replace(
+        importInsertTarget,
+        `${localeName},\n  ${importInsertTarget}`,
+      );
+      content = content.replace(
+        exportInsertTarget,
+        `${camelCase(
+          config.componentName,
+        )}: Partial<${localeName}>;\n  ${exportInsertTarget}`,
+      );
+      Fs.writeFileSync(typesPath, content);
+    }
+  },
   appendIndex() {
     const tsContent = `export * from './${config.name}';\n`;
     Fse.appendFileSync(Utils.getPkgPath(Utils.getFilename('index')), tsContent);
@@ -60,7 +129,7 @@ const Actions = {
       );
       const routerContent = Fs.readFileSync(routerPath, 'utf-8');
 
-      const insertTarget = '/*insert target*/';
+      const insertTarget = importInsertTarget;
       const insertContent = `{
     element: getDemos(import.meta.glob('~/${config.name}/demo/*.tsx')),
     name: '${config.name} ${config.alias}',
@@ -79,6 +148,7 @@ const Actions = {
     const filename = Utils.getFilename('component');
     const props = `${componentName}Props`;
     const content = `
+import { useLocale } from '~/config-provider/useLocale';
 import type { RequiredPart } from '@tool-pack/types';
 import type { ${props} } from './${Utils.getFilename('types').replace(
       /\.ts$/,
@@ -86,6 +156,7 @@ import type { ${props} } from './${Utils.getFilename('types').replace(
     )}';
 import { getClassNames } from '@tool-pack/basic';
 import { getClasses } from '@pkg/shared';
+import EnUS from './locale/en-US';
 import React from 'react';
 
 const cls = getClasses('${config.name}', [], []);
@@ -95,6 +166,7 @@ export const ${componentName}: React.FC<${props}> = React.forwardRef<
   HTMLDivElement,
   ${props}
 >((props, ref) => {
+  const locale = useLocale('${camelCase(config.componentName)}', EnUS);
   const { attrs = {}, children } = props as RequiredPart<
     ${props},
     keyof typeof defaultProps
@@ -226,13 +298,15 @@ import { PropsBase } from '@pkg/shared';
 export interface ${props} extends PropsBase<HTMLDivElement> {
   name?: string;
 }
+export interface ${config.componentName}Locale {
+}
   `;
     return [filename, content];
   },
   initIndex(): InitRes {
     const filename = Utils.getFilename('index');
     const content = `
-export type { ${config.componentName}Props } from './${config.name}.types';
+export type { ${config.componentName}Locale, ${config.componentName}Props } from './${config.name}.types';
 export * from './${config.componentName}';
   `;
     return [filename, content];

@@ -14,3 +14,7 @@ export interface LoadingProps extends Omit<PropsBase, 'ref'> {
   zIndex?: number;
   color?: string;
 }
+
+export interface LoadingLocale {
+  text: string;
+}

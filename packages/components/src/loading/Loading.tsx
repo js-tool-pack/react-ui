@@ -5,10 +5,12 @@ import {
 } from '~/transition';
 import { useScrollLock, getClasses, useVisible, Z_INDEX } from '@pkg/shared';
 import React, { useCallback, useMemo, useRef } from 'react';
+import { useLocale } from '~/config-provider/useLocale';
 import { Loading as LoadingIcon } from '@pkg/icons';
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
 import { LoadingProps } from './loading.types';
+import EnUS from '~/loading/locale/en-US';
 import { createPortal } from 'react-dom';
 import { Icon } from '~/icon';
 
@@ -20,7 +22,6 @@ const cls = getClasses(
 
 const defaultProps = {
   background: 'var(--t-mask-bg-color)',
-  text: 'loading...',
   zIndex: Z_INDEX,
   // color: 'var(--t-text-color)',
   mode: 'insert',
@@ -30,8 +31,10 @@ const defaultProps = {
  * loading组件
  */
 export const Loading: React.FC<LoadingProps> = (props) => {
+  const locale = useLocale('loading', EnUS);
   const {
     visible: outerVisible,
+    text = locale.text,
     wrapperAttrs = {},
     closeOnClick,
     attrs = {},
@@ -43,7 +46,6 @@ export const Loading: React.FC<LoadingProps> = (props) => {
     color,
     mode,
     icon,
-    text,
   } = props as RequiredPart<LoadingProps, keyof typeof defaultProps>;
 
   const wrapperRef = useRef<HTMLDivElement>(null);

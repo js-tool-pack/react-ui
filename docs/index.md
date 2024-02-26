@@ -1,22 +1,22 @@
 ---
 hero:
   title: 'react-ui'
-  description: 一个普普通通没什么特点的react ui组件库
+  description: 面向 React 的 UI 组件库
   actions:
     - text: 开始使用
       link: /guide
     - text: GitHub
       link: https://github.com/js-tool-pack/react-ui
 features:
-  - title: 很普通
+  - title: 使用 TypeScript
     emoji: 💎
-    description: 与其他组件库相比没什么优势
-  - title: 不完善
+    description: 使用 TypeScript 编写，有丰富的类型提示，组件参数一目了然
+  - title: 易美化
     emoji: 🌈
-    description: 也没有其他组件库完善
-  - title: 数量不全
+    description: 能够通过 CSS 自定义 UI 样式
+  - title: 拥抱 React
     emoji: 🚀
-    description: 也没有其他组件库那么多组件
+    description: 深度拥抱 React，使用函数式与 hooks 编写组件
 ---
 
 @tool-pack/react-ui

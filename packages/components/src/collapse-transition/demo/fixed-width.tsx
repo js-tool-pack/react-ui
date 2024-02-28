@@ -4,14 +4,14 @@
  */
 
 import { CollapseTransition, Divider, Button } from '@tool-pack/react-ui';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useRef } from 'react';
+
 const App: React.FC = () => {
   const [visible, setVisible] = useState(true);
+  const elRef = useRef<HTMLDivElement>(null);
+
   useLayoutEffect(() => {
-    // 该元素的ref已经被Transition组件获取了，无法再在外部靠useRef获取
-    const el = document.querySelector<HTMLDivElement>(
-      '#collapse-horizontal2-demo',
-    );
+    const el = elRef.current;
     if (!el) return;
 
     const timer = setTimeout(() => {
@@ -21,6 +21,7 @@ const App: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <div>
       <div style={{ paddingBottom: '8px', textAlign: 'center' }}>
@@ -28,7 +29,8 @@ const App: React.FC = () => {
       </div>
       <CollapseTransition show={visible} width>
         <div style={{ background: '#910852', color: 'white' }}>
-          <div id="collapse-horizontal2-demo" style={{ padding: '10px' }}>
+          {/* 下面这层 div 是为了固定宽度 */}
+          <div style={{ padding: '10px' }} ref={elRef}>
             <p>
               载（zài）营魄抱一，能无离乎？专气致柔，能婴儿乎？涤除玄览，能无疵乎？爱民治国，能无知（zhì）乎？天门开阖（hé），能无雌乎？明白四达，能无为乎？生之、畜（xù）之，生而不有，为而不恃，长（zhǎng）而不宰，是谓玄德。
             </p>

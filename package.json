@@ -16,6 +16,7 @@
     "eject": "react-scripts eject",
     "check:lint": "eslint \"**/*.{ts,tsx}\"",
     "check:ts": "tsc -p tsconfig.noEmit.json --noEmit",
+    "check:ts-all": "pnpm check:ts & pnpm -r check:ts",
     "check:ts:lint": "npm run check:ts && npm run check:lint",
     "check:deps": "ncu",
     "check:css": "stylelint \"**/*.{css,scss}\"",

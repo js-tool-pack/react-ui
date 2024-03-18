@@ -3,6 +3,7 @@
   "compilerOptions": {
     "declaration": false,
     "sourceMap": true,
+    "baseUrl": "./",
     "target": "esnext",
     "module": "ESNext",
     "types": ["vite/client"],
@@ -13,5 +14,6 @@
       // "@pkg/components": ["./.yalc/@tool-pack/react-ui"]
     }
   },
+  "include": ["src"],
   "exclude": ["dist"]
 }

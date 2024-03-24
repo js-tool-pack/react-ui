@@ -20,3 +20,4 @@ export * from './useUniqueRoot';
 export * from './useStateRef';
 export * from './useFollowingState';
 export * from './useOnlineStatus';
+export * from './useOldValue';

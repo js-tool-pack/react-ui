@@ -1,3 +1,15 @@
+## [0.0.21](https://github.com/js-tool-pack/react-ui/compare/v0.0.20...v0.0.21) (2024-03-25)
+
+### Bug Fixes
+
+- **components/virtual-list:** 虚拟列表不定高度时从当 children 数量从多到少时会不显示元素 ([88e1b01](https://github.com/js-tool-pack/react-ui/commit/88e1b01d81499d19224b997e60739ee1ca02b605))
+
+### Features
+
+- **components/loading:** 国际化 ([b94a830](https://github.com/js-tool-pack/react-ui/commit/b94a8308a70718d7d874576fb94d10bbb60a69f3))
+- **shared/hooks:** useOldValue ([38f0c6d](https://github.com/js-tool-pack/react-ui/commit/38f0c6ddf0d6d84049db461411a751ad004d3b74))
+- **shared/hooks:** useOnline ([4fe7e00](https://github.com/js-tool-pack/react-ui/commit/4fe7e00ccb142635b07b3039fe4ae8b77cdbb619))
+
 ## [0.0.20](https://github.com/js-tool-pack/react-ui/compare/v0.0.20-beta.2...v0.0.20) (2024-02-19)
 
 ### Features

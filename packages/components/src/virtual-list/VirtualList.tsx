@@ -15,8 +15,8 @@ import {
   forEach,
   inRange,
 } from '@tool-pack/basic';
+import { useForwardRef, getClasses, useWatch } from '@pkg/shared';
 import type { VirtualListProps } from './virtual-list.types';
-import { useForwardRef, getClasses } from '@pkg/shared';
 import type { RequiredPart } from '@tool-pack/types';
 
 const cls = getClasses('virtual-list', ['items', 'wrapper', 'item'], []);
@@ -25,6 +25,7 @@ const defaultProps = {
 } satisfies Partial<VirtualListProps>;
 
 type Offsets = [start: number, end: number];
+const offsetIndex = 2;
 
 export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
   HTMLElement,
@@ -41,7 +42,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
 
   const firstItemHeightRef = useRef(0);
   const itemMapRef = useRef<
-    Array<{ isPreset: boolean; height: number; top: number }>
+    Array<{ /*isPreset: boolean;*/ height: number; top: number }>
   >([]);
   const containerItemsLenRef = useRef(0);
   const translateYRef = useRef(0);
@@ -67,9 +68,17 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     });
   }, [childList, offsets]);
 
-  useEffect(() => {
+  useWatch(childList.length, (len) => {
+    const old = autoFillLayoutRef.current;
     autoFillLayoutRef.current = true;
-  }, [childList.length]);
+    if (old || !itemMapRef.current.length || len >= itemMapRef.current.length)
+      return;
+
+    // 从 children 数量多到 children 数量少的情况
+    itemMapRef.current.length = 0;
+    // rootElRef.current?.dispatchEvent(new Event('scroll'));
+    setSafeOffsets(0, 0);
+  });
 
   useEffect(() => {
     if (!autoFillLayoutRef.current) return;
@@ -94,7 +103,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
               const { offsetHeight, offsetTop } = v;
               itemMapRef.current[i] = {
                 height: offsetHeight,
-                isPreset: false,
+                // isPreset: false,
                 top: offsetTop,
               };
             },
@@ -109,7 +118,7 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
             itemMapRef.current[index] = {
               height: firstItemHeightRef.current,
               top: prev.height + prev.top,
-              isPreset: true,
+              // isPreset: true,
             };
           });
 
@@ -140,14 +149,14 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       const attr = el.getAttribute('data-index');
       const index = Number(attr);
       const obj = itemMap[index];
-      if (obj?.isPreset === false) return;
+      // if (obj?.isPreset === false) return;
       const prev = itemMap[index - 1] || defItem;
       const h = obj?.height || firstItemHeightRef.current;
       const { offsetHeight } = el;
       itemMap[index] = {
         top: prev.top + prev.height,
         height: offsetHeight,
-        isPreset: false,
+        // isPreset: false,
       };
       if (h !== offsetHeight) {
         isResized = true;
@@ -155,11 +164,12 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       }
     });
 
+    // 如果某一个元素高度变化了，就需要把它后面的元素的 top 刷新一遍
     if (isResized) {
       const len = itemMap.length;
       for (let i = lastIndex + 1; i < len; i++) {
         const v = itemMap[i]!;
-        // 跟新后续的 top
+        // 更新后续的 top
         const prev = itemMap[i - 1] || defItem;
         v.top = prev.top + prev.height;
       }
@@ -221,7 +231,6 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
       }
     }
 
-    const offsetIndex = 2;
     offsets[0] -= offsetIndex;
     offsets[1] += offsetIndex;
     return offsets;
@@ -230,7 +239,10 @@ export const VirtualList: React.FC<VirtualListProps> = React.forwardRef<
     const maxIndex = childList.length;
     start = getSafeNum(start, 0, maxIndex);
     end = getSafeNum(end, 0, maxIndex);
-    translateYRef.current = itemMapRef.current[start]!.top;
+
+    const im = itemMapRef.current[start];
+    if (im) translateYRef.current = im.top;
+
     setOffsets([start, end]);
   }
 });

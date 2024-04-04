@@ -99,6 +99,27 @@ describe('Popover', () => {
       expect(document.body).toMatchSnapshot();
     });
 
+    test('click and keydown escape', () => {
+      const { container } = render(
+        <Popover trigger="click" content="click">
+          <Button>click触发</Button>
+        </Popover>,
+      );
+
+      expect(getBalloon()).toBeNull();
+
+      fireEvent.click(container.querySelector('button')!);
+      act(() => jest.advanceTimersByTime(0));
+      expect(getBalloon()).not.toBeNull();
+      expect(getBalloon()).toHaveClass('t-popover-enter-active');
+      act(() => jest.advanceTimersByTime(500));
+      expect(getBalloon()).not.toHaveClass('t-popover-enter-active');
+
+      fireEvent.keyDown(window, { code: 'Escape' });
+      act(() => jest.advanceTimersByTime(500));
+      expect(getBalloon()).toHaveClass('t-transition--invisible');
+    });
+
     test('click disabled', () => {
       const { container } = render(
         <Popover trigger="click" content="click" disabled>

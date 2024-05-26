@@ -75,7 +75,9 @@ export function useMessage(options?: Parameters<typeof useMessageHolder>[0]) {
   useEffect(() => {
     const r = createRoot(document.createElement('div'));
     r.render(holder);
-    return () => nextTick(() => r.unmount());
+    return () => {
+      nextTick(() => r.unmount());
+    };
   }, []);
 
   return Message;

@@ -11,10 +11,10 @@ importers:
       '@testing-library/jest-dom': ^6.1.2
       '@testing-library/react': ^14.1.2
       '@testing-library/user-event': ^14.4.3
-      '@tool-pack/basic': ^0.7.0
-      '@tool-pack/bom': 0.0.1-beta.0
-      '@tool-pack/dom': ^0.2.1
-      '@tool-pack/types': ^0.2.0
+      '@tool-pack/basic': ^0.8.3
+      '@tool-pack/bom': ^0.0.1
+      '@tool-pack/dom': ^0.3.1
+      '@tool-pack/types': ^0.2.2
       '@types/fs-extra': ^11.0.1
       '@types/jest': ^29.5.4
       '@types/node': ^20.5.6
@@ -79,10 +79,10 @@ importers:
       '@testing-library/jest-dom': 6.1.2_@types+jest@29.5.4
       '@testing-library/react': 14.1.2_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3
-      '@tool-pack/basic': 0.7.0
-      '@tool-pack/bom': 0.0.1-beta.0
-      '@tool-pack/dom': 0.2.1
-      '@tool-pack/types': 0.2.0
+      '@tool-pack/basic': 0.8.3
+      '@tool-pack/bom': 0.0.1
+      '@tool-pack/dom': 0.3.1
+      '@tool-pack/types': 0.2.2
       '@types/fs-extra': 11.0.1
       '@types/jest': 29.5.4
       '@types/node': 20.5.6
@@ -6167,55 +6167,46 @@ packages:
       '@testing-library/dom': '>=7.21.4'
     dev: true
 
-  /@tool-pack/basic/0.0.9:
-    resolution: {integrity: sha512-cZ/UmMD0Mnp+AodcQIKR+xMwwZ/A9vYCOWVtbotqzpzp9ngPm/I0ej+vhVz1epnYiBnm5iYTUbB7EepRH0Mdmw==}
+  /@tool-pack/basic/0.7.7:
+    resolution: {integrity: sha512-PUrOkPhbvMabxBD1/k7cJT9YPcLhrjncqwUBvVF884rv/eTe2lWmXvdJxcPmi5SBd9khpfuLY+bXgMfx7hbf3w==}
     dependencies:
-      '@tool-pack/types': 0.0.1
+      '@tool-pack/types': 0.2.2
     dev: true
 
-  /@tool-pack/basic/0.1.3:
-    resolution: {integrity: sha512-j0Ke8OJsgSn1zANgKLGXbtLDA91ZH+0mf3sGYX3ET3XyLbWBRKONcVmuFOYNNEpMKNGwX3jiAyn+YqtpetyF6w==}
+  /@tool-pack/basic/0.8.3:
+    resolution: {integrity: sha512-SiNRujoZ15s5DuSJDh99do0nyTEe6ns+TXY8NMG+aGHWzgeiqFaQTIlK5XO5paiVSn0Q4i6OZivh+gONFxHh8w==}
     dependencies:
-      '@tool-pack/types': 0.0.6
+      '@tool-pack/types': 0.2.2
     dev: true
 
-  /@tool-pack/basic/0.7.0:
-    resolution: {integrity: sha512-aT5bPSYJQ2tQSrQBO/C/q0nwwd/Svvol8ngcxUxuXsLHggozJU0h+UWQ6tftcX7WnXbSEpkQsTj/Kotu+H9pvw==}
+  /@tool-pack/bom/0.0.1:
+    resolution: {integrity: sha512-884LsYk1+uX9mTEB9fpBErBh2GbrbQdhLEnss24/M6Hq9vDnSQ3hS1pqW3DbYRcycrZMxrlPSSYdU1x5tnVQIA==}
     dependencies:
-      '@tool-pack/types': 0.0.6
+      '@tool-pack/basic': 0.7.7
+      '@tool-pack/dom': 0.2.7
     dev: true
 
-  /@tool-pack/bom/0.0.1-beta.0:
-    resolution: {integrity: sha512-VLf/EcGbon4B8zLSZQo3HshfmpdByRO1Iwv2U3k0+75a49eZGnFqqtCnXJYXkQTzFwysi2XMwTgCXBhrlCSEcQ==}
+  /@tool-pack/dom/0.2.7:
+    resolution: {integrity: sha512-t47X3lQ6rbnBR83haHPFCQrnL2Y10OSd9Y4xRNVwgLoWx15wpLM4lpz83muG8pzGqd5MC70mTwUX5GcOiAvNMg==}
     dependencies:
-      '@tool-pack/basic': 0.0.9
-      '@tool-pack/dom': 0.0.1-beta.5
+      '@tool-pack/basic': 0.7.7
+      '@tool-pack/types': 0.2.2
     dev: true
 
-  /@tool-pack/dom/0.0.1-beta.5:
-    resolution: {integrity: sha512-SlRbN95q/gg7g1h8n+70UwQsN4uye6EYZNAWCc4tovMHQo1W6m2EvHx9ehXZt/jSE48M9tk0NFufO9qrg1PMSw==}
+  /@tool-pack/dom/0.3.1:
+    resolution: {integrity: sha512-WRNdtJaQUjwaad6vpXZJ2dL7kVZcCIIiqxohJz5gm8grybtZ/aE1DRdidVIOB32STVR3lDs6NRVoqg8WTYp8nQ==}
     dependencies:
-      '@tool-pack/basic': 0.0.9
-      '@tool-pack/types': 0.0.1
-    dev: true
-
-  /@tool-pack/dom/0.2.1:
-    resolution: {integrity: sha512-pdS00qoKUwp9F4AY+pZnXiTBYWe0YPO+LBlygz/aecA3XntBt6WPiAxge1XInPFk2Y6CSJxmvtRzQlSCtz0ZOA==}
-    dependencies:
-      '@tool-pack/basic': 0.1.3
-      '@tool-pack/types': 0.2.0
-    dev: true
-
-  /@tool-pack/types/0.0.1:
-    resolution: {integrity: sha512-PuOKplXpssrNTTj5UPEvRSSVlWT5T4Pt7WtgPpazAlFynY8FZFofLJlOmsQMXlmdZmS1P9yKHCZECNgOoPCbeA==}
-    dev: true
-
-  /@tool-pack/types/0.0.6:
-    resolution: {integrity: sha512-V2puQW1R2ufXhhHtGy7v5Kt/ulwfpEc87NK8iADwySU058oebY7gv+SdgehgTmbf6H2odqilcH5DeY8Acmhaww==}
+      '@tool-pack/basic': 0.8.3
+      '@tool-pack/types': 0.2.2
     dev: true
 
   /@tool-pack/types/0.2.0:
     resolution: {integrity: sha512-JZQyhUT6UpSC+j6hI6x6hSyF70SdRLPVBNU+NZQRDnsLhDtehK2Em9ATHMYwzPfpOE+RrKVfqHVleqEmbXM+8w==}
+    dev: false
+
+  /@tool-pack/types/0.2.2:
+    resolution: {integrity: sha512-8Ea7tSY3xJUfvYm2HGOwE0ogG4RsITidgF7NRui8b6szXPOdPBecG/dXAN4SqKxTjJLu4x0Iwhz0SSfsASKWhA==}
+    dev: true
 
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}

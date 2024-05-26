@@ -17,7 +17,7 @@ exports[`Select basic 1`] = `
       <div
         class="t-select-selection__placeholder"
       >
-        select
+        Please select
       </div>
     </div>
     <div
@@ -112,7 +112,7 @@ exports[`Select disabled 1`] = `
       <div
         class="t-select-selection__placeholder"
       >
-        select
+        Please select
       </div>
     </div>
     <div
@@ -155,7 +155,7 @@ exports[`Select group 1`] = `
           <div
             class="t-select-selection__placeholder"
           >
-            select
+            Please select
           </div>
         </div>
         <div

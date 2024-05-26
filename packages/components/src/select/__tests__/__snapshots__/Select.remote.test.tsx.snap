@@ -98,7 +98,7 @@ exports[`Select.remote should display the filter-input element when Select is in
       <div
         class="t-select-selection__placeholder"
       >
-        select
+        Please select
       </div>
       <div
         class="t-select-filter"

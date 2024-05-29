@@ -41,3 +41,4 @@ export * from './picker';
 export * from './date-picker';
 export * from './virtual-list';
 export * from './config-provider';
+export * from './draggable';

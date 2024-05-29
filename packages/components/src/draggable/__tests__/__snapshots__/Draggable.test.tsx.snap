@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Draggable base 1`] = `
+<div
+  class="t-draggable"
+>
+  <div
+    class="draggable-item"
+  >
+    <span>
+      1
+      .
+    </span>
+     
+    <span>
+      John
+    </span>
+     
+    <span>
+      1
+    </span>
+  </div>
+  <div
+    class="draggable-item"
+  >
+    <span>
+      2
+      .
+    </span>
+     
+    <span>
+      Joao
+    </span>
+     
+    <span>
+      2
+    </span>
+  </div>
+  <div
+    class="draggable-item"
+  >
+    <span>
+      3
+      .
+    </span>
+     
+    <span>
+      Jean
+    </span>
+     
+    <span>
+      3
+    </span>
+  </div>
+</div>
+`;

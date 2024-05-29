@@ -36,10 +36,11 @@ describe('useChildrenWithRefs', () => {
     expect(ref.mock.calls[0][0]).toBe(container.firstChild);
   });
   test('app', () => {
-    const obj: { ref: HTMLElement | null; refs: HTMLElement[] } = {
-      ref: null,
-      refs: [],
-    };
+    const obj: { refs: (HTMLElement | undefined)[]; ref: HTMLElement | null } =
+      {
+        ref: null,
+        refs: [],
+      };
     const App = () => {
       const ref = useRef<HTMLDivElement>(null);
       const [children, setChildren] = useState<ReactNode>(
@@ -89,5 +90,15 @@ describe('useChildrenWithRefs', () => {
     expect(obj.refs.length).toBe(1);
     expect(obj.refs[0]).toBe(firstChild);
     expect(obj.ref).toBe(firstChild);
+  });
+  test('cloneEl', () => {
+    const App = () => {
+      const [children] = useChildrenWithRefs(<div>foo</div>, (element, props) =>
+        cloneElement(element, { ...props, className: 'foo' }),
+      );
+      return children;
+    };
+    const { container } = render(<App />);
+    expect(container.firstChild).toHaveClass('foo');
   });
 });

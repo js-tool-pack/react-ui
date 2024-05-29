@@ -1,4 +1,5 @@
 import {
+  JSXElementConstructor,
   isValidElement,
   cloneElement,
   ReactElement,
@@ -12,12 +13,17 @@ import {
  */
 export function useChildrenWithRefs(
   children?: ReactNode,
-): [children: ReactNode, refs: HTMLElement[]] {
+  cloneEl?: (
+    element: ReactElement<any, JSXElementConstructor<any> | string>,
+    props: { ref: (el: HTMLElement) => void },
+  ) => ReactElement,
+): [children: ReactNode, refs: (HTMLElement | undefined)[]] {
   return useMemo(() => {
-    const refs: HTMLElement[] = [];
+    const refs: (HTMLElement | undefined)[] = [];
+    const clone = cloneEl || cloneElement;
     const newChildren = Children.map(children, (child, index) => {
       if (!isValidElement(child)) return child;
-      return cloneElement(child as ReactElement, {
+      return clone(child, {
         ref: (el: HTMLElement) => {
           refs[index] = el;
           // ref 现在是直接放在 ReactElement 上的，props 虽然也有，但取的是 undefined

@@ -20,8 +20,9 @@ export function useChildrenWithRefs(
       return cloneElement(child as ReactElement, {
         ref: (el: HTMLElement) => {
           refs[index] = el;
-          const originRef = child.props.ref;
-
+          // ref 现在是直接放在 ReactElement 上的，props 虽然也有，但取的是 undefined
+          const originRef = (child as any).ref;
+          // const originRef = child.props.ref;
           if (!originRef) return;
           // 连通原来的 ref
           if (typeof originRef === 'function') originRef(el);

@@ -1,4 +1,11 @@
-import { cloneElement, ReactNode, useEffect, useState, Children } from 'react';
+import {
+  cloneElement,
+  ReactNode,
+  useEffect,
+  useState,
+  Children,
+  useRef,
+} from 'react';
 import { renderHook, render, act } from '@testing-library/react';
 import { useChildrenWithRefs } from '@pkg/shared';
 
@@ -29,42 +36,58 @@ describe('useChildrenWithRefs', () => {
     expect(ref.mock.calls[0][0]).toBe(container.firstChild);
   });
   test('app', () => {
-    const _refs: HTMLElement[] = [];
+    const obj: { ref: HTMLElement | null; refs: HTMLElement[] } = {
+      ref: null,
+      refs: [],
+    };
     const App = () => {
+      const ref = useRef<HTMLDivElement>(null);
       const [children, setChildren] = useState<ReactNode>(
-        <div className="foo">foo</div>,
+        <div className="foo" ref={ref}>
+          foo
+        </div>,
       );
       const [newChildren, refs] = useChildrenWithRefs(children);
 
       useEffect(() => {
-        _refs.push(...refs);
+        obj.refs = refs;
+        obj.ref = ref.current;
       }, [refs]);
 
       return (
         <>
           {newChildren}
-          <button onClick={() => setChildren(<div className="bar">bar</div>)}>
+          <button
+            onClick={() =>
+              setChildren(
+                <div className="bar" ref={ref}>
+                  bar
+                </div>,
+              )
+            }
+          >
             切换 children
           </button>
         </>
       );
     };
 
-    expect(_refs).toEqual([]);
+    expect(obj.refs).toEqual([]);
     const {
       container: { firstChild },
     } = render(<App />);
 
     expect(firstChild).toHaveTextContent('foo');
     expect(firstChild).toHaveClass('foo');
-    expect(_refs.length).toBe(1);
-    expect(_refs[0]).toBe(firstChild);
+    expect(obj.refs.length).toBe(1);
+    expect(obj.refs[0]).toBe(firstChild);
+    expect(obj.ref).toBe(firstChild);
 
-    _refs.length = 0;
     act(() => document.querySelector('button')!.click());
     expect(firstChild).toHaveTextContent('bar');
     expect(firstChild).toHaveClass('bar');
-    expect(_refs.length).toBe(1);
-    expect(_refs[0]).toBe(firstChild);
+    expect(obj.refs.length).toBe(1);
+    expect(obj.refs[0]).toBe(firstChild);
+    expect(obj.ref).toBe(firstChild);
   });
 });

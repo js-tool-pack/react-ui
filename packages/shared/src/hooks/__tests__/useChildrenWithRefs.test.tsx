@@ -92,13 +92,19 @@ describe('useChildrenWithRefs', () => {
     expect(obj.ref).toBe(firstChild);
   });
   test('cloneEl', () => {
+    const arr: number[] = [];
     const App = () => {
-      const [children] = useChildrenWithRefs(<div>foo</div>, (element, props) =>
-        cloneElement(element, { ...props, className: 'foo' }),
+      const [children] = useChildrenWithRefs(
+        <div>foo</div>,
+        (element, props, index) => {
+          arr.push(index);
+          return cloneElement(element, { ...props, className: 'foo' });
+        },
       );
       return children;
     };
     const { container } = render(<App />);
     expect(container.firstChild).toHaveClass('foo');
+    expect(arr).toEqual([0]);
   });
 });

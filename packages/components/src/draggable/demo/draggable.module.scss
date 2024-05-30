@@ -12,6 +12,9 @@
       border: 1px solid #e6e6e6;
       background: #fff1d7;
       line-height: 32px;
+      &[draggable='false'] {
+        background: #f6f4f0;
+      }
     }
     .data {
       padding: 0 20px;

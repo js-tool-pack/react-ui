@@ -5,7 +5,8 @@ exports[`Draggable base 1`] = `
   class="t-draggable"
 >
   <div
-    class="draggable-item"
+    class="draggable-item t-draggable__item"
+    draggable="true"
   >
     <span>
       1
@@ -21,7 +22,8 @@ exports[`Draggable base 1`] = `
     </span>
   </div>
   <div
-    class="draggable-item"
+    class="draggable-item t-draggable__item"
+    draggable="true"
   >
     <span>
       2
@@ -37,7 +39,8 @@ exports[`Draggable base 1`] = `
     </span>
   </div>
   <div
-    class="draggable-item"
+    class="draggable-item t-draggable__item"
+    draggable="true"
   >
     <span>
       3

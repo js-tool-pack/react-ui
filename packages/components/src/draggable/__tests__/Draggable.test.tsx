@@ -26,4 +26,35 @@ describe('Draggable', () => {
     const r = render(<App />);
     expect(r.container.firstChild).toMatchSnapshot();
   });
+  test('tag', () => {
+    expect(
+      (
+        render(
+          <Draggable list={[]}>
+            <span>1</span>
+          </Draggable>,
+        ).container.firstChild as HTMLElement
+      ).tagName,
+    ).toBe('DIV');
+
+    expect(
+      (
+        render(
+          <Draggable tag="section" list={[]}>
+            <span>1</span>
+          </Draggable>,
+        ).container.firstChild as HTMLElement
+      ).tagName,
+    ).toBe('SECTION');
+
+    expect(
+      (
+        render(
+          <Draggable tag={null} list={[]}>
+            <span>1</span>
+          </Draggable>,
+        ).container.firstChild as HTMLElement
+      ).tagName,
+    ).toBe('SPAN');
+  });
 });

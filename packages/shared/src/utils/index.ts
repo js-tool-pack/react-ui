@@ -4,3 +4,4 @@ export * from './getElRealSize';
 export * from './getSizeClassName';
 export * from './getClasses';
 export * from './isSameReactEl';
+export * from './forwardRefs';

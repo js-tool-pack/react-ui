@@ -1,27 +1,26 @@
 import type { ChildMap } from '../transition-group.types';
-import React, { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 import { applyTranslation } from '../utils';
+import type { Key } from 'react';
 
-type RectMap = Map<React.Key, DOMRect>;
+type RectMap = Map<Key, DOMRect>;
 
-export function useFlips(
-  wrapperRef: React.MutableRefObject<HTMLElement | null>,
-  childMap: ChildMap,
-  name: string,
-): void {
+export function useFlips(childMap: ChildMap, name: string): void {
   const prevChildMapRef = useRef(childMap);
-  const prevRects = getChildRects(wrapperRef.current, prevChildMapRef.current);
+  const prevRects = getChildRects(prevChildMapRef.current);
 
-  useLayoutEffect(() => {
+  useLayoutEffect((): void => {
     prevChildMapRef.current = childMap;
-    const wrapperEl = wrapperRef.current;
-    if (!wrapperEl || !prevRects) return;
+    if (!prevRects.size) return;
+    let wrapperEl: HTMLElement | null = null;
 
     const moveClass = `${name}-move-active`;
-    const { children } = wrapperEl;
-    const nextRects = new Map<React.Key, DOMRect>();
+    const nextRects = new Map<Key, DOMRect>();
     // 获取最新的样式
-    forEachEl(children, childMap, (el, key) => {
+    childMap.forEach(({ ref: el }, key): void => {
+      if (!el) return;
+      // ⚠️注意：这里中断了原 transition 动画，如果要修复该问题，可从这里改
+      // 但是不加的话，如果之前有 flips 动画会突然中断
       el.style.transition = 'none';
       nextRects.set(key, el.getBoundingClientRect());
       if (!prevRects.has(key)) prevRects.set(key, nextRects.get(key)!);
@@ -30,14 +29,16 @@ export function useFlips(
 
     const flips: Array<() => void> = [];
     // 计算之前样式与现在的样式的差，并设置样式
-    forEachEl(children, childMap, (el, key) => {
+    childMap.forEach(({ ref: el }, key): void => {
+      if (!el) return;
+      wrapperEl = el.parentElement;
       // if (hasTransition(el, name)) return;
       if (!applyTranslation(el, prevRects.get(key)!, nextRects.get(key)!))
         return;
-      flips.push(() => {
+      flips.push((): void => {
         const { style: s } = el;
         el.classList.add(moveClass);
-        el.addEventListener('transitionend', function cb(e) {
+        el.addEventListener('transitionend', function cb(e): void {
           if (e.target !== el || !/transform$/.test(e.propertyName)) return;
           el.removeEventListener('transitionend', cb);
           el.classList.remove(moveClass);
@@ -46,35 +47,18 @@ export function useFlips(
       });
     });
     // 刷新
-    void wrapperEl.offsetHeight;
+    if (wrapperEl !== null) void (wrapperEl as HTMLElement).offsetHeight;
     // 动画
-    flips.forEach((t) => t());
+    flips.forEach((f) => f());
   });
 }
 
-function getChildRects(
-  wrapperEl: HTMLElement | undefined | null,
-  childMap: ChildMap,
-): RectMap | void {
-  if (!wrapperEl) return;
+function getChildRects(childMap: ChildMap): RectMap {
   const rects: RectMap = new Map();
-  forEachEl(wrapperEl.children, childMap, (el, key) =>
-    rects.set(key, el.getBoundingClientRect()),
-  );
-  return rects;
-}
-
-function forEachEl(
-  els: NodeListOf<HTMLElement> | HTMLCollection | HTMLElement[],
-  childMap: ChildMap,
-  cb: (el: HTMLElement, key: React.Key) => void,
-) {
-  let i = 0;
-  childMap.forEach((_, key) => {
-    const el = els[i++];
-    if (!el) return;
-    cb(el as HTMLElement, key);
+  childMap.forEach(({ ref: el }, key): void => {
+    el && rects.set(key, el.getBoundingClientRect());
   });
+  return rects;
 }
 
 // function hasTransition(el: HTMLElement, name: string): boolean {

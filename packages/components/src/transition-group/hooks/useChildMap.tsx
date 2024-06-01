@@ -1,8 +1,16 @@
+import {
+  isValidElement,
+  cloneElement,
+  useEffect,
+  useState,
+  Children,
+} from 'react';
 import { type TransitionProps, transitionCBAdapter } from '@pkg/components';
-import type { ChildMap } from '../transition-group.types';
-import React, { useEffect, useState } from 'react';
-import { useIsInitDep } from '@pkg/shared';
-export function useChildMap(children: React.ReactNode, name: string) {
+import type { RefAttributes, ReactElement, ReactNode, Key } from 'react';
+import type { ChildMapValue, ChildMap } from '../transition-group.types';
+import { useIsInitDep, forwardRefs } from '@pkg/shared';
+
+export function useChildMap(children: ReactNode, name: string): ChildMap {
   const isInit = useIsInitDep(children);
 
   const [childMap, setChildMap] = useState((): ChildMap => {
@@ -16,7 +24,7 @@ export function useChildMap(children: React.ReactNode, name: string) {
     });
   });
 
-  const onLeaved = (key: React.Key) => {
+  const onLeaved = (key: Key) => {
     // leave 可能会丢失
     setChildMap((prevChildren) => {
       const map = new Map(prevChildren);
@@ -34,66 +42,28 @@ export function useChildMap(children: React.ReactNode, name: string) {
 }
 
 const nextChildMap = (
-  children: React.ReactNode,
+  children: ReactNode,
   prevChildMap: ChildMap,
   name: string,
-  onLeaved: (key: React.Key) => void,
+  onLeaved: (key: Key) => void,
 ): ChildMap => {
   const childMap = createMap(children);
-  return mergeMaps(prevChildMap, childMap, (child, key): React.ReactNode => {
-    if (!React.isValidElement(child)) return child;
-
-    const inNext = childMap.get(key) !== undefined;
-    const inPrev = prevChildMap.get(key) !== undefined;
-    const inBoth = inNext && inPrev;
-
-    const isAdd = inNext && !inPrev;
-    const isRemove = !inNext && inPrev;
-
-    if (isRemove) {
-      if (child.props.show === false) return child;
-      // 因为 remove 了的 child 是不存在于 next 的，所以这个 child 是旧的，是 clone 过的
-      // tips: 加了 on 就不会等待多个 remove 完才 move，而是 remove 一个 move 一个
-      return cloneTransition(child, { appear: false, show: false });
-    }
-
-    const on = transitionCBAdapter({
-      onAfterLeave: () => onLeaved(child.key || ''),
-    });
-
-    if (isAdd) {
-      // 旧的不存在，所以 child 是新创建的，是未 clone 过的
-      return cloneTransition(child, {
-        appear: true,
-        name: name,
-        show: true,
-        on,
-      });
-    }
-
-    if (inBoth) {
-      // 两者皆有取最新，所以 child 是新创建的，是未 clone 过的
-      return cloneTransition(child, {
-        appear: false,
-        show: true,
-        name: name,
-        on,
-      });
-    }
-    return child;
-  });
+  return mergeMaps(prevChildMap, childMap, name, onLeaved);
 };
 
 function createMap(
-  children: React.ReactNode,
-  callback: (child: React.ReactElement) => React.ReactNode = (v) => v,
+  children: ReactNode,
+  callback: (child: ReactElement) => ChildMapValue = (v) => ({
+    reactEl: v,
+    ref: null,
+  }),
 ): ChildMap {
   const map: ChildMap = new Map();
   if (!children) return map;
 
-  // 如果没有手动添加key, React.Children.map会自动添加key
-  React.Children.map(children, (c) => c)?.forEach((child) => {
-    if (!React.isValidElement(child)) return;
+  // 如果没有手动添加key, Children.map会自动添加key
+  Children.map(children, (c) => c)?.forEach((child) => {
+    if (!isValidElement(child)) return;
     const key = child.key || '';
     if (!key) return;
     map.set(key, callback(child));
@@ -105,14 +75,14 @@ function createMap(
 function mergeMaps(
   prevMap: ChildMap,
   nextMap: ChildMap,
-  callback: (child: React.ReactNode, key: React.Key) => React.ReactNode,
+  name: string,
+  onLeaved: (key: Key) => void,
 ): ChildMap {
-  const getValue = (key: React.Key) => nextMap.get(key) ?? prevMap.get(key);
+  let insertKeys: Key[] = [];
+  const insertKeysMap = new Map<Key, typeof insertKeys>();
+  const result: ChildMap = new Map();
 
-  let insertKeys: React.Key[] = [];
-  const insertKeysMap = new Map<React.Key, typeof insertKeys>();
-
-  prevMap.forEach((_, key) => {
+  prevMap.forEach((_, key): void => {
     if (nextMap.has(key)) {
       if (!insertKeys.length) return;
       insertKeysMap.set(key, insertKeys);
@@ -121,10 +91,7 @@ function mergeMaps(
     }
     insertKeys.push(key);
   });
-
-  const result: ChildMap = new Map();
-  const push = (k: React.Key) => result.set(k, callback(getValue(k), k));
-  nextMap.forEach((_, key) => {
+  nextMap.forEach((_, key): void => {
     const keys = insertKeysMap.get(key);
     if (keys) keys.forEach(push);
     push(key);
@@ -132,12 +99,87 @@ function mergeMaps(
   insertKeys.forEach(push);
 
   return result;
+
+  function push(k: Key): void {
+    const value = mergeMapValue(
+      prevMap.get(k),
+      nextMap.get(k),
+      k,
+      name,
+      onLeaved,
+    );
+    value && result.set(k, value);
+  }
+}
+
+function mergeMapValue(
+  prevValue: ChildMapValue | undefined,
+  nextValue: ChildMapValue | undefined,
+  key: Key,
+  name: string,
+  onLeaved: (key: Key) => void,
+): ChildMapValue | void {
+  const inNext = nextValue?.reactEl !== undefined;
+  const inPrev = prevValue?.reactEl !== undefined;
+  const inBoth = inNext && inPrev;
+
+  const isAdd = inNext && !inPrev;
+  const isRemove = !inNext && inPrev;
+
+  if (isRemove) {
+    // noinspection PointlessBooleanExpressionJS
+    if (
+      (prevValue.reactEl as ReactElement<TransitionProps>).props.show === false
+    )
+      return prevValue;
+    // 因为 remove 了的 child 是不存在于 next 的，所以这个 child 是旧的，是 clone 过的
+    // tips: 加了 on 就不会等待多个 remove 完才 move，而是 remove 一个 move 一个
+    return cloneTransition(
+      prevValue.reactEl,
+      { appear: false, show: false },
+      prevValue.ref,
+    );
+  }
+
+  const on = transitionCBAdapter({
+    onAfterLeave: () => onLeaved(key || ''),
+  });
+
+  if (isAdd) {
+    // 旧的不存在，所以 child 是新创建的，是未 clone 过的
+    return cloneTransition(
+      nextValue.reactEl,
+      {
+        appear: true,
+        name: name,
+        show: true,
+        on,
+      },
+      prevValue?.ref,
+    );
+  }
+
+  if (inBoth) {
+    // 两者皆有取最新，所以 child 是新创建的，是未 clone 过的
+    return cloneTransition(
+      nextValue.reactEl,
+      {
+        appear: false,
+        show: true,
+        name: name,
+        on,
+      },
+      prevValue.ref,
+    );
+  }
 }
 
 function cloneTransition(
-  transition: React.ReactElement,
+  transition: ReactElement,
   props: Partial<TransitionProps>,
-) {
+  ref: HTMLElement | null = null,
+): ChildMapValue {
+  const result: ChildMapValue = { reactEl: transition, ref };
   const _props = { ...props } as TransitionProps;
   const nextOn = props.on;
   if (nextOn) {
@@ -147,5 +189,23 @@ function cloneTransition(
       nextOn(el, status, lifeCircle);
     };
   }
-  return React.cloneElement<TransitionProps>(transition, _props);
+
+  result.reactEl = cloneElement<TransitionProps>(
+    transition,
+    _props,
+    cloneChildren(),
+  );
+  return result;
+
+  function cloneChildren() {
+    const children = transition.props.children;
+    return isValidElement(children)
+      ? cloneElement(children as ReactElement, {
+          ref: (el: HTMLElement) => {
+            forwardRefs(el, (children as RefAttributes<any>).ref);
+            el && (result.ref = el);
+          },
+        })
+      : undefined;
+  }
 }

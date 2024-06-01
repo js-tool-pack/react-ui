@@ -29,18 +29,19 @@ TransitionGroup 比 Transition 多一个 `${name}-move-active`的 className。
 <code src="./demo/shuffle.tsx"></code>
 <code src="./demo/mixed.tsx"></code>
 <code src="./demo/flip.tsx"></code>
+<code src="./demo/tag.tsx"></code>
 <code src="./demo/all.tsx"></code>
 
 ## API
 
 动画组的属性说明如下：
 
-| 属性   | 说明                               | 类型                                            | 默认值    | 版本 |
-| ------ | ---------------------------------- | ----------------------------------------------- | --------- | ---- |
-| name   | 同 Transition                      | string                                          |           |      |
-| mode   | 同 Transition                      | `out-in` \| `in-out` \| `default`               | `default` |      |
-| appear | 同 Transition                      | boolean                                         | false     |      |
-| tag    | 包裹 children 的容器的 html tag 名 | string                                          | `div`     |      |
-| attrs  | 组件 html 根元素的所有属性         | Partial\<React.HTMLAttributes\<HTMLDivElement>> | --        | --   |
+| 属性   | 说明                                                    | 类型                                            | 默认值    | 版本 |
+| ------ | ------------------------------------------------------- | ----------------------------------------------- | --------- | ---- |
+| name   | 同 Transition                                           | string                                          |           |      |
+| mode   | 同 Transition                                           | `out-in` \| `in-out` \| `default`               | `default` |      |
+| appear | 同 Transition                                           | boolean                                         | false     |      |
+| tag    | 包裹 children 的容器的 html tag 名,为 null 时无包裹元素 | string \| null                                  | `div`     |      |
+| attrs  | 组件 html 根元素的所有属性                              | Partial\<React.HTMLAttributes\<HTMLDivElement>> | --        | --   |
 
 支持原生 HTML 的其他所有属性。

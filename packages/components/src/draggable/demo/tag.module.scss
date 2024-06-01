@@ -1,0 +1,21 @@
+.root {
+  :global {
+    .main {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .draggable-item {
+      padding: 0 0.5rem;
+      border: 1px solid #e6e6e6;
+      background: #fff1d7;
+      line-height: 32px;
+      &[draggable='true'] {
+        cursor: col-resize;
+      }
+    }
+    .data {
+      padding: 0 20px;
+      white-space: pre-wrap;
+    }
+  }
+}

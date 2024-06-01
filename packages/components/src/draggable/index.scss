@@ -1,0 +1,19 @@
+@use '../namespace' as Name;
+
+$r: Name.$draggable;
+
+.#{$r} {
+  position: relative;
+  &__ghost {
+    opacity: 0.7;
+    transform: translateZ(0);
+  }
+  &__item {
+    &[draggable='true'] {
+      cursor: move;
+    }
+    &[draggable='false'] {
+      cursor: no-drop;
+    }
+  }
+}

@@ -21,3 +21,5 @@ export * from './useStateRef';
 export * from './useFollowingState';
 export * from './useOnlineStatus';
 export * from './useOldValue';
+export * from './useChildrenWithRefs';
+export * from './useFollowingRef';

@@ -181,6 +181,11 @@ export const baseRouter = [
     name: 'virtual-list 虚拟列表',
     path: '/virtual-list',
   },
+  {
+    element: getDemos(import.meta.glob('~/draggable/demo/*.tsx')),
+    name: 'draggable 拖拽',
+    path: '/draggable',
+  },
   /* {import insert target} */
 ];
 

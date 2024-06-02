@@ -4,12 +4,7 @@
  * description: 点击列表内的按钮移除元素。
  */
 
-import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './all.module.scss';
 
@@ -61,9 +56,9 @@ const App: React.FC = () => {
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
-            <Transition key={item}>
-              <button onClick={() => removeChild(item)}>{item}</button>
-            </Transition>
+            <button onClick={() => removeChild(item)} key={item}>
+              {item}
+            </button>
           );
         })}
       </TransitionGroup>

@@ -30,6 +30,7 @@ TransitionGroup 比 Transition 多一个 `${name}-move-active`的 className。
 <code src="./demo/mixed.tsx"></code>
 <code src="./demo/flip.tsx"></code>
 <code src="./demo/tag.tsx"></code>
+<code src="./demo/transition.tsx"></code>
 <code src="./demo/all.tsx"></code>
 
 ## API

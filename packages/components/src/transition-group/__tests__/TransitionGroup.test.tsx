@@ -9,6 +9,15 @@ describe('TransitionGroup', () => {
   test('snap', () => {
     const { container } = render(
       <TransitionGroup>
+        <div>foo bar</div>
+        <div>foo-bar</div>
+      </TransitionGroup>,
+    );
+    expect(container.firstChild).toMatchSnapshot();
+  });
+  test('transition snap', () => {
+    const { container } = render(
+      <TransitionGroup>
         <Transition appear>
           <div>foo bar</div>
         </Transition>

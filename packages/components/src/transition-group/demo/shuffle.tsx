@@ -2,7 +2,7 @@
  * title: 排序过渡
  */
 
-import { TransitionGroup, Transition, Button } from '@tool-pack/react-ui';
+import { TransitionGroup, Button } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './shuffle.module.scss';
 
@@ -29,11 +29,7 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
-          return (
-            <Transition key={item}>
-              <div>{item}</div>
-            </Transition>
-          );
+          return <div key={item}>{item}</div>;
         })}
       </TransitionGroup>
     </div>

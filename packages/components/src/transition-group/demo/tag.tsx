@@ -3,12 +3,7 @@
  * description: 默认标签为 div，可设置 tag 为其它标签，当 tag 为 null 时，移除包裹元素
  */
 
-import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './list.module.scss';
 
@@ -51,11 +46,7 @@ const App: React.FC = () => {
       <div className="group-container">
         <TransitionGroup name="group" tag={null}>
           {children.current.map((item) => {
-            return (
-              <Transition key={item}>
-                <div>{item}</div>
-              </Transition>
-            );
+            return <div key={item}>{item}</div>;
           })}
         </TransitionGroup>
       </div>

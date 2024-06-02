@@ -2,12 +2,7 @@
  * title: 多维表格排序过渡
  */
 
-import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './flip.module.scss';
 
@@ -37,11 +32,7 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
-          return (
-            <Transition key={item}>
-              <button>{item}</button>
-            </Transition>
-          );
+          return <button key={item}>{item}</button>;
         })}
       </TransitionGroup>
     </div>

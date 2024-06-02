@@ -14,7 +14,7 @@
     "build:css-single": "pnpm -C packages/react-ui build:scss-single",
     "test": "pnpm -C packages/shared test && pnpm -C packages/components test",
     "eject": "react-scripts eject",
-    "check:lint": "eslint \"**/*.{ts,tsx}\"",
+    "check:lint": "eslint \"**/*.{ts,tsx}\" . --quiet",
     "check:ts": "tsc -p tsconfig.noEmit.json --noEmit",
     "check:ts-all": "pnpm check:ts & pnpm -r check:ts",
     "check:ts:lint": "npm run check:ts && npm run check:lint",

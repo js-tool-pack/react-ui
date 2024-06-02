@@ -29,13 +29,13 @@ const outputConfigs = {
     file: resolve(`dist/${name}.esm-browser.js`),
     format: `es`,
   },
-  cjs: {
-    file: resolve(`dist/${name}.cjs.js`),
-    format: `cjs`,
-  },
   global: {
     file: resolve(`dist/${name}.global.js`),
     format: `iife`,
+  },
+  cjs: {
+    file: resolve(`dist/${name}.cjs.js`),
+    format: `cjs`,
   },
 };
 
@@ -102,18 +102,18 @@ function createConfig(format, output, plugins = []) {
     pkg.types && process.env['TYPES'] != null && !hasTSChecked;
 
   const tsPlugin = ts({
-    check: process.env.NODE_ENV === 'production' && !hasTSChecked,
-    tsconfig: path.resolve(__dirname, 'tsconfig.json'),
-    cacheRoot: path.resolve(__dirname, 'node_modules/.rts2_cache'),
     tsconfigOverride: {
       compilerOptions: {
         target: isNodeBuild || output.format === 'es' ? 'es2019' : 'es2015',
-        sourceMap: output.sourcemap,
-        declaration: shouldEmitDeclarations,
         declarationMap: shouldEmitDeclarations,
+        declaration: shouldEmitDeclarations,
+        sourceMap: output.sourcemap,
       },
       exclude: ['**/__tests__', 'test-dts', 'test/'],
     },
+    cacheRoot: path.resolve(__dirname, 'node_modules/.rts2_cache'),
+    check: process.env.NODE_ENV === 'production' && !hasTSChecked,
+    tsconfig: path.resolve(__dirname, 'tsconfig.json'),
   });
   // we only need to check TS and generate declarations once for each build.
   // it also seems to run into weird issues when checking multiple times
@@ -128,18 +128,6 @@ function createConfig(format, output, plugins = []) {
   ];
 
   return {
-    input: resolve(entryFile),
-    // Global and Browser ESM builds inlines everything so that they can be
-    // used alone.
-    external,
-    plugins: [
-      json({
-        namedExports: false,
-      }),
-      tsPlugin,
-      ...plugins,
-    ],
-    output,
     onwarn: (
       /** @type {string} */ msg,
       /** @type {(arg0: any) => void} */ warn,
@@ -148,9 +136,21 @@ function createConfig(format, output, plugins = []) {
         warn(msg);
       }
     },
+    // Global and Browser ESM builds inlines everything so that they can be
+    plugins: [
+      json({
+        namedExports: false,
+      }),
+      tsPlugin,
+      ...plugins,
+    ],
     treeshake: {
       moduleSideEffects: false,
     },
+    input: resolve(entryFile),
+    // used alone.
+    external,
+    output,
   };
 }
 
@@ -177,11 +177,11 @@ function createMinifiedConfig(format) {
     },
     [
       terser({
-        module: /^esm/.test(format),
         compress: {
-          ecma: 2015,
           pure_getters: true,
+          ecma: 2015,
         },
+        module: /^esm/.test(format),
         safari10: true,
       }),
     ],

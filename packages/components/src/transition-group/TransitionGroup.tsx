@@ -10,8 +10,9 @@ import type { FC } from 'react';
  * v2版参考了 {@link https://github.com/peoplesing1832/react-transition/blob/npm/src/v4/TransitionGroup.tsx} 该实现。
  *
  * 相比 v1 版， v2 需要元素外部套 Transition 组件，可随机插入(v1不行)，动画更流畅。
+ * v3版已移除在外部套 Transition 组件的方式
  *
- * 目前还是不够完美，以后需要再次优化。。。
+ * 目前 v3 还是跟 vue 的有差距，还是不够完美，以后需要再次优化。。。
  */
 
 const defaultProps = {

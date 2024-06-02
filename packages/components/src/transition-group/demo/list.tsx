@@ -2,12 +2,7 @@
  * title: 列表过渡
  */
 
-import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './list.module.scss';
 
@@ -49,11 +44,7 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
-          return (
-            <Transition key={item}>
-              <div>{item}</div>
-            </Transition>
-          );
+          return <div key={item}>{item}</div>;
         })}
       </TransitionGroup>
     </div>

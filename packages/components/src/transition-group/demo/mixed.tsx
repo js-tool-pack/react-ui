@@ -2,12 +2,7 @@
  * title: 排序过渡加列表过渡
  */
 
-import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './mixed.module.scss';
 
@@ -73,10 +68,10 @@ const App: React.FC = () => {
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
-            <Transition key={item}>
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-              <div onClick={() => removeChild(item)}>{item}</div>
-            </Transition>
+            /* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
+            <div onClick={() => removeChild(item)} key={item}>
+              {item}
+            </div>
           );
         })}
       </TransitionGroup>

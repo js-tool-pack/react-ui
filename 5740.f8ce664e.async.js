@@ -1,4 +1,4 @@
-"use strict";(self.webpackChunk_tool_pack_react_ui_monorepo=self.webpackChunk_tool_pack_react_ui_monorepo||[]).push([[7159],{33442:function(e,n,o){o.r(n),o.d(n,{Alert:function(){return t.bZ},Aside:function(){return t.xN},Button:function(){return t.zx},ButtonContext:function(){return t.bl},ButtonGroup:function(){return t.hE},Calendar:function(){return t.f},Collapse:function(){return t.UO},CollapseGroup:function(){return t.wj},CollapseTransition:function(){return t.A1},ConfigProvider:function(){return t.iV},DatePicker:function(){return t.Mt},Dialog:function(){return t.Vq},Divider:function(){return t.iz},Draggable:function(){return t._l},Drawer:function(){return t.dy},Dropdown:function(){return t.Lt},Empty:function(){return t.HY},Footer:function(){return t.$_},Header:function(){return t.h4},Icon:function(){return t.JO},Icons:function(){return a},Image:function(){return t.Ee},ImagePreview:function(){return t.eT},ImagePreviewGroup:function(){return t.yg},ImagePreviewGroupContext:function(){return t.Fn},Input:function(){return t.II},InputPopover:function(){return t.oc},Layout:function(){return t.Ar},Loading:function(){return t.gb},Main:function(){return t.or},Message:function(){return t.v0},MessageQueue:function(){return t.zp},NumberTransition:function(){return t.Z4},Option:function(){return t.Wx},PLACEMENTS:function(){return t.ky},PLACEMENTS_12:function(){return t.oN},PLACEMENTS_8:function(){return t.U_},Picker:function(){return t.cW},PickerPanel:function(){return t.N4},PopConfirm:function(){return t.EY},Popover:function(){return t.J2},Resizer:function(){return t.w_},Select:function(){return t.Ph},Slider:function(){return t.iR},Space:function(){return t.T},Switch:function(){return t.rs},TIMING_FNS:function(){return t.P2},TRANSITION_LIFE_CIRCLE:function(){return t.hq},TRANSITION_STATUS:function(){return t._J},Tag:function(){return t.Vp},Timeline:function(){return t.TY},TimelineItem:function(){return t.jq},Tooltip:function(){return t.u},Transition:function(){return t.uT},TransitionGroup:function(){return t.W3},VirtualList:function(){return t.CP},WordBalloon:function(){return t.KR},_Picker:function(){return t.$k},showLoading:function(){return t.QP},transitionCBAdapter:function(){return t.s8},useLoading:function(){return t.r$},useLoadingHolder:function(){return t.o4},useMessage:function(){return t.UD},useMessageHolder:function(){return t.uM}});var t=o(5911),a=o(56050)},60016:function(e,n,o){o.r(n),n.default={root:"fRZbROcsvv8ouRIIuGhQ"}},72490:function(e,n,o){o.r(n),n.default={root:"KKznMUGXggEKJ4PrLFSA"}},49613:function(e,n,o){o.r(n),n.default={root:"f0VsxuuQiwS6XGO7ZXVk"}},7367:function(e,n,o){o.r(n),n.default={root:"nRIsMYLNuZ0WlA7gAiGU"}},41902:function(e,n,o){o.r(n),n.default={root:"kaK0H8SbiYoHmc0i_68j"}},15544:function(e,n,o){o.r(n),n.default={root:"eaVqveOIZHc8F8qQB2o9"}},64729:function(e,n,o){o.r(n),n.default={root:"YdivQpSzxgMXpDl9bfms"}},10096:function(e,n,o){o.r(n),n.default={root:"NAuRWJ0qVLwxVoP0x4uP"}},22570:function(e,n,o){o.r(n),n.default={root:"H87MYYCHIvPN4XOdVKqg"}},45258:function(e,n,o){o.r(n),n.default={root:"MrciEZj8gLk4XizfmiBQ"}},53054:function(e,n,o){o.r(n),n.default={root:"lNBA8Zt7bQRJvpeXc2sE","ani-scale":"buiYod0Vma8oBBPbHcnk"}},99555:function(e,n,o){o.r(n)},3592:function(e,n,o){o.r(n)},26652:function(e,n){n.Z=`import { Alert } from '@tool-pack/react-ui';
+"use strict";(self.webpackChunk_tool_pack_react_ui_monorepo=self.webpackChunk_tool_pack_react_ui_monorepo||[]).push([[5740],{33442:function(e,n,o){o.r(n),o.d(n,{Alert:function(){return t.bZ},Aside:function(){return t.xN},Button:function(){return t.zx},ButtonContext:function(){return t.bl},ButtonGroup:function(){return t.hE},Calendar:function(){return t.f},Collapse:function(){return t.UO},CollapseGroup:function(){return t.wj},CollapseTransition:function(){return t.A1},ConfigProvider:function(){return t.iV},DatePicker:function(){return t.Mt},Dialog:function(){return t.Vq},Divider:function(){return t.iz},Draggable:function(){return t._l},Drawer:function(){return t.dy},Dropdown:function(){return t.Lt},Empty:function(){return t.HY},Footer:function(){return t.$_},Header:function(){return t.h4},Icon:function(){return t.JO},Icons:function(){return a},Image:function(){return t.Ee},ImagePreview:function(){return t.eT},ImagePreviewGroup:function(){return t.yg},ImagePreviewGroupContext:function(){return t.Fn},Input:function(){return t.II},InputPopover:function(){return t.oc},Layout:function(){return t.Ar},Loading:function(){return t.gb},Main:function(){return t.or},Message:function(){return t.v0},MessageQueue:function(){return t.zp},NumberTransition:function(){return t.Z4},Option:function(){return t.Wx},PLACEMENTS:function(){return t.ky},PLACEMENTS_12:function(){return t.oN},PLACEMENTS_8:function(){return t.U_},Picker:function(){return t.cW},PickerPanel:function(){return t.N4},PopConfirm:function(){return t.EY},Popover:function(){return t.J2},Resizer:function(){return t.w_},Select:function(){return t.Ph},Slider:function(){return t.iR},Space:function(){return t.T},Switch:function(){return t.rs},TIMING_FNS:function(){return t.P2},TRANSITION_LIFE_CIRCLE:function(){return t.hq},TRANSITION_STATUS:function(){return t._J},Tag:function(){return t.Vp},Timeline:function(){return t.TY},TimelineItem:function(){return t.jq},Tooltip:function(){return t.u},Transition:function(){return t.uT},TransitionGroup:function(){return t.W3},VirtualList:function(){return t.CP},WordBalloon:function(){return t.KR},_Picker:function(){return t.$k},showLoading:function(){return t.QP},transitionCBAdapter:function(){return t.s8},useLoading:function(){return t.r$},useLoadingHolder:function(){return t.o4},useMessage:function(){return t.UD},useMessageHolder:function(){return t.uM}});var t=o(5911),a=o(56050)},60016:function(e,n,o){o.r(n),n.default={root:"fRZbROcsvv8ouRIIuGhQ"}},72490:function(e,n,o){o.r(n),n.default={root:"KKznMUGXggEKJ4PrLFSA"}},49613:function(e,n,o){o.r(n),n.default={root:"f0VsxuuQiwS6XGO7ZXVk"}},7367:function(e,n,o){o.r(n),n.default={root:"nRIsMYLNuZ0WlA7gAiGU"}},41902:function(e,n,o){o.r(n),n.default={root:"kaK0H8SbiYoHmc0i_68j"}},15544:function(e,n,o){o.r(n),n.default={root:"eaVqveOIZHc8F8qQB2o9"}},64729:function(e,n,o){o.r(n),n.default={root:"YdivQpSzxgMXpDl9bfms"}},10096:function(e,n,o){o.r(n),n.default={root:"NAuRWJ0qVLwxVoP0x4uP"}},22570:function(e,n,o){o.r(n),n.default={root:"H87MYYCHIvPN4XOdVKqg"}},45258:function(e,n,o){o.r(n),n.default={root:"MrciEZj8gLk4XizfmiBQ"}},53054:function(e,n,o){o.r(n),n.default={root:"lNBA8Zt7bQRJvpeXc2sE","ani-scale":"buiYod0Vma8oBBPbHcnk"}},99555:function(e,n,o){o.r(n)},3592:function(e,n,o){o.r(n)},26652:function(e,n){n.Z=`import { Alert } from '@tool-pack/react-ui';
 import React from 'react';
 
 const App: React.FC = () => {
@@ -6721,12 +6721,7 @@ export default App;
     }
   }
 }
-`},21486:function(e,n){n.Z=`import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+`},21486:function(e,n){n.Z=`import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './all.module.scss';
 
@@ -6778,9 +6773,9 @@ const App: React.FC = () => {
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
-            <Transition key={item}>
-              <button onClick={() => removeChild(item)}>{item}</button>
-            </Transition>
+            <button onClick={() => removeChild(item)} key={item}>
+              {item}
+            </button>
           );
         })}
       </TransitionGroup>
@@ -6817,12 +6812,7 @@ export default App;
     }
   }
 }
-`},66454:function(e,n){n.Z=`import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+`},66454:function(e,n){n.Z=`import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './flip.module.scss';
 
@@ -6852,11 +6842,7 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
-          return (
-            <Transition key={item}>
-              <button>{item}</button>
-            </Transition>
-          );
+          return <button key={item}>{item}</button>;
         })}
       </TransitionGroup>
     </div>
@@ -6892,12 +6878,7 @@ export default App;
     }
   }
 }
-`},52450:function(e,n){n.Z=`import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+`},52450:function(e,n){n.Z=`import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './list.module.scss';
 
@@ -6939,11 +6920,7 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
-          return (
-            <Transition key={item}>
-              <div>{item}</div>
-            </Transition>
-          );
+          return <div key={item}>{item}</div>;
         })}
       </TransitionGroup>
     </div>
@@ -6979,12 +6956,7 @@ export default App;
     }
   }
 }
-`},95678:function(e,n){n.Z=`import {
-  TransitionGroup,
-  Transition,
-  Button,
-  Space,
-} from '@tool-pack/react-ui';
+`},95678:function(e,n){n.Z=`import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './mixed.module.scss';
 
@@ -7050,10 +7022,10 @@ const App: React.FC = () => {
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
           return (
-            <Transition key={item}>
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-              <div onClick={() => removeChild(item)}>{item}</div>
-            </Transition>
+            /* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
+            <div onClick={() => removeChild(item)} key={item}>
+              {item}
+            </div>
           );
         })}
       </TransitionGroup>
@@ -7079,7 +7051,7 @@ export default App;
     }
   }
 }
-`},38163:function(e,n){n.Z=`import { TransitionGroup, Transition, Button } from '@tool-pack/react-ui';
+`},38163:function(e,n){n.Z=`import { TransitionGroup, Button } from '@tool-pack/react-ui';
 import React, { useCallback, useState, useRef } from 'react';
 import styles from './shuffle.module.scss';
 
@@ -7106,8 +7078,130 @@ const App: React.FC = () => {
       <br />
       <TransitionGroup className="group-container" tag="section" name="group">
         {children.current.map((item) => {
+          return <div key={item}>{item}</div>;
+        })}
+      </TransitionGroup>
+    </div>
+  );
+};
+
+export default App;
+`},16212:function(e,n){n.Z=`import { TransitionGroup, Button, Space } from '@tool-pack/react-ui';
+import React, { useCallback, useState, useRef } from 'react';
+import styles from './list.module.scss';
+
+const App: React.FC = () => {
+  const [, update] = useState({});
+  const forceUpdate = useCallback(() => update({}), []);
+
+  const children = useRef<number[]>([...Array.from({ length: 10 }).keys()]);
+
+  const index = useRef(children.current.length);
+  function addChild() {
+    const list = children.current;
+    const splice = list.splice(~~(Math.random() * list.length), list.length);
+    list.push(index.current);
+    list.push(...splice);
+    forceUpdate();
+    index.current++;
+  }
+  function removeChild(item: number) {
+    const index = children.current.indexOf(item);
+    if (index === -1) return;
+    children.current.splice(index, 1);
+    forceUpdate();
+  }
+  function removeRandomChild() {
+    removeChild(children.current[~~(Math.random() * children.current.length)]!);
+  }
+
+  return (
+    <div className={styles['root']}>
+      <Space style={{ justifyContent: 'center' }}>
+        <Button onClick={addChild} type="primary">
+          \u6DFB\u52A0
+        </Button>
+        <Button onClick={removeRandomChild} type="warning" plain>
+          \u79FB\u9664
+        </Button>
+      </Space>
+      <br />
+      <div className="group-container">
+        <TransitionGroup name="group" tag={null}>
+          {children.current.map((item) => {
+            return <div key={item}>{item}</div>;
+          })}
+        </TransitionGroup>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+`},70027:function(e,n){n.Z=`import {
+  transitionCBAdapter,
+  TransitionGroup,
+  Transition,
+  Button,
+  Space,
+} from '@tool-pack/react-ui';
+import React, { useState, useRef } from 'react';
+import styles from './list.module.scss';
+
+const App: React.FC = () => {
+  const [list, setList] = useState<number[]>([
+    ...Array.from({ length: 10 }).keys(),
+  ]);
+
+  const index = useRef(list.length);
+  function addChild() {
+    const splice = list.splice(~~(Math.random() * list.length), list.length);
+    list.push(index.current);
+    list.push(...splice);
+    index.current++;
+    setList(list.slice());
+  }
+  function removeChild(item: number) {
+    const index = list.indexOf(item);
+    if (index === -1) return;
+    list.splice(index, 1);
+    setList(list.slice());
+  }
+  function removeRandomChild() {
+    removeChild(list[~~(Math.random() * list.length)]!);
+  }
+
+  return (
+    <div className={styles['root']}>
+      <Space style={{ justifyContent: 'center' }}>
+        <Button onClick={addChild} type="primary">
+          \u6DFB\u52A0
+        </Button>
+        <Button onClick={removeRandomChild} type="warning" plain>
+          \u79FB\u9664
+        </Button>
+      </Space>
+      <br />
+      <TransitionGroup className="group-container" tag="section" name="group">
+        {list.map((item) => {
           return (
-            <Transition key={item}>
+            <Transition
+              on={transitionCBAdapter({
+                onBeforeEnter() {
+                  console.log(item + '\u6B63\u5728\u8FDB\u6765');
+                },
+                onBeforeLeave() {
+                  console.log(item + '\u6B63\u5728\u79BB\u53BB');
+                },
+                onAfterEnter() {
+                  console.log(item + '\u5DF2\u8FDB\u6765');
+                },
+                onAfterLeave() {
+                  console.log(item + '\u5DF2\u79BB\u53BB');
+                },
+              })}
+              key={item}
+            >
               <div>{item}</div>
             </Transition>
           );

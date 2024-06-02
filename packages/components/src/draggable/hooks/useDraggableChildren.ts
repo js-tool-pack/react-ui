@@ -11,9 +11,13 @@ import { cls } from '../Draggable';
 
 export function useDraggableChildren({
   children: outerChildren,
+  transition,
   onChange,
   list,
-}: Pick<DraggableProps, 'children' | 'onChange' | 'list'>): ReactNode {
+}: Pick<
+  DraggableProps,
+  'transition' | 'children' | 'onChange' | 'list'
+>): ReactNode {
   const forceUpdate = useForceUpdate();
   const childrenRef = useFollowingRef(outerChildren, (v) =>
     Children.toArray(v),
@@ -62,12 +66,14 @@ export function useDraggableChildren({
             onChange?.(listRef.current.slice());
           e.preventDefault();
         },
-        onDragEnter: () => {
+        onDragEnterCapture(e: DragEvent) {
+          const target = e.target as HTMLElement;
           const chosen = chosenRef.current;
           if (
             !chosen ||
             chosen.overIndex === index ||
-            el.props.draggable === false
+            el.props.draggable === false ||
+            (transition && target.className.includes('move-active'))
           )
             return;
 

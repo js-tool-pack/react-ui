@@ -1,4 +1,4 @@
-"use strict";(self.webpackChunk_tool_pack_react_ui_monorepo=self.webpackChunk_tool_pack_react_ui_monorepo||[]).push([[5740],{33442:function(e,n,o){o.r(n),o.d(n,{Alert:function(){return t.bZ},Aside:function(){return t.xN},Button:function(){return t.zx},ButtonContext:function(){return t.bl},ButtonGroup:function(){return t.hE},Calendar:function(){return t.f},Collapse:function(){return t.UO},CollapseGroup:function(){return t.wj},CollapseTransition:function(){return t.A1},ConfigProvider:function(){return t.iV},DatePicker:function(){return t.Mt},Dialog:function(){return t.Vq},Divider:function(){return t.iz},Draggable:function(){return t._l},Drawer:function(){return t.dy},Dropdown:function(){return t.Lt},Empty:function(){return t.HY},Footer:function(){return t.$_},Header:function(){return t.h4},Icon:function(){return t.JO},Icons:function(){return a},Image:function(){return t.Ee},ImagePreview:function(){return t.eT},ImagePreviewGroup:function(){return t.yg},ImagePreviewGroupContext:function(){return t.Fn},Input:function(){return t.II},InputPopover:function(){return t.oc},Layout:function(){return t.Ar},Loading:function(){return t.gb},Main:function(){return t.or},Message:function(){return t.v0},MessageQueue:function(){return t.zp},NumberTransition:function(){return t.Z4},Option:function(){return t.Wx},PLACEMENTS:function(){return t.ky},PLACEMENTS_12:function(){return t.oN},PLACEMENTS_8:function(){return t.U_},Picker:function(){return t.cW},PickerPanel:function(){return t.N4},PopConfirm:function(){return t.EY},Popover:function(){return t.J2},Resizer:function(){return t.w_},Select:function(){return t.Ph},Slider:function(){return t.iR},Space:function(){return t.T},Switch:function(){return t.rs},TIMING_FNS:function(){return t.P2},TRANSITION_LIFE_CIRCLE:function(){return t.hq},TRANSITION_STATUS:function(){return t._J},Tag:function(){return t.Vp},Timeline:function(){return t.TY},TimelineItem:function(){return t.jq},Tooltip:function(){return t.u},Transition:function(){return t.uT},TransitionGroup:function(){return t.W3},VirtualList:function(){return t.CP},WordBalloon:function(){return t.KR},_Picker:function(){return t.$k},showLoading:function(){return t.QP},transitionCBAdapter:function(){return t.s8},useLoading:function(){return t.r$},useLoadingHolder:function(){return t.o4},useMessage:function(){return t.UD},useMessageHolder:function(){return t.uM}});var t=o(5911),a=o(56050)},60016:function(e,n,o){o.r(n),n.default={root:"fRZbROcsvv8ouRIIuGhQ"}},72490:function(e,n,o){o.r(n),n.default={root:"KKznMUGXggEKJ4PrLFSA"}},49613:function(e,n,o){o.r(n),n.default={root:"f0VsxuuQiwS6XGO7ZXVk"}},7367:function(e,n,o){o.r(n),n.default={root:"nRIsMYLNuZ0WlA7gAiGU"}},41902:function(e,n,o){o.r(n),n.default={root:"kaK0H8SbiYoHmc0i_68j"}},15544:function(e,n,o){o.r(n),n.default={root:"eaVqveOIZHc8F8qQB2o9"}},64729:function(e,n,o){o.r(n),n.default={root:"YdivQpSzxgMXpDl9bfms"}},10096:function(e,n,o){o.r(n),n.default={root:"NAuRWJ0qVLwxVoP0x4uP"}},22570:function(e,n,o){o.r(n),n.default={root:"H87MYYCHIvPN4XOdVKqg"}},45258:function(e,n,o){o.r(n),n.default={root:"MrciEZj8gLk4XizfmiBQ"}},53054:function(e,n,o){o.r(n),n.default={root:"lNBA8Zt7bQRJvpeXc2sE","ani-scale":"buiYod0Vma8oBBPbHcnk"}},99555:function(e,n,o){o.r(n)},3592:function(e,n,o){o.r(n)},26652:function(e,n){n.Z=`import { Alert } from '@tool-pack/react-ui';
+"use strict";(self.webpackChunk_tool_pack_react_ui_monorepo=self.webpackChunk_tool_pack_react_ui_monorepo||[]).push([[3892],{33442:function(e,n,o){o.r(n),o.d(n,{Alert:function(){return t.bZ},Aside:function(){return t.xN},Button:function(){return t.zx},ButtonContext:function(){return t.bl},ButtonGroup:function(){return t.hE},Calendar:function(){return t.f},Collapse:function(){return t.UO},CollapseGroup:function(){return t.wj},CollapseTransition:function(){return t.A1},ConfigProvider:function(){return t.iV},DatePicker:function(){return t.Mt},Dialog:function(){return t.Vq},Divider:function(){return t.iz},Draggable:function(){return t._l},Drawer:function(){return t.dy},Dropdown:function(){return t.Lt},Empty:function(){return t.HY},Footer:function(){return t.$_},Header:function(){return t.h4},Icon:function(){return t.JO},Icons:function(){return a},Image:function(){return t.Ee},ImagePreview:function(){return t.eT},ImagePreviewGroup:function(){return t.yg},ImagePreviewGroupContext:function(){return t.Fn},Input:function(){return t.II},InputPopover:function(){return t.oc},Layout:function(){return t.Ar},Loading:function(){return t.gb},Main:function(){return t.or},Message:function(){return t.v0},MessageQueue:function(){return t.zp},NumberTransition:function(){return t.Z4},Option:function(){return t.Wx},PLACEMENTS:function(){return t.ky},PLACEMENTS_12:function(){return t.oN},PLACEMENTS_8:function(){return t.U_},Picker:function(){return t.cW},PickerPanel:function(){return t.N4},PopConfirm:function(){return t.EY},Popover:function(){return t.J2},Resizer:function(){return t.w_},Select:function(){return t.Ph},Slider:function(){return t.iR},Space:function(){return t.T},Switch:function(){return t.rs},TIMING_FNS:function(){return t.P2},TRANSITION_LIFE_CIRCLE:function(){return t.hq},TRANSITION_STATUS:function(){return t._J},Tag:function(){return t.Vp},Timeline:function(){return t.TY},TimelineItem:function(){return t.jq},Tooltip:function(){return t.u},Transition:function(){return t.uT},TransitionGroup:function(){return t.W3},VirtualList:function(){return t.CP},WordBalloon:function(){return t.KR},_Picker:function(){return t.$k},showLoading:function(){return t.QP},transitionCBAdapter:function(){return t.s8},useLoading:function(){return t.r$},useLoadingHolder:function(){return t.o4},useMessage:function(){return t.UD},useMessageHolder:function(){return t.uM}});var t=o(5911),a=o(56050)},60016:function(e,n,o){o.r(n),n.default={root:"fRZbROcsvv8ouRIIuGhQ"}},72490:function(e,n,o){o.r(n),n.default={root:"KKznMUGXggEKJ4PrLFSA"}},30889:function(e,n,o){o.r(n),n.default={root:"qbXGXhpI7BIt_rskFJtA"}},18422:function(e,n,o){o.r(n),n.default={root:"iit2nrKwOXICt1n3ohZu"}},54782:function(e,n,o){o.r(n),n.default={root:"NekYXYCD7EuCNfEEmKtt"}},15466:function(e,n,o){o.r(n),n.default={root:"RwCmY29cy4tM25LXh7N3"}},49613:function(e,n,o){o.r(n),n.default={root:"f0VsxuuQiwS6XGO7ZXVk"}},7367:function(e,n,o){o.r(n),n.default={root:"nRIsMYLNuZ0WlA7gAiGU"}},41902:function(e,n,o){o.r(n),n.default={root:"kaK0H8SbiYoHmc0i_68j"}},15544:function(e,n,o){o.r(n),n.default={root:"eaVqveOIZHc8F8qQB2o9"}},64729:function(e,n,o){o.r(n),n.default={root:"YdivQpSzxgMXpDl9bfms"}},10096:function(e,n,o){o.r(n),n.default={root:"NAuRWJ0qVLwxVoP0x4uP"}},22570:function(e,n,o){o.r(n),n.default={root:"H87MYYCHIvPN4XOdVKqg"}},45258:function(e,n,o){o.r(n),n.default={root:"MrciEZj8gLk4XizfmiBQ"}},53054:function(e,n,o){o.r(n),n.default={root:"lNBA8Zt7bQRJvpeXc2sE","ani-scale":"buiYod0Vma8oBBPbHcnk"}},99555:function(e,n,o){o.r(n)},3592:function(e,n,o){o.r(n)},26652:function(e,n){n.Z=`import { Alert } from '@tool-pack/react-ui';
 import React from 'react';
 
 const App: React.FC = () => {
@@ -1885,6 +1885,326 @@ const App: React.FC = () => {
         <div>E</div>
       </Space>
     </Space>
+  );
+};
+
+export default App;
+`},30761:function(e,n){n.Z=`.root {
+  :global {
+    .main {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .t-draggable {
+      flex: 1;
+    }
+    .draggable-item {
+      padding: 0 0.5rem;
+      border: 1px solid #e6e6e6;
+      background: #fff1d7;
+      line-height: 32px;
+    }
+    .data {
+      padding: 0 20px;
+      white-space: pre-wrap;
+    }
+  }
+}
+`},98239:function(e,n){n.Z=`import { ButtonGroup, Draggable, Button } from '@tool-pack/react-ui';
+import styles from './basic.module.scss';
+import React from 'react';
+
+const App: React.FC = () => {
+  const [state, setState] = React.useState<{ name: string; id: number }[]>([
+    { name: 'John', id: 1 },
+    { name: 'Joao', id: 2 },
+    { name: 'Jean', id: 3 },
+    { name: 'Gerard', id: 4 },
+  ]);
+  return (
+    <div className={styles['root']}>
+      <ButtonGroup>
+        <Button
+          onClick={() => {
+            const id = state.length + 1;
+            setState([...state, { name: 'anyone', id }]);
+          }}
+          type="primary"
+        >
+          \u6DFB\u52A0
+        </Button>
+        <Button onClick={() => setState(state.slice(0, -1))} type="success">
+          \u5220\u51CF
+        </Button>
+      </ButtonGroup>
+      <div className="main">
+        <Draggable onChange={setState} list={state}>
+          {state.map((item, index) => (
+            <div className="draggable-item" key={item.id}>
+              <span>{index + 1}.</span> <span>{item.name}</span>{' '}
+              <span>{item.id}</span>
+            </div>
+          ))}
+        </Draggable>
+        <div className="data">
+          [
+          {state.map((it) => (
+            <div key={it.id}>{JSON.stringify(it)}</div>
+          ))}
+          ]
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+`},39330:function(e,n){n.Z=`.root {
+  :global {
+    .main {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .t-draggable {
+      flex: 1;
+    }
+    .draggable-item {
+      padding: 0 0.5rem;
+      border: 1px solid #e6e6e6;
+      background: #fff1d7;
+      line-height: 32px;
+      &[draggable='false'] {
+        background: #f6f4f0;
+      }
+    }
+    .data {
+      padding: 0 20px;
+      white-space: pre-wrap;
+    }
+  }
+}
+`},34534:function(e,n){n.Z=`import { Draggable } from '@tool-pack/react-ui';
+import styles from './draggable.module.scss';
+import React from 'react';
+
+const App: React.FC = () => {
+  const [state, setState] = React.useState<{ name: string; id: number }[]>([
+    { name: 'John', id: 1 },
+    { name: 'Joao', id: 2 },
+    { name: 'Jean', id: 3 },
+    { name: 'Gerard', id: 4 },
+  ]);
+  return (
+    <div className={styles['root']}>
+      <div className="main">
+        <Draggable onChange={setState} list={state}>
+          {state.map((item, index) => (
+            <div className="draggable-item" draggable={index > 1} key={item.id}>
+              <span>{index + 1}.</span> <span>{item.name}</span>{' '}
+              <span>{item.id}</span>
+            </div>
+          ))}
+        </Draggable>
+        <div className="data">
+          [
+          {state.map((it) => (
+            <div key={it.id}>{JSON.stringify(it)}</div>
+          ))}
+          ]
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+`},379:function(e,n){n.Z=`.root {
+  :global {
+    .main {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .draggable-item {
+      padding: 0 0.5rem;
+      border: 1px solid #e6e6e6;
+      background: #fff1d7;
+      line-height: 32px;
+      &[draggable='true'] {
+        cursor: col-resize;
+      }
+    }
+    .data {
+      padding: 0 20px;
+      white-space: pre-wrap;
+    }
+  }
+}
+`},89563:function(e,n){n.Z=`import { Draggable } from '@tool-pack/react-ui';
+import styles from './tag.module.scss';
+import React from 'react';
+
+const App: React.FC = () => {
+  const [state, setState] = React.useState<{ name: string; id: number }[]>([
+    { name: 'John', id: 1 },
+    { name: 'Joao', id: 2 },
+    { name: 'Jean', id: 3 },
+    { name: 'Gerard', id: 4 },
+  ]);
+  return (
+    <div className={styles['root']}>
+      <div className="main">
+        <Draggable onChange={setState} list={state} tag={null}>
+          {state.map((item, index) => (
+            <div className="draggable-item" key={item.id}>
+              <span>{index + 1}.</span> <span>{item.name}</span>{' '}
+              <span>{item.id}</span>
+            </div>
+          ))}
+        </Draggable>
+        <div className="data">
+          [
+          {state.map((it) => (
+            <div key={it.id}>{JSON.stringify(it)}</div>
+          ))}
+          ]
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+`},21338:function(e,n){n.Z=`import { ButtonGroup, Draggable, Button } from '@tool-pack/react-ui';
+import styles from './transition.module.scss';
+import React from 'react';
+
+const App: React.FC = () => {
+  const [state, setState] = React.useState<{ name: string; id: number }[]>([
+    { name: 'John', id: 1 },
+    { name: 'Joao', id: 2 },
+    { name: 'Jean', id: 3 },
+    { name: 'Gerard', id: 4 },
+  ]);
+  return (
+    <div className={styles['root']}>
+      <ButtonGroup>
+        <Button
+          onClick={() => {
+            const id = state.length + 1;
+            setState([...state, { name: 'anyone', id }]);
+          }}
+          type="primary"
+        >
+          \u6DFB\u52A0
+        </Button>
+        <Button onClick={() => setState(state.slice(0, -1))} type="success">
+          \u5220\u51CF
+        </Button>
+      </ButtonGroup>
+      <div className="main">
+        <Draggable onChange={setState} list={state} tag={null} transition>
+          {state.map((item, index) => (
+            <div className="draggable-item" key={item.id}>
+              <span>{index + 1}.</span> <span>{item.name}</span>{' '}
+              <span>{item.id}</span>
+            </div>
+          ))}
+        </Draggable>
+        <div className="data">
+          [
+          {state.map((it) => (
+            <div key={it.id}>{JSON.stringify(it)}</div>
+          ))}
+          ]
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
+`},35663:function(e,n){n.Z=`.root {
+  :global {
+    .main {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .t-draggable {
+      flex: 1;
+    }
+    .draggable-item {
+      padding: 0 0.5rem;
+      border: 1px solid #e6e6e6;
+      background: #fff1d7;
+      line-height: 32px;
+    }
+    .data {
+      flex: 1;
+      padding: 0 20px;
+      white-space: pre-wrap;
+    }
+    .t-group {
+      &-enter-active,
+      &-leave-active,
+      &-move-active {
+        transition: all 0.3s ease;
+      }
+      &-enter-from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      &-leave-to {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+    }
+  }
+}
+`},37094:function(e,n){n.Z=`import { ButtonGroup, Draggable, Button } from '@tool-pack/react-ui';
+import styles from './transition.module.scss';
+import React from 'react';
+
+const App: React.FC = () => {
+  const [state, setState] = React.useState<{ name: string; id: number }[]>([
+    { name: 'John', id: 1 },
+    { name: 'Joao', id: 2 },
+    { name: 'Jean', id: 3 },
+    { name: 'Gerard', id: 4 },
+  ]);
+  return (
+    <div className={styles['root']}>
+      <ButtonGroup>
+        <Button
+          onClick={() => {
+            const id = state.length + 1;
+            setState([...state, { name: 'anyone', id }]);
+          }}
+          type="primary"
+        >
+          \u6DFB\u52A0
+        </Button>
+        <Button onClick={() => setState(state.slice(0, -1))} type="success">
+          \u5220\u51CF
+        </Button>
+      </ButtonGroup>
+      <div className="main">
+        <Draggable onChange={setState} list={state} transition>
+          {state.map((item, index) => (
+            <div className="draggable-item" key={item.id}>
+              <span>{index + 1}.</span> <span>{item.name}</span>{' '}
+              <span>{item.id}</span>
+            </div>
+          ))}
+        </Draggable>
+        <div className="data">
+          [
+          {state.map((it) => (
+            <div key={it.id}>{JSON.stringify(it)}</div>
+          ))}
+          ]
+        </div>
+      </div>
+    </div>
   );
 };
 

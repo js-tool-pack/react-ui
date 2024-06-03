@@ -1,10 +1,12 @@
 // import EnUS from './locale/en-US';
 import type { DraggableProps, DraggableFC } from './draggable.types';
-import { createElement, forwardRef, FC } from 'react';
 // import { useLocale } from '~/config-provider/useLocale';
 import type { RequiredPart } from '@tool-pack/types';
+import { TransitionGroup } from '~/transition-group';
+import { createElement, forwardRef } from 'react';
 import { getClassNames } from '@tool-pack/basic';
 import { useDraggableChildren } from './hooks';
+import type { ReactElement, FC } from 'react';
 import { getClasses } from '@pkg/shared';
 
 export const cls = getClasses('draggable', ['ghost', 'item'], []);
@@ -18,18 +20,29 @@ export const _Draggable: FC<DraggableProps> = forwardRef<
   DraggableProps
 >((props, ref) => {
   // const locale = useLocale('draggable', EnUS);
-  const { attrs = {}, tag } = props as RequiredPart<
-    DraggableProps,
-    keyof typeof defaultProps
-  >;
+  const {
+    transition,
+    attrs = {},
+    tag,
+  } = props as RequiredPart<DraggableProps, keyof typeof defaultProps>;
   const children = useDraggableChildren(props);
+  const className = getClassNames(cls.root, attrs.className);
+
+  if (transition && children) {
+    const transitionProps = transition === true ? undefined : transition;
+    return (
+      <TransitionGroup {...transitionProps} className={className} tag={tag}>
+        {children as ReactElement[]}
+      </TransitionGroup>
+    );
+  }
 
   if (tag === null) return children;
   return createElement(
     tag,
     {
       ...attrs,
-      className: getClassNames(cls.root, attrs.className),
+      className,
       ref,
     },
     children,

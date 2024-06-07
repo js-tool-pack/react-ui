@@ -10,3 +10,8 @@ export interface DraggableProps<T = unknown> extends PropsBase<HTMLDivElement> {
 }
 export type DraggableFC = <T>(props: DraggableProps<T>) => ReactElement;
 // export interface DraggableLocale {}
+
+export interface DraggableGroupProps {
+  children: ReactElement[];
+  type?: 'move' | 'copy';
+}

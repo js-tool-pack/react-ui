@@ -18,6 +18,7 @@ Draggable 拖拽。
 <code src="./demo/tag.tsx"></code>
 <code src="./demo/transition.tsx"></code>
 <code src="./demo/transition-debug.tsx"></code>
+<code src="./demo/draggable-group.tsx"></code>
 
 ## API
 

@@ -1,5 +1,5 @@
 import {
-  type DraggableGroupContextProvider,
+  DraggableGroupContextProvider,
   draggableContext,
 } from '~/draggable/DraggableGroup';
 import {
@@ -25,29 +25,31 @@ export function useDraggableChildren({
   'transition' | 'children' | 'onChange' | 'list'
 >): ReactNode {
   const forceUpdate = useForceUpdate();
-  const childrenRef = useFollowingRef(
+  const modifyChildrenRef = useFollowingRef(
     outerChildren,
     (v) => Children.map(v, (i) => i) || [],
   );
-  const listRef = useFollowingRef(list, (v) => v.slice());
-  const { fromRef, toRef } = useContext(draggableContext);
+  const listRef = useFollowingRef(list, (v) => ({
+    origin: v.slice(),
+    modify: v.slice(),
+  }));
+  const { fromRef, toRef, type } = useContext(draggableContext);
 
-  const preverRef = useRef<DraggableGroupContextProvider | null>(null);
   const stateRef = useRef<{ readonly id: symbol; index: number }>({
     id: Symbol(times++),
     index: -1,
   });
 
   const [children] = useChildrenWithRefs(
-    childrenRef.current,
+    modifyChildrenRef.current,
     (el, props, idx) => {
       const id = stateRef.current.id;
-      const item = listRef.current[idx];
+      const item = listRef.current.modify[idx];
       const emit = (): void => {
-        console.log('emit', stateRef.current.id, preverRef.current);
+        console.log('emit', stateRef.current.id);
         // preverRef.current = null;
         if (isListChanged()) {
-          const result = listRef.current.slice();
+          const result = listRef.current.modify.slice();
           console.log('onchange', result);
           onChange?.(result);
         }
@@ -63,24 +65,41 @@ export function useDraggableChildren({
       // 拖动目标元素事件
       function getDragSideEvents() {
         const left: DOMAttributes<HTMLElement> = {
-          onDragEnd: (e: DragEvent) => {
-            const target = e.currentTarget as HTMLElement;
-            target.classList.remove(cls.__.ghost);
-            console.log('onDragEnd', item, target);
-            toRef.current?.cancel?.(id);
-            emit();
-            fromRef.current = null;
-            toRef.current = null;
-            stateRef.current.index = -1;
-            e.preventDefault();
-          },
           onDragStart: (e: DragEvent) => {
             const dataTransfer = e.dataTransfer as DataTransfer;
             // dataTransfer.setData('text', `draggable:${index}`);
             dataTransfer.effectAllowed = 'move';
-            fromRef.current = { children: el, item, id };
-            const target = e.currentTarget as HTMLElement;
-            target.classList.add(cls.__.ghost);
+            const from: DraggableGroupContextProvider = {
+              drop(id2) {
+                if (type === 'move' && id2 !== id) {
+                  removeItem(item);
+                }
+                from.cancel = undefined;
+                emit();
+              },
+              cancel(_id2): void {
+                if (type === 'move') {
+                  updateChildrenOf(el, listRef.current.modify.indexOf(item));
+                }
+              },
+              children: el,
+              item,
+              id,
+            };
+            fromRef.current = from;
+            // const target = e.currentTarget as HTMLElement;
+            // target.classList.add(cls.__.ghost);
+          },
+          onDragEnd: (e: DragEvent) => {
+            // const target = e.currentTarget as HTMLElement;
+            // target.classList.remove(cls.__.ghost);
+            toRef.current?.cancel?.(id);
+            fromRef.current?.cancel?.(id);
+            // emit();
+            fromRef.current = null;
+            toRef.current = null;
+            stateRef.current.index = -1;
+            e.preventDefault();
           },
         };
         return left;
@@ -111,12 +130,14 @@ export function useDraggableChildren({
             // if (from.id !== toRef.current?.id) toRef.current?.drop?.(id);
             const to = toRef.current;
             if (to) to.cancel = undefined;
+            fromRef.current = null;
+            toRef.current = null;
             emit();
           },
           // eslint-disable-next-line perfectionist/sort-objects
           onDragEnterCapture(e: DragEvent): void {
-            const index = listRef.current.indexOf(item);
-            console.log('enter', index, stateRef.current.index);
+            const index = listRef.current.modify.indexOf(item);
+            console.log('enter', id, index, stateRef.current.index);
             const target = e.target as HTMLElement;
             e.preventDefault();
 
@@ -128,22 +149,36 @@ export function useDraggableChildren({
               return;
 
             const from = fromRef.current;
-            const prever = (preverRef.current = toRef.current || from);
+            const prever = toRef.current || from;
             console.log(prever);
             if (!prever || !from) return;
             console.log(item, from.item);
             prever.enter?.(id);
 
             console.log(prever.id, id, prever.id === id);
-            const fromIndex = listRef.current.indexOf(from.item);
+            const fromIndex = listRef.current.modify.indexOf(from.item);
             if (from.item !== item) {
-              if (prever.id === id || fromIndex !== -1) move(fromIndex, index);
-              else moveFromGroup(from.item, from.children, index);
+              if (prever.id === id || fromIndex !== -1) {
+                let toIndex = index;
+                const modifyChildren = modifyChildrenRef.current[
+                  fromIndex
+                ] as ReactElement;
+                // move 返回之前隐藏的 children 位置，如果存在则 index - 1
+                if (
+                  type === 'move' &&
+                  fromIndex !== -1 &&
+                  fromIndex < index &&
+                  modifyChildren.props.className.includes(cls['--'].hidden)
+                ) {
+                  toIndex--;
+                }
+                move(cloneAndAddClassName(from.children), fromIndex, toIndex);
+              } else moveFromGroup(from.item, from.children, index);
             } else {
               console.log('uuuuuuuuuuup');
               updateChildrenOf(
-                cloneAndAddGhostClassName(
-                  childrenRef.current[fromIndex] as ReactElement,
+                cloneAndAddClassName(
+                  modifyChildrenRef.current[fromIndex] as ReactElement,
                 ),
                 fromIndex,
               );
@@ -155,25 +190,29 @@ export function useDraggableChildren({
                 console.log('id===id', id2 === id);
                 if (id2 !== id) {
                   stateRef.current.index = -1;
-                  if (!list.includes(from.item)) {
+                  if (!listRef.current.origin.includes(from.item)) {
                     removeItem(from.item);
                   }
-                  // if (item === _item && type === 'move') {
-                  //   console.log('mmmmmove');
-                  //   // target.classList.add(cls['--'].hidden);
-                  //   removeItem(_item);
-                  // }
+                  if (type === 'move') {
+                    console.log('mmmmmmmmm', item, from.item);
+                    updateChildrenOf(
+                      cloneAndAddClassName(from.children, cls['--'].hidden),
+                      listRef.current.modify.indexOf(from.item),
+                    );
+                  }
+                  return;
                 }
+                stateRef.current.index = -1;
               },
               cancel: (_id2): void => {
                 console.log('oncancel', id, _id2, prever.id, target);
                 stateRef.current.index = -1;
-                if (!list.includes(from.item)) {
+                if (!listRef.current.origin.includes(from.item)) {
                   removeItem(from.item);
-                  preverRef.current = null;
+                  toRef.current = null;
                 } else {
                   console.log('ccccccccccccc');
-                  const index = listRef.current.indexOf(from.item);
+                  const index = listRef.current.modify.indexOf(from.item);
                   // 还原成未加工状态
                   updateChildrenOf(from.children, index);
                 }
@@ -200,50 +239,54 @@ export function useDraggableChildren({
 
   return children;
 
-  function move(from: number, to: number) {
-    if (from === -1 || from === to) return;
-    const temp = childrenRef.current.slice();
-    temp[from] = cloneAndAddGhostClassName(temp[from] as ReactElement);
+  function move(children: ReactElement, from: number, to: number) {
+    // if (from === -1 || from === to) return;
+    const temp = modifyChildrenRef.current.slice();
+    temp[from] = children;
     moveItem(temp, from, to);
-    childrenRef.current = temp;
-    moveItem(listRef.current, from, to);
+    modifyChildrenRef.current = temp;
+    moveItem(listRef.current.modify, from, to);
     forceUpdate();
   }
   function moveFromGroup(item: unknown, children: ReactElement, to: number) {
     console.log('moveFromGroup', item, to, item);
-    children = cloneAndAddGhostClassName(children);
-    const temp = childrenRef.current.slice();
+    children = cloneAndAddClassName(children);
+    const temp = modifyChildrenRef.current.slice();
     insertToArray(children, to, temp);
-    childrenRef.current = temp;
-    insertToArray(item, to, listRef.current);
+    modifyChildrenRef.current = temp;
+    insertToArray(item, to, listRef.current.modify);
     forceUpdate();
   }
   function updateChildrenOf(children: ReactElement, index: number): void {
-    const temp = childrenRef.current.slice();
+    const temp = modifyChildrenRef.current.slice();
     // 还原成未加工状态
     temp[index] = children;
-    childrenRef.current = temp;
+    modifyChildrenRef.current = temp;
     forceUpdate();
   }
-  function cloneAndAddGhostClassName(element: ReactElement): ReactElement {
+  function cloneAndAddClassName(
+    element: ReactElement,
+    className = cls.__.ghost,
+  ): ReactElement {
     return cloneElement(element, {
-      className: getClassNames(element.props.className, cls.__.ghost),
+      className: getClassNames(element.props.className, className),
     });
   }
   function removeItem(item: unknown): void {
-    const index = listRef.current.indexOf(item);
+    const index = listRef.current.modify.indexOf(item);
     if (index === -1) return;
-    listRef.current.splice(index, 1);
+    listRef.current.modify.splice(index, 1);
 
-    const temp = childrenRef.current.slice();
+    const temp = modifyChildrenRef.current.slice();
     temp.splice(index, 1);
-    childrenRef.current = temp;
+    modifyChildrenRef.current = temp;
     forceUpdate();
   }
   function isListChanged(): boolean {
+    const { origin, modify } = listRef.current;
     return (
-      list.length !== listRef.current.length ||
-      list.some((it, i) => it !== listRef.current[i])
+      origin.length !== modify.length ||
+      origin.some((it, i) => it !== modify[i])
     );
   }
 }

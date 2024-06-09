@@ -1,3 +1,25 @@
+## [0.0.22](https://github.com/js-tool-pack/react-ui/compare/v0.0.21...v0.0.22) (2024-06-09)
+
+### Bug Fixes
+
+- **shared/hooks:** 修复 useChildrenWithRefs 未能连通外部 ref 的问题 ([59ea017](https://github.com/js-tool-pack/react-ui/commit/59ea01723aba5902f0b03336fbd8dc3a8b095812))
+
+### Features
+
+- **components:** 新增 DraggableGroup 拖拽组组件 ([5ee816f](https://github.com/js-tool-pack/react-ui/commit/5ee816f9405273cc43a236b8e8380febd426640f))
+- **components/draggable:** 新增动画功能 ([7df6414](https://github.com/js-tool-pack/react-ui/commit/7df6414ea7905737662f29461ce8f635691f3ccb))
+- **components/draggable:** 重构并优化 draggable 组件 ([a6cc91f](https://github.com/js-tool-pack/react-ui/commit/a6cc91fcf7adb74383a561fe4f145e2f308e76a5))
+- **components/popover:** 当触发方式为 click 时，可按下 Esc 键关闭 ([65fb83a](https://github.com/js-tool-pack/react-ui/commit/65fb83abbe1213dd1fb687789b5e7b12d5111e07))
+- **components/popover:** 拆分 useShowController 处理类型 ([37c5d87](https://github.com/js-tool-pack/react-ui/commit/37c5d8722551034cfa39fc5cb21461f1286a6ebb))
+- **components/transition-group:** 重构并优化 TransitionGroup 组件 ([351c54a](https://github.com/js-tool-pack/react-ui/commit/351c54a8b2faafa23299c8c944dcd4d13ed4e8d8))
+- **components/transition-group:** 重构并优化 TransitionGroup 组件，tag 属性可设置为 null 去除包裹元素 ([73244ce](https://github.com/js-tool-pack/react-ui/commit/73244ce97eb9c80bbeb9f828bfe5d1701492c06c))
+- **components:** 新增 Draggable 拖拽组件 ([fde7561](https://github.com/js-tool-pack/react-ui/commit/fde7561969949a6a7b7ac73aca5010f307db46da))
+- **shared/hooks:** useChildrenWithRefs 可控制cloneElement 参数 ([23a120a](https://github.com/js-tool-pack/react-ui/commit/23a120a17ed8586940b5aaf73f30a7b3e7ca55ef))
+- **shared/hooks:** 为 useChildrenWithRefs 的 cloneEl 添加 index 入参 ([aae639a](https://github.com/js-tool-pack/react-ui/commit/aae639ac91a550076ee0a4976f0eb67fa3839cdc))
+- **shared/hooks:** 新增 useChildrenWithRefs hook ([58a8dd6](https://github.com/js-tool-pack/react-ui/commit/58a8dd6fcfdaf952ee68c7aa93de99d3e8a28067))
+- **shared/hooks:** 新增 useFollowingRef hook ([8e5ba63](https://github.com/js-tool-pack/react-ui/commit/8e5ba637d79537d7b7b04226a472f28c8bb38506))
+- **shared/utils:** 新增 forwardRefs ([2f17dce](https://github.com/js-tool-pack/react-ui/commit/2f17dce2e1c818bf91963675838feab0c149a1ba))
+
 ## [0.0.21](https://github.com/js-tool-pack/react-ui/compare/v0.0.20...v0.0.21) (2024-03-25)
 
 ### Bug Fixes

@@ -16,4 +16,7 @@ $r: Name.$draggable;
       cursor: no-drop;
     }
   }
+  &--hidden {
+    display: none;
+  }
 }

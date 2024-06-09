@@ -1,5 +1,5 @@
 /**
- * title: tag
+ * title: 根标签
  * description: 默认根元素为 div，当 tag 为 null 时 Draggable 组件不提供根元素。
  */
 

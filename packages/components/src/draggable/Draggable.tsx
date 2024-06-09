@@ -9,7 +9,7 @@ import { useDraggableChildren } from './hooks';
 import type { ReactElement, FC } from 'react';
 import { getClasses } from '@pkg/shared';
 
-export const cls = getClasses('draggable', ['ghost', 'item'], []);
+export const cls = getClasses('draggable', ['ghost', 'item'], ['hidden']);
 const defaultProps = {
   tag: 'div',
   list: [],

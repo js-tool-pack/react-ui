@@ -1,0 +1,23 @@
+.root {
+  :global {
+    .main {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .t-draggable {
+      flex: 1;
+      + .t-draggable {
+        margin-left: 6px;
+      }
+    }
+    .draggable-item {
+      padding: 0 0.5rem;
+      border: 1px solid #e6e6e6;
+      background: #fff1d7;
+      line-height: 32px;
+      &.t-draggable__ghost {
+        background: #f6a306;
+      }
+    }
+  }
+}

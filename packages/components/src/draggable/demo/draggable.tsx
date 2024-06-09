@@ -1,5 +1,5 @@
 /**
- * title: draggable
+ * title: 禁止拖拽选项
  * description: html 元素设置 draggable 为 false 时不可拖动。
  */
 

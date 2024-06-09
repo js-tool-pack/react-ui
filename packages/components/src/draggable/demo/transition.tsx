@@ -1,5 +1,5 @@
 /**
- * title: transition
+ * title: 动画
  * description: 开启 transition 动画。
  */
 

@@ -22,6 +22,8 @@ Draggable 拖拽。
 
 ## API
 
+### Draggable
+
 Draggable 的属性说明如下：
 
 | 属性       | 说明             | 类型                                                         | 默认值 | 版本 |
@@ -32,4 +34,10 @@ Draggable 的属性说明如下：
 | transition | 动画效果         | boolean \| [TransitionGroupProps](./transition-group-cn#api) | 'div'  | --   |
 | attrs      | html 标签属性    | Partial\<React.HTMLAttributes\<HTMLDivElement>>              | --     | --   |
 
-其他说明。
+### DraggableGroup
+
+DraggableGroup 的属性说明如下：
+
+| 属性 | 说明                               | 类型             | 默认值 | 版本 |
+| ---- | ---------------------------------- | ---------------- | ------ | ---- |
+| type | 拖动类型，对拖动数据是复制还是移动 | 'copy' \| 'move' | 'move' | --   |

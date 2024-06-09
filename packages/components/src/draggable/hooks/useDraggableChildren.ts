@@ -46,11 +46,9 @@ export function useDraggableChildren({
       const id = stateRef.current.id;
       const item = listRef.current.modify[idx];
       const emit = (): void => {
-        console.log('emit', stateRef.current.id);
         // preverRef.current = null;
         if (isListChanged()) {
           const result = listRef.current.modify.slice();
-          console.log('onchange', result);
           onChange?.(result);
         }
       };
@@ -118,7 +116,6 @@ export function useDraggableChildren({
             //
             // if (from === index) return;
             // move(from, index);
-            console.log('onDrop');
             e.preventDefault();
             stateRef.current.index = -1;
 
@@ -126,6 +123,10 @@ export function useDraggableChildren({
             if (!from) return;
 
             if (from.id !== id) from.drop?.(id);
+            else if (!isListChanged()) {
+              // 当在同一个组件拖动过但又没有实际变动时，刷新当前拖动项的选中状态
+              updateChildrenOf(from.children, idx);
+            }
             // 在同一个组件内拖拽的话 to = from
             // if (from.id !== toRef.current?.id) toRef.current?.drop?.(id);
             const to = toRef.current;
@@ -137,7 +138,6 @@ export function useDraggableChildren({
           // eslint-disable-next-line perfectionist/sort-objects
           onDragEnterCapture(e: DragEvent): void {
             const index = listRef.current.modify.indexOf(item);
-            console.log('enter', id, index, stateRef.current.index);
             const target = e.target as HTMLElement;
             e.preventDefault();
 
@@ -150,12 +150,9 @@ export function useDraggableChildren({
 
             const from = fromRef.current;
             const prever = toRef.current || from;
-            console.log(prever);
             if (!prever || !from) return;
-            console.log(item, from.item);
             prever.enter?.(id);
 
-            console.log(prever.id, id, prever.id === id);
             const fromIndex = listRef.current.modify.indexOf(from.item);
             if (from.item !== item) {
               if (prever.id === id || fromIndex !== -1) {
@@ -175,7 +172,6 @@ export function useDraggableChildren({
                 move(cloneAndAddClassName(from.children), fromIndex, toIndex);
               } else moveFromGroup(from.item, from.children, index);
             } else {
-              console.log('uuuuuuuuuuup');
               updateChildrenOf(
                 cloneAndAddClassName(
                   modifyChildrenRef.current[fromIndex] as ReactElement,
@@ -187,14 +183,12 @@ export function useDraggableChildren({
             stateRef.current.index = index;
             toRef.current = {
               enter: (id2): void => {
-                console.log('id===id', id2 === id);
                 if (id2 !== id) {
                   stateRef.current.index = -1;
                   if (!listRef.current.origin.includes(from.item)) {
                     removeItem(from.item);
                   }
                   if (type === 'move') {
-                    console.log('mmmmmmmmm', item, from.item);
                     updateChildrenOf(
                       cloneAndAddClassName(from.children, cls['--'].hidden),
                       listRef.current.modify.indexOf(from.item),
@@ -205,13 +199,11 @@ export function useDraggableChildren({
                 stateRef.current.index = -1;
               },
               cancel: (_id2): void => {
-                console.log('oncancel', id, _id2, prever.id, target);
                 stateRef.current.index = -1;
                 if (!listRef.current.origin.includes(from.item)) {
                   removeItem(from.item);
                   toRef.current = null;
                 } else {
-                  console.log('ccccccccccccc');
                   const index = listRef.current.modify.indexOf(from.item);
                   // 还原成未加工状态
                   updateChildrenOf(from.children, index);
@@ -225,7 +217,6 @@ export function useDraggableChildren({
               item,
               id,
             };
-            console.log('-'.repeat(20));
           },
           onDragOver(e: DragEvent) {
             if (el.props.draggable === false) return;
@@ -249,7 +240,6 @@ export function useDraggableChildren({
     forceUpdate();
   }
   function moveFromGroup(item: unknown, children: ReactElement, to: number) {
-    console.log('moveFromGroup', item, to, item);
     children = cloneAndAddClassName(children);
     const temp = modifyChildrenRef.current.slice();
     insertToArray(children, to, temp);

@@ -1,4 +1,4 @@
-import { Footer } from '@mxssfd/dumi-theme-antd-style';
+import { Footer } from 'dumi-theme-antd-style';
 import pkg from '../../../../package.json';
 export default () => {
   return (

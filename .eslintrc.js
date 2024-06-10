@@ -18,6 +18,7 @@ module.exports = {
       'error',
       { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
+    'perfectionist/sort-exports': 'off',
     'perfectionist/sort-imports': [
       'error',
       {

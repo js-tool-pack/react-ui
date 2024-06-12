@@ -4,10 +4,7 @@ import { IconProps } from './icon.types';
 import React from 'react';
 
 const rootClass = getComponentClass('icon');
-export const Icon: React.FC<IconProps> = React.forwardRef<
-  HTMLElement,
-  IconProps
->((props, ref) => {
+export const Icon = React.forwardRef<HTMLElement, IconProps>((props, ref) => {
   const { attrs = {}, className, children, color, size } = props;
   const { role = 'img', style = {} } = attrs;
 
@@ -15,8 +12,8 @@ export const Icon: React.FC<IconProps> = React.forwardRef<
     size === undefined
       ? style.fontSize
       : typeof size === 'number'
-      ? size + 'px'
-      : size;
+        ? size + 'px'
+        : size;
 
   return (
     <i

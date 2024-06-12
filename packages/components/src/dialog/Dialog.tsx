@@ -1,4 +1,5 @@
 import {
+  mergeReactDefaultProps,
   getComponentClass,
   useScrollLock,
   useVisible,
@@ -8,7 +9,6 @@ import { useTransitionOrigin, useEsc } from './dialog.hooks';
 import { Footer, Header, Layout, Main } from '~/layouts';
 import { getClassNames } from '@tool-pack/basic';
 import { Close as CloseIcon } from '@pkg/icons';
-import { RequiredPart } from '@tool-pack/types';
 import { DialogProps } from './dialog.types';
 import React, { useCallback } from 'react';
 import { Transition } from '~/transition';
@@ -36,8 +36,7 @@ export const Dialog: React.FC<DialogProps> = React.memo((props) => {
     center,
     zIndex,
     esc,
-  } = props as RequiredPart<DialogProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   const [visible, close] = useVisible(outerVisible);
   useScrollLock(visible, document.body);
   const transformOrigin = useTransitionOrigin(props, visible);
@@ -115,7 +114,5 @@ export const Dialog: React.FC<DialogProps> = React.memo((props) => {
     document.body,
   );
 });
-
-Dialog.defaultProps = defaultProps;
 
 Dialog.displayName = 'Dialog';

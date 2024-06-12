@@ -1,7 +1,10 @@
 import { createContext, ReactElement, useRef, FC } from 'react';
 import type { DraggableGroupProps } from './draggable.types';
+import { mergeReactDefaultProps } from '@pkg/shared';
 
-const defaultProps = {} satisfies Partial<DraggableGroupProps>;
+const defaultProps = {
+  type: 'move',
+} satisfies Partial<DraggableGroupProps>;
 
 /**
  * 在 dragstart 里生产，在 dragenter 消费，在 drop ｜ dragend 销毁
@@ -25,20 +28,14 @@ export const draggableContext = createContext<{
 });
 
 export const DraggableGroup: FC<DraggableGroupProps> = (props) => {
+  const { type } = mergeReactDefaultProps(props, defaultProps);
   const fromRef = useRef(null);
   const toRef = useRef(null);
   return (
-    <draggableContext.Provider
-      value={{
-        type: props.type || 'move',
-        fromRef,
-        toRef,
-      }}
-    >
+    <draggableContext.Provider value={{ fromRef, toRef, type }}>
       {props.children}
     </draggableContext.Provider>
   );
 };
 
-DraggableGroup.defaultProps = defaultProps;
 DraggableGroup.displayName = 'DraggableGroup';

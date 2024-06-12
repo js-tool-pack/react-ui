@@ -1,7 +1,6 @@
+import { mergeReactDefaultProps, getComponentClass } from '@pkg/shared';
 import type { ButtonGroupProps, ButtonProps } from './button.types';
-import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass } from '@pkg/shared';
 import React from 'react';
 
 const rootClass = getComponentClass('button-group');
@@ -13,8 +12,7 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
       attrs = {},
       children,
       size,
-    } = props as RequiredPart<ButtonGroupProps, keyof typeof defaultProps>;
-
+    } = mergeReactDefaultProps(props, defaultProps);
     return (
       <div
         {...attrs}
@@ -72,4 +70,3 @@ function cloneChildren(
 }
 
 ButtonGroup.displayName = 'ButtonGroup';
-ButtonGroup.defaultProps = defaultProps;

@@ -11,10 +11,7 @@ export interface InputSkinProps extends PropsBase<HTMLLabelElement> {
 
 const cls = getClasses('input-skin', [], ['active', 'disabled']);
 
-export const InputSkin: React.FC<InputSkinProps> = React.forwardRef<
-  HTMLLabelElement,
-  InputSkinProps
->(
+export const InputSkin = React.forwardRef<HTMLLabelElement, InputSkinProps>(
   (
     { size = 'medium', attrs = {}, disabled, children, active, status },
     ref,

@@ -78,3 +78,21 @@ exports[`Picker basic 1`] = `
   </div>
 </div>
 `;
+
+exports[`Picker basic2 1`] = `
+<div
+  class="t-picker"
+>
+  <label
+    class="t-input-skin t-input-popover t--size-m"
+  >
+    <input
+      class="t-input-popover-tab-trigger"
+      tabindex="0"
+    />
+    <span
+      class="t-picker__label"
+    />
+  </label>
+</div>
+`;

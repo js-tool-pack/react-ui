@@ -1,6 +1,6 @@
+import { mergeReactDefaultProps, getComponentClass } from '@pkg/shared';
 import { DropdownOptionProps } from '~/dropdown/dropdown.types';
 import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass } from '@pkg/shared';
 import { Right as RightIcon } from '@pkg/icons';
 import { Option } from '~/option';
 import { Icon } from '~/icon';
@@ -11,33 +11,39 @@ const defaultProps = {
   tag: 'li',
 } satisfies Partial<DropdownOptionProps>;
 
-export const DropdownInnerOption: React.FC<DropdownOptionProps> =
-  React.forwardRef<HTMLElement, DropdownOptionProps>((props, ref) => {
-    const { expandable, attrs = {}, children, extra, ...rest } = props;
-    return (
-      <Option
-        {...rest}
-        extra={
-          (extra || expandable) && (
-            <>
-              {extra}
-              {expandable && (
-                <Icon className={`${rootClass}__expand`}>
-                  <RightIcon />
-                </Icon>
-              )}
-            </>
-          )
-        }
-        attrs={{
-          ...attrs,
-          className: getClassNames(rootClass, attrs.className),
-        }}
-        ref={ref}
-      >
-        {children}
-      </Option>
-    );
-  });
-
-DropdownInnerOption.defaultProps = defaultProps;
+export const DropdownInnerOption = React.forwardRef<
+  HTMLElement,
+  DropdownOptionProps
+>((props, ref) => {
+  const {
+    expandable,
+    attrs = {},
+    children,
+    extra,
+    ...rest
+  } = mergeReactDefaultProps(props, defaultProps);
+  return (
+    <Option
+      {...rest}
+      extra={
+        (extra || expandable) && (
+          <>
+            {extra}
+            {expandable && (
+              <Icon className={`${rootClass}__expand`}>
+                <RightIcon />
+              </Icon>
+            )}
+          </>
+        )
+      }
+      attrs={{
+        ...attrs,
+        className: getClassNames(rootClass, attrs.className),
+      }}
+      ref={ref}
+    >
+      {children}
+    </Option>
+  );
+});

@@ -24,10 +24,14 @@
   "exports": {
     ".": {
       "import": {
+        "types": "./dist/index.d.ts",
         "node": "./dist/index.cjs.js",
         "default": "./dist/index.es.js"
       },
-      "require": "./dist/index.cjs.js"
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs.js"
+      }
     },
     "./dist/*": "./dist/*"
   },

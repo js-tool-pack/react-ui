@@ -18,8 +18,10 @@ const cls = getClasses('calendar-header', ['month'], []);
 const defaultProps = {} satisfies Partial<Props>;
 
 export const CalendarHeader: React.FC<Props> = (props) => {
-  const { onMonthChange, onChange, locale, today, value } =
-    props as RequiredPart<Props, keyof typeof defaultProps>;
+  const { onMonthChange, onChange, locale, today, value } = {
+    ...defaultProps,
+    ...props,
+  } as RequiredPart<Props, keyof typeof defaultProps>;
 
   const monthStr = useMemo(() => {
     const ym = [
@@ -63,5 +65,3 @@ export const CalendarHeader: React.FC<Props> = (props) => {
     onMonthChange(dateAdd(value, offset, 'month'));
   }
 };
-
-CalendarHeader.defaultProps = defaultProps;

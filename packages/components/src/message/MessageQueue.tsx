@@ -18,7 +18,7 @@ import LeaveQueue from './LeaveQueue';
 import { Message } from './Message';
 
 const rootClass = getComponentClass('message-queue');
-export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
+export const MessageQueue = React.forwardRef<
   MessageQueueRef,
   MessageQueueProps
 >((props, ref) => {
@@ -28,23 +28,19 @@ export const MessageQueue: React.FC<MessageQueueProps> = React.forwardRef<
   type MsgItem = MessagePushOptions & { key: number };
   const MsgList = useRef<Array<MsgItem>>([]);
   const id = useRef(0);
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        clear() {
-          if (!MsgList.current.length) return;
-          queue.current.push(...MsgList.current);
-          forceUpdate();
-        },
-        push(props) {
-          MsgList.current.push({ ...props, key: id.current++ });
-          forceUpdate();
-        },
-      };
-    },
-    [],
-  );
+  useImperativeHandle(ref, () => {
+    return {
+      clear() {
+        if (!MsgList.current.length) return;
+        queue.current.push(...MsgList.current);
+        forceUpdate();
+      },
+      push(props) {
+        MsgList.current.push({ ...props, key: id.current++ });
+        forceUpdate();
+      },
+    };
+  }, []);
 
   const remove = useCallback((item: MsgItem) => {
     const index = MsgList.current.indexOf(item);

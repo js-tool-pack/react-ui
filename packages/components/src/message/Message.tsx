@@ -5,8 +5,12 @@ import {
   CircleInfoFill,
   Close,
 } from '@pkg/icons';
-import { getComponentClass, useForwardRef, useTimeDown } from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
+import {
+  mergeReactDefaultProps,
+  getComponentClass,
+  useForwardRef,
+  useTimeDown,
+} from '@pkg/shared';
 import type { MessageProps } from './message.types';
 import React, { useEffect, useRef } from 'react';
 import { getClassNames } from '@tool-pack/basic';
@@ -26,72 +30,68 @@ const defaultProps = {
   duration: 3000,
 } satisfies Partial<MessageProps>;
 
-export const Message: React.FC<MessageProps> = React.forwardRef<
-  HTMLDivElement,
-  MessageProps
->((props, ref) => {
-  const {
-    attrs = {},
-    hoverKeep,
-    showClose,
-    children,
-    duration,
-    onLeave,
-    type,
-    icon,
-  } = props as RequiredPart<MessageProps, keyof typeof defaultProps>;
+export const Message = React.forwardRef<HTMLDivElement, MessageProps>(
+  (props, ref) => {
+    const {
+      attrs = {},
+      hoverKeep,
+      showClose,
+      children,
+      duration,
+      onLeave,
+      type,
+      icon,
+    } = mergeReactDefaultProps(props, defaultProps);
+    const [time, stop] = useTimeDown(duration);
+    const rootRef = useForwardRef(ref);
 
-  const [time, stop] = useTimeDown(duration);
-  const rootRef = useForwardRef(ref);
+    const isTimeoutRef = useRef(false);
 
-  const isTimeoutRef = useRef(false);
+    useEffect(() => {
+      if (isTimeoutRef.current) return;
+      if (duration > 0 && time <= 0) {
+        onLeave?.();
+        isTimeoutRef.current = true;
+      }
+    }, [time, onLeave]);
 
-  useEffect(() => {
-    if (isTimeoutRef.current) return;
-    if (duration > 0 && time <= 0) {
-      onLeave?.();
-      isTimeoutRef.current = true;
-    }
-  }, [time, onLeave]);
+    const onMouseEnter: React.MouseEventHandler<HTMLDivElement> = (e) => {
+      attrs.onMouseEnter?.(e);
+      stop(true);
+    };
+    const onMouseLeave: React.MouseEventHandler<HTMLDivElement> = (e) => {
+      attrs.onMouseLeave?.(e);
+      stop(false);
+    };
 
-  const onMouseEnter: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    attrs.onMouseEnter?.(e);
-    stop(true);
-  };
-  const onMouseLeave: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    attrs.onMouseLeave?.(e);
-    stop(false);
-  };
-
-  const DefaultIcon = icons[type];
-  return (
-    <div
-      {...attrs}
-      className={getClassNames(
-        rootClass,
-        attrs.className,
-        `${rootClass}--${type}`,
-      )}
-      onMouseEnter={hoverKeep ? onMouseEnter : undefined}
-      onMouseLeave={hoverKeep ? onMouseLeave : undefined}
-      ref={rootRef}
-    >
-      <div className={rootClass + '__icon-wrapper'}>
-        {
-          // 有自定义icon显示自定义icon，未传则显示默认icon，为null则不显示icon
-          icon !== null && <Icon>{icon || <DefaultIcon />}</Icon>
-        }
+    const DefaultIcon = icons[type];
+    return (
+      <div
+        {...attrs}
+        className={getClassNames(
+          rootClass,
+          attrs.className,
+          `${rootClass}--${type}`,
+        )}
+        onMouseEnter={hoverKeep ? onMouseEnter : undefined}
+        onMouseLeave={hoverKeep ? onMouseLeave : undefined}
+        ref={rootRef}
+      >
+        <div className={rootClass + '__icon-wrapper'}>
+          {
+            // 有自定义icon显示自定义icon，未传则显示默认icon，为null则不显示icon
+            icon !== null && <Icon>{icon || <DefaultIcon />}</Icon>
+          }
+        </div>
+        {children}
+        {showClose && (
+          <Button onClick={onLeave} size="small" plain="text">
+            <Icon size="0.8em">
+              <Close />
+            </Icon>
+          </Button>
+        )}
       </div>
-      {children}
-      {showClose && (
-        <Button onClick={onLeave} size="small" plain="text">
-          <Icon size="0.8em">
-            <Close />
-          </Icon>
-        </Button>
-      )}
-    </div>
-  );
-});
-
-Message.defaultProps = defaultProps;
+    );
+  },
+);

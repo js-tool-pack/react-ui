@@ -4,9 +4,12 @@ import {
   castArray,
   joinArray,
 } from '@tool-pack/basic';
-import { getComponentClass, numToPx } from '@pkg/shared';
+import {
+  mergeReactDefaultProps,
+  getComponentClass,
+  numToPx,
+} from '@pkg/shared';
 import type { SpaceProps } from './space.types';
-import { RequiredPart } from '@tool-pack/types';
 import React, { useMemo } from 'react';
 
 const rootClass = getComponentClass('space');
@@ -15,10 +18,7 @@ const defaultProps = {
   fillRatio: 100,
 } satisfies Partial<SpaceProps>;
 
-export const Space: React.FC<SpaceProps> = React.forwardRef<
-  HTMLElement,
-  SpaceProps
->((props, ref) => {
+export const Space = React.forwardRef<HTMLElement, SpaceProps>((props, ref) => {
   const {
     attrs = {},
     separator,
@@ -30,8 +30,7 @@ export const Space: React.FC<SpaceProps> = React.forwardRef<
     fill,
     tag,
     gap,
-  } = props as RequiredPart<SpaceProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   const style = {
     ...attrs.style,
     ...props.style,
@@ -85,5 +84,4 @@ function useChildren(
   }, [children, separator]);
 }
 
-Space.defaultProps = defaultProps;
 Space.displayName = 'Space';

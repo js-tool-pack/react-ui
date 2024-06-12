@@ -4,9 +4,12 @@ import type {
   DropdownOption,
   DropdownProps,
 } from './dropdown.types';
-import { useStateWithTrailClear, getComponentClass } from '@pkg/shared';
+import {
+  useStateWithTrailClear,
+  mergeReactDefaultProps,
+  getComponentClass,
+} from '@pkg/shared';
 import { DropdownInnerOption } from './DropdownInnerOption';
-import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
 import React, { useRef } from 'react';
 import { Popover } from '~/popover';
@@ -31,7 +34,7 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
     footer,
     size,
     ...rest
-  } = props as RequiredPart<DropdownProps, keyof typeof defaultProps>;
+  } = mergeReactDefaultProps(props, defaultProps);
   const boxRef = useRef<HTMLDivElement>(null);
 
   const [show, setShow] = useStateWithTrailClear(visible);
@@ -160,5 +163,4 @@ export const Dropdown: React.FC<DropdownProps> = (props) => {
   }
 };
 
-Dropdown.defaultProps = defaultProps;
 Dropdown.displayName = 'Dropdown';

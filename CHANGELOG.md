@@ -1,3 +1,9 @@
+## [0.0.23](https://github.com/js-tool-pack/react-ui/compare/v0.0.22...v0.0.23) (2024-06-12)
+
+### Features
+
+- **shared:** 新增 mergeReactDefaultProps 工具函数 ([abd79c6](https://github.com/js-tool-pack/react-ui/commit/abd79c6969d88a4901cb183fb547aaf8b28edc9b))
+
 ## [0.0.22](https://github.com/js-tool-pack/react-ui/compare/v0.0.21...v0.0.22) (2024-06-09)
 
 ### Bug Fixes

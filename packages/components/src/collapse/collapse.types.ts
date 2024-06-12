@@ -14,10 +14,10 @@ export interface CollapseProps extends PropsBase {
   size?: Size;
 }
 
-export type CollapseGroupItem = CollapseProps & {
+export type CollapseGroupItem = {
   children: React.ReactNode;
   key: string | number;
-};
+} & CollapseProps;
 
 export interface CollapseGroupProps extends Omit<PropsBase, 'children'> {
   onChange?: (item: CollapseGroupItem, index: number, active: boolean) => void;

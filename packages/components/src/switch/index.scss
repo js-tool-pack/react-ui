@@ -110,14 +110,12 @@ $r: Name.$switch;
           // margin-left: 4px;
         }
         .#{$r}__handle::before {
-          inset-inline-end: -30%;
-          inset-inline-start: 0;
+          inset-inline: 0 -30%;
         }
       }
       &.#{$r}--checked {
         .#{$r}__handle::before {
-          inset-inline-end: 0;
-          inset-inline-start: -30%;
+          inset-inline: -30% 0;
         }
         .#{$r}__checked {
           // margin-right: 4px;

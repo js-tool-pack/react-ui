@@ -1,5 +1,5 @@
 import type { PopoverProps } from '../popover';
 
-export type TooltipProps = Omit<PopoverProps, 'content'> & {
+export type TooltipProps = {
   title?: Required<PopoverProps>['content'];
-};
+} & Omit<PopoverProps, 'content'>;

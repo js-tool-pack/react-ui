@@ -6,19 +6,19 @@ import { createRoot } from 'react-dom/client';
 import { nextTick } from '@tool-pack/basic';
 
 type Res = readonly [
-  {
-    open(
-      content: MessagePushOptions['content'],
-      options?: PartialPart<Omit<MessagePushOptions, 'content'>, 'type'>,
-    ): void;
-    clear(): void;
-  } & Record<
+  Record<
     MessagePushOptions['type'],
     (
       content: MessagePushOptions['content'],
       options?: Omit<MessagePushOptions, 'content' | 'type'>,
     ) => void
-  >,
+  > & {
+    open(
+      content: MessagePushOptions['content'],
+      options?: PartialPart<Omit<MessagePushOptions, 'content'>, 'type'>,
+    ): void;
+    clear(): void;
+  },
   React.ReactElement,
 ];
 
@@ -26,9 +26,9 @@ type Res = readonly [
  * @param commonOptions 可以填入公共的duration、icon、showClose参数
  */
 export function useMessageHolder(
-  commonOptions: Omit<MessagePushOptions, 'content' | 'type'> & {
+  commonOptions: {
     containerAttrs?: MessagePushOptions['attrs'];
-  } = {},
+  } & Omit<MessagePushOptions, 'content' | 'type'> = {},
 ): Res {
   const { containerAttrs, ...restOptions } = commonOptions;
   const ref = useRef<MessageQueueRef>(null);

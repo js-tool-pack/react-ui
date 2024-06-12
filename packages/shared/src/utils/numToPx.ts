@@ -5,6 +5,6 @@ export function numToPx<T>(
   return value === undefined
     ? defValue
     : typeof value === 'number'
-    ? `${value}px`
-    : value;
+      ? `${value}px`
+      : value;
 }

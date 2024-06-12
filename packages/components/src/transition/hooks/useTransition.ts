@@ -16,7 +16,7 @@ export function useTransition(
   { attrs = {} }: Partial<TransitionProps> = {},
 ): React.ReactElement<HTMLElement> | undefined {
   const elRef = useForwardRef(
-    (children as React.RefAttributes<unknown>)?.ref,
+    (children as React.FunctionComponentElement<HTMLElement>)?.ref,
   ) as React.MutableRefObject<HTMLElement | null>;
 
   if (!children) elRef.current = null;
@@ -84,10 +84,10 @@ export function useTransition(
       ref: elRef,
       className,
       style,
-    } as React.HTMLAttributes<HTMLElement> &
-      React.DOMAttributes<HTMLElement> & {
-        attrs: React.HTMLAttributes<HTMLElement>;
-      };
+    } as {
+      attrs: React.HTMLAttributes<HTMLElement>;
+    } & React.HTMLAttributes<HTMLElement> &
+      React.DOMAttributes<HTMLElement>;
 
     if (typeof children.props.attrs === 'object') {
       props.attrs = { ...children.props.attrs, className, style };

@@ -5,12 +5,17 @@ import {
   useState,
   Children,
 } from 'react';
+import type {
+  FunctionComponentElement,
+  ReactElement,
+  ReactNode,
+  Key,
+} from 'react';
 import {
   type TransitionProps,
   transitionCBAdapter,
   Transition,
 } from '~/transition';
-import type { RefAttributes, ReactElement, ReactNode, Key } from 'react';
 import type { ChildMapValue, ChildMap } from '../transition-group.types';
 import { useIsInitDep, forwardRefs } from '@pkg/shared';
 
@@ -206,7 +211,10 @@ function cloneChildren(
   return isValidElement(children)
     ? cloneElement(children as ReactElement, {
         ref: (el: HTMLElement) => {
-          forwardRefs(el, (children as RefAttributes<any>).ref);
+          forwardRefs(
+            el,
+            (children as FunctionComponentElement<HTMLElement>).ref,
+          );
           el && (childMapValue.ref = el);
         },
       })

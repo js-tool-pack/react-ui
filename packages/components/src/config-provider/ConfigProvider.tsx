@@ -3,9 +3,9 @@ import { ConfigContext } from './config.context';
 import React from 'react';
 
 export const ConfigProvider: React.FC<
-  Partial<Context> & {
+  {
     children: React.ReactNode;
-  }
+  } & Partial<Context>
 > = ({ locale = {}, children }) => {
   return (
     <ConfigContext.Provider value={{ locale }}>

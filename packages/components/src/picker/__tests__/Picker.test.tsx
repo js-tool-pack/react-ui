@@ -14,6 +14,14 @@ describe('Picker', () => {
     );
     expect(container.firstChild).toMatchSnapshot();
   });
+  test('basic2', () => {
+    const { container } = render(
+      <Picker
+        options={[createLetterOptions('A', 2), createLetterOptions('0', 2)]}
+      />,
+    );
+    expect(container.firstChild).toMatchSnapshot();
+  });
 
   function createLetterOptions(char: string, length: number): PickerOption[] {
     return Array.from({ length }).map((_, i) => {

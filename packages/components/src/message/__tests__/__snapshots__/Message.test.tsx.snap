@@ -12,7 +12,6 @@ exports[`Message holder 2`] = `
 >
   <li
     class="t-message-queue-enter-active t-message-queue-enter-to"
-    style=""
   >
     <div
       class="t-message t-message--info"

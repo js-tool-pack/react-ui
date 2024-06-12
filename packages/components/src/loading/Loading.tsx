@@ -1,14 +1,19 @@
 import {
+  mergeReactDefaultProps,
+  useScrollLock,
+  getClasses,
+  useVisible,
+  Z_INDEX,
+} from '@pkg/shared';
+import {
   TRANSITION_LIFE_CIRCLE,
   TRANSITION_STATUS,
   Transition,
 } from '~/transition';
-import { useScrollLock, getClasses, useVisible, Z_INDEX } from '@pkg/shared';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useLocale } from '~/config-provider/useLocale';
 import { Loading as LoadingIcon } from '@pkg/icons';
 import { getClassNames } from '@tool-pack/basic';
-import { RequiredPart } from '@tool-pack/types';
 import { LoadingProps } from './loading.types';
 import EnUS from '~/loading/locale/en-US';
 import { createPortal } from 'react-dom';
@@ -46,8 +51,7 @@ export const Loading: React.FC<LoadingProps> = (props) => {
     color,
     mode,
     icon,
-  } = props as RequiredPart<LoadingProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [visible, hide] = useVisible(outerVisible);
 
@@ -134,5 +138,4 @@ export const Loading: React.FC<LoadingProps> = (props) => {
   );
 };
 
-Loading.defaultProps = defaultProps;
 Loading.displayName = 'Loading';

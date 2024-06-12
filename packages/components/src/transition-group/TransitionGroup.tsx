@@ -1,8 +1,7 @@
 import type { TransitionGroupProps } from './transition-group.types';
 import { useChildMap, useWrapper, useFlips } from './hooks';
-import { RequiredPart } from '@tool-pack/types';
+import { mergeReactDefaultProps } from '@pkg/shared';
 import { forwardRef, memo } from 'react';
-import type { FC } from 'react';
 
 /**
  * v1 版有部分 bug 不好解决。
@@ -20,21 +19,19 @@ const defaultProps = {
   tag: 'div',
 } satisfies TransitionGroupProps;
 
-const TransitionGroup: FC<TransitionGroupProps> = forwardRef<
-  HTMLDivElement,
-  TransitionGroupProps
->((props, ref) => {
-  const { children, name, ...rest } = props as RequiredPart<
-    TransitionGroupProps,
-    keyof typeof defaultProps
-  >;
-  const childMap = useChildMap(children, name);
-  const wrapper = useWrapper(childMap, rest, ref);
-  useFlips(childMap, name);
-  return wrapper;
-});
+const TransitionGroup = forwardRef<HTMLDivElement, TransitionGroupProps>(
+  (props, ref) => {
+    const { children, name, ...rest } = mergeReactDefaultProps(
+      props,
+      defaultProps,
+    );
+    const childMap = useChildMap(children, name);
+    const wrapper = useWrapper(childMap, rest, ref);
+    useFlips(childMap, name);
+    return wrapper;
+  },
+);
 
-TransitionGroup.defaultProps = defaultProps;
 TransitionGroup.displayName = 'TransitionGroup';
 
 export default memo(TransitionGroup);

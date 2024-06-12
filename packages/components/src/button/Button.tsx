@@ -1,6 +1,9 @@
-import { getSizeClassName, getClasses } from '@pkg/shared';
+import {
+  mergeReactDefaultProps,
+  getSizeClassName,
+  getClasses,
+} from '@pkg/shared';
 import { ButtonContext } from '~/button/button.context';
-import type { RequiredPart } from '@tool-pack/types';
 import type { ButtonProps } from './button.types';
 import { getClassNames } from '@tool-pack/basic';
 import { useBtnWave, useBtnIcon } from './hooks';
@@ -45,10 +48,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       type,
       icon,
-    } = { ...defaultProps, ...context, ...props } as RequiredPart<
-      ButtonProps,
-      keyof typeof defaultProps
-    >;
+    } = mergeReactDefaultProps(
+      props,
+      mergeReactDefaultProps(context, defaultProps),
+    );
 
     const [btnWave, activateWave] = useBtnWave(cls.root);
     const btnIcon = useBtnIcon(cls.root, icon, loading);

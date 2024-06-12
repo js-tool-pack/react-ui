@@ -1,12 +1,5 @@
 import {
-  TRANSITION_LIFE_CIRCLE,
-  TRANSITION_STATUS,
-  Transition,
-  Resizer,
-  Button,
-  Icon,
-} from '@pkg/components';
-import {
+  mergeReactDefaultProps,
   getComponentClass,
   useScrollLock,
   useAppendTo,
@@ -14,12 +7,19 @@ import {
   numToPx,
   Z_INDEX,
 } from '@pkg/shared';
+import {
+  TRANSITION_LIFE_CIRCLE,
+  TRANSITION_STATUS,
+  Transition,
+  Resizer,
+  Button,
+  Icon,
+} from '@pkg/components';
 import React, { useCallback, useMemo, useRef } from 'react';
 import { getClassNames, isString } from '@tool-pack/basic';
 import { Footer, Header, Layout, Main } from '~/layouts';
 import type { DrawerProps } from './drawer.types';
 import { Close as CloseIcon } from '@pkg/icons';
-import { RequiredPart } from '@tool-pack/types';
 import { useEsc } from '~/dialog/dialog.hooks';
 import { createPortal } from 'react-dom';
 
@@ -64,8 +64,7 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
     title,
     size,
     esc,
-  } = props as RequiredPart<DrawerProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
   const [visible, close] = useVisible(outerVisible, onClose);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -207,5 +206,4 @@ export const Drawer: React.FC<DrawerProps> = (props) => {
   return createPortal(Trans, appendToTarget);
 };
 
-Drawer.defaultProps = defaultProps;
 Drawer.displayName = 'Drawer';

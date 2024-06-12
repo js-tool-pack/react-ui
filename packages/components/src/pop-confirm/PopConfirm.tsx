@@ -1,7 +1,10 @@
-import { getComponentClass, useVisible } from '@pkg/shared';
+import {
+  mergeReactDefaultProps,
+  getComponentClass,
+  useVisible,
+} from '@pkg/shared';
 import type { PopConfirmProps } from './pop-confirm.types';
 import { useLocale } from '~/config-provider/useLocale';
-import type { RequiredPart } from '@tool-pack/types';
 import { Layout, Footer, Main } from '~/layouts';
 import { CircleInfoFill } from '@pkg/icons';
 import React, { useEffect } from 'react';
@@ -28,8 +31,7 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
     content,
     icon,
     ...rest
-  } = props as RequiredPart<PopConfirmProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   const _confirm = confirmProps ?? {};
   const _cancel = cancelProps ?? {};
 
@@ -105,5 +107,4 @@ export const PopConfirm: React.FC<PopConfirmProps> = (props) => {
   );
 };
 
-PopConfirm.defaultProps = defaultProps;
 PopConfirm.displayName = 'PopConfirm';

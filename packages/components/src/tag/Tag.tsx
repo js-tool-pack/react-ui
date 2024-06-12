@@ -1,5 +1,9 @@
-import { getSizeClassName, getClasses, useVisible } from '@pkg/shared';
-import type { RequiredPart } from '@tool-pack/types';
+import {
+  mergeReactDefaultProps,
+  getSizeClassName,
+  getClasses,
+  useVisible,
+} from '@pkg/shared';
 import { type ButtonProps, Button } from '~/button';
 import { getClassNames } from '@tool-pack/basic';
 import type { TagProps } from './tag.types';
@@ -18,10 +22,7 @@ const defaultProps = {
   bordered: true,
 } satisfies Partial<TagProps>;
 
-export const Tag: React.FC<TagProps> = React.forwardRef<
-  HTMLDivElement,
-  TagProps
->((props, ref) => {
+export const Tag = React.forwardRef<HTMLDivElement, TagProps>((props, ref) => {
   const {
     checked: outerChecked,
     closeBtnAttrs = {},
@@ -37,8 +38,7 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
     type,
     icon,
     size,
-  } = props as RequiredPart<TagProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   const [closed, setClosed] = useState(false);
   const [checked, , setChecked] = useVisible(outerChecked);
 
@@ -103,5 +103,4 @@ export const Tag: React.FC<TagProps> = React.forwardRef<
   }
 });
 
-Tag.defaultProps = defaultProps;
 Tag.displayName = 'Tag';

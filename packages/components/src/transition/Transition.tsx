@@ -1,6 +1,6 @@
 import { useDispatcher, useTransition } from '~/transition/hooks';
 import type { TransitionProps } from './transition.types';
-import type { RequiredPart } from '@tool-pack/types';
+import { mergeReactDefaultProps } from '@pkg/shared';
 import React, { useRef, memo } from 'react';
 
 let id = 1;
@@ -15,7 +15,7 @@ const Transition: React.FC<TransitionProps> = (props): React.ReactElement => {
   if (!cid.current) cid.current = id++;
 
   const { children, appear, name, mode, show, on, ...rest } =
-    props as RequiredPart<TransitionProps, keyof typeof defaultProps>;
+    mergeReactDefaultProps(props, defaultProps);
 
   const [prev, next, prevStatus, nextStatus, handler] = useDispatcher(
     mode,
@@ -39,6 +39,5 @@ const Transition: React.FC<TransitionProps> = (props): React.ReactElement => {
 };
 
 Transition.displayName = 'Transition';
-Transition.defaultProps = defaultProps;
 
 export default memo(Transition);

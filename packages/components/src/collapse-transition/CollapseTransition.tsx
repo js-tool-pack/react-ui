@@ -5,20 +5,19 @@ import {
   Transition,
 } from '../transition';
 import type { CollapseTransitionProps } from './collapse-transition.types';
+import { mergeReactDefaultProps, getComponentClass } from '@pkg/shared';
 import React, { useCallback, useMemo, useRef } from 'react';
-import type { RequiredPart } from '@tool-pack/types';
 import { getClassNames } from '@tool-pack/basic';
-import { getComponentClass } from '@pkg/shared';
 
 const rootName = getComponentClass('collapse-transition');
 
 export const CollapseTransition: React.FC<CollapseTransitionProps> = (
   props,
 ) => {
-  const { children, width, on, ...rest } = props as RequiredPart<
-    CollapseTransitionProps,
-    keyof typeof defaultProps
-  >;
+  const { children, width, on, ...rest } = mergeReactDefaultProps(
+    props,
+    defaultProps,
+  );
   const memorizedSize = useRef('');
 
   const sizeType: 'maxHeight' | 'maxWidth' = useMemo(
@@ -125,5 +124,4 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
 };
 
 const defaultProps = {} satisfies Partial<CollapseTransitionProps>;
-CollapseTransition.defaultProps = defaultProps;
 CollapseTransition.displayName = 'CollapseTransition';

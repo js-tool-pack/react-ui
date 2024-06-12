@@ -1,5 +1,6 @@
 import {
   useEventListenerOnMounted,
+  mergeReactDefaultProps,
   VisibleController,
   useForwardRef,
   getClasses,
@@ -7,7 +8,6 @@ import {
 } from '@pkg/shared';
 import type { InputPopoverProps } from './input-popover.types';
 import React, { useEffect, useState, useRef } from 'react';
-import type { RequiredPart } from '@tool-pack/types';
 import { filter as rxFilter, fromEvent } from 'rxjs';
 import { transitionCBAdapter } from '~/transition';
 import { getClassNames } from '@tool-pack/basic';
@@ -19,7 +19,7 @@ import { Popover } from '~/popover';
 const defaultProps = {} satisfies Partial<InputPopoverProps>;
 const cls = getClasses('input-popover', [], []);
 
-export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
+export const InputPopover = React.forwardRef<
   HTMLLabelElement,
   InputPopoverProps
 >((props, ref) => {
@@ -36,8 +36,7 @@ export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
     active,
     status,
     size,
-  } = props as RequiredPart<InputPopoverProps, keyof typeof defaultProps>;
-
+  } = mergeReactDefaultProps(props, defaultProps);
   // 当点击触发元素或窗体时，禁止触发 blur
   const skipBlurRef = useRef(false);
   const _tabTriggerRef = useForwardRef(tabTriggerRef);
@@ -160,5 +159,4 @@ export const InputPopover: React.FC<InputPopoverProps> = React.forwardRef<
   }
 });
 
-InputPopover.defaultProps = defaultProps;
 InputPopover.displayName = 'InputPopover';

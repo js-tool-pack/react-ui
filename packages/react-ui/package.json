@@ -5,7 +5,11 @@
   "scripts": {
     "rm:dist": "rimraf ./dist",
     "build": "npm run build:vite && npm run build:dts && npm run build:scss && npm run build:postcss && npm run build:locale",
-    "build:vite": "vite build",
+    "build:vite": "npm run build:vite:es-cjs && npm run build:vite:iife",
+    "build:vite:es-cjs": "vite build -c vite.config.ts",
+    "build:vite:iife": "vite build -c vite.config.iife.ts",
+    "analyze:es": "vite build -c vite.config.ts --mode analyze",
+    "analyze:iife": "vite build -c vite.config.iife.ts --mode analyze",
     "build:scss-single": "tsx scripts/scss-single-file.ts",
     "build:scss": "sass src/index.scss dist/index.css --no-source-map && npm run build:scss-single",
     "build:postcss": "postcss --config ./postcss.config.js dist/index.css -o dist/index.css",
@@ -51,11 +55,10 @@
     "LICENSE"
   ],
   "dependencies": {
-    "@tool-pack/types": "^0.2.0"
-  },
-  "devDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@tool-pack/types": "^0.3.0",
+    "@tool-pack/basic": "^0.9.1",
+    "@tool-pack/dom": "^0.4.0",
+    "rxjs": "^7.8.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",

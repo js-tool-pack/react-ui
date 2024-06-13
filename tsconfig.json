@@ -39,6 +39,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
+    // 为 react 时 jsx 文件要导入 react (不管有没有用到)；为 react-jsx 时jsx文件不需要导入，但是会打包 jsx-runtime 依赖
     "jsx": "react-jsx",
     "paths": {
       "@pkg/*": ["./packages/*/src"],

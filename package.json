@@ -1,6 +1,6 @@
 {
   "name": "@tool-pack/react-ui-monorepo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "packageManager": "pnpm@9.3.0",
   "workspaces": [

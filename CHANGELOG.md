@@ -1,3 +1,9 @@
+## [0.1.1](https://github.com/js-tool-pack/react-ui/compare/v0.1.0...v0.1.1) (2024-06-13)
+
+### Bug Fixes
+
+- 使用时会报错找不到 React ([b8d0aee](https://github.com/js-tool-pack/react-ui/commit/b8d0aee32825e404c1439dad151193e6b83b1a4b))
+
 # [0.1.0](https://github.com/js-tool-pack/react-ui/compare/v0.0.23...v0.1.0) (2024-06-13)
 
 ### Bug Fixes

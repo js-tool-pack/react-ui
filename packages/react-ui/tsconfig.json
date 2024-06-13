@@ -6,6 +6,7 @@
     "rootDir": "../../",
     "outDir": "./temp/types",
     "declarationDir": "./temp/types",
+    "types": ["../../packages/components/src/react-dom.d.ts"],
     "paths": {
       "@pkg/*": ["../../packages/*/src"],
       "@pkg/components/*": ["../../packages/components/src/*"],

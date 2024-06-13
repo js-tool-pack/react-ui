@@ -1,8 +1,8 @@
 import { debounceTime, fromEvent, timer, race, take, tap } from 'rxjs';
 import { OptionValueType, getClasses } from '@pkg/shared';
 import { getClassNames, emptyFn } from '@tool-pack/basic';
+import React, { useEffect, useRef } from 'react';
 import type { PickerOption } from '~/picker';
-import { useEffect, useRef } from 'react';
 import { Option } from '~/option';
 
 interface Props {

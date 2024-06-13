@@ -1,6 +1,7 @@
 import type { LoadingProps } from './loading.types';
 import { createRoot, Root } from 'react-dom';
 import { Loading } from './Loading';
+import React from 'react';
 
 let root: undefined | Root;
 
@@ -15,7 +16,7 @@ export function showLoading(
   if (root) root.unmount();
 
   const r = createRoot(document.createElement('div'));
-  r.render(
+  const l: React.ReactElement = (
     <Loading
       closeOnClick={true}
       visible={true}
@@ -24,7 +25,8 @@ export function showLoading(
         r.unmount();
         root = undefined;
       }}
-    />,
+    />
   );
+  r.render(l);
   root = r;
 }

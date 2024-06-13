@@ -1,5 +1,5 @@
 import type { MessagePushOptions, MessageQueueRef } from './message.types';
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { PartialPart } from '@tool-pack/types';
 import { MessageQueue } from './MessageQueue';
 import { nextTick } from '@tool-pack/basic';

@@ -1,5 +1,5 @@
-import { createContext, ReactElement, useRef, FC } from 'react';
 import type { DraggableGroupProps } from './draggable.types';
+import React, { createContext, useRef, FC } from 'react';
 import { mergeReactDefaultProps } from '@pkg/shared';
 
 const defaultProps = {
@@ -10,7 +10,7 @@ const defaultProps = {
  * 在 dragstart 里生产，在 dragenter 消费，在 drop ｜ dragend 销毁
  */
 export interface DraggableGroupContextProvider {
-  readonly children: ReactElement;
+  readonly children: React.ReactElement;
   cancel?: (id: symbol) => void;
   enter?: (id: symbol) => void;
   drop?: (id: symbol) => void;

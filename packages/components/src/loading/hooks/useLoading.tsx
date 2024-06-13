@@ -1,7 +1,7 @@
 import type { LoadingProps } from '../loading.types';
 import { createRoot } from 'react-dom/client';
-import { useEffect, useState } from 'react';
 import { Loading } from '../Loading';
+import React from 'react';
 
 /**
  * 调用hook开启loading，无需挂靠render
@@ -15,9 +15,9 @@ export function useLoading(props: Partial<LoadingProps> = {}): {
 } {
   const { visible = true, ...rest } = props;
   // 可以通过外面传入的visible控制显隐
-  const [_visible, setVisible] = useState(false);
+  const [_visible, setVisible] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (_visible) {
       const r = createRoot(document.createElement('div'));
       r.render(
@@ -36,7 +36,7 @@ export function useLoading(props: Partial<LoadingProps> = {}): {
     }
   }, [_visible]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setVisible(visible);
   }, [visible]);
 

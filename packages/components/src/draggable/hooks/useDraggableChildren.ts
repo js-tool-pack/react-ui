@@ -8,7 +8,7 @@ import {
   useForceUpdate,
 } from '@pkg/shared';
 import type { DOMAttributes, ReactElement, ReactNode, DragEvent } from 'react';
-import { cloneElement, useContext, Children, useRef } from 'react';
+import React, { cloneElement, useContext, useRef } from 'react';
 import { getClassNames, insertToArray } from '@tool-pack/basic';
 import type { DraggableProps } from '~/draggable';
 import { moveItem } from '../utils';
@@ -27,7 +27,7 @@ export function useDraggableChildren({
   const forceUpdate = useForceUpdate();
   const modifyChildrenRef = useFollowingRef(
     outerChildren,
-    (v) => Children.map(v, (i) => i) || [],
+    (v) => React.Children.map(v, (i) => i) || [],
   );
   const listRef = useFollowingRef(list, (v) => ({
     origin: v.slice(),

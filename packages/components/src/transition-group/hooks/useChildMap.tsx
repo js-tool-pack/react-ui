@@ -1,10 +1,3 @@
-import {
-  isValidElement,
-  cloneElement,
-  useEffect,
-  useState,
-  Children,
-} from 'react';
 import type {
   FunctionComponentElement,
   ReactElement,
@@ -16,6 +9,12 @@ import {
   transitionCBAdapter,
   Transition,
 } from '~/transition';
+import React, {
+  isValidElement,
+  cloneElement,
+  useEffect,
+  useState,
+} from 'react';
 import type { ChildMapValue, ChildMap } from '../transition-group.types';
 import { useIsInitDep, forwardRefs } from '@pkg/shared';
 
@@ -60,7 +59,7 @@ function createMap(
   const map: ChildMap = new Map();
 
   // 如果没有手动添加key, Children.map会自动添加key，就算手动添加也会被 map 处理一遍，跟原来的不一样
-  Children.map(children, (c) => c)?.forEach((child) => {
+  React.Children.map(children, (c) => c)?.forEach((child) => {
     if (!isValidElement(child)) return;
     const key = child.key || '';
     if (!key) return;
@@ -78,7 +77,7 @@ function mergeChildMap(
 ): ChildMap {
   const childMap: ChildMap = new Map();
   const map = new Map<Key, ReactElement>();
-  Children.map(children, (c) => c)?.forEach(
+  React.Children.map(children, (c) => c)?.forEach(
     (c) => isValidElement(c) && c.key && map.set(c.key, c),
   );
   let insertKeys: Key[] = [];

@@ -2,11 +2,10 @@
 import type { DraggableProps, DraggableFC } from './draggable.types';
 import { mergeReactDefaultProps, getClasses } from '@pkg/shared';
 // import { useLocale } from '~/config-provider/useLocale';
+import React, { createElement, forwardRef } from 'react';
 import { TransitionGroup } from '~/transition-group';
-import { createElement, forwardRef } from 'react';
 import { getClassNames } from '@tool-pack/basic';
 import { useDraggableChildren } from './hooks';
-import type { ReactElement } from 'react';
 
 export const cls = getClasses('draggable', ['ghost', 'item'], ['hidden']);
 const defaultProps = {
@@ -29,7 +28,7 @@ export const _Draggable = forwardRef<HTMLDivElement, DraggableProps>(
       const transitionProps = transition === true ? undefined : transition;
       return (
         <TransitionGroup {...transitionProps} className={className} tag={tag}>
-          {children as ReactElement[]}
+          {children as React.ReactElement[]}
         </TransitionGroup>
       );
     }

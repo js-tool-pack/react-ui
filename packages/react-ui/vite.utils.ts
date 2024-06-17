@@ -1,4 +1,4 @@
-import { replaceCodePlugin } from 'vite-plugin-replace';
+// import { replaceCodePlugin } from 'vite-plugin-replace';
 import { visualizer } from 'rollup-plugin-visualizer';
 import type { RequiredPart } from '@tool-pack/types';
 import type { UserConfig, Plugin } from 'vite';
@@ -37,11 +37,11 @@ export function getCommonViteConfig(
       // react({
       //   jsxRuntime: 'classic',
       // }),
-      replaceCodePlugin({
-        replacements: [
-          { to: JSON.stringify('production'), from: 'process.env.NODE_ENV' },
-        ],
-      }),
+      // replaceCodePlugin({
+      //   replacements: [
+      //     { to: JSON.stringify('production'), from: 'process.env.NODE_ENV' },
+      //   ],
+      // }),
       {
         ...(visualizer({ filename: 'temp/analyze.html' }) as Plugin),
         apply(_, { mode }) {
@@ -63,6 +63,10 @@ export function getCommonViteConfig(
     // },
     esbuild: {
       tsconfigRaw: { compilerOptions: { jsx: 'react' } },
+    },
+    // 环境变量配置
+    define: {
+      'process.env.NODE_ENV': "'production'",
     },
     resolve: {
       alias: getAlias(),

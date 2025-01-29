@@ -1,5 +1,5 @@
 import type { LoadingProps } from './loading.types';
-import { createRoot, Root } from 'react-dom';
+import { createRoot, Root } from 'react-dom/client';
 import { Loading } from './Loading';
 import React from 'react';
 

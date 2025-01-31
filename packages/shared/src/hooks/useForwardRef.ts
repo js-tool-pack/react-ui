@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 
 export function useForwardRef<T>(
   forwardRef: React.ForwardedRef<T> | undefined,
-): React.RefObject<T> {
+): React.RefObject<null | T> {
   const ref = useRef<T>(null);
   const initRef = useRef<null | FN>(() => {
     if (!forwardRef) return;

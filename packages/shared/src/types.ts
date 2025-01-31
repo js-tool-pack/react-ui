@@ -7,10 +7,15 @@ export type Placement = (typeof PLACEMENTS)[number];
 export type Placement_12 = (typeof PLACEMENTS_12)[number];
 export interface PropsBase<T extends HTMLElement = HTMLElement> {
   attrs?: Partial<React.HTMLAttributes<T>>;
-  ref?: React.ForwardedRef<T>;
   children?: React.ReactNode;
+  ref?: React.Ref<T>;
 }
 
 export type OptionValueType = string | number;
 
 export type VisibleController = { show(): void; hide(): void };
+
+export interface ChildrenProps extends React.HTMLAttributes<HTMLElement> {
+  ref: React.RefObject<HTMLElement | null>;
+  children?: React.ReactNode;
+}

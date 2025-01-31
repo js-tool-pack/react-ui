@@ -1,4 +1,4 @@
-import type { MutableRefObject, Ref } from 'react';
+import type { RefObject, Ref } from 'react';
 
 /**
  * 传递 ref
@@ -14,7 +14,7 @@ export function forwardRefs(
         ref(value);
         break;
       case 'object':
-        (ref as MutableRefObject<unknown>).current = value;
+        (ref as RefObject<unknown>).current = value;
         break;
     }
   });

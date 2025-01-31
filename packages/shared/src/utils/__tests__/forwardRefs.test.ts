@@ -6,7 +6,7 @@ describe('forwardRefs', () => {
   test('forwardRefs should work', () => {
     const ref2 = jest.fn();
     const hook = renderHook(() => {
-      const ref1 = useRef();
+      const ref1 = useRef(undefined);
       forwardRefs(100, ref1, ref2);
       return ref1.current;
     });

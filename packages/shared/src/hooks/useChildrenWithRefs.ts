@@ -6,6 +6,7 @@ import {
   ReactNode,
   Children,
   useMemo,
+  Ref,
 } from 'react';
 
 /**
@@ -30,7 +31,7 @@ export function useChildrenWithRefs(
           ref: (el: HTMLElement) => {
             refs[index] = el;
             // ref 现在是直接放在 ReactElement 上的，props 虽然也有，但取的是 undefined
-            const originRef = (child as any).ref;
+            const originRef = (child.props as { ref: Ref<unknown> }).ref;
             // const originRef = child.props.ref;
             if (!originRef) return;
             // 连通原来的 ref

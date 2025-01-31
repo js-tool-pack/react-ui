@@ -55,7 +55,7 @@ export const Menu: React.FC<Props> = (props) => {
   } = props;
   const forceUpdate = useForceUpdate();
   const boxRef = useRef<HTMLDivElement>(null);
-  const activeOptionRef = useRef<SelectOption | undefined>();
+  const activeOptionRef = useRef<SelectOption | undefined>(undefined);
   const nextEffect = useNextEffect();
 
   // 方向键移动光标

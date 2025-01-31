@@ -103,10 +103,10 @@ export const CollapseTransition: React.FC<CollapseTransitionProps> = (
   );
 
   const Body = React.isValidElement(children)
-    ? React.cloneElement(children as React.ReactElement, {
+    ? React.cloneElement(children as React.ReactElement<HTMLElement>, {
         className: getClassNames(
           rootName,
-          (children as React.ReactElement).props.className,
+          (children as React.ReactElement<HTMLElement>).props.className,
           {
             [`${rootName}--h`]: !width,
             [`${rootName}--w`]: width,

@@ -10,7 +10,7 @@ const defaultProps = {
  * 在 dragstart 里生产，在 dragenter 消费，在 drop ｜ dragend 销毁
  */
 export interface DraggableGroupContextProvider {
-  readonly children: React.ReactElement;
+  readonly children: React.ReactElement<HTMLElement>;
   cancel?: (id: symbol) => void;
   enter?: (id: symbol) => void;
   drop?: (id: symbol) => void;

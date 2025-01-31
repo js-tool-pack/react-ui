@@ -159,7 +159,7 @@ export function useDraggableChildren({
                 let toIndex = index;
                 const modifyChildren = modifyChildrenRef.current[
                   fromIndex
-                ] as ReactElement;
+                ] as ReactElement<HTMLElement>;
                 // move 返回之前隐藏的 children 位置，如果存在则 index - 1
                 if (
                   type === 'move' &&
@@ -174,7 +174,9 @@ export function useDraggableChildren({
             } else {
               updateChildrenOf(
                 cloneAndAddClassName(
-                  modifyChildrenRef.current[fromIndex] as ReactElement,
+                  modifyChildrenRef.current[
+                    fromIndex
+                  ] as ReactElement<HTMLElement>,
                 ),
                 fromIndex,
               );
@@ -239,7 +241,11 @@ export function useDraggableChildren({
     moveItem(listRef.current.modify, from, to);
     forceUpdate();
   }
-  function moveFromGroup(item: unknown, children: ReactElement, to: number) {
+  function moveFromGroup(
+    item: unknown,
+    children: ReactElement<HTMLElement>,
+    to: number,
+  ) {
     children = cloneAndAddClassName(children);
     const temp = modifyChildrenRef.current.slice();
     insertToArray(children, to, temp);
@@ -255,9 +261,9 @@ export function useDraggableChildren({
     forceUpdate();
   }
   function cloneAndAddClassName(
-    element: ReactElement,
+    element: ReactElement<HTMLElement>,
     className = cls.__.ghost,
-  ): ReactElement {
+  ): ReactElement<HTMLElement> {
     return cloneElement(element, {
       className: getClassNames(element.props.className, className),
     });

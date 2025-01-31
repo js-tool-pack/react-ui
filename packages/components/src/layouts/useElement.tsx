@@ -5,7 +5,7 @@ import React from 'react';
 
 export function useElement(
   props: BaseLayoutsProps,
-  ref: React.ForwardedRef<HTMLElement>,
+  ref: React.Ref<HTMLElement> | undefined,
   rootClass: string,
 ): React.ReactElement {
   const {

@@ -10,7 +10,7 @@ import { OptionsPanel } from '../panel';
 import React from 'react';
 
 interface Props extends InnerCommonProps {
-  panelRef: React.RefObject<HTMLDivElement>;
+  panelRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const cls = getClasses('date-picker-time-picker', ['pop'], []);

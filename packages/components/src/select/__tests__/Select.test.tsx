@@ -6,7 +6,6 @@ import {
 } from '~/select';
 import { fireEvent, render, act } from '@testing-library/react';
 import { getBalloon, $$, $ } from './utils';
-import { emptyFn } from '@tool-pack/basic';
 import { testAttrs } from '~/testAttrs';
 import { useRef } from 'react';
 
@@ -331,18 +330,19 @@ describe('Select', () => {
     ).toHaveClass(' t-input-skin--warning');
   });
 
-  test('missing options', () => {
-    // 使用jest.spyOn监听prop-types警告
-    const consoleErrorSpy = jest.spyOn(console, 'error');
-    consoleErrorSpy.mockImplementation(emptyFn);
-
-    render(<Select options={undefined as any} />);
-
-    // 验证控制台是否打印了prop-types警告
-    expect(consoleErrorSpy.mock.calls[0]![2]).toBe(
-      'The prop `options` is marked as required in `Select`, but its value is `undefined`.',
-    );
-    // 恢复console.error函数
-    consoleErrorSpy.mockRestore();
-  });
+  // prop-types 库已经没用了
+  // test('missing options', () => {
+  //   // 使用jest.spyOn监听prop-types警告
+  //   const consoleErrorSpy = jest.spyOn(console, 'error');
+  //   consoleErrorSpy.mockImplementation(emptyFn);
+  //
+  //   render(<Select options={[]} />);
+  //
+  //   // 验证控制台是否打印了prop-types警告
+  //   expect(consoleErrorSpy.mock.calls[0]![2]).toBe(
+  //     'The prop `options` is marked as required in `Select`, but its value is `undefined`.',
+  //   );
+  //   // 恢复console.error函数
+  //   consoleErrorSpy.mockRestore();
+  // });
 });

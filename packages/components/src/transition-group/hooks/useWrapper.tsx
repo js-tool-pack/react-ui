@@ -1,5 +1,5 @@
 import type { TransitionGroupProps, ChildMap } from '../transition-group.types';
-import type { ReactElement, ForwardedRef, ReactNode } from 'react';
+import type { ReactElement, ReactNode, Ref } from 'react';
 import { getClassNames } from '@tool-pack/basic';
 import { RequiredPart } from '@tool-pack/types';
 import { getComponentClass } from '@pkg/shared';
@@ -9,7 +9,7 @@ const rootClass = getComponentClass('transition-group');
 export function useWrapper(
   childMap: ChildMap,
   props: TransitionGroupProps,
-  ref: ForwardedRef<HTMLDivElement>,
+  ref?: Ref<HTMLDivElement>,
 ): ReactNode {
   const {
     attrs = {},

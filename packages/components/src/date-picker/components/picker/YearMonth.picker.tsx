@@ -7,7 +7,7 @@ import React from 'react';
 
 interface Props {
   onChange: (value: [year: number, month: number]) => void;
-  panelRef: React.RefObject<HTMLDivElement>;
+  panelRef: React.RefObject<HTMLDivElement | null>;
   value?: Date;
 }
 

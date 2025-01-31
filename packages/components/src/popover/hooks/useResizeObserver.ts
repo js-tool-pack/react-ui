@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 export function useResizeObserver(
   enable: boolean,
-  elRef: React.MutableRefObject<HTMLElement | null>,
+  elRef: React.RefObject<HTMLElement | null>,
   callback: () => void,
 ) {
   useEffect(() => {

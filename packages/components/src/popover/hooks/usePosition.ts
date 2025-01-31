@@ -6,8 +6,8 @@ import React, { useMemo, useRef } from 'react';
 import { throttle } from '@tool-pack/basic';
 
 export function usePosition(
-  triggerElRef: React.RefObject<HTMLElement>,
-  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
+  triggerElRef: React.RefObject<HTMLElement | null>,
+  balloonElRef: React.RefObject<HTMLElement | undefined>,
   {
     viewport: getViewportEl,
     widthByTrigger,

@@ -44,7 +44,7 @@ const App: React.FC = () => {
   const [mValue, setMValue] = useState([]);
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState<SelectOption[]>([]);
-  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   return (
     <>

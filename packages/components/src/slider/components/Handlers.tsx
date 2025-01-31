@@ -1,6 +1,6 @@
 import React, {
   useImperativeHandle,
-  MutableRefObject,
+  RefObject,
   useEffect,
   useMemo,
   useRef,
@@ -36,8 +36,8 @@ interface Props
   onHandlerKeyDown: (stepScale: -1 | 1, index: number) => void;
   setValueOfIndex: (value: number, index: number) => void;
   getValueFromMousePos: (pos: Point) => number;
-  valuesRef: MutableRefObject<number[]>;
   controlRef: Ref<HandlersControlRef>;
+  valuesRef: RefObject<number[]>;
   total: number;
 }
 

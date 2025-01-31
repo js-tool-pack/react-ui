@@ -55,7 +55,7 @@ const App: React.FC = () => {
     const labels = parents
       .map((opt) => {
         if (!React.isValidElement(opt.label)) return opt.label;
-        return opt.label.props.children.props.children;
+        return (opt.label.props as any).children.props.children;
       })
       .concat(option.label)
       .join(' => ');

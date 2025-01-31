@@ -1,6 +1,7 @@
 import {
   mergeReactDefaultProps,
   useScrollLock,
+  ChildrenProps,
   getClasses,
   useVisible,
   Z_INDEX,
@@ -113,17 +114,19 @@ export const Loading: React.FC<LoadingProps> = (props) => {
 
   // 插入children
   // 当传入的children是非html元素时，不使用插入模式
-  if (mode === 'insert' && React.isValidElement(children))
+  if (mode === 'insert' && React.isValidElement(children)) {
+    const cProps = children.props as ChildrenProps;
     return React.cloneElement(
-      children,
+      children as React.DetailedReactHTMLElement<object, HTMLDivElement>,
       {
-        ...children.props,
-        className: getClassNames(children.props.className, cls.__.ref),
+        ...cProps,
+        className: getClassNames(cProps.className, cls.__.ref),
         ref: wrapperRef,
       },
-      children.props.children,
+      cProps.children,
       TransitionLoading,
     );
+  }
 
   // 包裹children
   return (

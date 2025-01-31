@@ -70,13 +70,16 @@ function useChildren(
     const cb = React.isValidElement(separator)
       ? // 为separator添加key，否则会报错
         (i: number) =>
-          React.cloneElement(separator as React.ReactElement, {
-            className: getClassNames(
-              separator.props.className,
-              `${rootClass}__separator`,
-            ),
-            key: i,
-          })
+          React.cloneElement(
+            separator as React.DetailedReactHTMLElement<object, HTMLDivElement>,
+            {
+              className: getClassNames(
+                (separator.props as HTMLElement).className,
+                `${rootClass}__separator`,
+              ),
+              key: i,
+            },
+          )
       : () => separator;
 
     // 把separator插入数组元素间隔中

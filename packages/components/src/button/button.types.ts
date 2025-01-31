@@ -16,6 +16,6 @@ export interface ButtonProps
   loading?: boolean;
   size?: Size;
 }
-export interface ButtonGroupProps extends PropsBase<HTMLElement> {
+export interface ButtonGroupProps extends PropsBase<HTMLDivElement> {
   size?: ButtonProps['size'];
 }

@@ -1,5 +1,9 @@
+import {
+  getClasses as getClassMap,
+  ChildrenProps,
+  useForwardRef,
+} from '@pkg/shared';
 import { TransitionProps, CB, El } from '~/transition/transition.types';
-import { getClasses as getClassMap, useForwardRef } from '@pkg/shared';
 import { LIFE_CIRCLE, STATUS } from '~/transition/transition.enums';
 import { addTransition, getClasses } from '~/transition/utils';
 import React, { cloneElement, useEffect } from 'react';
@@ -16,8 +20,8 @@ export function useTransition(
   { attrs = {} }: Partial<TransitionProps> = {},
 ): React.ReactElement<HTMLElement> | undefined {
   const elRef = useForwardRef(
-    (children as React.FunctionComponentElement<HTMLElement>)?.ref,
-  ) as React.MutableRefObject<HTMLElement | null>;
+    ((children as React.ReactElement)?.props as ChildrenProps)?.ref,
+  ) as React.RefObject<HTMLElement | null>;
 
   if (!children) elRef.current = null;
 
@@ -50,7 +54,9 @@ export function useTransition(
     const cbs = [innerCB, cb].filter(Boolean) as CB[];
     cbs.forEach((cb) => cb(...args));
   }
-  function showChildren(children: unknown): children is React.ReactElement {
+  function showChildren(
+    children: unknown,
+  ): children is React.ReactElement<HTMLElement> {
     if (!children) return false;
     return STATUS.none !== status && React.isValidElement(children);
   }
@@ -60,17 +66,18 @@ export function useTransition(
     );
   }
   function getProps(
-    children: React.ReactElement,
-  ): React.HTMLAttributes<HTMLElement> {
+    children: React.ReactElement<HTMLElement>,
+  ): Partial<HTMLElement> {
+    const cProps = children.props as HTMLElement & TransitionProps;
     const style = {
-      ...children.props.attrs?.style,
-      ...children.props.style,
+      ...cProps.attrs?.style,
+      ...cProps.style,
       ...attrs.style,
-    };
+    } as React.HTMLAttributes<HTMLElement>['style'];
 
     const className = getClassNames(
-      children.props.className,
-      children.props.attrs?.className,
+      cProps.className,
+      cProps.attrs?.className,
       attrs.className,
       {
         [classes?.from]: classes && [STATUS.show, STATUS.hide].includes(status),
@@ -80,20 +87,16 @@ export function useTransition(
 
     const props = {
       ...attrs,
-      attrs: children.props.attrs,
+      attrs: cProps.attrs,
       ref: elRef,
       className,
       style,
     } as {
       attrs: React.HTMLAttributes<HTMLElement>;
-    } & React.HTMLAttributes<HTMLElement> &
-      React.DOMAttributes<HTMLElement>;
+    } & Partial<HTMLElement>;
 
-    if (typeof children.props.attrs === 'object') {
-      props.attrs = { ...children.props.attrs, className, style };
-    } else {
-      props.className = className;
-      props.style = style;
+    if (typeof cProps.attrs === 'object') {
+      props.attrs = { ...cProps.attrs, className, style };
     }
 
     return props;

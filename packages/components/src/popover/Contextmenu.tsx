@@ -1,4 +1,9 @@
-import { getComponentClass, useForceUpdate, useNextEffect } from '@pkg/shared';
+import {
+  getComponentClass,
+  useForceUpdate,
+  ChildrenProps,
+  useNextEffect,
+} from '@pkg/shared';
 import type { PopoverProps } from './popover.types';
 import { getClassNames } from '@tool-pack/basic';
 import React, { useEffect, useRef } from 'react';
@@ -21,9 +26,9 @@ export const Contextmenu: React.FC<PopoverProps> = (props) => {
   return (
     <>
       {React.cloneElement(
-        children,
+        children as React.DetailedReactHTMLElement<object, HTMLDivElement>,
         { onContextMenuCapture },
-        children.props.children,
+        (children.props as ChildrenProps).children,
       )}
       {createPortal(
         <Popover

@@ -11,7 +11,7 @@ const defaultProps = {
 } satisfies Partial<TransitionProps>;
 
 const Transition: React.FC<TransitionProps> = (props): React.ReactElement => {
-  const cid = useRef<number>();
+  const cid = useRef<number>(undefined);
   if (!cid.current) cid.current = id++;
 
   const { children, appear, name, mode, show, on, ...rest } =

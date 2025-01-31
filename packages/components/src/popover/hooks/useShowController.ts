@@ -10,8 +10,8 @@ import { AsyncSubject, Subject } from 'rxjs';
 import { useNextEffect } from '@pkg/shared';
 
 export function useShowController(
-  triggerElRef: React.RefObject<HTMLElement>,
-  balloonElRef: React.MutableRefObject<HTMLElement | undefined>,
+  triggerElRef: React.RefObject<HTMLElement | null>,
+  balloonElRef: React.RefObject<HTMLElement | undefined>,
   refreshPosition: () => void,
   {
     visibleControllerRef,

@@ -1,9 +1,3 @@
-import type {
-  FunctionComponentElement,
-  ReactElement,
-  ReactNode,
-  Key,
-} from 'react';
 import {
   type TransitionProps,
   transitionCBAdapter,
@@ -16,7 +10,8 @@ import React, {
   useState,
 } from 'react';
 import type { ChildMapValue, ChildMap } from '../transition-group.types';
-import { useIsInitDep, forwardRefs } from '@pkg/shared';
+import { ChildrenProps, useIsInitDep, forwardRefs } from '@pkg/shared';
+import type { ReactElement, ReactNode, Key } from 'react';
 
 export function useChildMap(children: ReactNode, name: string): ChildMap {
   const isInit = useIsInitDep(children);
@@ -183,7 +178,7 @@ function updateTransition(
   const { reactEl } = mapValue;
   const nextOn = props.on;
   if (nextOn) {
-    const prevOn = reactEl.props.on as TransitionProps['on'];
+    const prevOn = (reactEl.props as TransitionProps).on;
     _props.on = (el, status, lifeCircle) => {
       prevOn?.(el, status, lifeCircle);
       nextOn(el, status, lifeCircle);
@@ -192,11 +187,11 @@ function updateTransition(
 
   children = children
     ? children.type === Transition
-      ? children.props.children
+      ? (children.props as { children: ReactElement }).children
       : children
-    : reactEl.props.children;
+    : (reactEl.props as { children: ReactElement }).children;
   mapValue.reactEl = cloneElement<TransitionProps>(
-    reactEl,
+    reactEl as React.DetailedReactHTMLElement<object, HTMLDivElement>,
     _props,
     cloneChildren(children, mapValue),
   );
@@ -208,14 +203,14 @@ function cloneChildren(
   childMapValue: ChildMapValue,
 ): ReactElement | undefined {
   return isValidElement(children)
-    ? cloneElement(children as ReactElement, {
-        ref: (el: HTMLElement) => {
-          forwardRefs(
-            el,
-            (children as FunctionComponentElement<HTMLElement>).ref,
-          );
-          el && (childMapValue.ref = el);
+    ? cloneElement(
+        children as React.DetailedReactHTMLElement<object, HTMLDivElement>,
+        {
+          ref: (el: HTMLElement) => {
+            forwardRefs(el, (children.props as ChildrenProps).ref);
+            el && (childMapValue.ref = el);
+          },
         },
-      })
+      )
     : undefined;
 }

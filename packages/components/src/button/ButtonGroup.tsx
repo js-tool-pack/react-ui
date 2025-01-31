@@ -1,4 +1,8 @@
-import { mergeReactDefaultProps, getComponentClass } from '@pkg/shared';
+import {
+  mergeReactDefaultProps,
+  getComponentClass,
+  ChildrenProps,
+} from '@pkg/shared';
 import type { ButtonGroupProps, ButtonProps } from './button.types';
 import { getClassNames } from '@tool-pack/basic';
 import React from 'react';
@@ -34,11 +38,10 @@ export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
 function isReactProvider(
   children: React.ReactNode,
 ): children is React.ReactElement {
-  return (
-    React.isValidElement(children) &&
-    children.props.value &&
-    children.props.children
-  );
+  if (!React.isValidElement(children)) return false;
+  const props = children.props as ChildrenProps &
+    React.ProviderProps<ButtonProps>;
+  return Boolean(props.value && props.children);
 }
 
 function cloneChildren(
@@ -51,19 +54,21 @@ function cloneChildren(
   const clone = (children: React.ReactNode) => {
     return React.Children.map(children, (child) => {
       if (!React.isValidElement(child)) return child;
+      const props = child.props as ChildrenProps & ButtonProps;
       return React.cloneElement(child, {
-        ...child.props,
-        size: size ?? child.props.size,
+        ...props,
+        size: size ?? props.size,
       } as ButtonProps);
     });
   };
 
   if (isReactProvider(children)) {
     // 如果是 Context.Provider, clone Provider 的 children
+    const props = children.props as React.ProviderProps<ButtonProps>;
     return React.cloneElement(
       children,
-      { value: children.props.value } as React.ProviderProps<ButtonProps>,
-      clone(children.props.children),
+      { value: props.value } as React.ProviderProps<ButtonProps>,
+      clone(props.children),
     );
   }
   return clone(children);

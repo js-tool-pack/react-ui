@@ -27,7 +27,6 @@ import { Selection, Menu } from '~/select/components';
 import { transitionCBAdapter } from '~/transition';
 import { getClassNames } from '@tool-pack/basic';
 import { InputPopover } from '@pkg/components';
-import PropTypes from 'prop-types';
 import EnUS from './locale/en-US';
 
 const cls = getClasses('select', [], ['selected', 'clearable']);
@@ -230,9 +229,6 @@ const _Select = React.forwardRef<HTMLLabelElement, SelectStaticProps>(
   },
 );
 
-_Select.propTypes = {
-  options: PropTypes.array.isRequired,
-};
 _Select.displayName = 'Select';
 
 export const Select = _Select as SelectFC;

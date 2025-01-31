@@ -20,8 +20,8 @@ export function useDispatcher(
   const isInitShow = useIsInitDep(show);
   const [isShowChanged] = useIsChanged(show);
   const [next, prev] = useValueWithPrev(children);
-  const statusCacheRef = useRef<[STATUS, STATUS]>();
-  const cbRef = useRef<CB>();
+  const statusCacheRef = useRef<[STATUS, STATUS]>(undefined);
+  const cbRef = useRef<CB>(undefined);
   const prevLifeRef = useRef<LIFE_CIRCLE[]>([]);
 
   let childs = [prev, next] as [El, El];

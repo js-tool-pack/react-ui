@@ -58,7 +58,7 @@ export const DatePickerPanel: React.FC<Props> = (props) => {
   });
 
   const [hoverValue, setHoverValue] = useState<Date>();
-  const tempValueRef = useRef<Date>();
+  const tempValueRef = useRef<Date>(undefined);
 
   return (
     <div className={cls.root}>

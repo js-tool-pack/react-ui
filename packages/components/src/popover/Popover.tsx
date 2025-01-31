@@ -3,6 +3,7 @@ import {
   getComponentClass,
   useResizeEvent,
   useForwardRef,
+  ChildrenProps,
   useAppendTo,
 } from '@pkg/shared';
 import {
@@ -60,12 +61,8 @@ export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
 
     const [appendToTarget] = useAppendTo(appendTo, defaultProps.appendTo);
 
-    const childrenRef = useForwardRef(
-      (children as React.FunctionComponentElement<HTMLElement>).ref,
-    ) as React.MutableRefObject<HTMLElement | null>;
-    const balloonRef = useForwardRef(
-      ref,
-    ) as React.MutableRefObject<HTMLDivElement>;
+    const childrenRef = useForwardRef((children.props as ChildrenProps).ref);
+    const balloonRef = useForwardRef(ref) as React.RefObject<HTMLDivElement>;
 
     const [refreshPosition, resetPlacement, _placement] = usePosition(
       childrenRef,
@@ -159,7 +156,7 @@ export const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
       return React.cloneElement(
         children,
         _props,
-        children.props.children,
+        (children.props as ChildrenProps).children,
         Trans,
       );
     }

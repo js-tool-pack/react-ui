@@ -5,7 +5,7 @@ import { useWatch } from './useWatch';
 export function useStateRef<V>(
   state: V,
 ): [
-  stateRef: React.MutableRefObject<V>,
+  stateRef: React.RefObject<V>,
   setStateRef: (value: V) => void,
   forceUpdate: () => void,
 ] {

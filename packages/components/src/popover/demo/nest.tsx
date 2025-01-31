@@ -1,7 +1,7 @@
 /**
  * title: 组合嵌套
- * description: 普通嵌套时，父子窗体是独立的，鼠标从父窗体移入子窗体，父窗体会消失；<br />
- *   内部嵌套时，子窗体插入父窗体，鼠标从父窗体移入子窗体，父窗体不会消失。
+ * description: 普通嵌套时，父子窗体是独立的；<br />
+ *   内部嵌套时，子窗体插入父窗体。
  */
 
 import { Popover, Button, Space } from '@tool-pack/react-ui';

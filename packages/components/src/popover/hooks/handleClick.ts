@@ -11,13 +11,13 @@ import {
   tap,
 } from 'rxjs';
 import { fromOuterEvent } from '@pkg/shared';
-import { MutableRefObject } from 'react';
+import { RefObject } from 'react';
 
 export function handleClick(
   triggerEl: HTMLElement,
   close: () => void,
   show: boolean,
-  balloonElRef: MutableRefObject<HTMLElement | undefined>,
+  balloonElRef: RefObject<HTMLElement | undefined>,
   toggle: () => AsyncSubject<boolean>,
 ): () => void {
   // 点击触发元素

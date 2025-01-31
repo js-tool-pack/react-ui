@@ -18,8 +18,8 @@ export function handleHover(
   enterDelay: number,
   leaveDelay: number,
   show: boolean,
-  enterBalloonSubject: React.MutableRefObject<Subject<void>>,
-  leaveBalloonSubject: React.MutableRefObject<Subject<void>>,
+  enterBalloonSubject: React.RefObject<Subject<void>>,
+  leaveBalloonSubject: React.RefObject<Subject<void>>,
 ): () => void {
   const triggerEnterEvent = fromEvent(triggerEl, 'mouseenter');
   const triggerMoveEvent = fromEvent(triggerEl, 'mousemove');

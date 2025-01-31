@@ -11,35 +11,33 @@ export const optionCls = getClasses(
   ['selected-icon'],
   ['selected', 'picked'],
 );
-export const MenuOption = React.forwardRef<HTMLElement, SelectOptionProps>(
-  (props, ref) => {
-    const { attrs = {}, children, selected, picked, extra, ...rest } = props;
-    return (
-      <Option
-        {...rest}
-        extra={
-          (extra || selected) && (
-            <>
-              {extra}
-              {selected && (
-                <Icon className={optionCls.__['selected-icon']}>
-                  <Selected />
-                </Icon>
-              )}
-            </>
-          )
-        }
-        attrs={{
-          ...attrs,
-          className: getClassNames(optionCls.root, attrs.className, {
-            [optionCls['--'].selected]: selected,
-            [optionCls['--'].picked]: picked,
-          }),
-        }}
-        ref={ref}
-      >
-        {children}
-      </Option>
-    );
-  },
-);
+export const MenuOption: React.FC<SelectOptionProps> = (props) => {
+  const { attrs = {}, children, selected, picked, extra, ref, ...rest } = props;
+  return (
+    <Option
+      {...rest}
+      extra={
+        (extra || selected) && (
+          <>
+            {extra}
+            {selected && (
+              <Icon className={optionCls.__['selected-icon']}>
+                <Selected />
+              </Icon>
+            )}
+          </>
+        )
+      }
+      attrs={{
+        ...attrs,
+        className: getClassNames(optionCls.root, attrs.className, {
+          [optionCls['--'].selected]: selected,
+          [optionCls['--'].picked]: picked,
+        }),
+      }}
+      ref={ref}
+    >
+      {children}
+    </Option>
+  );
+};

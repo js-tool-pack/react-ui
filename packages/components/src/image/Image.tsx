@@ -16,124 +16,123 @@ const defaultProps = {
   preview: true,
 } satisfies Partial<ImageProps>;
 
-export const Image = React.forwardRef<HTMLDivElement, ImageProps>(
-  (props, ref) => {
-    const {
-      imgAttrs = {},
-      attrs = {},
-      fallback,
-      preview,
-      height,
-      width,
-      lazy,
-      src,
-      fit,
-      alt,
-    } = mergeReactDefaultProps(props, defaultProps);
-    const context = useContext(ImagePreviewGroupContext);
+export const Image: React.FC<ImageProps> = (props) => {
+  const {
+    imgAttrs = {},
+    attrs = {},
+    fallback,
+    preview,
+    height,
+    width,
+    lazy,
+    src,
+    fit,
+    alt,
+    ref,
+  } = mergeReactDefaultProps(props, defaultProps);
+  const context = useContext(ImagePreviewGroupContext);
 
-    useEffect(() => {
-      if (!context || !preview) return;
-      const url = src || imgAttrs.src || '';
-      if (context.includes(url)) return;
-      context.push(url);
-      return () => {
-        const index = context.indexOf(url);
-        if (index === -1) return;
-        context.splice(index, 1);
-      };
-    }, [preview]);
+  useEffect(() => {
+    if (!context || !preview) return;
+    const url = src || imgAttrs.src || '';
+    if (context.includes(url)) return;
+    context.push(url);
+    return () => {
+      const index = context.indexOf(url);
+      if (index === -1) return;
+      context.splice(index, 1);
+    };
+  }, [preview]);
 
-    const [imgVisible, setImgVisible] = useState(true);
-    const [previewVisible, setPreviewVisible] = useState(false);
-    const imgRef = useRef<HTMLImageElement>(null);
-    const forceUpdate = useForceUpdate();
-    const lazyingRef = useRef<boolean | void>(undefined);
+  const [imgVisible, setImgVisible] = useState(true);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const forceUpdate = useForceUpdate();
+  const lazyingRef = useRef<boolean | void>(undefined);
 
-    if (lazyingRef.current === undefined && lazy) {
-      lazyingRef.current = true;
-    }
+  if (lazyingRef.current === undefined && lazy) {
+    lazyingRef.current = true;
+  }
 
-    useEffect(() => {
-      const el = imgRef.current;
-      if (!lazy) return;
-      if (!el || !lazyingRef.current) return;
+  useEffect(() => {
+    const el = imgRef.current;
+    if (!lazy) return;
+    if (!el || !lazyingRef.current) return;
 
-      const handler = (entries: IntersectionObserverEntry[]) => {
-        if (entries[0]!.intersectionRatio <= 0) return;
-        lazyingRef.current = false;
-        forceUpdate();
-      };
-      const observer = new IntersectionObserver(handler);
-      observer.observe(el);
-      return () => observer.disconnect();
-    }, [lazy]);
+    const handler = (entries: IntersectionObserverEntry[]) => {
+      if (entries[0]!.intersectionRatio <= 0) return;
+      lazyingRef.current = false;
+      forceUpdate();
+    };
+    const observer = new IntersectionObserver(handler);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [lazy]);
 
-    const Img = (
-      // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-      <img
-        onClick={(e) => {
-          if (lazyingRef.current) return;
-          imgAttrs.onClick?.(e);
-          setPreviewVisible(true);
-        }}
-        style={{
-          ...imgAttrs.style,
-          objectFit: fit || imgAttrs.style?.objectFit,
-        }}
-        src={lazyingRef.current ? fallback : src || imgAttrs.src}
-        height={height || imgAttrs.height}
-        width={width || imgAttrs.width}
-        alt={alt || imgAttrs.alt}
-        className={cls.__.img}
-        onError={hideImg}
-        onAbort={hideImg}
-        ref={imgRef}
-        key={1}
-      />
-    );
+  const Img = (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
+    <img
+      onClick={(e) => {
+        if (lazyingRef.current) return;
+        imgAttrs.onClick?.(e);
+        setPreviewVisible(true);
+      }}
+      style={{
+        ...imgAttrs.style,
+        objectFit: fit || imgAttrs.style?.objectFit,
+      }}
+      src={lazyingRef.current ? fallback : src || imgAttrs.src}
+      height={height || imgAttrs.height}
+      width={width || imgAttrs.width}
+      alt={alt || imgAttrs.alt}
+      className={cls.__.img}
+      onError={hideImg}
+      onAbort={hideImg}
+      ref={imgRef}
+      key={1}
+    />
+  );
 
-    const Fallback = (
-      <img
-        style={{
-          ...imgAttrs.style,
-          objectFit: fit || imgAttrs.style?.objectFit,
-        }}
-        height={height || imgAttrs.height}
-        width={width || imgAttrs.width}
-        className={cls.__.fallback}
-        alt={alt || imgAttrs.alt}
-        src={fallback}
-      />
-    );
+  const Fallback = (
+    <img
+      style={{
+        ...imgAttrs.style,
+        objectFit: fit || imgAttrs.style?.objectFit,
+      }}
+      height={height || imgAttrs.height}
+      width={width || imgAttrs.width}
+      className={cls.__.fallback}
+      alt={alt || imgAttrs.alt}
+      src={fallback}
+    />
+  );
 
-    return (
-      <div
-        {...attrs}
-        className={getClassNames(cls.root, attrs.className, {
-          [cls['--'].preview]: preview,
-        })}
-        ref={ref}
-      >
-        {imgVisible
-          ? [
-              Img,
-              preview && previewVisible && (
-                <ImagePreview
-                  onHide={() => setPreviewVisible(false)}
-                  images={[src]}
-                  key={2}
-                />
-              ),
-            ]
-          : Fallback}
-      </div>
-    );
+  return (
+    <div
+      {...attrs}
+      className={getClassNames(cls.root, attrs.className, {
+        [cls['--'].preview]: preview,
+      })}
+      ref={ref}
+    >
+      {imgVisible
+        ? [
+            Img,
+            preview && previewVisible && (
+              <ImagePreview
+                onHide={() => setPreviewVisible(false)}
+                images={[src]}
+                key={2}
+              />
+            ),
+          ]
+        : Fallback}
+    </div>
+  );
 
-    function hideImg(): void {
-      setImgVisible(false);
-    }
-  },
-);
+  function hideImg(): void {
+    setImgVisible(false);
+  }
+};
 
 Image.displayName = 'Image';

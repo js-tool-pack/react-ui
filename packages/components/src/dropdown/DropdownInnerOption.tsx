@@ -11,15 +11,13 @@ const defaultProps = {
   tag: 'li',
 } satisfies Partial<DropdownOptionProps>;
 
-export const DropdownInnerOption = React.forwardRef<
-  HTMLElement,
-  DropdownOptionProps
->((props, ref) => {
+export const DropdownInnerOption: React.FC<DropdownOptionProps> = (props) => {
   const {
     expandable,
     attrs = {},
     children,
     extra,
+    ref,
     ...rest
   } = mergeReactDefaultProps(props, defaultProps);
   return (
@@ -46,4 +44,4 @@ export const DropdownInnerOption = React.forwardRef<
       {children}
     </Option>
   );
-});
+};

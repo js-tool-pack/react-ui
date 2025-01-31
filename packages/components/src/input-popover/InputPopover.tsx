@@ -19,10 +19,7 @@ import { Popover } from '~/popover';
 const defaultProps = {} satisfies Partial<InputPopoverProps>;
 const cls = getClasses('input-popover', [], []);
 
-export const InputPopover = React.forwardRef<
-  HTMLLabelElement,
-  InputPopoverProps
->((props, ref) => {
+export const InputPopover: React.FC<InputPopoverProps> = (props) => {
   const {
     popoverProps = {},
     onVisibleChange,
@@ -36,6 +33,7 @@ export const InputPopover = React.forwardRef<
     active,
     status,
     size,
+    ref,
   } = mergeReactDefaultProps(props, defaultProps);
   // 当点击触发元素或窗体时，禁止触发 blur
   const skipBlurRef = useRef(false);
@@ -157,6 +155,6 @@ export const InputPopover = React.forwardRef<
     if (disabled || !opened) return;
     skipBlurRef.current = true;
   }
-});
+};
 
 InputPopover.displayName = 'InputPopover';

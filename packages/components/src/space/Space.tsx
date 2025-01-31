@@ -18,7 +18,7 @@ const defaultProps = {
   fillRatio: 100,
 } satisfies Partial<SpaceProps>;
 
-export const Space = React.forwardRef<HTMLElement, SpaceProps>((props, ref) => {
+export const Space: React.FC<SpaceProps> = (props) => {
   const {
     attrs = {},
     separator,
@@ -30,6 +30,7 @@ export const Space = React.forwardRef<HTMLElement, SpaceProps>((props, ref) => {
     fill,
     tag,
     gap,
+    ref,
   } = mergeReactDefaultProps(props, defaultProps);
   const style = {
     ...attrs.style,
@@ -55,7 +56,7 @@ export const Space = React.forwardRef<HTMLElement, SpaceProps>((props, ref) => {
     },
     _children,
   );
-});
+};
 
 function useChildren(
   children: React.ReactNode,

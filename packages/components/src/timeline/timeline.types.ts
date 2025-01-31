@@ -1,7 +1,8 @@
 import { TYPE_LEVEL, PropsBase } from '@pkg/shared';
 import React from 'react';
 
-export interface TimelineItemProps {
+export interface TimelineItemProps
+  extends Pick<PropsBase<HTMLDivElement>, 'ref'> {
   lineType?: React.CSSProperties['borderInlineEndStyle'];
   content?: React.ReactNode;
   title?: React.ReactNode;

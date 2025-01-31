@@ -10,25 +10,24 @@ import React from 'react';
 const rootClass = getComponentClass('button-group');
 const defaultProps = {} satisfies Partial<ButtonGroupProps>;
 
-export const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
-  (props, ref) => {
-    const {
-      attrs = {},
-      children,
-      size,
-    } = mergeReactDefaultProps(props, defaultProps);
-    return (
-      <div
-        {...attrs}
-        className={getClassNames(rootClass, attrs.className)}
-        role={attrs.role || 'group'}
-        ref={ref}
-      >
-        {cloneChildren(children, size)}
-      </div>
-    );
-  },
-);
+export const ButtonGroup: React.FC<ButtonGroupProps> = (props) => {
+  const {
+    attrs = {},
+    children,
+    size,
+    ref,
+  } = mergeReactDefaultProps(props, defaultProps);
+  return (
+    <div
+      {...attrs}
+      className={getClassNames(rootClass, attrs.className)}
+      role={attrs.role || 'group'}
+      ref={ref}
+    >
+      {cloneChildren(children, size)}
+    </div>
+  );
+};
 
 /**
  * 复制 ButtonGroup 的 children

@@ -20,65 +20,64 @@ const defaultProps = {
   firstDay: 0,
 } satisfies Partial<CalendarProps>;
 
-export const Calendar = React.forwardRef<HTMLDivElement, CalendarProps>(
-  (props, ref) => {
-    const {
-      locale: propsLocale,
-      month: propsMonth,
-      dateDisabled,
-      attrs = {},
-      firstDay,
-      onChange,
-      dateCell,
-      header,
-      today,
-      value,
-    } = mergeReactDefaultProps(props, defaultProps);
+export const Calendar: React.FC<CalendarProps> = (props) => {
+  const {
+    locale: propsLocale,
+    month: propsMonth,
+    dateDisabled,
+    attrs = {},
+    firstDay,
+    onChange,
+    dateCell,
+    header,
+    today,
+    value,
+    ref,
+  } = mergeReactDefaultProps(props, defaultProps);
 
-    const locale = Object.assign(useLocale('calendar', EnUS), propsLocale);
+  const locale = Object.assign(useLocale('calendar', EnUS), propsLocale);
 
-    const [valueRef, setValueRef] = useStateRef(value);
-    const [month, setMonth] = useFollowingState(
-      propsMonth,
-      (v) => v || getStartOfMonth(value || today || new Date()),
-    );
-    useWatch(
-      valueRef.current,
-      (v) => v && !propsMonth && setMonth(getStartOfMonth(v)),
-    );
+  const [valueRef, setValueRef] = useStateRef(value);
+  const [month, setMonth] = useFollowingState(
+    propsMonth,
+    (v) => v || getStartOfMonth(value || today || new Date()),
+  );
+  useWatch(
+    valueRef.current,
+    (v) => v && !propsMonth && setMonth(getStartOfMonth(v)),
+  );
 
-    return (
-      <div
-        {...attrs}
-        className={getClassNames(cls.root, attrs.className)}
-        ref={ref}
-      >
-        {header && (
-          <CalendarHeader
-            onMonthChange={setMonth}
-            onChange={setValue}
-            locale={locale}
-            today={today}
-            value={month}
-          />
-        )}
-        <CalendarTable
-          weekDayNames={locale.weekDayNames}
-          dateDisabled={dateDisabled}
-          value={valueRef.current}
-          firstDay={firstDay}
-          setValue={setValue}
-          dateCell={dateCell}
-          month={month}
+  return (
+    <div
+      {...attrs}
+      className={getClassNames(cls.root, attrs.className)}
+      ref={ref}
+    >
+      {header && (
+        <CalendarHeader
+          onMonthChange={setMonth}
+          onChange={setValue}
+          locale={locale}
           today={today}
+          value={month}
         />
-      </div>
-    );
-    function setValue(value: Date): void {
-      setValueRef(value);
-      onChange?.(value);
-    }
-  },
-);
+      )}
+      <CalendarTable
+        weekDayNames={locale.weekDayNames}
+        dateDisabled={dateDisabled}
+        value={valueRef.current}
+        firstDay={firstDay}
+        setValue={setValue}
+        dateCell={dateCell}
+        month={month}
+        today={today}
+      />
+    </div>
+  );
+  function setValue(value: Date): void {
+    setValueRef(value);
+    onChange?.(value);
+  }
+};
 
 Calendar.displayName = 'Calendar';

@@ -4,11 +4,7 @@ import {
   TRANSITION_STATUS,
   Transition,
 } from '../transition';
-import type {
-  MessagePushOptions,
-  MessageQueueProps,
-  MessageQueueRef,
-} from './message.types';
+import type { MessagePushOptions, MessageQueueProps } from './message.types';
 import React, { useImperativeHandle, useCallback, useRef } from 'react';
 import { getComponentClass, useForceUpdate } from '@pkg/shared';
 import { TransitionGroup } from '../transition-group';
@@ -18,11 +14,8 @@ import LeaveQueue from './LeaveQueue';
 import { Message } from './Message';
 
 const rootClass = getComponentClass('message-queue');
-export const MessageQueue = React.forwardRef<
-  MessageQueueRef,
-  MessageQueueProps
->((props, ref) => {
-  const { attrs = {} } = props;
+export const MessageQueue: React.FC<MessageQueueProps> = (props) => {
+  const { attrs = {}, ref } = props;
   const forceUpdate = useForceUpdate();
 
   type MsgItem = MessagePushOptions & { key: number };
@@ -82,6 +75,6 @@ export const MessageQueue = React.forwardRef<
     </TransitionGroup>,
     document.body,
   );
-});
+};
 
 MessageQueue.displayName = 'MessageQueue';

@@ -16,42 +16,40 @@ const defaultProps = {
 
 const rootName = getComponentClass('option');
 
-export const Option = React.forwardRef<HTMLElement, OptionProps>(
-  (props, ref) => {
-    const { children, readonly, disabled, extra, icon, size, tag } =
-      mergeReactDefaultProps(props, defaultProps);
+export const Option: React.FC<OptionProps> = (props) => {
+  const { children, readonly, disabled, extra, icon, size, tag, ref } =
+    mergeReactDefaultProps(props, defaultProps);
 
-    const attrs = {
-      ...defaultProps.attrs,
-      ...props.attrs,
-    } as OptionProps['attrs'];
+  const attrs = {
+    ...defaultProps.attrs,
+    ...props.attrs,
+  } as OptionProps['attrs'];
 
-    const Child = (
-      <>
-        {icon && <Icon className={`${rootName}__icon`}>{icon}</Icon>}
-        <div className={`${rootName}__label`}>{children}</div>
-        {extra && <div className={`${rootName}__extra`}>{extra}</div>}
-      </>
-    );
+  const Child = (
+    <>
+      {icon && <Icon className={`${rootName}__icon`}>{icon}</Icon>}
+      <div className={`${rootName}__label`}>{children}</div>
+      {extra && <div className={`${rootName}__extra`}>{extra}</div>}
+    </>
+  );
 
-    return React.createElement(
-      tag,
-      {
-        ...attrs,
-        className: getClassNames(
-          rootName,
-          attrs?.className,
-          getSizeClassName(size),
-          {
-            [`${rootName}--readonly`]: readonly,
-          },
-        ),
-        disabled,
-        ref,
-      },
-      Child,
-    );
-  },
-);
+  return React.createElement(
+    tag,
+    {
+      ...attrs,
+      className: getClassNames(
+        rootName,
+        attrs?.className,
+        getSizeClassName(size),
+        {
+          [`${rootName}--readonly`]: readonly,
+        },
+      ),
+      disabled,
+      ref,
+    },
+    Child,
+  );
+};
 
 Option.displayName = 'Option';

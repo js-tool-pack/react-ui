@@ -16,27 +16,26 @@ const defaultProps = {
   ),
 } satisfies Partial<EmptyProps>;
 
-export const Empty = React.forwardRef<HTMLDivElement, EmptyProps>(
-  (props, ref) => {
-    const {
-      description,
-      attrs = {},
-      children,
-      icon,
-    } = mergeReactDefaultProps(props, defaultProps);
-    const locale = useLocale('empty', EnUS);
-    return (
-      <div
-        {...attrs}
-        className={getClassNames(cls.root, attrs.className)}
-        ref={ref}
-      >
-        <div className={cls.__.icon}>{icon}</div>
-        <div className={cls.__.desc}>{description || locale.description}</div>
-        {children}
-      </div>
-    );
-  },
-);
+export const Empty: React.FC<EmptyProps> = (props) => {
+  const {
+    description,
+    attrs = {},
+    children,
+    icon,
+    ref,
+  } = mergeReactDefaultProps(props, defaultProps);
+  const locale = useLocale('empty', EnUS);
+  return (
+    <div
+      {...attrs}
+      className={getClassNames(cls.root, attrs.className)}
+      ref={ref}
+    >
+      <div className={cls.__.icon}>{icon}</div>
+      <div className={cls.__.desc}>{description || locale.description}</div>
+      {children}
+    </div>
+  );
+};
 
 Empty.displayName = 'Empty';

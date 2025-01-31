@@ -22,7 +22,7 @@ const defaultProps = {
   bordered: true,
 } satisfies Partial<TagProps>;
 
-export const Tag = React.forwardRef<HTMLDivElement, TagProps>((props, ref) => {
+export const Tag: React.FC<TagProps> = (props) => {
   const {
     checked: outerChecked,
     closeBtnAttrs = {},
@@ -38,6 +38,7 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>((props, ref) => {
     type,
     icon,
     size,
+    ref,
   } = mergeReactDefaultProps(props, defaultProps);
   const [closed, setClosed] = useState(false);
   const [checked, , setChecked] = useVisible(outerChecked);
@@ -101,6 +102,6 @@ export const Tag = React.forwardRef<HTMLDivElement, TagProps>((props, ref) => {
     setChecked(value);
     onChange?.(value);
   }
-});
+};
 
 Tag.displayName = 'Tag';

@@ -18,10 +18,7 @@ const defaultProps = {
   to: 10,
 } satisfies Partial<NumberTransitionProps>;
 
-export const NumberTransition = React.forwardRef<
-  HTMLDivElement,
-  NumberTransitionProps
->((props, ref) => {
+export const NumberTransition: React.FC<NumberTransitionProps> = (props) => {
   const {
     timingFunction,
     resetSignal,
@@ -32,10 +29,11 @@ export const NumberTransition = React.forwardRef<
     format,
     attrs,
     from,
+    ref,
     to,
   } = mergeReactDefaultProps(props, defaultProps);
   const valueRef = useRef<number | string>(from);
-  const cancelerRef = useRef<() => void>();
+  const cancelerRef = useRef<() => void>(undefined);
   const durationRef = useRef(duration);
   const signalRef = useRef(resetSignal);
   const forceUpdate = useForceUpdate();
@@ -95,6 +93,6 @@ export const NumberTransition = React.forwardRef<
       {format(valueRef.current)}
     </div>
   );
-});
+};
 
 NumberTransition.displayName = 'NumberTransition';

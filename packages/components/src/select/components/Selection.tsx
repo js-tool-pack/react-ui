@@ -8,7 +8,7 @@ import { SelectionFilter, SelectionTags } from '~/select/components';
 import type { SelectStaticProps, SelectOption } from '~/select';
 import { getClassNames, isFunction } from '@tool-pack/basic';
 import { getSizeClassName, getClasses } from '@pkg/shared';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Ref } from 'react';
 import { Icon } from '~/icon';
 
 interface Props
@@ -35,6 +35,7 @@ interface Props
   > {
   onSelectedChange: (selected: SelectOption[]) => void;
   onPatternChange: (value: string) => void;
+  ref?: Ref<HTMLDivElement | null>;
   selected: SelectOption[];
   opened: boolean;
   pattern: string;
@@ -45,10 +46,7 @@ const cls = getClasses(
   ['placeholder', 'selected', 'suffix', 'icon', 'clear', 'label'],
   [],
 );
-export const Selection: React.FC<Props> = React.forwardRef<
-  HTMLDivElement,
-  Props
->((props, ref) => {
+export const Selection: React.FC<Props> = (props) => {
   const {
     ignoreComposition,
     onSelectedChange,
@@ -67,6 +65,7 @@ export const Selection: React.FC<Props> = React.forwardRef<
     remote,
     icon,
     size,
+    ref,
   } = props;
 
   const [inputValue, setInputValue] = useState('');
@@ -147,4 +146,4 @@ export const Selection: React.FC<Props> = React.forwardRef<
       </div>
     );
   }
-});
+};

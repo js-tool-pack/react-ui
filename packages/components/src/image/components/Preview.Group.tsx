@@ -5,9 +5,9 @@ export const ImagePreviewGroup: React.FC<{ children?: React.ReactNode }> = (
   props,
 ) => {
   return (
-    <ImagePreviewGroupContext.Provider value={[]}>
+    <ImagePreviewGroupContext value={[]}>
       {props.children}
-    </ImagePreviewGroupContext.Provider>
+    </ImagePreviewGroupContext>
   );
 };
 

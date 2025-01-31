@@ -7,9 +7,5 @@ export const ConfigProvider: React.FC<
     children: React.ReactNode;
   } & Partial<Context>
 > = ({ locale = {}, children }) => {
-  return (
-    <ConfigContext.Provider value={{ locale }}>
-      {children}
-    </ConfigContext.Provider>
-  );
+  return <ConfigContext value={{ locale }}>{children}</ConfigContext>;
 };

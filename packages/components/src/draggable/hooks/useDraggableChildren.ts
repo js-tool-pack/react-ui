@@ -1,6 +1,6 @@
 import {
   DraggableGroupContextProvider,
-  draggableContext,
+  DraggableContext,
 } from '~/draggable/DraggableGroup';
 import {
   useChildrenWithRefs,
@@ -33,7 +33,7 @@ export function useDraggableChildren({
     origin: v.slice(),
     modify: v.slice(),
   }));
-  const { fromRef, toRef, type } = useContext(draggableContext);
+  const { fromRef, toRef, type } = useContext(DraggableContext);
 
   const stateRef = useRef<{ readonly id: symbol; index: number }>({
     id: Symbol(times++),

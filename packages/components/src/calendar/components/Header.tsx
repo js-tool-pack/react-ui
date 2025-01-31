@@ -35,7 +35,7 @@ export const CalendarHeader: React.FC<Props> = (props) => {
   return (
     <div className={getClassNames(cls.root, {})}>
       <div className={cls.__.month}>{monthStr}</div>
-      <ButtonContext.Provider value={{ type: 'default', size: 'small' }}>
+      <ButtonContext value={{ type: 'default', size: 'small' }}>
         <ButtonGroup>
           <Button onClick={() => changeMonth(-1)}>
             <Icon>
@@ -49,7 +49,7 @@ export const CalendarHeader: React.FC<Props> = (props) => {
             </Icon>
           </Button>
         </ButtonGroup>
-      </ButtonContext.Provider>
+      </ButtonContext>
     </div>
   );
   function clickToday() {

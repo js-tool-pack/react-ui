@@ -33,14 +33,12 @@ const App: React.FC = () => {
   return (
     <Space vertical>
       <ButtonGroup size="small">
-        <ButtonContext.Provider value={{ size: 'large' }}>
-          {btns}
-        </ButtonContext.Provider>
+        <ButtonContext value={{ size: 'large' }}>{btns}</ButtonContext>
       </ButtonGroup>
       <ButtonGroup size="medium">{btns}</ButtonGroup>
       <ButtonGroup>{btns}</ButtonGroup>
       <ButtonGroup size="large">{btns}</ButtonGroup>
-      <ButtonContext.Provider
+      <ButtonContext
         value={{
           onClick: () => alert('click'),
           size: 'small',
@@ -48,52 +46,52 @@ const App: React.FC = () => {
         }}
       >
         <ButtonGroup size="large">{btns}</ButtonGroup>
-      </ButtonContext.Provider>
+      </ButtonContext>
 
       <ButtonGroup>
-        <ButtonContext.Provider value={{ type: 'primary', size: 'large' }}>
+        <ButtonContext value={{ type: 'primary', size: 'large' }}>
           <Button icon={<Icons.CircleClose />} shape="round">
             Delete
           </Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
           <Button>Upload</Button>
           <Button icon={<Icons.CircleWarning />} shape="round" />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
 
       <ButtonGroup size="large">
-        <ButtonContext.Provider value={{ type: 'danger' }}>
+        <ButtonContext value={{ type: 'danger' }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
           <Button>Upload</Button>
           <Button icon={<Icons.CircleWarning />} plain="dashed" shape="round" />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
 
       <ButtonGroup>
-        <ButtonContext.Provider value={{ plain: true }}>
+        <ButtonContext value={{ plain: true }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
           <Button icon={<Icons.CircleInfo />}>Upload</Button>
           <Button icon={<Icons.CircleWarning />} />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
       <ButtonGroup>
-        <ButtonContext.Provider value={{ type: 'success', plain: 'dashed' }}>
+        <ButtonContext value={{ type: 'success', plain: 'dashed' }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
           <Button icon={<Icons.CircleInfo />}>Upload</Button>
           <Button icon={<Icons.CircleWarning />} />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
       <ButtonGroup>
-        <ButtonContext.Provider value={{ type: 'warning', plain: 'text' }}>
+        <ButtonContext value={{ type: 'warning', plain: 'text' }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
       <ButtonGroup>
-        <ButtonContext.Provider value={{ type: 'primary' }}>
+        <ButtonContext value={{ type: 'primary' }}>
           <Button>items</Button>
           <Button
             icon={
@@ -102,26 +100,26 @@ const App: React.FC = () => {
               </Icon>
             }
           />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
       <ButtonGroup>
-        <ButtonContext.Provider value={{ type: 'info' }}>
+        <ButtonContext value={{ type: 'info' }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />}>Commit</Button>
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
       <ButtonGroup>
-        <ButtonContext.Provider value={{ type: 'primary', shape: 'none' }}>
+        <ButtonContext value={{ type: 'primary', shape: 'none' }}>
           <Button icon={<Icons.CircleClose />}>Delete</Button>
           <Button icon={<Icons.CircleSuccess />} disabled>
             Commit
           </Button>
           <Button icon={<Icons.CircleInfo />}>Upload</Button>
           <Button icon={<Icons.CircleWarning />} />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
       <ButtonGroup>
-        <ButtonContext.Provider
+        <ButtonContext
           value={{
             type: 'primary',
             rightIcon: true,
@@ -135,7 +133,7 @@ const App: React.FC = () => {
           </Button>
           <Button icon={<Icons.CircleInfo />}>Upload</Button>
           <Button icon={<Icons.CircleWarning />} />
-        </ButtonContext.Provider>
+        </ButtonContext>
       </ButtonGroup>
     </Space>
   );

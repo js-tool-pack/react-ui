@@ -35,7 +35,7 @@ export const DatePickerSelect: React.FC<Props> = (props) => {
 
   return (
     <div className={cls.root}>
-      <ButtonContext.Provider value={{ plain: 'text', size: 'small' }}>
+      <ButtonContext value={{ plain: 'text', size: 'small' }}>
         {getLeftBtn()}
         {children ?? (
           <div className={cls.__.label}>
@@ -43,7 +43,7 @@ export const DatePickerSelect: React.FC<Props> = (props) => {
           </div>
         )}
         {getRightBtn()}
-      </ButtonContext.Provider>
+      </ButtonContext>
     </div>
   );
 

@@ -17,7 +17,7 @@ export interface DraggableGroupContextProvider {
   readonly item: unknown;
   id: symbol;
 }
-export const draggableContext = createContext<{
+export const DraggableContext = createContext<{
   fromRef: { current: DraggableGroupContextProvider | null };
   toRef: { current: DraggableGroupContextProvider | null };
   type: Exclude<DraggableGroupProps['type'], undefined>;
@@ -32,9 +32,9 @@ export const DraggableGroup: FC<DraggableGroupProps> = (props) => {
   const fromRef = useRef(null);
   const toRef = useRef(null);
   return (
-    <draggableContext.Provider value={{ fromRef, toRef, type }}>
+    <DraggableContext value={{ fromRef, toRef, type }}>
       {props.children}
-    </draggableContext.Provider>
+    </DraggableContext>
   );
 };
 
